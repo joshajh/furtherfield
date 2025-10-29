@@ -2,9 +2,27 @@
 
 /* CSS Variables */
 :root {
-    --ff-primary: #0a2f51;
-    --ff-secondary: #137da0;
-    --ff-accent: #58b3d1;
+    /* Brand Colors */
+    --ff-primary: #3a7ca5;
+    --ff-primary-light: #BCE5F3;
+    --ff-secondary: #f4d35e;
+    --ff-secondary-light: #FFFCB9;
+    --ff-accent: #a7c7e7;
+    --ff-accent-light: #DBEAFF;
+
+    /* Text Colors */
+    --ff-text-primary: #0f3057;
+    --ff-text-secondary: #2e5a7d;
+    --ff-text-tertiary: #5a8aad;
+
+    /* Interface Colors */
+    --ff-background: #FFFCB9;
+    --ff-surface: #ffffff;
+    --ff-surface-alt: #DBEAFF;
+    --ff-border: #BCE5F3;
+    --ff-border-focus: #3a7ca5;
+
+    /* Gray Scale */
     --ff-gray-50: #f9fafb;
     --ff-gray-100: #f3f4f6;
     --ff-gray-200: #e5e7eb;
@@ -16,19 +34,22 @@
     --ff-gray-800: #1f2937;
     --ff-gray-900: #111827;
 
+    /* Spacing */
     --ff-spacing-xs: 4px;
     --ff-spacing-sm: 8px;
     --ff-spacing-md: 16px;
     --ff-spacing-lg: 24px;
     --ff-spacing-xl: 32px;
 
+    /* Border Radius */
     --ff-radius-sm: 4px;
     --ff-radius-md: 8px;
     --ff-radius-lg: 12px;
 
-    --ff-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
-    --ff-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-    --ff-shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.15);
+    /* Shadows */
+    --ff-shadow-sm: 0 1px 3px rgba(15, 48, 87, 0.1);
+    --ff-shadow-md: 0 4px 6px rgba(15, 48, 87, 0.1);
+    --ff-shadow-lg: 0 10px 20px rgba(15, 48, 87, 0.15);
 }
 
 /* Reset */
@@ -41,8 +62,8 @@
 /* Base styles */
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    background: var(--ff-gray-50);
-    color: var(--ff-gray-900);
+    background: var(--ff-background);
+    color: var(--ff-text-primary);
     line-height: 1.6;
 }
 
@@ -87,10 +108,11 @@ body {
 
 /* Card */
 .ff-card {
-    background: white;
+    background: var(--ff-surface);
     padding: var(--ff-spacing-lg);
     border-radius: var(--ff-radius-md);
-    box-shadow: var(--ff-shadow-md);
+    border: 2px solid var(--ff-border);
+    box-shadow: var(--ff-shadow-sm);
     margin-bottom: var(--ff-spacing-lg);
 }
 
@@ -116,16 +138,17 @@ body {
 .ff-select {
     width: 100%;
     padding: 10px 12px;
-    border: 1px solid var(--ff-gray-300);
+    border: 2px solid var(--ff-border);
     border-radius: var(--ff-radius-sm);
     font-size: 14px;
     transition: border-color 0.2s;
+    background: var(--ff-surface);
 }
 
 .ff-input:focus,
 .ff-select:focus {
     outline: none;
-    border-color: var(--ff-secondary);
+    border-color: var(--ff-border-focus);
 }
 
 .ff-range {
@@ -233,8 +256,8 @@ body {
 
 /* Info box */
 .ff-info {
-    background: #e0f2fe;
-    border-left: 4px solid var(--ff-secondary);
+    background: var(--ff-accent-light);
+    border-left: 4px solid var(--ff-primary);
     padding: var(--ff-spacing-md);
     border-radius: var(--ff-radius-sm);
     margin-bottom: var(--ff-spacing-lg);
@@ -250,8 +273,8 @@ body {
 
 /* Warning box */
 .ff-warning {
-    background: #fef3c7;
-    border-left: 4px solid #f59e0b;
+    background: var(--ff-secondary-light);
+    border-left: 4px solid var(--ff-secondary);
     padding: var(--ff-spacing-md);
     border-radius: var(--ff-radius-sm);
     margin-bottom: var(--ff-spacing-lg);

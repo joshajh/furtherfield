@@ -2,47 +2,175 @@
   "$schema": "https://github.com/design-tokens/community-group",
   "meta": {
     "name": "Furtherfield Design Tokens - Colors",
-    "version": "1.0.0",
-    "description": "Color palette inspired by Felixstowe's maritime environment"
+    "version": "2.0.0",
+    "description": "Light, airy color palette for Furtherfield visual identity"
   },
   "colors": {
     "brand": {
       "primary": {
-        "value": "#0a2f51",
+        "value": "#3a7ca5",
         "type": "color",
-        "description": "Deep maritime blue - primary brand color"
+        "description": "Ocean blue - primary brand color (darker for contrast)"
+      },
+      "primary-light": {
+        "value": "#BCE5F3",
+        "type": "color",
+        "description": "Light cyan - primary light variant"
       },
       "secondary": {
-        "value": "#137da0",
+        "value": "#f4d35e",
         "type": "color",
-        "description": "Ocean blue - secondary brand color"
+        "description": "Warm yellow - secondary brand color"
+      },
+      "secondary-light": {
+        "value": "#FFFCB9",
+        "type": "color",
+        "description": "Soft cream - secondary light variant"
       },
       "accent": {
-        "value": "#58b3d1",
+        "value": "#a7c7e7",
         "type": "color",
-        "description": "Light maritime blue - accent color"
+        "description": "Sky blue - accent color"
+      },
+      "accent-light": {
+        "value": "#DBEAFF",
+        "type": "color",
+        "description": "Very light blue - accent light variant"
+      }
+    },
+    "interface": {
+      "background": {
+        "value": "#FFFCB9",
+        "type": "color",
+        "description": "Soft cream background"
+      },
+      "surface": {
+        "value": "#ffffff",
+        "type": "color",
+        "description": "White for cards and panels"
+      },
+      "surface-alt": {
+        "value": "#DBEAFF",
+        "type": "color",
+        "description": "Alternate surface color"
+      },
+      "border": {
+        "value": "#BCE5F3",
+        "type": "color",
+        "description": "Light cyan for borders"
+      },
+      "border-focus": {
+        "value": "#3a7ca5",
+        "type": "color",
+        "description": "Focused element border"
+      }
+    },
+    "text": {
+      "primary": {
+        "value": "#0f3057",
+        "type": "color",
+        "description": "Dark blue for primary text"
+      },
+      "secondary": {
+        "value": "#2e5a7d",
+        "type": "color",
+        "description": "Medium blue for secondary text"
+      },
+      "tertiary": {
+        "value": "#5a8aad",
+        "type": "color",
+        "description": "Light blue for tertiary text"
+      },
+      "on-primary": {
+        "value": "#ffffff",
+        "type": "color",
+        "description": "White text on primary color"
       }
     },
     "palettes": {
+      "ocean": {
+        "50": {
+          "value": "#DBEAFF",
+          "type": "color",
+          "description": "Lightest blue"
+        },
+        "100": {
+          "value": "#BCE5F3",
+          "type": "color",
+          "description": "Light cyan"
+        },
+        "200": {
+          "value": "#a7c7e7",
+          "type": "color",
+          "description": "Sky blue"
+        },
+        "300": {
+          "value": "#7fa8c9",
+          "type": "color",
+          "description": "Medium blue"
+        },
+        "400": {
+          "value": "#3a7ca5",
+          "type": "color",
+          "description": "Ocean blue"
+        },
+        "500": {
+          "value": "#2e5a7d",
+          "type": "color",
+          "description": "Deep ocean"
+        },
+        "600": {
+          "value": "#0f3057",
+          "type": "color",
+          "description": "Darkest blue"
+        }
+      },
+      "sunshine": {
+        "50": {
+          "value": "#FFFCB9",
+          "type": "color",
+          "description": "Soft cream"
+        },
+        "100": {
+          "value": "#fff8a3",
+          "type": "color",
+          "description": "Light butter"
+        },
+        "200": {
+          "value": "#f4d35e",
+          "type": "color",
+          "description": "Warm yellow"
+        },
+        "300": {
+          "value": "#e8b339",
+          "type": "color",
+          "description": "Golden"
+        },
+        "400": {
+          "value": "#d4941e",
+          "type": "color",
+          "description": "Deep gold"
+        }
+      },
       "sea": {
         "50": {
-          "value": "#a4d4e6",
+          "value": "#DBEAFF",
           "type": "color"
         },
         "100": {
-          "value": "#58b3d1",
+          "value": "#BCE5F3",
           "type": "color"
         },
         "200": {
-          "value": "#137da0",
+          "value": "#7fa8c9",
           "type": "color"
         },
         "300": {
-          "value": "#0e4f76",
+          "value": "#3a7ca5",
           "type": "color"
         },
         "400": {
-          "value": "#0a2f51",
+          "value": "#0f3057",
           "type": "color"
         }
       },
@@ -70,23 +198,23 @@
       },
       "maritime": {
         "50": {
-          "value": "#c1d5e8",
+          "value": "#BCE5F3",
           "type": "color"
         },
         "100": {
-          "value": "#90c2e7",
+          "value": "#a7c7e7",
           "type": "color"
         },
         "200": {
-          "value": "#4d7ea8",
+          "value": "#7fa8c9",
           "type": "color"
         },
         "300": {
-          "value": "#3d5a80",
+          "value": "#3a7ca5",
           "type": "color"
         },
         "400": {
-          "value": "#1f3a5f",
+          "value": "#0f3057",
           "type": "color"
         }
       },
@@ -114,23 +242,45 @@
       },
       "sunset": {
         "50": {
-          "value": "#f4e4c1",
+          "value": "#FFFCB9",
           "type": "color"
         },
         "100": {
-          "value": "#ffeb8a",
+          "value": "#fff8a3",
           "type": "color"
         },
         "200": {
-          "value": "#fdc43f",
+          "value": "#f4d35e",
           "type": "color"
         },
         "300": {
-          "value": "#f7931e",
+          "value": "#e8b339",
           "type": "color"
         },
         "400": {
           "value": "#ff6b35",
+          "type": "color"
+        }
+      },
+      "monochrome": {
+        "50": {
+          "value": "#f9fafb",
+          "type": "color"
+        },
+        "100": {
+          "value": "#e5e7eb",
+          "type": "color"
+        },
+        "200": {
+          "value": "#9ca3af",
+          "type": "color"
+        },
+        "300": {
+          "value": "#4b5563",
+          "type": "color"
+        },
+        "400": {
+          "value": "#1f2937",
           "type": "color"
         }
       }
@@ -190,34 +340,34 @@
     "semantic": {
       "content-types": {
         "article": {
-          "value": "#2563eb",
+          "value": "#3a7ca5",
           "type": "color",
-          "description": "Color for article content type"
+          "description": "Ocean blue for article content type"
         },
         "event": {
           "value": "#dc2626",
           "type": "color",
-          "description": "Color for event content type"
+          "description": "Red for event content type"
         },
         "artwork": {
           "value": "#7c3aed",
           "type": "color",
-          "description": "Color for artwork content type"
+          "description": "Purple for artwork content type"
         },
         "exhibition": {
           "value": "#059669",
           "type": "color",
-          "description": "Color for exhibition content type"
+          "description": "Green for exhibition content type"
         },
         "project": {
-          "value": "#ea580c",
+          "value": "#e8b339",
           "type": "color",
-          "description": "Color for project content type"
+          "description": "Golden yellow for project content type"
         },
         "archive": {
           "value": "#4b5563",
           "type": "color",
-          "description": "Color for archive content type"
+          "description": "Gray for archive content type"
         }
       }
     }

@@ -26,11 +26,11 @@ const FURTHERFIELD_CONFIG = {
     // Content taxonomy
     taxonomy: {
         contentTypes: {
-            article: { name: 'Article', shape: 'square', color: '#2563eb' },
+            article: { name: 'Article', shape: 'square', color: '#3a7ca5' },
             event: { name: 'Event', shape: 'circle', color: '#dc2626' },
             artwork: { name: 'Artwork', shape: 'triangle', color: '#7c3aed' },
             exhibition: { name: 'Exhibition', shape: 'hexagon', color: '#059669' },
-            project: { name: 'Project', shape: 'pentagon', color: '#ea580c' },
+            project: { name: 'Project', shape: 'pentagon', color: '#e8b339' },
             archive: { name: 'Archive', shape: 'octagon', color: '#4b5563' }
         },
 
@@ -51,12 +51,14 @@ const FURTHERFIELD_CONFIG = {
 
     // Default color palettes
     palettes: {
-        sea: ['#0a2f51', '#0e4f76', '#137da0', '#58b3d1', '#a4d4e6'],
-        shore: ['#d4a574', '#e8caa4', '#f2e8dc', '#8b6f47', '#a8956c'],
-        maritime: ['#1f3a5f', '#3d5a80', '#4d7ea8', '#90c2e7', '#c1d5e8'],
+        ocean: ['#0f3057', '#2e5a7d', '#3a7ca5', '#7fa8c9', '#a7c7e7', '#BCE5F3', '#DBEAFF'],
+        sunshine: ['#d4941e', '#e8b339', '#f4d35e', '#fff8a3', '#FFFCB9'],
+        sea: ['#0f3057', '#3a7ca5', '#7fa8c9', '#BCE5F3', '#DBEAFF'],
+        shore: ['#8b6f47', '#a8956c', '#d4a574', '#e8caa4', '#f2e8dc'],
+        maritime: ['#0f3057', '#3a7ca5', '#7fa8c9', '#a7c7e7', '#BCE5F3'],
         flora: ['#2d5016', '#4a7c23', '#6fa834', '#9bc54d', '#c8e89c'],
-        monochrome: ['#000000', '#404040', '#808080', '#c0c0c0', '#ffffff'],
-        sunset: ['#ff6b35', '#f7931e', '#fdc43f', '#ffeb8a', '#f4e4c1']
+        monochrome: ['#1f2937', '#4b5563', '#9ca3af', '#e5e7eb', '#f9fafb'],
+        sunset: ['#ff6b35', '#e8b339', '#f4d35e', '#fff8a3', '#FFFCB9']
     },
 
     // Metadata structure
