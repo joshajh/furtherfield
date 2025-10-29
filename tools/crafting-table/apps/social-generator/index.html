@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Graphics - Crafting Table</title>
+    <link rel="stylesheet" href="../../shared/styles.css">
+    <style>
+        .workflow-container {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: var(--ff-spacing-lg);
+        }
+
+        .controls-panel {
+            display: flex;
+            flex-direction: column;
+            gap: var(--ff-spacing-lg);
+        }
+
+        .format-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--ff-spacing-sm);
+        }
+
+        .format-btn {
+            padding: var(--ff-spacing-lg);
+            border: 3px solid var(--ff-border);
+            border-radius: var(--ff-radius-md);
+            background: var(--ff-surface);
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .format-btn:hover {
+            border-color: var(--ff-primary);
+            transform: translateY(-2px);
+        }
+
+        .format-btn.active {
+            border-color: var(--ff-primary);
+            background: var(--ff-accent-light);
+        }
+
+        .format-preview {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto var(--ff-spacing-sm);
+            border: 2px solid var(--ff-primary);
+            border-radius: var(--ff-radius-sm);
+        }
+
+        .format-preview.square {
+            width: 80px;
+            height: 80px;
+        }
+
+        .format-preview.portrait {
+            width: 64px;
+            height: 80px;
+        }
+
+        .canvas-wrapper {
+            background: var(--ff-surface);
+            border: 2px solid var(--ff-border);
+            border-radius: var(--ff-radius-lg);
+            padding: var(--ff-spacing-xl);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 600px;
+            position: relative;
+        }
+
+        #socialCanvas {
+            max-width: 100%;
+            max-height: 80vh;
+            border: 1px solid var(--ff-gray-200);
+            box-shadow: var(--ff-shadow-lg);
+        }
+
+        .step {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .step.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: var(--ff-spacing-sm);
+            margin-bottom: var(--ff-spacing-sm);
+        }
+
+        .step-number {
+            width: 28px;
+            height: 28px;
+            background: var(--ff-primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.875rem;
+        }
+
+        .step.active .step-number {
+            background: var(--ff-secondary);
+            color: var(--ff-text-primary);
+        }
+
+        .data-display {
+            background: var(--ff-accent-light);
+            padding: var(--ff-spacing-sm);
+            border-radius: var(--ff-radius-sm);
+            font-size: 0.75rem;
+            margin-top: var(--ff-spacing-sm);
+        }
+
+        .palette-selector {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--ff-spacing-xs);
+        }
+
+        .palette-btn {
+            aspect-ratio: 1;
+            border: 2px solid var(--ff-border);
+            border-radius: var(--ff-radius-sm);
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .palette-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .palette-btn.active {
+            border-color: var(--ff-primary);
+            border-width: 3px;
+        }
+
+        .taxonomy-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--ff-spacing-xs);
+            font-size: 0.75rem;
+        }
+
+        .taxonomy-btn {
+            padding: var(--ff-spacing-sm);
+            border: 2px solid var(--ff-border);
+            border-radius: var(--ff-radius-sm);
+            background: var(--ff-surface);
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .taxonomy-btn:hover {
+            border-color: var(--ff-primary);
+        }
+
+        .taxonomy-btn.active {
+            border-color: var(--ff-primary);
+            background: var(--ff-accent-light);
+        }
+
+        @media (max-width: 1024px) {
+            .workflow-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="ff-container">
+        <header class="ff-header">
+            <h1>Social Graphics Generator</h1>
+            <p class="subtitle">Streamlined workflow for social media assets</p>
+            <div class="app-nav">
+                <a href="../../index.html">← Back to Apps</a>
+            </div>
+        </header>
+
+        <div class="workflow-container">
+            <!-- Controls Panel -->
+            <div class="controls-panel">
+
+                <!-- Step 1: Format -->
+                <div class="ff-card step active" id="step1">
+                    <div class="step-header">
+                        <div class="step-number">1</div>
+                        <h3 style="color: var(--ff-primary); margin: 0;">Format</h3>
+                    </div>
+                    <div class="format-grid">
+                        <div class="format-btn active" data-format="square">
+                            <div class="format-preview square" style="background: var(--ff-primary-light);"></div>
+                            <strong>Square</strong><br>
+                            <small>1080×1080</small>
+                        </div>
+                        <div class="format-btn" data-format="portrait">
+                            <div class="format-preview portrait" style="background: var(--ff-accent-light);"></div>
+                            <strong>Portrait</strong><br>
+                            <small>1080×1350</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Generate Grid -->
+                <div class="ff-card step" id="step2">
+                    <div class="step-header">
+                        <div class="step-number">2</div>
+                        <h3 style="color: var(--ff-primary); margin: 0;">Grid Pattern</h3>
+                    </div>
+
+                    <div class="ff-control-group">
+                        <label for="dataSource">Data Source</label>
+                        <select id="dataSource" class="ff-select">
+                            <option value="tidal">Live Tidal Data</option>
+                            <option value="ships">Ship Movements</option>
+                        </select>
+                    </div>
+
+                    <div class="ff-control-group">
+                        <div class="ff-range-display">
+                            <label for="gridSize">Grid Density</label>
+                            <span class="ff-range-value" id="gridSizeValue">15</span>
+                        </div>
+                        <input type="range" id="gridSize" class="ff-range" min="8" max="25" value="15">
+                    </div>
+
+                    <div class="ff-control-group">
+                        <div class="ff-range-display">
+                            <label for="waveAmount">Wave Intensity</label>
+                            <span class="ff-range-value" id="waveAmountValue">20</span>
+                        </div>
+                        <input type="range" id="waveAmount" class="ff-range" min="5" max="50" value="20">
+                    </div>
+
+                    <button class="ff-btn ff-btn-primary" id="generateGridBtn" style="width: 100%;">
+                        Generate Grid from Live Data
+                    </button>
+
+                    <div class="data-display" id="dataDisplay" style="display: none;">
+                        <strong>Data Used:</strong>
+                        <div id="dataDetails"></div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Colors -->
+                <div class="ff-card step" id="step3">
+                    <div class="step-header">
+                        <div class="step-number">3</div>
+                        <h3 style="color: var(--ff-primary); margin: 0;">Colors</h3>
+                    </div>
+
+                    <div class="ff-control-group">
+                        <label>Palette</label>
+                        <div class="palette-selector" id="paletteSelector"></div>
+                    </div>
+
+                    <div class="ff-control-group">
+                        <label for="colorMode">Apply As</label>
+                        <select id="colorMode" class="ff-select">
+                            <option value="gradient">Gradient</option>
+                            <option value="solid">Solid Colors</option>
+                        </select>
+                    </div>
+
+                    <button class="ff-btn ff-btn-primary" id="applyColorBtn" style="width: 100%;">
+                        Apply Colors
+                    </button>
+                </div>
+
+                <!-- Step 4: Content -->
+                <div class="ff-card step" id="step4">
+                    <div class="step-header">
+                        <div class="step-number">4</div>
+                        <h3 style="color: var(--ff-primary); margin: 0;">Content</h3>
+                    </div>
+
+                    <div class="ff-control-group">
+                        <label for="mainText">Main Text</label>
+                        <input type="text" id="mainText" class="ff-input" placeholder="Event title, announcement, etc.">
+                    </div>
+
+                    <div class="ff-control-group">
+                        <div class="ff-range-display">
+                            <label for="textSize">Text Size</label>
+                            <span class="ff-range-value" id="textSizeValue">48</span>
+                        </div>
+                        <input type="range" id="textSize" class="ff-range" min="24" max="96" value="48">
+                    </div>
+
+                    <div class="ff-control-group">
+                        <label for="textColor">Text Color</label>
+                        <select id="textColor" class="ff-select">
+                            <option value="#0f3057">Dark Blue (Primary)</option>
+                            <option value="#ffffff">White</option>
+                            <option value="#3a7ca5">Ocean Blue</option>
+                            <option value="#f4d35e">Warm Yellow</option>
+                        </select>
+                    </div>
+
+                    <button class="ff-btn ff-btn-primary" id="updateTextBtn" style="width: 100%;">
+                        Update Text
+                    </button>
+                </div>
+
+                <!-- Step 5: Taxonomy -->
+                <div class="ff-card step" id="step5">
+                    <div class="step-header">
+                        <div class="step-number">5</div>
+                        <h3 style="color: var(--ff-primary); margin: 0;">Classification</h3>
+                    </div>
+
+                    <div class="ff-control-group">
+                        <label>Content Type</label>
+                        <div class="taxonomy-selector" id="contentTypeSelector"></div>
+                    </div>
+
+                    <div class="ff-control-group">
+                        <label>Tags (select multiple)</label>
+                        <div class="taxonomy-selector" id="tagSelector"></div>
+                    </div>
+
+                    <div class="ff-control-group">
+                        <label for="footerStyle">Footer Style</label>
+                        <select id="footerStyle" class="ff-select">
+                            <option value="numeric">Numeric Code</option>
+                            <option value="text">Full Text</option>
+                        </select>
+                    </div>
+
+                    <button class="ff-btn ff-btn-primary" id="updateFooterBtn" style="width: 100%;">
+                        Update Footer
+                    </button>
+                </div>
+
+                <!-- Export -->
+                <div class="ff-card">
+                    <button class="ff-btn ff-btn-primary" id="exportBtn" style="width: 100%; font-size: 1rem;">
+                        ⬇ Download PNG
+                    </button>
+                    <button class="ff-btn ff-btn-secondary" id="resetBtn" style="width: 100%; margin-top: var(--ff-spacing-sm);">
+                        ↻ Start Over
+                    </button>
+                </div>
+            </div>
+
+            <!-- Preview Panel -->
+            <div class="canvas-wrapper">
+                <canvas id="socialCanvas" width="1080" height="1080"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../shared/config.js"></script>
+    <script src="../../shared/utils.js"></script>
+    <script>
+        // State
+        const state = {
+            format: 'square',
+            width: 1080,
+            height: 1080,
+            gridData: null,
+            tidalData: null,
+            colors: null,
+            palette: 'ocean',
+            colorMode: 'gradient',
+            mainText: '',
+            textSize: 48,
+            textColor: '#0f3057',
+            contentType: 'article',
+            tags: [],
+            footerStyle: 'numeric',
+            currentStep: 1
+        };
+
+        // Canvas
+        const canvas = document.getElementById('socialCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeFormatSelection();
+            initializePaletteSelector();
+            initializeTaxonomySelectors();
+            initializeControls();
+            activateStep(1);
+        });
+
+        function initializeFormatSelection() {
+            document.querySelectorAll('.format-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.format-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    state.format = btn.dataset.format;
+                    if (state.format === 'square') {
+                        state.width = 1080;
+                        state.height = 1080;
+                    } else {
+                        state.width = 1080;
+                        state.height = 1350;
+                    }
+
+                    canvas.width = state.width;
+                    canvas.height = state.height;
+                    clearCanvas();
+                    activateStep(2);
+                });
+            });
+        }
+
+        function initializePaletteSelector() {
+            const container = document.getElementById('paletteSelector');
+            Object.entries(FURTHERFIELD_CONFIG.palettes).forEach(([key, colors]) => {
+                const btn = document.createElement('div');
+                btn.className = 'palette-btn';
+                if (key === state.palette) btn.classList.add('active');
+
+                // Create gradient preview
+                const gradient = `linear-gradient(135deg, ${colors.join(', ')})`;
+                btn.style.background = gradient;
+
+                btn.onclick = () => {
+                    document.querySelectorAll('.palette-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    state.palette = key;
+                };
+
+                container.appendChild(btn);
+            });
+        }
+
+        function initializeTaxonomySelectors() {
+            // Content types
+            const typeContainer = document.getElementById('contentTypeSelector');
+            Object.entries(FURTHERFIELD_CONFIG.taxonomy.contentTypes).forEach(([key, type]) => {
+                const btn = document.createElement('div');
+                btn.className = 'taxonomy-btn';
+                if (key === state.contentType) btn.classList.add('active');
+                btn.textContent = type.name;
+                btn.onclick = () => {
+                    document.querySelectorAll('#contentTypeSelector .taxonomy-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    state.contentType = key;
+                };
+                typeContainer.appendChild(btn);
+            });
+
+            // Tags
+            const tagContainer = document.getElementById('tagSelector');
+            const tags = {
+                digital: 'Digital',
+                environmental: 'Environmental',
+                community: 'Community',
+                historical: 'Historical',
+                interactive: 'Interactive',
+                experimental: 'Experimental'
+            };
+
+            Object.entries(tags).forEach(([key, label]) => {
+                const btn = document.createElement('div');
+                btn.className = 'taxonomy-btn';
+                btn.textContent = label;
+                btn.onclick = () => {
+                    btn.classList.toggle('active');
+                    if (btn.classList.contains('active')) {
+                        state.tags.push(key);
+                    } else {
+                        state.tags = state.tags.filter(t => t !== key);
+                    }
+                };
+                tagContainer.appendChild(btn);
+            });
+        }
+
+        function initializeControls() {
+            // Range sliders
+            ['gridSize', 'waveAmount', 'textSize'].forEach(id => {
+                const input = document.getElementById(id);
+                const display = document.getElementById(id + 'Value');
+                input.addEventListener('input', () => {
+                    display.textContent = input.value;
+                });
+            });
+
+            // Buttons
+            document.getElementById('generateGridBtn').addEventListener('click', generateGrid);
+            document.getElementById('applyColorBtn').addEventListener('click', applyColors);
+            document.getElementById('updateTextBtn').addEventListener('click', updateText);
+            document.getElementById('updateFooterBtn').addEventListener('click', updateFooter);
+            document.getElementById('exportBtn').addEventListener('click', exportImage);
+            document.getElementById('resetBtn').addEventListener('click', reset);
+
+            // Text input
+            document.getElementById('mainText').addEventListener('input', (e) => {
+                state.mainText = e.target.value;
+            });
+
+            document.getElementById('textColor').addEventListener('change', (e) => {
+                state.textColor = e.target.value;
+            });
+
+            document.getElementById('colorMode').addEventListener('change', (e) => {
+                state.colorMode = e.target.value;
+            });
+
+            document.getElementById('footerStyle').addEventListener('change', (e) => {
+                state.footerStyle = e.target.value;
+            });
+        }
+
+        function activateStep(stepNum) {
+            state.currentStep = stepNum;
+            document.querySelectorAll('.step').forEach((step, i) => {
+                if (i + 1 <= stepNum) {
+                    step.classList.add('active');
+                } else {
+                    step.classList.remove('active');
+                }
+            });
+        }
+
+        async function generateGrid() {
+            const dataSource = document.getElementById('dataSource').value;
+            const gridSize = parseInt(document.getElementById('gridSize').value);
+            const waveAmount = parseInt(document.getElementById('waveAmount').value);
+
+            // Fetch tidal data
+            if (dataSource === 'tidal') {
+                await fetchTidalData();
+            } else {
+                await fetchShipData();
+            }
+
+            // Generate grid
+            state.gridData = {
+                size: gridSize,
+                wave: waveAmount,
+                dataSource: dataSource
+            };
+
+            // Draw grid
+            drawGrid();
+
+            document.getElementById('dataDisplay').style.display = 'block';
+            activateStep(3);
+        }
+
+        async function fetchTidalData() {
+            try {
+                // Find nearest station
+                const stationUrl = `https://environment.data.gov.uk/flood-monitoring/id/stations?type=TideGauge&lat=52.06&long=1.35&dist=50`;
+                const stationResp = await fetch(stationUrl);
+                const stationData = await stationResp.json();
+
+                if (stationData.items && stationData.items.length > 0) {
+                    const station = stationData.items[0];
+                    const stationId = station.stationReference || station.notation;
+
+                    // Get reading
+                    const readingUrl = `https://environment.data.gov.uk/flood-monitoring/id/stations/${stationId}/readings?latest`;
+                    const readingResp = await fetch(readingUrl);
+                    const readingData = await readingResp.json();
+
+                    if (readingData.items && readingData.items.length > 0) {
+                        const reading = readingData.items[0];
+                        state.tidalData = {
+                            type: 'tidal',
+                            level: reading.value,
+                            unit: reading.unitName || 'mAOD',
+                            station: station.label,
+                            time: new Date(reading.dateTime)
+                        };
+
+                        document.getElementById('dataDetails').innerHTML = `
+                            <strong>Tidal Flow</strong><br>
+                            ${state.tidalData.station}<br>
+                            ${state.tidalData.level.toFixed(2)} ${state.tidalData.unit}<br>
+                            ${state.tidalData.time.toLocaleTimeString()}
+                        `;
+                        return;
+                    }
+                }
+            } catch (error) {
+                console.log('Could not fetch tidal data, using simulated');
+            }
+
+            // Fallback
+            state.tidalData = {
+                type: 'tidal',
+                level: Math.random() * 4 - 1,
+                unit: 'mAOD',
+                station: 'Simulated',
+                time: new Date()
+            };
+
+            document.getElementById('dataDetails').innerHTML = `
+                <strong>Tidal Flow (Simulated)</strong><br>
+                ${state.tidalData.level.toFixed(2)} ${state.tidalData.unit}<br>
+                ${state.tidalData.time.toLocaleTimeString()}
+            `;
+        }
+
+        async function fetchShipData() {
+            // Simulated ship data
+            const ships = Math.floor(Math.random() * 15) + 5;
+            const arrivals = Math.floor(ships * 0.6);
+            const departures = ships - arrivals;
+
+            state.tidalData = {
+                type: 'ships',
+                total: ships,
+                arrivals: arrivals,
+                departures: departures,
+                flow: arrivals - departures,
+                time: new Date()
+            };
+
+            document.getElementById('dataDetails').innerHTML = `
+                <strong>Ship Movements</strong><br>
+                Total: ${ships}<br>
+                Flow: ${state.tidalData.flow > 0 ? '+' : ''}${state.tidalData.flow}<br>
+                ${state.tidalData.time.toLocaleTimeString()}
+            `;
+        }
+
+        function drawGrid() {
+            const { size, wave } = state.gridData;
+            const cellSize = state.width / size;
+
+            ctx.strokeStyle = '#000000';
+            ctx.lineWidth = 2;
+
+            // Draw wavy lines
+            for (let i = 0; i <= size; i++) {
+                // Horizontal
+                ctx.beginPath();
+                for (let j = 0; j <= state.width; j += 10) {
+                    const y = (i * cellSize) + Math.sin((j / state.width) * Math.PI * 4 + i * 0.5) * wave;
+                    if (j === 0) {
+                        ctx.moveTo(j, y);
+                    } else {
+                        ctx.lineTo(j, y);
+                    }
+                }
+                ctx.stroke();
+
+                // Vertical (only if not at portrait bottom to avoid cramping)
+                if (i * cellSize < state.height * 0.85) {
+                    ctx.beginPath();
+                    for (let j = 0; j <= state.height; j += 10) {
+                        const x = (i * cellSize) + Math.sin((j / state.height) * Math.PI * 4 + i * 0.5) * wave;
+                        if (j === 0) {
+                            ctx.moveTo(x, j);
+                        } else {
+                            ctx.lineTo(x, j);
+                        }
+                    }
+                    ctx.stroke();
+                }
+            }
+        }
+
+        function applyColors() {
+            const colors = FURTHERFIELD_CONFIG.palettes[state.palette];
+            state.colors = colors;
+
+            if (state.colorMode === 'gradient') {
+                // Apply gradient overlay
+                const gradient = ctx.createLinearGradient(0, 0, state.width, state.height);
+                colors.forEach((color, i) => {
+                    gradient.addColorStop(i / (colors.length - 1), color);
+                });
+
+                ctx.globalCompositeOperation = 'multiply';
+                ctx.globalAlpha = 0.3;
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, state.width, state.height);
+                ctx.globalCompositeOperation = 'source-over';
+                ctx.globalAlpha = 1;
+            }
+
+            activateStep(4);
+        }
+
+        function updateText() {
+            if (!state.mainText) return;
+
+            const textSize = parseInt(document.getElementById('textSize').value);
+            state.textSize = textSize;
+
+            // Draw text
+            ctx.save();
+            ctx.font = `bold ${textSize}px sans-serif`;
+            ctx.fillStyle = state.textColor;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+
+            // Add text shadow for readability
+            ctx.shadowColor = 'rgba(255, 255, 255, 0.8)';
+            ctx.shadowBlur = 10;
+
+            // Word wrap
+            const words = state.mainText.split(' ');
+            const lines = [];
+            let currentLine = '';
+            const maxWidth = state.width * 0.8;
+
+            words.forEach(word => {
+                const testLine = currentLine + word + ' ';
+                const metrics = ctx.measureText(testLine);
+                if (metrics.width > maxWidth && currentLine !== '') {
+                    lines.push(currentLine);
+                    currentLine = word + ' ';
+                } else {
+                    currentLine = testLine;
+                }
+            });
+            lines.push(currentLine);
+
+            // Draw lines
+            const lineHeight = textSize * 1.2;
+            const totalHeight = lines.length * lineHeight;
+            const startY = (state.height - totalHeight) / 2;
+
+            lines.forEach((line, i) => {
+                ctx.fillText(line, state.width / 2, startY + i * lineHeight);
+            });
+
+            ctx.restore();
+            activateStep(5);
+        }
+
+        function updateFooter() {
+            const footerHeight = 80;
+            const footerY = state.height - footerHeight;
+
+            // Draw footer background
+            ctx.fillStyle = 'rgba(255, 252, 185, 0.95)'; // Soft cream
+            ctx.fillRect(0, footerY, state.width, footerHeight);
+
+            // Border
+            ctx.strokeStyle = '#BCE5F3';
+            ctx.lineWidth = 3;
+            ctx.strokeRect(0, footerY, state.width, footerHeight);
+
+            // Footer content
+            ctx.fillStyle = '#0f3057';
+            ctx.font = '16px sans-serif';
+            ctx.textAlign = 'left';
+
+            const padding = 20;
+            let yPos = footerY + 25;
+
+            // Taxonomy
+            if (state.footerStyle === 'numeric') {
+                const typeCode = Object.keys(FURTHERFIELD_CONFIG.taxonomy.contentTypes).indexOf(state.contentType) + 1;
+                const tagCodes = state.tags.map(tag => {
+                    return Object.keys({...FURTHERFIELD_CONFIG.taxonomy.tags}).indexOf(tag) + 1;
+                }).join(',');
+
+                ctx.fillText(`Type: ${typeCode}  Tags: ${tagCodes || 'none'}`, padding, yPos);
+            } else {
+                const typeName = FURTHERFIELD_CONFIG.taxonomy.contentTypes[state.contentType].name;
+                const tagNames = state.tags.map(t => t.charAt(0).toUpperCase() + t.slice(1)).join(', ');
+
+                ctx.fillText(`${typeName}${tagNames ? ' · ' + tagNames : ''}`, padding, yPos);
+            }
+
+            // Data info
+            yPos += 25;
+            if (state.tidalData) {
+                if (state.tidalData.type === 'tidal') {
+                    ctx.fillText(`Tide: ${state.tidalData.level.toFixed(1)}${state.tidalData.unit} at ${state.tidalData.time.toLocaleTimeString('en-GB', {hour: '2-digit', minute: '2-digit'})}`, padding, yPos);
+                } else {
+                    ctx.fillText(`Ships: ${state.tidalData.total} (${state.tidalData.flow > 0 ? '+' : ''}${state.tidalData.flow}) at ${state.tidalData.time.toLocaleTimeString('en-GB', {hour: '2-digit', minute: '2-digit'})}`, padding, yPos);
+                }
+            }
+
+            // Date on right
+            ctx.textAlign = 'right';
+            ctx.fillText(new Date().toLocaleDateString('en-GB'), state.width - padding, footerY + 40);
+        }
+
+        function clearCanvas() {
+            ctx.fillStyle = '#FFFCB9'; // Soft cream background
+            ctx.fillRect(0, 0, state.width, state.height);
+        }
+
+        function exportImage() {
+            const filename = FurtherfieldUtils.generateFilename('social', 'png', state.format);
+            canvas.toBlob(blob => {
+                FurtherfieldUtils.downloadBlob(blob, filename);
+            });
+        }
+
+        function reset() {
+            if (confirm('Start over? This will clear your current work.')) {
+                clearCanvas();
+                state.currentStep = 1;
+                state.gridData = null;
+                state.tidalData = null;
+                state.mainText = '';
+                state.tags = [];
+                document.getElementById('mainText').value = '';
+                document.querySelectorAll('#tagSelector .taxonomy-btn').forEach(b => b.classList.remove('active'));
+                activateStep(1);
+            }
+        }
+
+        // Initialize with cream background
+        clearCanvas();
+    </script>
+</body>
+</html>
