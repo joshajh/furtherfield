@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Furtherfield Design Tools</title>
+    <link rel="stylesheet" href="shared/styles.css">
+    <style>
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--ff-spacing-lg);
+            margin-top: var(--ff-spacing-xl);
+        }
+
+        .app-card {
+            background: white;
+            border-radius: var(--ff-radius-lg);
+            padding: var(--ff-spacing-xl);
+            box-shadow: var(--ff-shadow-md);
+            transition: all 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .app-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--ff-shadow-lg);
+        }
+
+        .app-card-icon {
+            font-size: 3rem;
+            margin-bottom: var(--ff-spacing-md);
+        }
+
+        .app-card h2 {
+            color: var(--ff-primary);
+            margin-bottom: var(--ff-spacing-sm);
+            font-size: 1.5rem;
+        }
+
+        .app-card p {
+            color: var(--ff-gray-600);
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+
+        .app-card-status {
+            margin-top: var(--ff-spacing-md);
+            padding: var(--ff-spacing-xs) var(--ff-spacing-sm);
+            border-radius: var(--ff-radius-sm);
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .status-ready {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-wip {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .intro {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto var(--ff-spacing-xl);
+            line-height: 1.8;
+            color: var(--ff-gray-700);
+        }
+
+        .workflow {
+            background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%);
+            border-radius: var(--ff-radius-lg);
+            padding: var(--ff-spacing-xl);
+            margin: var(--ff-spacing-xl) 0;
+        }
+
+        .workflow h3 {
+            color: var(--ff-primary);
+            margin-bottom: var(--ff-spacing-md);
+        }
+
+        .workflow-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--ff-spacing-md);
+        }
+
+        .workflow-step {
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        .workflow-step-num {
+            width: 40px;
+            height: 40px;
+            background: var(--ff-secondary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--ff-spacing-sm);
+            font-weight: 700;
+        }
+
+        .workflow-arrow {
+            font-size: 1.5rem;
+            color: var(--ff-gray-400);
+        }
+
+        @media (max-width: 768px) {
+            .workflow-arrow {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="ff-container">
+        <header class="ff-header">
+            <h1>Furtherfield Design Tools</h1>
+            <p class="subtitle">Modular micro-apps for generative visual identity</p>
+        </header>
+
+        <div class="intro">
+            <p>
+                A suite of specialized tools for creating dynamic visual assets.
+                Each app performs a specific task and can be used standalone or combined
+                to create complex, data-driven designs rooted in Felixstowe's maritime environment.
+            </p>
+        </div>
+
+        <div class="workflow">
+            <h3>Typical Workflow</h3>
+            <div class="workflow-steps">
+                <div class="workflow-step">
+                    <div class="workflow-step-num">1</div>
+                    <strong>Generate</strong><br>
+                    <small>Grid or Sprite</small>
+                </div>
+                <div class="workflow-arrow">→</div>
+                <div class="workflow-step">
+                    <div class="workflow-step-num">2</div>
+                    <strong>Colorize</strong><br>
+                    <small>Apply palette</small>
+                </div>
+                <div class="workflow-arrow">→</div>
+                <div class="workflow-step">
+                    <div class="workflow-step-num">3</div>
+                    <strong>Mark</strong><br>
+                    <small>Add metadata</small>
+                </div>
+                <div class="workflow-arrow">→</div>
+                <div class="workflow-step">
+                    <div class="workflow-step-num">4</div>
+                    <strong>Composite</strong><br>
+                    <small>Combine layers</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="app-grid">
+            <a href="apps/grid-generator/index.html" class="app-card">
+                <div class="app-card-icon">◫</div>
+                <h2>Grid Generator</h2>
+                <p>
+                    Creates flexible grids with wave-like distortions based on real-time tidal data
+                    or ship movements at the Port of Felixstowe. Maintains structure while adding organic flow.
+                </p>
+                <span class="app-card-status status-ready">Ready</span>
+            </a>
+
+            <a href="apps/colorist/index.html" class="app-card">
+                <div class="app-card-icon">◨</div>
+                <h2>Colorist</h2>
+                <p>
+                    Applies color palettes, gradients, and generative noise to existing assets.
+                    Choose from maritime-inspired palettes or create custom schemes.
+                </p>
+                <span class="app-card-status status-ready">Ready</span>
+            </a>
+
+            <a href="apps/sprite-generator/index.html" class="app-card">
+                <div class="app-card-icon">◧</div>
+                <h2>Sprite Generator</h2>
+                <p>
+                    Generates 8-bit pixel art representations of people, flora, and fauna.
+                    Creates trading-card-like symbols with procedural variations.
+                </p>
+                <span class="app-card-status status-ready">Ready</span>
+            </a>
+
+            <a href="apps/mark-generator/index.html" class="app-card">
+                <div class="app-card-icon">◪</div>
+                <h2>Mark Generator</h2>
+                <p>
+                    Creates geometric marks that encode content-type and tags.
+                    Perfect for archival systems and visual knowledge management.
+                </p>
+                <span class="app-card-status status-ready">Ready</span>
+            </a>
+
+            <a href="apps/compositor/index.html" class="app-card">
+                <div class="app-card-icon">◰</div>
+                <h2>Compositor</h2>
+                <p>
+                    Combines outputs from multiple micro-apps into final compositions.
+                    Layer grids, sprites, colors, and marks with full control.
+                </p>
+                <span class="app-card-status status-ready">Ready</span>
+            </a>
+        </div>
+
+        <div class="ff-card" style="margin-top: var(--ff-spacing-xl);">
+            <h3 style="margin-bottom: var(--ff-spacing-md); color: var(--ff-primary);">About This System</h3>
+            <p style="margin-bottom: var(--ff-spacing-md); color: var(--ff-gray-700);">
+                This tool suite embodies a tech-first, modular approach to visual identity design.
+                Each app is self-contained and focused on a single task, but they share common
+                data formats and can be composed together to create complex, dynamic assets.
+            </p>
+            <p style="color: var(--ff-gray-700);">
+                The tools are designed for a digital arts organisation based in Felixstowe, UK,
+                incorporating real-world data from the local maritime environment to create
+                unique, place-based generative artwork.
+            </p>
+        </div>
+    </div>
+
+    <script src="shared/config.js"></script>
+</body>
+</html>

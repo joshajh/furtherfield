@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mark Generator - Furtherfield Tools</title>
+    <link rel="stylesheet" href="../../shared/styles.css">
+    <style>
+        .mark-preview {
+            background: white;
+            border-radius: var(--ff-radius-md);
+            padding: var(--ff-spacing-xl);
+            box-shadow: var(--ff-shadow-md);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px;
+        }
+
+        .type-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: var(--ff-spacing-sm);
+        }
+
+        .type-btn {
+            padding: var(--ff-spacing-md);
+            border: 2px solid var(--ff-gray-200);
+            border-radius: var(--ff-radius-sm);
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .type-btn:hover {
+            border-color: var(--ff-secondary);
+        }
+
+        .type-btn.active {
+            border-color: var(--ff-secondary);
+            background: #e0f2fe;
+        }
+
+        .type-preview {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto var(--ff-spacing-sm);
+        }
+
+        .tag-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--ff-spacing-sm);
+        }
+
+        .tag-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--ff-spacing-sm);
+            background: var(--ff-gray-50);
+            border-radius: var(--ff-radius-sm);
+        }
+
+        .tag-checkbox {
+            margin-right: var(--ff-spacing-sm);
+        }
+
+        .legend {
+            background: var(--ff-gray-50);
+            padding: var(--ff-spacing-md);
+            border-radius: var(--ff-radius-md);
+            font-size: 0.875rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: var(--ff-spacing-sm);
+            margin-bottom: var(--ff-spacing-sm);
+        }
+
+        .legend-shape {
+            width: 30px;
+            height: 30px;
+            flex-shrink: 0;
+        }
+
+        .mark-id {
+            font-family: 'Courier New', monospace;
+            background: var(--ff-gray-100);
+            padding: var(--ff-spacing-xs) var(--ff-spacing-sm);
+            border-radius: var(--ff-radius-sm);
+            font-size: 0.75rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="ff-container">
+        <header class="ff-header">
+            <h1>Mark Generator</h1>
+            <p class="subtitle">Create encoded marks for content classification and archiving</p>
+            <div class="app-nav">
+                <a href="../../index.html">← Back to Apps</a>
+                <a href="../grid-generator/index.html">Grid Generator</a>
+                <a href="../colorist/index.html">Colorist</a>
+            </div>
+        </header>
+
+        <div class="ff-info">
+            <strong>How It Works</strong>
+            Marks encode content metadata visually. The shape represents the content type,
+            position markers indicate primary tags, and style modifiers show additional attributes.
+            Each mark can be decoded to reveal its full metadata.
+        </div>
+
+        <div class="ff-card">
+            <h3 style="margin-bottom: var(--ff-spacing-md); color: var(--ff-primary);">Content Type</h3>
+            <div class="type-grid" id="typeGrid"></div>
+        </div>
+
+        <div class="ff-card">
+            <h3 style="margin-bottom: var(--ff-spacing-md); color: var(--ff-primary);">Primary Tags</h3>
+            <div class="tag-list" id="primaryTags"></div>
+        </div>
+
+        <div class="ff-card">
+            <h3 style="margin-bottom: var(--ff-spacing-md); color: var(--ff-primary);">Attributes</h3>
+            <div class="tag-list" id="attributeTags"></div>
+        </div>
+
+        <div class="ff-card">
+            <div class="ff-control-group">
+                <label for="markTitle">Title (Optional)</label>
+                <input type="text" id="markTitle" class="ff-input" placeholder="e.g., Summer Exhibition 2025">
+            </div>
+
+            <div class="ff-control-group">
+                <label>
+                    <input type="checkbox" id="showId">
+                    Include unique ID in mark
+                </label>
+            </div>
+        </div>
+
+        <div class="ff-card">
+            <div class="ff-btn-group">
+                <button class="ff-btn ff-btn-primary" id="generateBtn">Generate Mark</button>
+                <button class="ff-btn ff-btn-secondary" id="exportSVGBtn">Export SVG</button>
+                <button class="ff-btn ff-btn-secondary" id="exportPNGBtn">Export PNG</button>
+                <button class="ff-btn ff-btn-secondary" id="exportMetaBtn">Export Metadata</button>
+            </div>
+        </div>
+
+        <div class="mark-preview">
+            <svg id="markCanvas" width="256" height="256" viewBox="0 0 128 128">
+                <rect width="128" height="128" fill="white"/>
+            </svg>
+        </div>
+
+        <div class="ff-card">
+            <h3 style="margin-bottom: var(--ff-spacing-md); color: var(--ff-primary);">Mark Details</h3>
+            <div id="markDetails" class="legend"></div>
+        </div>
+
+        <div class="ff-card">
+            <h3 style="margin-bottom: var(--ff-spacing-md); color: var(--ff-primary);">Legend</h3>
+            <div class="legend">
+                <h4 style="margin-bottom: var(--ff-spacing-sm);">Content Types (Shapes)</h4>
+                <div id="shapeLegend"></div>
+
+                <h4 style="margin: var(--ff-spacing-md) 0 var(--ff-spacing-sm) 0;">Primary Tags (Position Markers)</h4>
+                <div id="positionLegend"></div>
+
+                <h4 style="margin: var(--ff-spacing-md) 0 var(--ff-spacing-sm) 0;">Attributes (Style Modifiers)</h4>
+                <div id="attributeLegend"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../shared/config.js"></script>
+    <script src="../../shared/utils.js"></script>
+    <script>
+        // State
+        let currentMark = {
+            contentType: 'article',
+            primaryTags: [],
+            attributes: [],
+            title: '',
+            id: null
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeTypes();
+            initializeTags();
+            initializeLegend();
+            initializeControls();
+            generateMark();
+        });
+
+        function initializeTypes() {
+            const grid = document.getElementById('typeGrid');
+            const types = FURTHERFIELD_CONFIG.taxonomy.contentTypes;
+
+            Object.entries(types).forEach(([key, type]) => {
+                const btn = document.createElement('div');
+                btn.className = 'type-btn';
+                if (key === currentMark.contentType) btn.classList.add('active');
+
+                const preview = document.createElement('div');
+                preview.className = 'type-preview';
+                const svg = createShapeSVG(type.shape, type.color);
+                preview.appendChild(svg);
+
+                const name = document.createElement('div');
+                name.textContent = type.name;
+                name.style.fontWeight = '600';
+                name.style.fontSize = '0.875rem';
+
+                btn.appendChild(preview);
+                btn.appendChild(name);
+                btn.onclick = () => {
+                    document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentMark.contentType = key;
+                    generateMark();
+                };
+
+                grid.appendChild(btn);
+            });
+        }
+
+        function initializeTags() {
+            const primaryContainer = document.getElementById('primaryTags');
+            const attributeContainer = document.getElementById('attributeTags');
+            const taxonomy = FURTHERFIELD_CONFIG.taxonomy;
+
+            // Primary tags
+            Object.entries(taxonomy.tags).forEach(([key, tag]) => {
+                if (tag.position) {
+                    const item = createTagItem(key, tag, 'primary');
+                    primaryContainer.appendChild(item);
+                }
+            });
+
+            // Attributes
+            Object.entries(taxonomy.tags).forEach(([key, tag]) => {
+                if (tag.modifier) {
+                    const item = createTagItem(key, tag, 'attribute');
+                    attributeContainer.appendChild(item);
+                }
+            });
+        }
+
+        function createTagItem(key, tag, type) {
+            const item = document.createElement('div');
+            item.className = 'tag-item';
+
+            const label = document.createElement('label');
+            label.style.display = 'flex';
+            label.style.alignItems = 'center';
+            label.style.cursor = 'pointer';
+
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.className = 'tag-checkbox';
+            checkbox.onchange = () => {
+                if (type === 'primary') {
+                    if (checkbox.checked) {
+                        currentMark.primaryTags.push(key);
+                    } else {
+                        currentMark.primaryTags = currentMark.primaryTags.filter(t => t !== key);
+                    }
+                } else {
+                    if (checkbox.checked) {
+                        currentMark.attributes.push(key);
+                    } else {
+                        currentMark.attributes = currentMark.attributes.filter(t => t !== key);
+                    }
+                }
+                generateMark();
+            };
+
+            label.appendChild(checkbox);
+            label.appendChild(document.createTextNode(key.charAt(0).toUpperCase() + key.slice(1)));
+
+            item.appendChild(label);
+
+            if (tag.position) {
+                const position = document.createElement('span');
+                position.textContent = tag.position;
+                position.style.fontSize = '0.75rem';
+                position.style.color = 'var(--ff-gray-500)';
+                item.appendChild(position);
+            } else if (tag.modifier) {
+                const modifier = document.createElement('span');
+                modifier.textContent = tag.modifier;
+                modifier.style.fontSize = '0.75rem';
+                modifier.style.color = 'var(--ff-gray-500)';
+                item.appendChild(modifier);
+            }
+
+            return item;
+        }
+
+        function initializeLegend() {
+            // Shape legend
+            const shapeLegend = document.getElementById('shapeLegend');
+            Object.entries(FURTHERFIELD_CONFIG.taxonomy.contentTypes).forEach(([key, type]) => {
+                const item = document.createElement('div');
+                item.className = 'legend-item';
+
+                const shape = document.createElement('div');
+                shape.className = 'legend-shape';
+                shape.appendChild(createShapeSVG(type.shape, type.color, 30));
+
+                const text = document.createElement('span');
+                text.textContent = type.name;
+
+                item.appendChild(shape);
+                item.appendChild(text);
+                shapeLegend.appendChild(item);
+            });
+
+            // Position legend
+            const positionLegend = document.getElementById('positionLegend');
+            Object.entries(FURTHERFIELD_CONFIG.taxonomy.tags).forEach(([key, tag]) => {
+                if (tag.position) {
+                    const item = document.createElement('div');
+                    item.textContent = `${key.charAt(0).toUpperCase() + key.slice(1)}: ${tag.position} marker`;
+                    item.style.marginBottom = 'var(--ff-spacing-xs)';
+                    positionLegend.appendChild(item);
+                }
+            });
+
+            // Attribute legend
+            const attributeLegend = document.getElementById('attributeLegend');
+            Object.entries(FURTHERFIELD_CONFIG.taxonomy.tags).forEach(([key, tag]) => {
+                if (tag.modifier) {
+                    const item = document.createElement('div');
+                    item.textContent = `${key.charAt(0).toUpperCase() + key.slice(1)}: ${tag.modifier} style`;
+                    item.style.marginBottom = 'var(--ff-spacing-xs)';
+                    attributeLegend.appendChild(item);
+                }
+            });
+        }
+
+        function initializeControls() {
+            document.getElementById('generateBtn').addEventListener('click', generateMark);
+            document.getElementById('exportSVGBtn').addEventListener('click', exportSVG);
+            document.getElementById('exportPNGBtn').addEventListener('click', exportPNG);
+            document.getElementById('exportMetaBtn').addEventListener('click', exportMetadata);
+
+            document.getElementById('markTitle').addEventListener('input', (e) => {
+                currentMark.title = e.target.value;
+            });
+        }
+
+        function generateMark() {
+            currentMark.id = FurtherfieldUtils.generateId();
+            const svg = document.getElementById('markCanvas');
+
+            // Clear existing content (except background)
+            while (svg.childNodes.length > 1) {
+                svg.removeChild(svg.lastChild);
+            }
+
+            // Get content type config
+            const type = FURTHERFIELD_CONFIG.taxonomy.contentTypes[currentMark.contentType];
+
+            // Create main shape
+            const shape = createShape(type.shape, type.color);
+            svg.appendChild(shape);
+
+            // Add position markers for primary tags
+            currentMark.primaryTags.forEach(tagKey => {
+                const tag = FURTHERFIELD_CONFIG.taxonomy.tags[tagKey];
+                if (tag && tag.position) {
+                    const marker = createPositionMarker(tag.position, type.color);
+                    svg.appendChild(marker);
+                }
+            });
+
+            // Apply attribute modifiers
+            currentMark.attributes.forEach(attrKey => {
+                const attr = FURTHERFIELD_CONFIG.taxonomy.tags[attrKey];
+                if (attr && attr.modifier) {
+                    applyModifier(shape, attr.modifier);
+                }
+            });
+
+            // Update details
+            updateMarkDetails();
+        }
+
+        function createShape(shapeName, color) {
+            const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            const centerX = 64;
+            const centerY = 64;
+            const size = 40;
+
+            let shape;
+
+            switch (shapeName) {
+                case 'square':
+                    shape = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                    shape.setAttribute('x', centerX - size/2);
+                    shape.setAttribute('y', centerY - size/2);
+                    shape.setAttribute('width', size);
+                    shape.setAttribute('height', size);
+                    break;
+
+                case 'circle':
+                    shape = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                    shape.setAttribute('cx', centerX);
+                    shape.setAttribute('cy', centerY);
+                    shape.setAttribute('r', size/2);
+                    break;
+
+                case 'triangle':
+                    shape = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+                    const h = size * Math.sqrt(3) / 2;
+                    shape.setAttribute('points', `${centerX},${centerY - h/2} ${centerX - size/2},${centerY + h/2} ${centerX + size/2},${centerY + h/2}`);
+                    break;
+
+                case 'hexagon':
+                    shape = createPolygon(centerX, centerY, 6, size/2);
+                    break;
+
+                case 'pentagon':
+                    shape = createPolygon(centerX, centerY, 5, size/2);
+                    break;
+
+                case 'octagon':
+                    shape = createPolygon(centerX, centerY, 8, size/2);
+                    break;
+            }
+
+            shape.setAttribute('fill', color);
+            shape.setAttribute('stroke', '#000');
+            shape.setAttribute('stroke-width', '2');
+            g.appendChild(shape);
+
+            return g;
+        }
+
+        function createPolygon(cx, cy, sides, radius) {
+            const polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+            const points = [];
+            for (let i = 0; i < sides; i++) {
+                const angle = (i * 2 * Math.PI / sides) - (Math.PI / 2);
+                const x = cx + radius * Math.cos(angle);
+                const y = cy + radius * Math.sin(angle);
+                points.push(`${x},${y}`);
+            }
+            polygon.setAttribute('points', points.join(' '));
+            return polygon;
+        }
+
+        function createPositionMarker(position, baseColor) {
+            const marker = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            marker.setAttribute('r', 6);
+            marker.setAttribute('fill', '#000');
+
+            switch (position) {
+                case 'top':
+                    marker.setAttribute('cx', 64);
+                    marker.setAttribute('cy', 20);
+                    break;
+                case 'right':
+                    marker.setAttribute('cx', 108);
+                    marker.setAttribute('cy', 64);
+                    break;
+                case 'bottom':
+                    marker.setAttribute('cx', 64);
+                    marker.setAttribute('cy', 108);
+                    break;
+                case 'left':
+                    marker.setAttribute('cx', 20);
+                    marker.setAttribute('cy', 64);
+                    break;
+            }
+
+            return marker;
+        }
+
+        function applyModifier(shape, modifier) {
+            const mainShape = shape.querySelector('rect, circle, polygon');
+            if (!mainShape) return;
+
+            switch (modifier) {
+                case 'outlined':
+                    mainShape.setAttribute('fill', 'none');
+                    mainShape.setAttribute('stroke-width', '4');
+                    break;
+                case 'dotted':
+                    mainShape.setAttribute('stroke-dasharray', '3,3');
+                    break;
+                case 'composite':
+                    // Add inner shape
+                    const inner = mainShape.cloneNode();
+                    const scale = 0.6;
+                    inner.setAttribute('transform', `translate(${64 * (1 - scale)}, ${64 * (1 - scale)}) scale(${scale})`);
+                    inner.setAttribute('opacity', '0.5');
+                    shape.appendChild(inner);
+                    break;
+            }
+        }
+
+        function createShapeSVG(shapeName, color, size = 40) {
+            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svg.setAttribute('width', size);
+            svg.setAttribute('height', size);
+            svg.setAttribute('viewBox', '0 0 40 40');
+
+            const centerX = 20;
+            const centerY = 20;
+            const shapeSize = 16;
+
+            let shape;
+
+            switch (shapeName) {
+                case 'square':
+                    shape = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                    shape.setAttribute('x', centerX - shapeSize/2);
+                    shape.setAttribute('y', centerY - shapeSize/2);
+                    shape.setAttribute('width', shapeSize);
+                    shape.setAttribute('height', shapeSize);
+                    break;
+
+                case 'circle':
+                    shape = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                    shape.setAttribute('cx', centerX);
+                    shape.setAttribute('cy', centerY);
+                    shape.setAttribute('r', shapeSize/2);
+                    break;
+
+                case 'triangle':
+                    shape = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+                    const h = shapeSize * Math.sqrt(3) / 2;
+                    shape.setAttribute('points', `${centerX},${centerY - h/2} ${centerX - shapeSize/2},${centerY + h/2} ${centerX + shapeSize/2},${centerY + h/2}`);
+                    break;
+
+                case 'hexagon':
+                    shape = createPolygon(centerX, centerY, 6, shapeSize/2);
+                    break;
+
+                case 'pentagon':
+                    shape = createPolygon(centerX, centerY, 5, shapeSize/2);
+                    break;
+
+                case 'octagon':
+                    shape = createPolygon(centerX, centerY, 8, shapeSize/2);
+                    break;
+            }
+
+            shape.setAttribute('fill', color);
+            shape.setAttribute('stroke', '#000');
+            shape.setAttribute('stroke-width', '1');
+            svg.appendChild(shape);
+
+            return svg;
+        }
+
+        function updateMarkDetails() {
+            const details = document.getElementById('markDetails');
+            const type = FURTHERFIELD_CONFIG.taxonomy.contentTypes[currentMark.contentType];
+
+            let html = `
+                <div style="margin-bottom: var(--ff-spacing-md);">
+                    <strong>Mark ID:</strong> <span class="mark-id">${currentMark.id}</span>
+                </div>
+                <div style="margin-bottom: var(--ff-spacing-sm);"><strong>Content Type:</strong> ${type.name}</div>
+            `;
+
+            if (currentMark.primaryTags.length > 0) {
+                html += `<div style="margin-bottom: var(--ff-spacing-sm);"><strong>Primary Tags:</strong> ${currentMark.primaryTags.join(', ')}</div>`;
+            }
+
+            if (currentMark.attributes.length > 0) {
+                html += `<div style="margin-bottom: var(--ff-spacing-sm);"><strong>Attributes:</strong> ${currentMark.attributes.join(', ')}</div>`;
+            }
+
+            if (currentMark.title) {
+                html += `<div><strong>Title:</strong> ${currentMark.title}</div>`;
+            }
+
+            details.innerHTML = html;
+        }
+
+        function exportSVG() {
+            const svg = document.getElementById('markCanvas');
+            const metadata = FurtherfieldUtils.createMetadata('mark-generator', currentMark.contentType, currentMark.primaryTags.concat(currentMark.attributes));
+            metadata.mark = currentMark;
+
+            const filename = FurtherfieldUtils.generateFilename('mark', 'svg', currentMark.contentType);
+            FurtherfieldUtils.exportSVG(svg, filename, metadata);
+        }
+
+        function exportPNG() {
+            const svg = document.getElementById('markCanvas');
+            const filename = FurtherfieldUtils.generateFilename('mark', 'png', currentMark.contentType);
+            FurtherfieldUtils.exportPNG(svg, filename, FURTHERFIELD_CONFIG.sizes.mark);
+        }
+
+        function exportMetadata() {
+            const metadata = FurtherfieldUtils.createMetadata('mark-generator', currentMark.contentType, currentMark.primaryTags.concat(currentMark.attributes));
+            metadata.mark = currentMark;
+            metadata.taxonomy = FURTHERFIELD_CONFIG.taxonomy;
+
+            const filename = FurtherfieldUtils.generateFilename('mark-metadata', 'json');
+            FurtherfieldUtils.exportJSON(metadata, filename);
+        }
+    </script>
+</body>
+</html>

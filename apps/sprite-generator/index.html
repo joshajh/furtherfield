@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sprite Generator - Furtherfield Tools</title>
+    <link rel="stylesheet" href="../../shared/styles.css">
+    <style>
+        .sprite-preview {
+            background: white;
+            border-radius: var(--ff-radius-md);
+            padding: var(--ff-spacing-xl);
+            box-shadow: var(--ff-shadow-md);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px;
+        }
+
+        #spriteCanvas {
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
+            border: 2px solid var(--ff-gray-200);
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: var(--ff-spacing-sm);
+        }
+
+        .category-btn {
+            padding: var(--ff-spacing-md);
+            border: 2px solid var(--ff-gray-200);
+            border-radius: var(--ff-radius-sm);
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+            font-size: 2rem;
+        }
+
+        .category-btn:hover {
+            border-color: var(--ff-secondary);
+            transform: translateY(-2px);
+        }
+
+        .category-btn.active {
+            border-color: var(--ff-secondary);
+            background: #e0f2fe;
+        }
+
+        .category-btn small {
+            display: block;
+            font-size: 0.75rem;
+            margin-top: var(--ff-spacing-xs);
+        }
+
+        .sprite-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: var(--ff-spacing-sm);
+            max-height: 300px;
+            overflow-y: auto;
+            padding: var(--ff-spacing-sm);
+            background: var(--ff-gray-50);
+            border-radius: var(--ff-radius-sm);
+        }
+
+        .sprite-thumbnail {
+            width: 100%;
+            aspect-ratio: 1;
+            image-rendering: pixelated;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .sprite-thumbnail:hover {
+            border-color: var(--ff-secondary);
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="ff-container">
+        <header class="ff-header">
+            <h1>Sprite Generator</h1>
+            <p class="subtitle">Generate 8-bit pixel art of people, flora, and fauna</p>
+            <div class="app-nav">
+                <a href="../../index.html">← Back to Apps</a>
+                <a href="../grid-generator/index.html">Grid Generator</a>
+                <a href="../colorist/index.html">Colorist</a>
+            </div>
+        </header>
+
+        <div class="ff-card">
+            <h3 style="margin-bottom: var(--ff-spacing-md); color: var(--ff-primary);">Category</h3>
+            <div class="category-grid">
+                <div class="category-btn active" data-category="person">
+                    👤
+                    <small>Person</small>
+                </div>
+                <div class="category-btn" data-category="flora">
+                    🌿
+                    <small>Flora</small>
+                </div>
+                <div class="category-btn" data-category="fauna">
+                    🐦
+                    <small>Fauna</small>
+                </div>
+                <div class="category-btn" data-category="maritime">
+                    ⚓
+                    <small>Maritime</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="ff-card">
+            <div class="ff-control-group">
+                <div class="ff-range-display">
+                    <label for="spriteSize">Sprite Size</label>
+                    <span class="ff-range-value" id="spriteSizeValue">16x16</span>
+                </div>
+                <input type="range" id="spriteSize" class="ff-range" min="8" max="32" step="8" value="16">
+            </div>
+
+            <div class="ff-control-group">
+                <label>
+                    <input type="checkbox" id="symmetrical" checked>
+                    Symmetrical (mirrored design)
+                </label>
+            </div>
+
+            <div class="ff-control-group">
+                <div class="ff-range-display">
+                    <label for="density">Pixel Density</label>
+                    <span class="ff-range-value" id="densityValue">50%</span>
+                </div>
+                <input type="range" id="density" class="ff-range" min="20" max="80" value="50">
+            </div>
+
+            <div class="ff-control-group">
+                <label for="paletteSelect">Color Palette</label>
+                <select id="paletteSelect" class="ff-select"></select>
+            </div>
+        </div>
+
+        <div class="ff-card">
+            <div class="ff-btn-group">
+                <button class="ff-btn ff-btn-primary" id="generateBtn">Generate Sprite</button>
+                <button class="ff-btn ff-btn-secondary" id="generateBatchBtn">Generate Batch (9)</button>
+                <button class="ff-btn ff-btn-secondary" id="exportSVGBtn">Export SVG</button>
+                <button class="ff-btn ff-btn-secondary" id="exportPNGBtn">Export PNG</button>
+            </div>
+        </div>
+
+        <div class="sprite-preview">
+            <canvas id="spriteCanvas" width="256" height="256"></canvas>
+        </div>
+
+        <div class="ff-card" id="gallerySection" style="display: none;">
+            <h3 style="margin-bottom: var(--ff-spacing-md); color: var(--ff-primary);">Generated Sprites (Click to Select)</h3>
+            <div class="sprite-gallery" id="spriteGallery"></div>
+        </div>
+    </div>
+
+    <script src="../../shared/config.js"></script>
+    <script src="../../shared/utils.js"></script>
+    <script>
+        // State
+        let currentCategory = 'person';
+        let currentSprite = null;
+        let spriteHistory = [];
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeControls();
+            initializePalettes();
+            generateSprite();
+        });
+
+        function initializeControls() {
+            // Category buttons
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentCategory = btn.dataset.category;
+                    generateSprite();
+                });
+            });
+
+            // Range sliders
+            document.getElementById('spriteSize').addEventListener('input', (e) => {
+                document.getElementById('spriteSizeValue').textContent = `${e.target.value}x${e.target.value}`;
+            });
+
+            document.getElementById('density').addEventListener('input', (e) => {
+                document.getElementById('densityValue').textContent = `${e.target.value}%`;
+            });
+
+            // Buttons
+            document.getElementById('generateBtn').addEventListener('click', generateSprite);
+            document.getElementById('generateBatchBtn').addEventListener('click', generateBatch);
+            document.getElementById('exportSVGBtn').addEventListener('click', exportSVG);
+            document.getElementById('exportPNGBtn').addEventListener('click', exportPNG);
+        }
+
+        function initializePalettes() {
+            const select = document.getElementById('paletteSelect');
+            Object.keys(FURTHERFIELD_CONFIG.palettes).forEach(key => {
+                const option = document.createElement('option');
+                option.value = key;
+                option.textContent = key.charAt(0).toUpperCase() + key.slice(1);
+                select.appendChild(option);
+            });
+        }
+
+        function generateSprite() {
+            const size = parseInt(document.getElementById('spriteSize').value);
+            const symmetrical = document.getElementById('symmetrical').checked;
+            const density = parseInt(document.getElementById('density').value) / 100;
+            const palette = FURTHERFIELD_CONFIG.palettes[document.getElementById('paletteSelect').value];
+
+            const sprite = createSprite(size, symmetrical, density, palette, currentCategory);
+            currentSprite = sprite;
+            renderSprite(sprite);
+        }
+
+        function createSprite(size, symmetrical, density, palette, category) {
+            const grid = [];
+            const width = symmetrical ? Math.ceil(size / 2) : size;
+
+            // Generate sprite pattern based on category
+            for (let y = 0; y < size; y++) {
+                grid[y] = [];
+                for (let x = 0; x < width; x++) {
+                    const pixel = generatePixel(x, y, size, density, category);
+                    grid[y][x] = pixel ? palette[Math.floor(Math.random() * palette.length)] : null;
+                }
+            }
+
+            // Mirror if symmetrical
+            if (symmetrical) {
+                for (let y = 0; y < size; y++) {
+                    for (let x = width; x < size; x++) {
+                        grid[y][x] = grid[y][size - x - 1];
+                    }
+                }
+            }
+
+            return {
+                size,
+                grid,
+                category,
+                palette,
+                symmetrical,
+                timestamp: new Date()
+            };
+        }
+
+        function generatePixel(x, y, size, density, category) {
+            const centerX = size / 2;
+            const centerY = size / 2;
+            const distFromCenter = Math.sqrt(Math.pow(x - centerX, 2) + Math.pow(y - centerY, 2));
+            const maxDist = size / 2;
+            const normalizedDist = distFromCenter / maxDist;
+
+            let probability = density;
+
+            // Category-specific patterns
+            if (category === 'person') {
+                // Head at top, body below
+                if (y < size * 0.3) {
+                    probability *= 1.5; // Head
+                } else if (y < size * 0.6) {
+                    probability *= 1.2; // Torso
+                }
+                // More likely near center
+                probability *= (1 - normalizedDist * 0.5);
+            } else if (category === 'flora') {
+                // Organic, scattered pattern
+                probability *= (1 - normalizedDist * 0.3);
+                // Add some branching
+                if (Math.random() > 0.7) {
+                    probability *= 1.5;
+                }
+            } else if (category === 'fauna') {
+                // Compact body shape
+                if (y < size * 0.4) {
+                    probability *= 1.3; // Head
+                } else {
+                    probability *= 1.1; // Body
+                }
+                probability *= (1 - normalizedDist * 0.6);
+            } else if (category === 'maritime') {
+                // Boat/anchor shapes
+                if (y > size * 0.3) {
+                    probability *= 1.3;
+                }
+                probability *= (1 - Math.abs(x - centerX) / centerX * 0.5);
+            }
+
+            return Math.random() < probability;
+        }
+
+        function renderSprite(sprite) {
+            const canvas = document.getElementById('spriteCanvas');
+            const ctx = canvas.getContext('2d');
+            const pixelSize = 256 / sprite.size;
+
+            // Clear canvas
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, 256, 256);
+
+            // Draw sprite
+            for (let y = 0; y < sprite.size; y++) {
+                for (let x = 0; x < sprite.size; x++) {
+                    const color = sprite.grid[y][x];
+                    if (color) {
+                        ctx.fillStyle = color;
+                        ctx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
+                    }
+                }
+            }
+        }
+
+        function generateBatch() {
+            const gallery = document.getElementById('spriteGallery');
+            gallery.innerHTML = '';
+            spriteHistory = [];
+
+            for (let i = 0; i < 9; i++) {
+                generateSprite();
+                const spriteData = { ...currentSprite };
+                spriteHistory.push(spriteData);
+
+                // Create thumbnail
+                const canvas = document.createElement('canvas');
+                canvas.width = 64;
+                canvas.height = 64;
+                canvas.className = 'sprite-thumbnail';
+                const ctx = canvas.getContext('2d');
+                const pixelSize = 64 / spriteData.size;
+
+                ctx.fillStyle = 'white';
+                ctx.fillRect(0, 0, 64, 64);
+
+                for (let y = 0; y < spriteData.size; y++) {
+                    for (let x = 0; x < spriteData.size; x++) {
+                        const color = spriteData.grid[y][x];
+                        if (color) {
+                            ctx.fillStyle = color;
+                            ctx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
+                        }
+                    }
+                }
+
+                canvas.addEventListener('click', () => {
+                    currentSprite = spriteData;
+                    renderSprite(spriteData);
+                });
+
+                gallery.appendChild(canvas);
+            }
+
+            document.getElementById('gallerySection').style.display = 'block';
+        }
+
+        function exportSVG() {
+            if (!currentSprite) {
+                alert('Generate a sprite first');
+                return;
+            }
+
+            const svg = spriteToSVG(currentSprite);
+            const metadata = FurtherfieldUtils.createMetadata('sprite-generator', currentSprite.category, ['pixel-art', '8-bit']);
+            const filename = FurtherfieldUtils.generateFilename('sprite', 'svg', currentSprite.category);
+
+            // Export SVG
+            const svgStr = new XMLSerializer().serializeToString(svg);
+            const blob = new Blob([svgStr], { type: 'image/svg+xml' });
+            FurtherfieldUtils.downloadBlob(blob, filename);
+        }
+
+        function exportPNG() {
+            if (!currentSprite) {
+                alert('Generate a sprite first');
+                return;
+            }
+
+            const canvas = document.getElementById('spriteCanvas');
+            const filename = FurtherfieldUtils.generateFilename('sprite', 'png', currentSprite.category);
+
+            canvas.toBlob(blob => {
+                FurtherfieldUtils.downloadBlob(blob, filename);
+            });
+        }
+
+        function spriteToSVG(sprite) {
+            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svg.setAttribute('width', FURTHERFIELD_CONFIG.sizes.sprite);
+            svg.setAttribute('height', FURTHERFIELD_CONFIG.sizes.sprite);
+            svg.setAttribute('viewBox', `0 0 ${sprite.size} ${sprite.size}`);
+
+            // Background
+            const bg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+            bg.setAttribute('width', sprite.size);
+            bg.setAttribute('height', sprite.size);
+            bg.setAttribute('fill', 'white');
+            svg.appendChild(bg);
+
+            // Pixels
+            for (let y = 0; y < sprite.size; y++) {
+                for (let x = 0; x < sprite.size; x++) {
+                    const color = sprite.grid[y][x];
+                    if (color) {
+                        const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                        rect.setAttribute('x', x);
+                        rect.setAttribute('y', y);
+                        rect.setAttribute('width', 1);
+                        rect.setAttribute('height', 1);
+                        rect.setAttribute('fill', color);
+                        svg.appendChild(rect);
+                    }
+                }
+            }
+
+            return svg;
+        }
+    </script>
+</body>
+</html>
