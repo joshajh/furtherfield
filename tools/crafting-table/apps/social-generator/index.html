@@ -6,16 +6,42 @@
     <title>Social Graphics - Crafting Table</title>
     <link rel="stylesheet" href="../../shared/styles.css">
     <style>
+        body {
+            overflow-x: hidden;
+        }
+
         .workflow-container {
             display: grid;
-            grid-template-columns: 400px 1fr;
+            grid-template-columns: 450px 1fr;
             gap: var(--ff-spacing-lg);
+            align-items: start;
         }
 
         .controls-panel {
             display: flex;
             flex-direction: column;
             gap: var(--ff-spacing-lg);
+            max-height: calc(100vh - 200px);
+            overflow-y: auto;
+            padding-right: var(--ff-spacing-sm);
+        }
+
+        .controls-panel::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .controls-panel::-webkit-scrollbar-track {
+            background: var(--ff-border);
+            border-radius: 4px;
+        }
+
+        .controls-panel::-webkit-scrollbar-thumb {
+            background: var(--ff-primary);
+            border-radius: 4px;
+        }
+
+        .controls-panel::-webkit-scrollbar-thumb:hover {
+            background: var(--ff-secondary);
         }
 
         .format-grid {
@@ -70,13 +96,14 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 600px;
-            position: relative;
+            min-height: calc(100vh - 200px);
+            position: sticky;
+            top: 20px;
         }
 
         #socialCanvas {
             max-width: 100%;
-            max-height: 80vh;
+            max-height: calc(100vh - 280px);
             border: 1px solid var(--ff-gray-200);
             box-shadow: var(--ff-shadow-lg);
         }
@@ -174,9 +201,20 @@
             background: var(--ff-accent-light);
         }
 
-        @media (max-width: 1024px) {
+        @media (max-width: 1200px) {
             .workflow-container {
                 grid-template-columns: 1fr;
+            }
+
+            .controls-panel {
+                max-height: none;
+                overflow-y: visible;
+            }
+
+            .canvas-wrapper {
+                position: relative;
+                top: auto;
+                margin-top: var(--ff-spacing-lg);
             }
         }
     </style>
