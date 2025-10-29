@@ -1,0 +1,96 @@
+{
+  "$schema": "https://github.com/design-tokens/community-group",
+  "meta": {
+    "name": "Furtherfield Design Tokens - Spacing",
+    "version": "1.0.0",
+    "description": "Spacing scale for consistent layouts"
+  },
+  "spacing": {
+    "xs": {
+      "value": "4px",
+      "type": "dimension",
+      "description": "Extra small spacing"
+    },
+    "sm": {
+      "value": "8px",
+      "type": "dimension",
+      "description": "Small spacing"
+    },
+    "md": {
+      "value": "16px",
+      "type": "dimension",
+      "description": "Medium spacing"
+    },
+    "lg": {
+      "value": "24px",
+      "type": "dimension",
+      "description": "Large spacing"
+    },
+    "xl": {
+      "value": "32px",
+      "type": "dimension",
+      "description": "Extra large spacing"
+    },
+    "2xl": {
+      "value": "48px",
+      "type": "dimension",
+      "description": "2x extra large spacing"
+    },
+    "3xl": {
+      "value": "64px",
+      "type": "dimension",
+      "description": "3x extra large spacing"
+    }
+  },
+  "sizing": {
+    "asset-sizes": {
+      "sprite": {
+        "value": "64px",
+        "type": "dimension",
+        "description": "Standard sprite/icon size"
+      },
+      "mark": {
+        "value": "128px",
+        "type": "dimension",
+        "description": "Standard mark size"
+      },
+      "small": {
+        "value": "400px",
+        "type": "dimension",
+        "description": "Small asset size"
+      },
+      "standard": {
+        "value": "800px",
+        "type": "dimension",
+        "description": "Standard asset size"
+      },
+      "large": {
+        "value": "1600px",
+        "type": "dimension",
+        "description": "Large asset size"
+      }
+    }
+  },
+  "border-radius": {
+    "sm": {
+      "value": "4px",
+      "type": "dimension",
+      "description": "Small radius for buttons, inputs"
+    },
+    "md": {
+      "value": "8px",
+      "type": "dimension",
+      "description": "Medium radius for cards"
+    },
+    "lg": {
+      "value": "12px",
+      "type": "dimension",
+      "description": "Large radius for containers"
+    },
+    "full": {
+      "value": "9999px",
+      "type": "dimension",
+      "description": "Fully rounded (circles, pills)"
+    }
+  }
+}

@@ -62,7 +62,7 @@ const FURTHERFIELD_CONFIG = {
     // Metadata structure
     assetMetadata: {
         version: '1.0',
-        creator: 'Furtherfield Micro-Apps',
+        creator: 'Crafting Table',
         license: 'CC BY-SA 4.0'
     }
 };

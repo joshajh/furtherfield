@@ -1,0 +1,225 @@
+{
+  "$schema": "https://github.com/design-tokens/community-group",
+  "meta": {
+    "name": "Furtherfield Design Tokens - Colors",
+    "version": "1.0.0",
+    "description": "Color palette inspired by Felixstowe's maritime environment"
+  },
+  "colors": {
+    "brand": {
+      "primary": {
+        "value": "#0a2f51",
+        "type": "color",
+        "description": "Deep maritime blue - primary brand color"
+      },
+      "secondary": {
+        "value": "#137da0",
+        "type": "color",
+        "description": "Ocean blue - secondary brand color"
+      },
+      "accent": {
+        "value": "#58b3d1",
+        "type": "color",
+        "description": "Light maritime blue - accent color"
+      }
+    },
+    "palettes": {
+      "sea": {
+        "50": {
+          "value": "#a4d4e6",
+          "type": "color"
+        },
+        "100": {
+          "value": "#58b3d1",
+          "type": "color"
+        },
+        "200": {
+          "value": "#137da0",
+          "type": "color"
+        },
+        "300": {
+          "value": "#0e4f76",
+          "type": "color"
+        },
+        "400": {
+          "value": "#0a2f51",
+          "type": "color"
+        }
+      },
+      "shore": {
+        "50": {
+          "value": "#f2e8dc",
+          "type": "color"
+        },
+        "100": {
+          "value": "#e8caa4",
+          "type": "color"
+        },
+        "200": {
+          "value": "#d4a574",
+          "type": "color"
+        },
+        "300": {
+          "value": "#a8956c",
+          "type": "color"
+        },
+        "400": {
+          "value": "#8b6f47",
+          "type": "color"
+        }
+      },
+      "maritime": {
+        "50": {
+          "value": "#c1d5e8",
+          "type": "color"
+        },
+        "100": {
+          "value": "#90c2e7",
+          "type": "color"
+        },
+        "200": {
+          "value": "#4d7ea8",
+          "type": "color"
+        },
+        "300": {
+          "value": "#3d5a80",
+          "type": "color"
+        },
+        "400": {
+          "value": "#1f3a5f",
+          "type": "color"
+        }
+      },
+      "flora": {
+        "50": {
+          "value": "#c8e89c",
+          "type": "color"
+        },
+        "100": {
+          "value": "#9bc54d",
+          "type": "color"
+        },
+        "200": {
+          "value": "#6fa834",
+          "type": "color"
+        },
+        "300": {
+          "value": "#4a7c23",
+          "type": "color"
+        },
+        "400": {
+          "value": "#2d5016",
+          "type": "color"
+        }
+      },
+      "sunset": {
+        "50": {
+          "value": "#f4e4c1",
+          "type": "color"
+        },
+        "100": {
+          "value": "#ffeb8a",
+          "type": "color"
+        },
+        "200": {
+          "value": "#fdc43f",
+          "type": "color"
+        },
+        "300": {
+          "value": "#f7931e",
+          "type": "color"
+        },
+        "400": {
+          "value": "#ff6b35",
+          "type": "color"
+        }
+      }
+    },
+    "neutral": {
+      "white": {
+        "value": "#ffffff",
+        "type": "color"
+      },
+      "gray": {
+        "50": {
+          "value": "#f9fafb",
+          "type": "color"
+        },
+        "100": {
+          "value": "#f3f4f6",
+          "type": "color"
+        },
+        "200": {
+          "value": "#e5e7eb",
+          "type": "color"
+        },
+        "300": {
+          "value": "#d1d5db",
+          "type": "color"
+        },
+        "400": {
+          "value": "#9ca3af",
+          "type": "color"
+        },
+        "500": {
+          "value": "#6b7280",
+          "type": "color"
+        },
+        "600": {
+          "value": "#4b5563",
+          "type": "color"
+        },
+        "700": {
+          "value": "#374151",
+          "type": "color"
+        },
+        "800": {
+          "value": "#1f2937",
+          "type": "color"
+        },
+        "900": {
+          "value": "#111827",
+          "type": "color"
+        }
+      },
+      "black": {
+        "value": "#000000",
+        "type": "color"
+      }
+    },
+    "semantic": {
+      "content-types": {
+        "article": {
+          "value": "#2563eb",
+          "type": "color",
+          "description": "Color for article content type"
+        },
+        "event": {
+          "value": "#dc2626",
+          "type": "color",
+          "description": "Color for event content type"
+        },
+        "artwork": {
+          "value": "#7c3aed",
+          "type": "color",
+          "description": "Color for artwork content type"
+        },
+        "exhibition": {
+          "value": "#059669",
+          "type": "color",
+          "description": "Color for exhibition content type"
+        },
+        "project": {
+          "value": "#ea580c",
+          "type": "color",
+          "description": "Color for project content type"
+        },
+        "archive": {
+          "value": "#4b5563",
+          "type": "color",
+          "description": "Color for archive content type"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "$schema": "https://github.com/design-tokens/community-group",
+  "meta": {
+    "name": "Furtherfield Design Tokens - Typography",
+    "version": "1.0.0",
+    "description": "Typography system for Furtherfield visual identity"
+  },
+  "typography": {
+    "font-families": {
+      "sans": {
+        "value": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif",
+        "type": "fontFamily",
+        "description": "Primary sans-serif font stack"
+      },
+      "mono": {
+        "value": "'Courier New', Courier, monospace",
+        "type": "fontFamily",
+        "description": "Monospace font for code and technical content"
+      }
+    },
+    "font-sizes": {
+      "xs": {
+        "value": "0.75rem",
+        "type": "dimension",
+        "description": "12px - Small labels, captions"
+      },
+      "sm": {
+        "value": "0.875rem",
+        "type": "dimension",
+        "description": "14px - Body small, UI text"
+      },
+      "base": {
+        "value": "1rem",
+        "type": "dimension",
+        "description": "16px - Base body text"
+      },
+      "lg": {
+        "value": "1.125rem",
+        "type": "dimension",
+        "description": "18px - Large body text"
+      },
+      "xl": {
+        "value": "1.25rem",
+        "type": "dimension",
+        "description": "20px - Small headings"
+      },
+      "2xl": {
+        "value": "1.5rem",
+        "type": "dimension",
+        "description": "24px - Medium headings"
+      },
+      "3xl": {
+        "value": "2rem",
+        "type": "dimension",
+        "description": "32px - Large headings"
+      },
+      "4xl": {
+        "value": "2.5rem",
+        "type": "dimension",
+        "description": "40px - Display headings"
+      }
+    },
+    "font-weights": {
+      "regular": {
+        "value": "400",
+        "type": "fontWeight"
+      },
+      "medium": {
+        "value": "500",
+        "type": "fontWeight"
+      },
+      "semibold": {
+        "value": "600",
+        "type": "fontWeight"
+      },
+      "bold": {
+        "value": "700",
+        "type": "fontWeight"
+      }
+    },
+    "line-heights": {
+      "tight": {
+        "value": "1.25",
+        "type": "number",
+        "description": "For headings"
+      },
+      "normal": {
+        "value": "1.5",
+        "type": "number",
+        "description": "For UI text"
+      },
+      "relaxed": {
+        "value": "1.6",
+        "type": "number",
+        "description": "For body text"
+      },
+      "loose": {
+        "value": "1.8",
+        "type": "number",
+        "description": "For long-form content"
+      }
+    }
+  }
+}

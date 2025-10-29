@@ -1,386 +1,262 @@
-# Furtherfield Design Tools
+# Furtherfield Visual Identity System
 
-A modular suite of micro-apps for generative visual identity design. Each tool performs a specific task and can be used independently or composed together to create dynamic, data-driven assets rooted in Felixstowe's maritime environment.
+A complete design system for a digital arts organisation based in Felixstowe, UK. This monorepo contains design tokens, documentation, and generative design tools that create a flexible, data-driven visual identity rooted in the maritime environment.
 
-## Philosophy
-
-This system takes a **tech-first, tool-based approach** to visual identity design:
-
-- **Modular**: Each app does one thing well
-- **Composable**: Apps work standalone or together
-- **Data-driven**: Real-world maritime data influences generation
-- **Flexible**: Remove rigidity while maintaining structure
-- **Archival**: Built-in taxonomy for knowledge management
-
-## Quick Start
-
-1. Open `index.html` in your browser to see all available apps
-2. Each app is self-contained in `apps/[app-name]/index.html`
-3. No build process required - just open and use
-4. Optional: Run `python3 -m http.server 8000` for local hosting
-
-## The Micro-Apps
-
-### 1. Grid Generator (`apps/grid-generator/`)
-
-Creates flexible grids with wave-like distortions based on real-time data.
-
-**Features:**
-- Real-time tidal data from UK Environment Agency API
-- Ship movement tracking from Port of Felixstowe
-- Adjustable wave amplitude and frequency
-- Maintains structure while adding organic flow
-- SVG & PNG export
-
-**Use Cases:**
-- Base patterns for layouts
-- Backgrounds for posters, websites
-- Animated sequences showing tidal cycles
-- Unique patterns for each publication
-
-**Data Sources:**
-- Tidal: Updates every 15 minutes from nearest tide gauge
-- Ships: Vessel arrivals/departures influence wave patterns
-
----
-
-### 2. Colorist (`apps/colorist/`)
-
-Applies color palettes, gradients, and generative noise to existing assets.
-
-**Features:**
-- 4 color modes: Solid Palette, Gradient, Generative Noise, Tint/Overlay
-- 6 maritime-inspired palettes (sea, shore, maritime, flora, monochrome, sunset)
-- Custom palette builder
-- Works with SVG files from other apps
-- Preserves vector quality
-
-**Use Cases:**
-- Colorize grid patterns for different seasons/events
-- Create color variations of sprites
-- Apply brand colors to generated assets
-- Add visual noise for texture
-
-**Workflow:**
-1. Load SVG from Grid Generator or Sprite Generator
-2. Select color mode and palette
-3. Adjust parameters
-4. Export colored version
-
----
-
-### 3. Sprite Generator (`apps/sprite-generator/`)
-
-Generates procedural 8-bit pixel art of people, flora, fauna, and maritime objects.
-
-**Features:**
-- 4 categories: Person, Flora, Fauna, Maritime
-- Symmetrical or asymmetrical designs
-- Adjustable pixel density and size (8x8 to 32x32)
-- Batch generation (9 sprites at once)
-- Thumbnail gallery for selection
-- All maritime-themed color palettes available
-
-**Use Cases:**
-- Trading card-like symbols for community members
-- Icons representing different content types
-- Profile pictures with consistent style
-- Decorative elements for publications
-
-**Algorithm:**
-- Procedural generation with category-specific patterns
-- Person: head/torso/body structure
-- Flora: organic, branching patterns
-- Fauna: compact body shapes
-- Maritime: boat/anchor/port shapes
-
----
-
-### 4. Mark Generator (`apps/mark-generator/`)
-
-Creates geometric marks that encode content-type and tags for archival and knowledge management.
-
-**Features:**
-- Visual encoding of metadata
-- 6 content types (Article, Event, Artwork, Exhibition, Project, Archive)
-- 4 primary tags (Digital, Environmental, Community, Historical)
-- 4 attribute modifiers (Interactive, Ongoing, Collaborative, Experimental)
-- Decodable marks with included legend
-- Unique ID generation
-
-**Taxonomy:**
-
-**Content Types (Shapes):**
-- Square = Article
-- Circle = Event
-- Triangle = Artwork
-- Hexagon = Exhibition
-- Pentagon = Project
-- Octagon = Archive
-
-**Primary Tags (Position Markers):**
-- Top = Digital
-- Right = Environmental
-- Bottom = Community
-- Left = Historical
-
-**Attributes (Style Modifiers):**
-- Outlined = Interactive
-- Dotted = Experimental
-- Composite = Collaborative
-- (Future: Animated indicators = Ongoing)
-
-**Use Cases:**
-- Physical/digital archive organization
-- Content classification system
-- Visual knowledge graph
-- Wayfinding system
-- Document categorization
-- Exhibition labeling
-
----
-
-### 5. Compositor (`apps/compositor/`)
-
-Combines outputs from multiple micro-apps into final layered compositions.
-
-**Features:**
-- Multi-layer composition
-- Per-layer controls: position, scale, opacity, rotation
-- Layer reordering (bring to front/send to back)
-- Background color selector
-- Real-time preview
-- Supports SVG, PNG, JPG
-
-**Use Cases:**
-- Combine grid + sprite + mark into single asset
-- Create posters with multiple generated elements
-- Layer colored grids with marks
-- Build trading card designs
-- Assemble complex layouts
-
-**Workflow:**
-1. Generate assets in other apps (Grid, Sprite, Mark)
-2. Load all assets into Compositor
-3. Arrange, scale, and position layers
-4. Adjust opacity for overlays
-5. Export final composition
-
----
-
-## Shared Infrastructure
-
-All apps share common utilities and configuration:
-
-### `shared/config.js`
-- Standard asset sizes
-- Color palettes
-- Content taxonomy
-- Export formats
-- Felixstowe location data
-
-### `shared/utils.js`
-- Export functions (SVG, PNG, JSON)
-- Metadata generation
-- Color utilities
-- File loading helpers
-
-### `shared/styles.css`
-- Consistent UI components
-- Responsive layout
-- Maritime-inspired color scheme
-
-## Typical Workflows
-
-### Workflow 1: Event Poster
-1. **Grid Generator**: Create wavy grid based on event date's tide
-2. **Colorist**: Apply event-specific color palette
-3. **Mark Generator**: Create mark encoding event type + tags
-4. **Compositor**: Combine grid + mark, add text externally
-
-### Workflow 2: Trading Cards
-1. **Sprite Generator**: Create character/creature pixel art
-2. **Colorist**: Apply thematic palette
-3. **Mark Generator**: Encode character attributes
-4. **Compositor**: Arrange sprite + mark + decorative elements
-
-### Workflow 3: Archive System
-1. **Mark Generator**: Create marks for all content items
-2. Export with metadata JSON
-3. Use marks as visual index system
-4. Decode marks using included taxonomy
-
-### Workflow 4: Dynamic Identity
-1. **Grid Generator**: Generate grids at key tidal moments
-2. **Colorist**: Create seasonal color variants
-3. Build library of variations
-4. Apply different combinations for different use cases
-
-## Technical Details
-
-### Data Formats
-
-All apps export consistent metadata:
-```json
-{
-  "id": "ff-1234567890-abc123",
-  "app": "grid-generator",
-  "timestamp": "2025-10-29T15:00:00.000Z",
-  "contentType": "generated-grid",
-  "tags": ["tidal", "wave"],
-  "version": "1.0",
-  "creator": "Furtherfield Micro-Apps"
-}
-```
-
-### Export Formats
-
-- **SVG**: Vector, editable, ideal for design tools
-- **PNG**: Raster, ready for web/print
-- **JSON**: Metadata for archival/reconstruction
-
-### Browser Compatibility
-
-Works in all modern browsers with:
-- SVG rendering
-- ES6 JavaScript
-- Canvas API
-- Fetch API
-
-No frameworks or build tools required.
-
-## File Structure
+## 📦 Repository Structure
 
 ```
 furtherfield/
-├── index.html                 # Landing page / app navigator
-├── apps/
-│   ├── grid-generator/       # Tidal/ship-based grid generation
-│   ├── colorist/             # Color application tool
-│   ├── sprite-generator/     # Pixel art generator
-│   ├── mark-generator/       # Encoded taxonomy marks
-│   └── compositor/           # Multi-layer composition
-├── shared/
-│   ├── config.js            # Global configuration
-│   ├── utils.js             # Shared utilities
-│   └── styles.css           # Common styles
-├── docs/                    # Documentation
-└── README.md               # This file
+├── design-tokens/          # Systematic design values
+│   ├── colors.json        # Color palettes and semantic colors
+│   ├── typography.json    # Font scales and hierarchy
+│   ├── spacing.json       # Spacing scale and sizing
+│   └── README.md          # Token documentation
+│
+├── docs/                  # Documentation and guidelines
+│   ├── brand-guidelines.md   # Visual identity guidelines
+│   ├── taxonomy.md          # Content classification system
+│   ├── workflows.md         # Common design workflows
+│   └── README.md            # Documentation overview
+│
+├── tools/                 # Software tools
+│   └── crafting-table/   # Generative design micro-apps
+│       ├── apps/          # Individual micro-apps
+│       │   ├── grid-generator/     # Tidal/ship-based grids
+│       │   ├── colorist/          # Color application tool
+│       │   ├── sprite-generator/  # 8-bit pixel art
+│       │   ├── mark-generator/    # Taxonomy encoding marks
+│       │   └── compositor/        # Multi-layer composition
+│       ├── shared/        # Common utilities and styles
+│       └── README.md      # Tool documentation
+│
+└── assets/               # Example outputs and references
+    └── examples/         # Sample generated assets
 ```
 
-## Content Taxonomy
+## 🚀 Quick Start
 
-The system includes a complete taxonomy for content classification:
+### For Designers
 
-### Content Types
-- **Article**: Written content, blog posts, essays
-- **Event**: Workshops, exhibitions openings, performances
-- **Artwork**: Individual artworks, installations
-- **Exhibition**: Curated shows, collections
-- **Project**: Long-term initiatives, collaborations
-- **Archive**: Historical materials, documentation
+1. **Read the guidelines**: Start with [`docs/brand-guidelines.md`](docs/brand-guidelines.md)
+2. **Explore design tokens**: See [`design-tokens/`](design-tokens/)
+3. **Use the tools**: Open [`tools/crafting-table/index.html`](tools/crafting-table/index.html) in your browser
+4. **Follow workflows**: Check [`docs/workflows.md`](docs/workflows.md) for step-by-step guides
 
-### Tags
-- **Digital**: Technology, net art, digital culture
-- **Environmental**: Nature, ecology, sustainability
-- **Community**: Participation, collaboration, social practice
-- **Historical**: Archive, heritage, memory
+### For Developers
 
-### Attributes
-- **Interactive**: Requires participation, responsive
-- **Ongoing**: Long-term, iterative, continuous
-- **Collaborative**: Multiple creators, collective work
-- **Experimental**: Research-based, exploratory
+1. **Import design tokens**: Use JSON files from [`design-tokens/`](design-tokens/)
+2. **Review tool APIs**: See [`tools/crafting-table/README.md`](tools/crafting-table/README.md)
+3. **Explore source code**: All tools are vanilla HTML/CSS/JS with no build process
 
-## Maritime Data Sources
+### For Content Creators
 
-### Tidal Data
-- **API**: UK Environment Agency Flood Monitoring
-- **Station**: Nearest tide gauge to Felixstowe (52.06°N, 1.35°E)
-- **Update Frequency**: Every 15 minutes
-- **Data**: Tide level in mAOD (metres above Ordnance Datum)
-- **URL**: https://environment.data.gov.uk/flood-monitoring
+1. **Learn the taxonomy**: Read [`docs/taxonomy.md`](docs/taxonomy.md)
+2. **Generate marks**: Use the [Mark Generator](tools/crafting-table/apps/mark-generator/index.html)
+3. **Classify content**: Apply marks to organize and archive
 
-### Ship Data
-- **Source**: Port of Felixstowe vessel tracking
-- **Data**: Arrivals, departures, vessels at berth
-- **Implementation**: Optional backend proxy (see `apps/grid-generator/server.js`)
-- **Fallback**: Simulated realistic traffic patterns
+## 🎨 Design System Components
 
-## Advanced Usage
+### 1. Design Tokens
 
-### Custom Palettes
-1. In Colorist, select "Custom Palette"
-2. Add colors using color picker
-3. Export colored asset
-4. Metadata includes your custom palette
+Foundational design values in machine-readable JSON format:
 
-### Batch Processing
-1. Sprite Generator can create 9 sprites at once
-2. Select favorites from thumbnail gallery
-3. Process multiple grids at different tide levels
-4. Build asset libraries
+- **Colors**: Maritime-inspired palettes (sea, shore, flora, sunset)
+- **Typography**: Font scales, weights, and hierarchy
+- **Spacing**: Consistent spacing scale and asset sizes
 
-### Metadata-Driven Workflows
-1. Export JSON metadata with all assets
-2. Use IDs to link related assets
-3. Build databases of generated works
-4. Reconstruct parameters later
+[→ Explore Design Tokens](design-tokens/)
 
-### Integration with Design Tools
-1. Export SVG from any app
-2. Open in Illustrator, Figma, Inkscape
-3. Further edit while preserving vectors
-4. Combine with typography, photography
+### 2. Crafting Table
 
-## Future Enhancements
+A suite of 5 micro-apps for generative design:
 
-Potential additions to the suite:
+- **Grid Generator**: Wavy grids influenced by Felixstowe tidal data and ship movements
+- **Colorist**: Apply palettes, gradients, and generative noise to assets
+- **Sprite Generator**: Procedural 8-bit pixel art (people, flora, fauna, maritime)
+- **Mark Generator**: Geometric marks that visually encode content taxonomy
+- **Compositor**: Layer and combine outputs into final compositions
 
-- [ ] **Typography Tool**: Maritime-inspired type treatment generator
-- [ ] **Animation Tool**: Create time-lapse sequences of tide cycles
-- [ ] **Pattern Tool**: Generate seamless patterns from grids
-- [ ] **3D Extrusion**: Convert 2D marks into 3D models
-- [ ] **Sound Tool**: Sonify tidal/ship data
-- [ ] **Historical Playback**: View data from past dates
-- [ ] **API Integration**: Direct webhook connections
-- [ ] **Preset System**: Save and load configurations
-- [ ] **Collaborative Features**: Share assets between users
-- [ ] **Print Templates**: Ready-to-use layouts for physical materials
+**Key Features:**
+- Real-time maritime data integration
+- SVG/PNG/JSON export
+- No installation required - runs in browser
+- Modular architecture - use tools independently or together
 
-## Credits
+[→ Launch Crafting Table](tools/crafting-table/index.html)
 
-Created for a digital arts organisation based in Felixstowe, UK.
+### 3. Taxonomy System
 
-The system bridges traditional grid-based design with the fluid, data-driven dynamics of maritime life, creating a visual identity that's both structured and organic, local and universal.
+A visual classification system using geometric marks:
 
-## License
+- **6 Content Types** encoded as shapes (article, event, artwork, exhibition, project, archive)
+- **4 Primary Tags** shown as position markers (digital, environmental, community, historical)
+- **4 Attributes** indicated by style modifiers (interactive, experimental, collaborative, ongoing)
 
-MIT License
+**Use Cases:**
+- Archive organization
+- Content classification
+- Wayfinding systems
+- Knowledge management
+
+[→ Learn the Taxonomy](docs/taxonomy.md)
+
+## 🌊 Design Philosophy
+
+### Place-Based
+Every element connects to Felixstowe's maritime environment:
+- Grids reflect tidal movements
+- Colors drawn from sea and shore
+- Data from local port and tides
+
+### Flexible Structure
+Maintains order while adding organic fluidity:
+- Wavy grids instead of rigid rectangles
+- Structure adapts without losing coherence
+- Rules provide framework for variation
+
+### Data-Driven
+Real-world data influences visual decisions:
+- Tidal levels affect wave patterns
+- Ship movements inform composition
+- Time stamps create unique moments
+
+### Modular
+Build complexity from simple components:
+- Each tool does one thing well
+- Tools work independently or together
+- Consistent formats enable interoperability
+
+## 📖 Documentation
+
+Comprehensive guides for all aspects of the system:
+
+- [**Brand Guidelines**](docs/brand-guidelines.md) - Visual identity, colors, typography, composition
+- [**Taxonomy**](docs/taxonomy.md) - Content classification system and marks
+- [**Workflows**](docs/workflows.md) - Step-by-step guides for common tasks
+- [**Design Tokens**](design-tokens/README.md) - Token format and usage
+- [**Crafting Table**](tools/crafting-table/README.md) - Tool documentation and APIs
+
+## 🎯 Common Use Cases
+
+### Event Promotion
+1. Generate grid reflecting event date's tide
+2. Apply thematic color palette
+3. Create mark encoding event type/tags
+4. Compose into poster or social media asset
+
+[→ See Workflow](docs/workflows.md#workflow-1-event-poster)
+
+### Archive Organization
+1. Define content types and tags
+2. Generate marks for each item
+3. Print/embed marks for unified system
+4. Use across physical and digital archives
+
+[→ See Workflow](docs/workflows.md#workflow-3-archive-system)
+
+### Web Design
+1. Generate tidal grids as backgrounds
+2. Create sprite-based icons
+3. Use marks for navigation
+4. Update dynamically with real-time data
+
+[→ See Workflow](docs/workflows.md#workflow-4-web-backgrounds)
+
+## 🛠️ Technical Details
+
+**Crafting Table:**
+- Built with vanilla HTML, CSS, JavaScript
+- No frameworks or dependencies
+- No build process required
+- Works offline (except tidal data fetching)
+- Responsive design, mobile-friendly
+
+**Design Tokens:**
+- JSON format following W3C Design Tokens spec
+- Importable in CSS, JS, design tools
+- Semantic naming convention
+- Versioned for change management
+
+**Data Sources:**
+- UK Environment Agency Flood Monitoring API (tidal data)
+- Port of Felixstowe vessel tracking (ship data)
+- Graceful fallback to simulated data
+
+## 🎓 Learning Path
+
+**Week 1: Understanding**
+- Day 1-2: Read brand guidelines
+- Day 3-4: Explore design tokens
+- Day 5: Try each tool in Crafting Table
+
+**Week 2: Practicing**
+- Day 1-2: Follow workflow tutorials
+- Day 3-4: Generate assets for real project
+- Day 5: Experiment with combinations
+
+**Week 3: Mastering**
+- Day 1-2: Create full compositions
+- Day 3-4: Implement in design software
+- Day 5: Teach someone else the system
+
+## 🤝 Contributing
+
+This is a living system. To contribute:
+
+1. **For design additions**: Open an issue proposing the change
+2. **For tool improvements**: Fork and submit pull request
+3. **For documentation**: Edit markdown files and PR
+4. **For taxonomy extensions**: Propose in issue with examples
+
+## 📋 Maintenance
+
+**Design Tokens:** Review quarterly, update as needed
+**Crafting Table:** Fix bugs as reported, add features as requested
+**Documentation:** Keep synchronized with tool updates
+**Taxonomy:** Evolve based on community needs
+
+## 📄 License
+
+MIT License - See individual components for specific terms
+
+## 🌍 Location
+
+**Felixstowe, Suffolk, UK**
+- Coordinates: 52.06°N, 1.35°E
+- UK's largest container port
+- Coastal town with rich maritime heritage
+
+## 📞 Support
+
+- **Technical issues**: See tool documentation
+- **Design questions**: See brand guidelines
+- **General questions**: Open an issue on GitHub
 
 ---
 
-## Getting Help
+## Version
 
-- Open `index.html` for interactive tool selection
-- Each app has inline help and examples
-- Check `shared/config.js` for customizable parameters
-- Inspect browser console for debugging
+**Current Release:** 1.0.0
 
-## Contributing
-
-To add a new micro-app:
-
-1. Create `apps/[app-name]/index.html`
-2. Import shared CSS and JS
-3. Use `FurtherfieldUtils` for exports
-4. Follow the established UI patterns
-5. Add to main `index.html` landing page
-6. Document in this README
+- **Design Tokens:** 1.0.0
+- **Crafting Table:** 1.0.0
+- **Taxonomy:** 1.0.0
+- **Documentation:** 1.0.0
 
 ---
 
-**Built with:** Vanilla HTML, CSS, JavaScript
-**No dependencies:** No frameworks, no build process
-**Data sources:** UK Environment Agency, Port of Felixstowe
-**Location:** Felixstowe, Suffolk, UK (52.06°N, 1.35°E)
+**Built for:** Digital arts organisation, Felixstowe, UK
+**Philosophy:** Tech-first, tool-based approach to visual identity
+**Core Concept:** Flexible grids meeting fluid maritime data
+
+---
+
+## Quick Links
+
+- 🎨 [Launch Crafting Table](tools/crafting-table/index.html)
+- 📘 [Brand Guidelines](docs/brand-guidelines.md)
+- 🏷️ [Taxonomy System](docs/taxonomy.md)
+- 🎬 [Workflows](docs/workflows.md)
+- 🎨 [Design Tokens](design-tokens/)
+
+**Start creating!** 🌊
