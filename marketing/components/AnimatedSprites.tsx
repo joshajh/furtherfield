@@ -1,8 +1,7 @@
 'use client'
 
-import { useEffect, useState, useRef } from 'react'
-import { motion } from 'framer-motion'
-import Image from 'next/image'
+import { useEffect, useState, useRef, useCallback } from 'react'
+import { motion, useSpring, useTransform } from 'framer-motion'
 
 type Sprite = {
   id: string
@@ -10,79 +9,115 @@ type Sprite = {
   name: string
   size: number
   speed: number
+  fleeDistance: number
 }
 
 const SPRITES: Omit<Sprite, 'id'>[] = [
-  { src: '/sprites/bee.png', name: 'Bee', size: 32, speed: 0.8 },
-  { src: '/sprites/beetle.png', name: 'Beetle', size: 28, speed: 0.5 },
-  { src: '/sprites/dog.png', name: 'Dog', size: 40, speed: 0.6 },
-  { src: '/sprites/goose.png', name: 'Goose', size: 36, speed: 0.7 },
-  { src: '/sprites/squirel.png', name: 'Squirrel', size: 32, speed: 0.9 },
+  { src: '/sprites/bee.png', name: 'Bee', size: 32, speed: 0.8, fleeDistance: 150 },
+  { src: '/sprites/beetle.png', name: 'Beetle', size: 28, speed: 0.5, fleeDistance: 100 },
+  { src: '/sprites/dog.png', name: 'Dog', size: 40, speed: 0.6, fleeDistance: 120 },
+  { src: '/sprites/goose.png', name: 'Goose', size: 36, speed: 0.7, fleeDistance: 180 },
+  { src: '/sprites/squirel.png', name: 'Squirrel', size: 32, speed: 0.9, fleeDistance: 200 },
 ]
 
 type SpriteInstance = Sprite & {
   x: number
   y: number
-  targetX: number
-  targetY: number
-  flipped: boolean
 }
 
-function generateRandomPosition(maxX: number, maxY: number) {
-  return {
-    x: Math.random() * maxX,
-    y: Math.random() * maxY,
-  }
-}
+type CursorPosition = { x: number; y: number }
 
-function AnimatedSprite({ sprite }: { sprite: SpriteInstance }) {
-  const [target, setTarget] = useState({ x: sprite.targetX, y: sprite.targetY })
-  const [flipped, setFlipped] = useState(sprite.flipped)
-  const lastTargetRef = useRef({ x: sprite.x, y: sprite.y })
+function AnimatedSprite({
+  sprite,
+  cursorPos
+}: {
+  sprite: SpriteInstance
+  cursorPos: CursorPosition
+}) {
+  const [position, setPosition] = useState({ x: sprite.x, y: sprite.y })
+  const [flipped, setFlipped] = useState(false)
+  const basePositionRef = useRef({ x: sprite.x, y: sprite.y })
+  const velocityRef = useRef({ x: 0, y: 0 })
 
+  // Spring for smooth cursor-reactive movement
+  const springX = useSpring(sprite.x, { stiffness: 50, damping: 20 })
+  const springY = useSpring(sprite.y, { stiffness: 50, damping: 20 })
+
+  // Update base wandering position periodically
   useEffect(() => {
-    const updateTarget = () => {
+    const wander = () => {
       const maxX = window.innerWidth - sprite.size
       const maxY = window.innerHeight - sprite.size
-      const newTarget = generateRandomPosition(maxX, maxY)
+      const newX = Math.random() * maxX
+      const newY = Math.random() * maxY
 
-      // Determine flip based on movement direction
-      setFlipped(newTarget.x < lastTargetRef.current.x)
-      lastTargetRef.current = newTarget
-      setTarget(newTarget)
+      basePositionRef.current = { x: newX, y: newY }
     }
 
-    // Update target periodically based on sprite speed
-    const baseInterval = 8000 / sprite.speed
-    const interval = setInterval(updateTarget, baseInterval + Math.random() * 4000)
+    wander()
+    const interval = setInterval(wander, (6000 / sprite.speed) + Math.random() * 4000)
     return () => clearInterval(interval)
   }, [sprite.speed, sprite.size])
+
+  // React to cursor position
+  useEffect(() => {
+    const updatePosition = () => {
+      const base = basePositionRef.current
+      let targetX = base.x
+      let targetY = base.y
+
+      // Calculate distance from cursor
+      const dx = base.x - cursorPos.x
+      const dy = base.y - cursorPos.y
+      const distance = Math.sqrt(dx * dx + dy * dy)
+
+      // If cursor is close, flee from it
+      if (distance < sprite.fleeDistance && distance > 0) {
+        const fleeStrength = (1 - distance / sprite.fleeDistance) * 100
+        const angle = Math.atan2(dy, dx)
+        targetX = base.x + Math.cos(angle) * fleeStrength
+        targetY = base.y + Math.sin(angle) * fleeStrength
+
+        // Clamp to viewport
+        targetX = Math.max(0, Math.min(window.innerWidth - sprite.size, targetX))
+        targetY = Math.max(0, Math.min(window.innerHeight - sprite.size, targetY))
+      }
+
+      // Update flip based on movement direction
+      const movingLeft = targetX < position.x
+      setFlipped(movingLeft)
+
+      springX.set(targetX)
+      springY.set(targetY)
+      setPosition({ x: targetX, y: targetY })
+    }
+
+    updatePosition()
+  }, [cursorPos.x, cursorPos.y, sprite.fleeDistance, sprite.size, springX, springY, position.x])
 
   return (
     <motion.div
       className="fixed pointer-events-none z-40"
-      initial={{ x: sprite.x, y: sprite.y, opacity: 0 }}
-      animate={{
-        x: target.x,
-        y: target.y,
-        opacity: 1,
-      }}
-      transition={{
-        x: { duration: 8 / sprite.speed, ease: 'linear' },
-        y: { duration: 8 / sprite.speed, ease: 'linear' },
-        opacity: { duration: 1 },
-      }}
+      style={{ x: springX, y: springY }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ opacity: { duration: 1 } }}
     >
-      <Image
-        src={sprite.src}
-        alt={sprite.name}
-        width={sprite.size}
-        height={sprite.size}
-        className="pixelated"
+      <div
         style={{
-          imageRendering: 'pixelated',
+          width: sprite.size,
+          height: sprite.size,
           transform: flipped ? 'scaleX(-1)' : 'none',
+          WebkitMaskImage: `url(${sprite.src})`,
+          maskImage: `url(${sprite.src})`,
+          WebkitMaskSize: 'contain',
+          maskSize: 'contain',
+          WebkitMaskRepeat: 'no-repeat',
+          maskRepeat: 'no-repeat',
+          backdropFilter: 'invert(1)',
+          WebkitBackdropFilter: 'invert(1)',
         }}
+        aria-label={sprite.name}
       />
     </motion.div>
   )
@@ -91,6 +126,17 @@ function AnimatedSprite({ sprite }: { sprite: SpriteInstance }) {
 export function AnimatedSprites() {
   const [sprites, setSprites] = useState<SpriteInstance[]>([])
   const [mounted, setMounted] = useState(false)
+  const [cursorPos, setCursorPos] = useState<CursorPosition>({ x: -1000, y: -1000 })
+
+  // Track cursor position
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setCursorPos({ x: e.clientX, y: e.clientY })
+    }
+
+    window.addEventListener('mousemove', handleMouseMove)
+    return () => window.removeEventListener('mousemove', handleMouseMove)
+  }, [])
 
   useEffect(() => {
     setMounted(true)
@@ -99,16 +145,11 @@ export function AnimatedSprites() {
     const maxY = window.innerHeight - 50
 
     const instances: SpriteInstance[] = SPRITES.map((sprite, i) => {
-      const start = generateRandomPosition(maxX, maxY)
-      const end = generateRandomPosition(maxX, maxY)
       return {
         ...sprite,
         id: `${sprite.name}-${i}`,
-        x: start.x,
-        y: start.y,
-        targetX: end.x,
-        targetY: end.y,
-        flipped: end.x < start.x,
+        x: Math.random() * maxX,
+        y: Math.random() * maxY,
       }
     })
 
@@ -120,7 +161,11 @@ export function AnimatedSprites() {
   return (
     <>
       {sprites.map((sprite) => (
-        <AnimatedSprite key={sprite.id} sprite={sprite} />
+        <AnimatedSprite
+          key={sprite.id}
+          sprite={sprite}
+          cursorPos={cursorPos}
+        />
       ))}
     </>
   )
