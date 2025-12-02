@@ -6,6 +6,7 @@ import {
   ProgrammeTable,
   CTASection,
   Button,
+  AnimatedSprites,
   type Event,
 } from "@/components";
 import { FullWidthImage } from "@/components/FullWidthImage";
@@ -49,6 +50,7 @@ const events: Event[] = [
 export default function Home() {
   return (
     <div className="min-h-screen flex flex-col gap-2.5 py-2.5">
+      <AnimatedSprites />
       <Navigation />
 
       <main className="flex flex-col gap-2.5">
@@ -76,13 +78,6 @@ export default function Home() {
           buttonHref="#"
         />
 
-        {/* Decorative ovals - placeholder for 8-bit sprites */}
-        <div className="flex justify-center py-10">
-          <div className="flex flex-col gap-4">
-            <div className="w-72 h-48 rounded-[50%] border-2 border-text-light/20" />
-            <div className="w-72 h-48 rounded-[50%] border-2 border-text-light/20" />
-          </div>
-        </div>
       </main>
 
       <Footer />

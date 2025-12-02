@@ -7,3 +7,6 @@ export { ProgrammeTable } from "./ProgrammeTable";
 export { CTASection } from "./CTASection";
 export { FullWidthImage } from "./FullWidthImage";
 export { TidalGrid } from "./TidalGrid";
+export { AnimatedSprites } from "./AnimatedSprites";
+export { SycamoreBorder } from "./SycamoreBorder";
+export { CustomCursor } from "./CustomCursor";

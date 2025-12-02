@@ -119,12 +119,19 @@ export function TidalGrid({
   animationSpeed = 0.0001,
 }: TidalGridProps) {
   const [animationPhase, setAnimationPhase] = useState(0);
-  const [maritimeData, setMaritimeData] = useState(generateMaritimeData);
+  const [maritimeData, setMaritimeData] = useState({
+    tideLevel: 1,
+    totalShips: 10,
+    arrivals: 5,
+    departures: 5,
+    flow: 0,
+  });
   const animationRef = useRef<number | null>(null);
   const lastTimeRef = useRef<number>(0);
 
-  // Update maritime data periodically
+  // Update maritime data periodically (and on mount)
   useEffect(() => {
+    setMaritimeData(generateMaritimeData());
     const interval = setInterval(() => {
       setMaritimeData(generateMaritimeData());
     }, 30000); // Update every 30 seconds

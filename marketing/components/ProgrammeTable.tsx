@@ -24,7 +24,7 @@ export function ProgrammeTable({ events }: ProgrammeTableProps) {
         Programme
       </motion.h2>
 
-      <div className="max-w-[1220px]">
+      <div>
         {/* Table Header */}
         <div className="hidden md:flex gap-4 text-text-dark/60 font-semibold text-xl tracking-tight pb-4">
           <div className="flex-1">Event</div>

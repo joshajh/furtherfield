@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Instrument_Serif, Playfair_Display } from "next/font/google";
 import "./globals.css";
+import { SycamoreBorder, CustomCursor } from "@/components";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,6 +41,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} ${playfairDisplay.variable} antialiased`}
       >
+        {/* <SycamoreBorder /> */}
+        <CustomCursor />
         {children}
       </body>
     </html>
