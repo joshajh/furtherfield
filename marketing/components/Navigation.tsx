@@ -1,19 +1,27 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from 'react'
+import Link from 'next/link'
+import { motion, AnimatePresence } from 'framer-motion'
+import { generateMaritimeData } from './TidalGrid'
 
 export function Navigation() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [tideLevel, setTideLevel] = useState(() => generateMaritimeData().tideLevel)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTideLevel(generateMaritimeData().tideLevel)
+    }, 30000)
+    return () => clearInterval(interval)
+  }, [])
 
   return (
     <nav className="sticky top-2.5 z-50 mx-2.5 rounded-lg bg-gradient-brand backdrop-blur-sm">
       <div className="flex items-center justify-between p-5">
         {/* Logo */}
         <Link href="/" className="font-bold text-xl text-text-dark">
-          <span className="block leading-none">0.5m</span>
-          <span className="block leading-none">oADM</span>
+          {tideLevel.toFixed(1)}m AOD
         </Link>
 
         {/* Desktop Nav */}
@@ -58,7 +66,7 @@ export function Navigation() {
         {mobileMenuOpen && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
+            animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             className="md:hidden overflow-hidden"
           >
@@ -82,5 +90,5 @@ export function Navigation() {
         )}
       </AnimatePresence>
     </nav>
-  );
+  )
 }

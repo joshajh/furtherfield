@@ -6,3 +6,4 @@ export { EventCard, EventGrid, type Event } from "./EventCard";
 export { ProgrammeTable } from "./ProgrammeTable";
 export { CTASection } from "./CTASection";
 export { FullWidthImage } from "./FullWidthImage";
+export { TidalGrid } from "./TidalGrid";
