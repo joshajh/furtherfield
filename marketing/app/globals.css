@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* Colors */
+  --color-bg-dark: #0F0E0E;
+  --color-bg-light: #F5F5F5;
+  --color-bg-white: #FFFFFF;
+  --color-text-light: #F6F8FB;
+  --color-text-dark: #0F0E0E;
+  --color-divider: #555659;
+  --color-gradient-start: #BCE5F3;
+  --color-gradient-end: #D0D6FD;
+
+  /* Spacing */
+  --spacing-container: 10px;
+  --radius-card: 8px;
+}
+
+body {
+  background: var(--color-bg-dark);
+  color: var(--color-text-light);
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Gradient backgrounds */
+.bg-gradient-brand {
+  background: linear-gradient(to bottom, var(--color-gradient-start), var(--color-gradient-end));
+}
+
+/* Typography utilities - using CSS variables from next/font */
+.font-display {
+  font-family: var(--font-playfair), ui-serif, Georgia, serif;
+}
+
+.font-serif {
+  font-family: var(--font-instrument-serif), ui-serif, Georgia, serif;
+}
