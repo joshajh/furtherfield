@@ -5,16 +5,32 @@ import Image from "next/image";
 import { Navigation, Footer, EventGrid, type Event } from "@/components";
 import { use } from "react";
 
+// Placeholder content for all events
+const placeholderEvent = {
+  title: "Interspecies Meditation and Sharing Circle",
+  type: "Workshop" as const,
+  date: "Last Sunday of Every Month",
+  time: "2pm - 3pm",
+  location: "Felixstowe Beach, Opposite The Clock Pond",
+  w3w: "filer.feels.fantastic",
+  summary: "Become another creature for a while - explore their world, senses, and perspective through imagination and shared ritual.",
+  description: `The Interspecies Meditation is a guided ritual designed to help people develop an affinity with non-human life forms through imaginative role-play and deep listening. It provides participants with a fun experience of possible new relations.
+
+What to Expect:
+• Draw on your own intuition to find your partner species
+• A guided meditation to enter the consciousness of your chosen species
+• A sharing circle where we reflect on our embodied experiences
+• Thoughtful dialogue on place, ecology, and kinship across species
+
+Whether you're an artist, activist, beach-walker, or just curious, this event offers a powerful, imaginative way to reconnect with your surroundings - and with the lives that share it.`,
+};
+
 // Mock data - will be replaced with CMS
-const eventsData: Record<string, Event & { description: string; images: string[] }> = {
+const eventsData: Record<string, Event & { description: string; images: string[]; time?: string; location?: string; w3w?: string }> = {
   "larping-find-out": {
     slug: "larping-find-out",
-    title: "LARPing, Find Out What It Means To Me",
-    type: "Workshop",
-    date: "August 6, 2028",
+    ...placeholderEvent,
     image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&q=80",
-    summary: "We are all chimeras, theorized and fabricated hybrids",
-    description: "We are all chimeras, theorized and fabricated hybrids of machine and organism; in short, we are cyborgs.",
     images: [
       "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=600&q=80",
       "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=600&q=80",
@@ -25,12 +41,8 @@ const eventsData: Record<string, Event & { description: string; images: string[]
   },
   "larping-chattanooga": {
     slug: "larping-chattanooga",
-    title: "LARPing, is that the Chattanooga ChooChoo",
-    type: "Workshop",
-    date: "August 12, 2028",
+    ...placeholderEvent,
     image: "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=800&q=80",
-    summary: "Join us for a LARPing experience",
-    description: "An immersive workshop exploring the boundaries between reality and imagination.",
     images: [
       "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=600&q=80",
       "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=600&q=80",
@@ -39,24 +51,16 @@ const eventsData: Record<string, Event & { description: string; images: string[]
   },
   "larping-red-light": {
     slug: "larping-red-light",
-    title: "LARPing, You Don't Have To Put On That Red Light",
-    type: "Performance",
-    date: "August 15, 2028",
+    ...placeholderEvent,
     image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
-    summary: "For the light leaks and long silences",
-    description: "A performance exploring themes of identity and transformation.",
     images: [
       "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80",
     ],
   },
   "larp-basics": {
     slug: "larp-basics",
-    title: "LARP",
-    type: "Exhibition",
-    date: "August 20, 2028",
+    ...placeholderEvent,
     image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&q=80",
-    summary: "Hands-on experience",
-    description: "An introduction to the world of live action role playing.",
     images: [],
   },
 };
@@ -64,30 +68,30 @@ const eventsData: Record<string, Event & { description: string; images: string[]
 const moreEvents: Event[] = [
   {
     slug: "larping-chattanooga",
-    title: "LARPing, is that the Chattanooga ChooChoo",
-    type: "Workshop",
-    date: "Aug 12",
+    title: placeholderEvent.title,
+    type: placeholderEvent.type,
+    date: placeholderEvent.date,
     image: "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=800&q=80",
   },
   {
     slug: "larping-red-light",
-    title: "LARPing, You Don't Have To Put On That Red Light",
-    type: "Performance",
-    date: "Aug 15",
+    title: placeholderEvent.title,
+    type: placeholderEvent.type,
+    date: placeholderEvent.date,
     image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
   },
   {
     slug: "larp-basics",
-    title: "LARP",
-    type: "Exhibition",
-    date: "Aug 20",
+    title: placeholderEvent.title,
+    type: placeholderEvent.type,
+    date: placeholderEvent.date,
     image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&q=80",
   },
   {
     slug: "larping-find-out",
-    title: "LARPing, Find Out What It Means To Me",
-    type: "Workshop",
-    date: "Aug 6",
+    title: placeholderEvent.title,
+    type: placeholderEvent.type,
+    date: placeholderEvent.date,
     image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&q=80",
   },
 ];
@@ -130,12 +134,28 @@ export default function EventPage({ params }: PageProps) {
             <h1 className="font-display text-text-dark text-[40px] md:text-[80px] lg:text-[100px] leading-[0.95] tracking-tight mb-6">
               {event.title}
             </h1>
-            <div className="flex items-center justify-center gap-4 text-text-dark text-xl">
-              <span className="border border-text-dark rounded-full px-3 py-1">
+            <div className="flex flex-wrap justify-center gap-3 text-text-dark text-lg mt-8">
+              <span className="border border-text-dark rounded-full px-4 py-1.5">
                 {event.type}
               </span>
-              <span>·</span>
-              <span>{event.date}</span>
+              <span className="border border-text-dark rounded-full px-4 py-1.5">
+                {event.date}
+              </span>
+              {event.time && (
+                <span className="border border-text-dark rounded-full px-4 py-1.5">
+                  {event.time}
+                </span>
+              )}
+              {event.location && (
+                <span className="border border-text-dark rounded-full px-4 py-1.5">
+                  {event.location}
+                </span>
+              )}
+              {event.w3w && (
+                <span className="border border-text-dark rounded-full px-4 py-1.5">
+                  W3W: {event.w3w}
+                </span>
+              )}
             </div>
           </motion.div>
         </section>
@@ -162,16 +182,19 @@ export default function EventPage({ params }: PageProps) {
           </section>
         )}
 
-        {/* Intro Section */}
+        {/* Summary Section */}
         <section className="bg-bg-light rounded-lg mx-2.5 px-5 py-16">
           <div className="max-w-4xl mx-auto">
-            <div className="flex flex-col md:flex-row gap-8 md:gap-16">
-              <h2 className="font-display text-text-dark text-3xl md:text-4xl shrink-0">
-                Intro
+            <div className="flex flex-col md:flex-row gap-8 md:gap-16 mb-12">
+              <h2 className="font-serif text-text-dark text-3xl md:text-4xl shrink-0">
+                Summary
               </h2>
               <p className="text-text-dark text-xl md:text-2xl leading-relaxed">
-                {event.description}
+                {event.summary}
               </p>
+            </div>
+            <div className="text-text-dark text-lg leading-relaxed whitespace-pre-line">
+              {event.description}
             </div>
           </div>
         </section>

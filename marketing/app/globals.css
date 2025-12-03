@@ -33,6 +33,7 @@ html, body {
   color: var(--color-text-light);
   font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   cursor: none !important;
+  overscroll-behavior: none;
 }
 
 html *, html *::before, html *::after {
