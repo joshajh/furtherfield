@@ -2,30 +2,40 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { generateMaritimeData } from './TidalGrid'
 
 export function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [tideLevel, setTideLevel] = useState(1)
+  const [tideMenuOpen, setTideMenuOpen] = useState(false)
+  const [maritimeData, setMaritimeData] = useState(() => generateMaritimeData())
 
   useEffect(() => {
-    setTideLevel(generateMaritimeData().tideLevel)
+    setMaritimeData(generateMaritimeData())
     const interval = setInterval(() => {
-      setTideLevel(generateMaritimeData().tideLevel)
+      setMaritimeData(generateMaritimeData())
     }, 30000)
     return () => clearInterval(interval)
   }, [])
 
   return (
-    <nav className="sticky top-2.5 z-50 mx-2.5 flex items-start justify-between gap-2.5">
-      {/* Tide Data */}
-      <Link
-        href="/"
-        className="shrink-0 rounded-lg bg-gradient-brand px-5 py-4 font-bold text-xl text-text-dark hover:opacity-90 transition-opacity"
+    <div className="sticky top-2.5 mx-2.5 z-40">
+      <nav className="flex items-start justify-between gap-2.5 relative z-50">
+      {/* Logo Button */}
+      <button
+        onClick={() => setTideMenuOpen(!tideMenuOpen)}
+        className="shrink-0 rounded-lg bg-gradient-brand px-5 py-4 hover:opacity-90 transition-opacity"
+        aria-label="Toggle maritime information"
       >
-        {tideLevel.toFixed(1)}m AOD
-      </Link>
+        <Image
+          src="/f-mark-white-trans.png"
+          alt="Furtherfield"
+          width={24}
+          height={24}
+          className="invert"
+        />
+      </button>
 
       {/* Marquee Ticker */}
       <div className="flex-1 rounded-lg bg-gradient-brand overflow-hidden">
@@ -110,6 +120,58 @@ export function Navigation() {
           )}
         </AnimatePresence>
       </div>
-    </nav>
+      </nav>
+
+      {/* Maritime Data Row - below nav, behind lichen border */}
+      <AnimatePresence>
+        {tideMenuOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0, marginTop: 0 }}
+            animate={{ height: 'auto', opacity: 1, marginTop: 10 }}
+            exit={{ height: 0, opacity: 0, marginTop: 0 }}
+            className="relative z-20 rounded-lg bg-gradient-brand overflow-hidden"
+          >
+            <div className="flex items-stretch">
+              {/* Tide Metric */}
+              <div className="shrink-0 w-32 px-4 py-2 border-r border-text-dark/10">
+                <div className="text-text-dark font-bold text-lg">
+                  {maritimeData.tideLevel.toFixed(1)}m
+                </div>
+                <div className="text-text-dark/70 text-xs">
+                  Tide level AOD
+                </div>
+              </div>
+
+              {/* Tide Description */}
+              <div className="flex-1 px-4 py-2 border-r border-text-dark/10">
+                <p className="text-text-dark/80 text-xs leading-relaxed">
+                  Live tidal data from the UK Environment Agency, measured at the nearest gauge to Felixstowe.
+                  The tide follows a roughly 12.5-hour cycle, influencing port operations and the rhythm of coastal life.
+                </p>
+              </div>
+
+              {/* Traffic Metric */}
+              <div className="shrink-0 w-32 px-4 py-2 border-r border-text-dark/10">
+                <div className="text-text-dark font-bold text-lg">
+                  {maritimeData.totalShips}
+                </div>
+                <div className="text-text-dark/70 text-xs">
+                  Vessels active
+                </div>
+              </div>
+
+              {/* Traffic Description */}
+              <div className="flex-1 px-4 py-2">
+                <p className="text-text-dark/80 text-xs leading-relaxed">
+                  Marine traffic at the Port of Felixstowe, the UK&apos;s busiest container port.
+                  Currently {maritimeData.arrivals} arriving, {maritimeData.departures} departing.
+                  This data shapes the generative patterns throughout the site.
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   )
 }
