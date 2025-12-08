@@ -64,9 +64,9 @@ export function EventCard({ event, index = 0 }: EventCardProps) {
         </div>
 
         {/* Content section with blue gradient */}
-        <div className="relative z-10 flex flex-col flex-1 p-4 md:p-5 bg-gradient-brand">
-          {/* Event type and date pills */}
-          <div className="relative z-10 flex flex-wrap gap-2 mb-2">
+        <div className="relative flex flex-col flex-1 p-4 md:p-5 bg-gradient-brand">
+          {/* Event type and date pills - z-40 to appear above lichen border */}
+          <div className="relative z-40 flex flex-wrap gap-2 mb-2">
             <span className="border border-text-dark/60 rounded-full px-3 py-1 text-text-dark/80 text-xs font-medium">
               {event.type}
             </span>
@@ -75,14 +75,14 @@ export function EventCard({ event, index = 0 }: EventCardProps) {
             </span>
           </div>
 
-          {/* Title */}
-          <h2 className="relative z-10 text-text-dark text-xl md:text-2xl font-semibold tracking-tight leading-tight mb-1">
+          {/* Title - z-40 to appear above lichen border */}
+          <h2 className="relative z-40 text-text-dark text-xl md:text-2xl font-semibold tracking-tight leading-tight mb-1">
             {event.title}
           </h2>
 
-          {/* Description */}
+          {/* Description - z-40 to appear above lichen border */}
           {event.summary && (
-            <p className="relative z-10 text-text-dark/60 text-sm leading-relaxed line-clamp-2 mt-auto">
+            <p className="relative z-40 text-text-dark/60 text-sm leading-relaxed line-clamp-2 mt-auto">
               {event.summary}
             </p>
           )}

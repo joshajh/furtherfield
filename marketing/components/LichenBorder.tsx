@@ -3,7 +3,7 @@
 export function LichenBorder() {
   return (
     <div
-      className="fixed inset-0 z-50 pointer-events-none"
+      className="fixed inset-0 z-30 pointer-events-none"
       aria-hidden="true"
     >
       {/* Left edge - offset 30% off-screen */}
