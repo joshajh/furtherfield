@@ -21,13 +21,13 @@ export function HeroHeader({
     <section className="relative rounded-lg overflow-hidden bg-gradient-brand mx-2.5 pt-16">
       {showTidalGrid && (
         <TidalGrid
-          className="absolute inset-0 w-full h-full opacity-[0.15] pointer-events-none"
+          className="absolute inset-0 w-full h-full opacity-40 pointer-events-none"
           gridSize={16}
           waveAmplitude={6}
           waveFrequency={2.5}
-          strokeColor="#0F0E0E"
-          strokeWidth={0.5}
-          animationSpeed={0.00008}
+          strokeColor="#9A8B55"
+          strokeWidth={0.8}
+          animationSpeed={0.00015}
         />
       )}
 

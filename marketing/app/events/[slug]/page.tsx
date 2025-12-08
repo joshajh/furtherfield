@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { Navigation, Footer, EventGrid, type Event } from "@/components";
+import { Navigation, Footer, EventGrid, TidalGrid, type Event } from "@/components";
 import { use } from "react";
 
 // Placeholder content for all events
@@ -124,7 +124,16 @@ export default function EventPage({ params }: PageProps) {
 
       <main className="flex flex-col gap-2.5">
         {/* Hero Section */}
-        <section className="bg-gradient-brand rounded-lg mx-2.5 px-5 py-16 md:py-24">
+        <section className="relative bg-gradient-brand rounded-lg mx-2.5 px-5 py-16 md:py-24 overflow-hidden">
+          <TidalGrid
+            className="absolute inset-0 w-full h-full opacity-40 pointer-events-none"
+            gridSize={16}
+            waveAmplitude={6}
+            waveFrequency={2.5}
+            strokeColor="#9A8B55"
+            strokeWidth={0.8}
+            animationSpeed={0.00015}
+          />
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
