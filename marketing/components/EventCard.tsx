@@ -26,30 +26,66 @@ export function EventCard({ event, index = 0 }: EventCardProps) {
       transition={{ delay: index * 0.1, duration: 0.5 }}
       className="group relative flex-1 min-w-[300px] md:min-w-[600px] h-[700px] rounded-lg overflow-hidden"
     >
-      <Link href={`/events/${event.slug}`} className="block size-full">
-        {/* Background Image */}
-        <Image
-          src={event.image}
-          alt={event.title}
-          fill
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
-        />
+      <Link href={`/events/${event.slug}`} className="flex flex-col size-full">
+        {/* Image section with lemon treatment */}
+        <div className="relative h-[68%]">
+          {/* Base image */}
+          <Image
+            src={event.image}
+            alt={event.title}
+            fill
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+          />
 
-        {/* Gradient Overlay */}
-        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/50 to-transparent" />
+          {/* Lemon color tint */}
+          <div
+            className="absolute inset-0 pointer-events-none bg-treatment-lemon mix-blend-multiply"
+            aria-hidden="true"
+          />
 
-        {/* Content */}
-        <div className="absolute inset-x-0 bottom-0 p-2.5">
-          <div className="backdrop-blur-xl bg-white/20 rounded-md p-3">
-            <h2 className="text-text-light text-xl font-semibold tracking-tight">
-              {event.title}
-            </h2>
-            <div className="flex items-center gap-1 text-text-light text-xl font-semibold">
-              <span>{event.type}</span>
-              <span>·</span>
-              <span>{event.date}</span>
-            </div>
+          {/* Cream wash overlay to fade the image */}
+          <div
+            className="absolute inset-0 pointer-events-none bg-[#F5F0E0]/50"
+            aria-hidden="true"
+          />
+
+          {/* Film grain noise */}
+          <div
+            className="absolute inset-0 pointer-events-none treatment-noise"
+            aria-hidden="true"
+          />
+
+          {/* Feathered bottom edge - fades into text section */}
+          <div
+            className="absolute inset-x-0 -bottom-12 h-64 pointer-events-none z-0 blur-md"
+            style={{ background: 'linear-gradient(to bottom, transparent 0%, var(--color-gradient-start) 70%)' }}
+            aria-hidden="true"
+          />
+        </div>
+
+        {/* Content section with blue gradient */}
+        <div className="relative z-10 flex flex-col flex-1 p-4 md:p-5 bg-gradient-brand">
+          {/* Event type and date pills */}
+          <div className="relative z-10 flex flex-wrap gap-2 mb-2">
+            <span className="border border-text-dark/60 rounded-full px-3 py-1 text-text-dark/80 text-xs font-medium">
+              {event.type}
+            </span>
+            <span className="border border-text-dark/60 rounded-full px-3 py-1 text-text-dark/80 text-xs font-medium">
+              {event.date}
+            </span>
           </div>
+
+          {/* Title */}
+          <h2 className="relative z-10 text-text-dark text-xl md:text-2xl font-semibold tracking-tight leading-tight mb-1">
+            {event.title}
+          </h2>
+
+          {/* Description */}
+          {event.summary && (
+            <p className="relative z-10 text-text-dark/60 text-sm leading-relaxed line-clamp-2 mt-auto">
+              {event.summary}
+            </p>
+          )}
         </div>
       </Link>
     </motion.article>
