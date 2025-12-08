@@ -10,5 +10,4 @@ export { ImageTreatment, type TreatmentVariant } from "./ImageTreatment";
 export { TidalGrid } from "./TidalGrid";
 export { AnimatedSprites } from "./AnimatedSprites";
 export { SycamoreBorder } from "./SycamoreBorder";
-export { CustomCursor } from "./CustomCursor";
 export { LichenBorder } from "./LichenBorder";
