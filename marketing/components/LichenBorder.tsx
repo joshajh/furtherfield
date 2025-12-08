@@ -1,6 +1,14 @@
 'use client';
 
+import { usePathname } from 'next/navigation';
+
 export function LichenBorder() {
+  const pathname = usePathname();
+
+  // Use 'dark' treatment on event detail pages, 'lemon' elsewhere
+  const isEventDetail = pathname?.startsWith('/events/') && pathname !== '/events';
+  const treatmentClass = isEventDetail ? 'bg-treatment-dark' : 'bg-treatment-lemon';
+
   return (
     <div
       className="fixed inset-0 z-30 pointer-events-none"
@@ -21,9 +29,9 @@ export function LichenBorder() {
             backgroundRepeat: 'no-repeat',
           }}
         />
-        {/* Lemon tint overlay */}
+        {/* Tint overlay with transition */}
         <div
-          className="absolute inset-0 bg-treatment-lemon mix-blend-multiply"
+          className={`absolute inset-0 ${treatmentClass} mix-blend-multiply transition-colors duration-700 ease-in-out`}
           style={{
             maskImage: 'url(/lichen/borders/border-left.png)',
             maskSize: 'auto 100%',
@@ -52,9 +60,9 @@ export function LichenBorder() {
             backgroundRepeat: 'no-repeat',
           }}
         />
-        {/* Lemon tint overlay */}
+        {/* Tint overlay with transition */}
         <div
-          className="absolute inset-0 bg-treatment-lemon mix-blend-multiply"
+          className={`absolute inset-0 ${treatmentClass} mix-blend-multiply transition-colors duration-700 ease-in-out`}
           style={{
             maskImage: 'url(/lichen/borders/border-right.png)',
             maskSize: 'auto 100%',
@@ -83,9 +91,9 @@ export function LichenBorder() {
             backgroundRepeat: 'no-repeat',
           }}
         />
-        {/* Lemon tint overlay */}
+        {/* Tint overlay with transition */}
         <div
-          className="absolute inset-0 bg-treatment-lemon mix-blend-multiply"
+          className={`absolute inset-0 ${treatmentClass} mix-blend-multiply transition-colors duration-700 ease-in-out`}
           style={{
             maskImage: 'url(/lichen/borders/border-bottom.png)',
             maskSize: '100% auto',
