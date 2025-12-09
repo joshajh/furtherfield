@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { Navigation, Footer, EventGrid, TidalGrid, type Event } from "@/components";
+import { Navigation, Footer, EventGrid, TidalGrid, RotatingCubesIcon, type Event } from "@/components";
 import { use } from "react";
 
 // Placeholder content for all events
@@ -208,17 +208,9 @@ export default function EventPage({ params }: PageProps) {
           </div>
         </section>
 
-        {/* Decorative Ovals */}
-        <div className="flex justify-center py-16">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="flex flex-col gap-4"
-          >
-            <div className="w-48 h-32 md:w-72 md:h-48 rounded-[50%] border-2 border-gradient-start" />
-            <div className="w-48 h-32 md:w-72 md:h-48 rounded-[50%] border-2 border-gradient-end" />
-          </motion.div>
+        {/* Rotating Cubes Icon */}
+        <div className="flex justify-center py-16 bg-bg-dark">
+          <RotatingCubesIcon size={200} />
         </div>
 
         {/* More Events */}
@@ -229,12 +221,9 @@ export default function EventPage({ params }: PageProps) {
           <EventGrid events={relatedEvents} />
         </section>
 
-        {/* Decorative Ovals */}
-        <div className="flex justify-center py-10">
-          <div className="flex flex-col gap-4">
-            <div className="w-72 h-48 rounded-[50%] border-2 border-text-light/20" />
-            <div className="w-72 h-48 rounded-[50%] border-2 border-text-light/20" />
-          </div>
+        {/* Rotating Cubes Icon */}
+        <div className="flex justify-center py-10 bg-bg-dark">
+          <RotatingCubesIcon size={200} />
         </div>
       </main>
 
