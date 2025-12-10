@@ -37,16 +37,7 @@ html, body {
   background: var(--color-bg-dark);
   color: var(--color-text-light);
   font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-  cursor: none !important;
   overscroll-behavior: none;
-}
-
-html *, html *::before, html *::after {
-  cursor: none !important;
-}
-
-a, button, input, textarea, select, [role="button"] {
-  cursor: none !important;
 }
 
 /* Gradient backgrounds with noise */
