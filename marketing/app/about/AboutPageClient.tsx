@@ -7,6 +7,7 @@ import type { AboutPage, Venue } from "@/lib/keystatic";
 
 type AboutPageClientProps = {
   aboutPage: AboutPage | null;
+  venues: Venue[];
   marqueeText?: string | null;
   aboutSnippet?: string | null;
 };
@@ -174,7 +175,7 @@ function VenueModal({ venue, onClose }: VenueModalProps) {
   );
 }
 
-export default function AboutPageClient({ aboutPage, marqueeText, aboutSnippet }: AboutPageClientProps) {
+export default function AboutPageClient({ aboutPage, venues, marqueeText, aboutSnippet }: AboutPageClientProps) {
   const [selectedVenue, setSelectedVenue] = useState<Venue | null>(null);
 
   const openVenueModal = useCallback((venue: Venue) => {
@@ -184,7 +185,6 @@ export default function AboutPageClient({ aboutPage, marqueeText, aboutSnippet }
   const closeVenueModal = useCallback(() => {
     setSelectedVenue(null);
   }, []);
-  const venues = aboutPage?.venues || [];
   const partners = aboutPage?.partners || [];
 
   return (

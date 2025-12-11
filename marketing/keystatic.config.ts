@@ -1,4 +1,4 @@
-import { config, fields, collection } from "@keystatic/core";
+import { config, fields, collection, singleton } from "@keystatic/core";
 
 export default config({
   storage: {
@@ -31,7 +31,11 @@ export default config({
           ],
           defaultValue: "other",
         }),
-        location: fields.text({ label: "Location" }),
+        venue: fields.relationship({
+          label: "Venue",
+          collection: "venues",
+          validation: { isRequired: false },
+        }),
         image: fields.image({
           label: "Featured Image",
           directory: "public/images/events",
@@ -49,16 +53,22 @@ export default config({
         featured: fields.checkbox({ label: "Featured Event", defaultValue: false }),
       },
     }),
-    pages: collection({
-      label: "Pages",
-      slugField: "title",
-      path: "content/pages/*",
-      format: { contentField: "content" },
+    venues: collection({
+      label: "Venues",
+      slugField: "name",
+      path: "content/venues/*",
       schema: {
-        title: fields.slug({ name: { label: "Title" } }),
-        content: fields.mdx({
-          label: "Content",
-        }),
+        name: fields.slug({ name: { label: "Venue Name" } }),
+        address: fields.text({ label: "Address" }),
+        type: fields.text({ label: "Venue Type", description: "e.g. Gallery, Theatre, Outdoor" }),
+        description: fields.text({ label: "Description", multiline: true }),
+        accessibility: fields.array(
+          fields.text({ label: "Accessibility Feature" }),
+          {
+            label: "Accessibility Features",
+            itemLabel: (props) => props.value || "New Feature",
+          }
+        ),
       },
     }),
   },
@@ -112,22 +122,6 @@ export default config({
           {
             label: "Partners",
             itemLabel: (props) => props.fields.name.value || "New Partner",
-          }
-        ),
-        venues: fields.array(
-          fields.object({
-            name: fields.text({ label: "Venue Name" }),
-            address: fields.text({ label: "Address" }),
-            type: fields.text({ label: "Venue Type" }),
-            description: fields.text({ label: "Description", multiline: true }),
-            accessibility: fields.array(
-              fields.text({ label: "Accessibility Feature" }),
-              { label: "Accessibility Features" }
-            ),
-          }),
-          {
-            label: "Venues",
-            itemLabel: (props) => props.fields.name.value || "New Venue",
           }
         ),
       },

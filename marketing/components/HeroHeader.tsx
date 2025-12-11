@@ -123,7 +123,7 @@ export function HeroHeader({
               transition={{ duration: 0.4, ease: 'easeOut' }}
               className="relative"
             >
-              <h1 className="relative z-40 font-display text-[60px] md:text-[100px] leading-none weathered-text">
+              <h1 className="relative z-40 font-display text-[80px] md:text-[140px] lg:text-[180px] leading-none weathered-text">
                 {titleLines.map((line, i) => (
                   i === 0 ? (
                     <span key={i} className="block relative italic">

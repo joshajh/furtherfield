@@ -1,12 +1,17 @@
-import { getAboutPage, getSettings } from "@/lib/keystatic";
+import { getAboutPage, getSettings, getVenues } from "@/lib/keystatic";
 import AboutPageClient from "./AboutPageClient";
 
 export default async function AboutPage() {
-  const [aboutPage, settings] = await Promise.all([getAboutPage(), getSettings()]);
+  const [aboutPage, settings, venues] = await Promise.all([
+    getAboutPage(),
+    getSettings(),
+    getVenues(),
+  ]);
 
   return (
     <AboutPageClient
       aboutPage={aboutPage}
+      venues={venues}
       marqueeText={settings?.marqueeText}
       aboutSnippet={settings?.aboutSnippet}
     />

@@ -6,7 +6,7 @@ settings:
 
 patchedDependencies:
   '@keystatic/core':
-    hash: vydzcml6sycjnk7myok2ar2tli
+    hash: 03fa66c3780e5c4eb5799abfa2e537770ffa33db47498f5d151178b5569d2ad2
     path: patches/@keystatic__core.patch
 
 importers:
@@ -15,10 +15,10 @@ importers:
     dependencies:
       '@keystatic/core':
         specifier: ^0.5.48
-        version: 0.5.48(patch_hash=vydzcml6sycjnk7myok2ar2tli)(next@16.0.6(@babel/core@7.28.5)(@playwright/test@1.57.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        version: 0.5.48(patch_hash=03fa66c3780e5c4eb5799abfa2e537770ffa33db47498f5d151178b5569d2ad2)(next@16.0.6(@babel/core@7.28.5)(@playwright/test@1.57.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@keystatic/next':
         specifier: ^5.0.4
-        version: 5.0.4(@keystatic/core@0.5.48(patch_hash=vydzcml6sycjnk7myok2ar2tli)(next@16.0.6(@babel/core@7.28.5)(@playwright/test@1.57.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(next@16.0.6(@babel/core@7.28.5)(@playwright/test@1.57.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        version: 5.0.4(@keystatic/core@0.5.48(patch_hash=03fa66c3780e5c4eb5799abfa2e537770ffa33db47498f5d151178b5569d2ad2)(next@16.0.6(@babel/core@7.28.5)(@playwright/test@1.57.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(next@16.0.6(@babel/core@7.28.5)(@playwright/test@1.57.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       framer-motion:
         specifier: ^12.23.25
         version: 12.23.25(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -3729,7 +3729,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@keystatic/core@0.5.48(patch_hash=vydzcml6sycjnk7myok2ar2tli)(next@16.0.6(@babel/core@7.28.5)(@playwright/test@1.57.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
+  '@keystatic/core@0.5.48(patch_hash=03fa66c3780e5c4eb5799abfa2e537770ffa33db47498f5d151178b5569d2ad2)(next@16.0.6(@babel/core@7.28.5)(@playwright/test@1.57.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
       '@babel/runtime': 7.28.4
       '@braintree/sanitize-url': 6.0.4
@@ -3807,10 +3807,10 @@ snapshots:
       - next
       - supports-color
 
-  '@keystatic/next@5.0.4(@keystatic/core@0.5.48(patch_hash=vydzcml6sycjnk7myok2ar2tli)(next@16.0.6(@babel/core@7.28.5)(@playwright/test@1.57.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(next@16.0.6(@babel/core@7.28.5)(@playwright/test@1.57.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
+  '@keystatic/next@5.0.4(@keystatic/core@0.5.48(patch_hash=03fa66c3780e5c4eb5799abfa2e537770ffa33db47498f5d151178b5569d2ad2)(next@16.0.6(@babel/core@7.28.5)(@playwright/test@1.57.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(next@16.0.6(@babel/core@7.28.5)(@playwright/test@1.57.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
       '@babel/runtime': 7.28.4
-      '@keystatic/core': 0.5.48(patch_hash=vydzcml6sycjnk7myok2ar2tli)(next@16.0.6(@babel/core@7.28.5)(@playwright/test@1.57.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@keystatic/core': 0.5.48(patch_hash=03fa66c3780e5c4eb5799abfa2e537770ffa33db47498f5d151178b5569d2ad2)(next@16.0.6(@babel/core@7.28.5)(@playwright/test@1.57.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@types/react': 19.2.7
       chokidar: 3.6.0
       next: 16.0.6(@babel/core@7.28.5)(@playwright/test@1.57.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)

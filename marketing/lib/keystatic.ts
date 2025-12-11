@@ -9,7 +9,8 @@ export type Event = {
   date: string | null;
   time: string | null;
   type: "workshop" | "performance" | "exhibition" | "screening" | "talk" | "other";
-  location: string | null;
+  venueSlug: string | null;
+  venue: Venue | null;
   image: string | null;
   summary: string | null;
   bookingUrl: string | null;
@@ -28,11 +29,12 @@ export type Settings = {
 };
 
 export type Venue = {
+  slug: string;
   name: string | null;
   address: string | null;
   type: string | null;
   description: string | null;
-  accessibility: readonly (string | null)[];
+  accessibility: readonly string[];
 };
 
 export type Partner = {
@@ -53,7 +55,6 @@ export type AboutPage = {
   contactEmail: string | null;
   partnersIntro: string | null;
   partners: readonly Partner[];
-  venues: readonly Venue[];
 };
 
 export async function getSettings(): Promise<Settings | null> {
@@ -74,6 +75,52 @@ export async function getAboutPage(): Promise<AboutPage | null> {
   }
 }
 
+export async function getVenues(): Promise<Venue[]> {
+  try {
+    const venueSlugs = await reader.collections.venues.list();
+    const venues: Venue[] = [];
+    for (const slug of venueSlugs) {
+      const venue = await reader.collections.venues.read(slug);
+      if (!venue) continue;
+      const venueName = typeof venue.name === 'object' && venue.name !== null
+        ? (venue.name as { name: string }).name
+        : String(venue.name);
+      venues.push({
+        slug,
+        name: venueName,
+        address: venue.address || null,
+        type: venue.type || null,
+        description: venue.description || null,
+        accessibility: (venue.accessibility || []).filter((a): a is string => a !== null),
+      });
+    }
+    return venues;
+  } catch (error) {
+    console.error('Error fetching venues:', error);
+    return [];
+  }
+}
+
+export async function getVenue(slug: string): Promise<Venue | null> {
+  try {
+    const venue = await reader.collections.venues.read(slug);
+    if (!venue) return null;
+    const venueName = typeof venue.name === 'object' && venue.name !== null
+      ? (venue.name as { name: string }).name
+      : String(venue.name);
+    return {
+      slug,
+      name: venueName,
+      address: venue.address || null,
+      type: venue.type || null,
+      description: venue.description || null,
+      accessibility: (venue.accessibility || []).filter((a): a is string => a !== null),
+    };
+  } catch {
+    return null;
+  }
+}
+
 export async function getEvents(): Promise<Event[]> {
   try {
     const eventSlugs = await reader.collections.events.list();
@@ -85,13 +132,19 @@ export async function getEvents(): Promise<Event[]> {
         const titleName = typeof event.title === 'object' && event.title !== null
           ? (event.title as { name: string }).name
           : String(event.title);
+
+        // Fetch venue if referenced
+        const venueSlug = event.venue || null;
+        const venue = venueSlug ? await getVenue(venueSlug) : null;
+
         return {
           slug,
           title: titleName,
           date: event.date,
           time: event.time || null,
           type: event.type,
-          location: event.location || null,
+          venueSlug,
+          venue,
           image: event.image,
           summary: event.summary || null,
           bookingUrl: event.bookingUrl,
@@ -116,6 +169,10 @@ export async function getEvent(slug: string) {
       ? (event.title as { name: string }).name
       : String(event.title);
 
+    // Fetch venue if referenced
+    const venueSlug = event.venue || null;
+    const venue = venueSlug ? await getVenue(venueSlug) : null;
+
     // Read the raw MDX content from the file
     const fs = await import("fs/promises");
     const path = await import("path");
@@ -138,7 +195,8 @@ export async function getEvent(slug: string) {
       date: event.date,
       time: event.time,
       type: event.type,
-      location: event.location,
+      venueSlug,
+      venue,
       image: event.image,
       summary: event.summary,
       bookingUrl: event.bookingUrl,

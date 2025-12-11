@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { Navigation, Footer, EventGrid, TidalGrid, RotatingCubesIcon, type Event } from "@/components";
+import type { Venue } from "@/lib/keystatic";
 
 type EventData = {
   slug: string;
@@ -10,7 +11,8 @@ type EventData = {
   date: string | null;
   time: string | null;
   type: string;
-  location: string | null;
+  venueSlug: string | null;
+  venue: Venue | null;
   image: string | null;
   summary: string | null;
   bookingUrl: string | null;
@@ -24,7 +26,8 @@ type CMSEvent = {
   date: string | null;
   time: string | null;
   type: string;
-  location: string | null;
+  venueSlug: string | null;
+  venue: Venue | null;
   image: string | null;
   summary: string | null;
   bookingUrl: string | null;
@@ -96,8 +99,8 @@ export default function EventPageClient({
               {event.time && (
                 <span className="tag">{event.time}</span>
               )}
-              {event.location && (
-                <span className="tag">{event.location}</span>
+              {event.venue && (
+                <span className="tag">{event.venue.name}</span>
               )}
             </div>
           </motion.div>

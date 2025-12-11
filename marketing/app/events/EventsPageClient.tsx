@@ -97,9 +97,9 @@ function EventCard({ event, index }: EventCardProps) {
             {event.title}
           </h2>
 
-          {/* Location */}
-          {event.location && (
-            <p className="text-text-dark/70 text-sm mb-2">{event.location}</p>
+          {/* Venue */}
+          {event.venue && (
+            <p className="text-text-dark/70 text-sm mb-2">{event.venue.name}</p>
           )}
 
           {/* Summary */}
