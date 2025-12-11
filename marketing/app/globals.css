@@ -95,6 +95,38 @@ html, body {
   color: var(--color-text-dark);
 }
 
+/* RPG-style tag styling */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: 1px solid var(--color-text-dark);
+  color: var(--color-text-dark);
+  background: transparent;
+  transition: all 0.2s ease;
+}
+
+.tag:hover {
+  background: var(--color-treatment-lemon);
+}
+
+.tag-sm {
+  font-size: 12px;
+  padding: 5px 10px;
+}
+
+.tag-lg {
+  font-size: 16px;
+  padding: 8px 16px;
+}
+
 /* Film grain noise overlay for image treatments */
 .treatment-noise {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");

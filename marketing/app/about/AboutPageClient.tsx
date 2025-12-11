@@ -102,9 +102,7 @@ function VenueModal({ venue, onClose }: VenueModalProps) {
               )}
             </div>
             {venue.type && (
-              <span className="shrink-0 border border-text-dark text-text-dark text-sm px-4 py-1.5 rounded-full">
-                {venue.type}
-              </span>
+              <span className="tag">{venue.type}</span>
             )}
           </div>
 
@@ -389,9 +387,7 @@ export default function AboutPageClient({ aboutPage, marqueeText, aboutSnippet }
                         </p>
                       </div>
                       {venue.type && (
-                        <span className="shrink-0 border border-text-dark text-text-dark text-xs px-3 py-1 rounded-full">
-                          {venue.type}
-                        </span>
+                        <span className="tag tag-sm">{venue.type}</span>
                       )}
                     </div>
                     <p className="text-text-dark text-sm mb-4 line-clamp-2">

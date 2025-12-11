@@ -54,10 +54,10 @@ export function HeroHeader({
       {/* ? Button - top right */}
       <button
         onClick={() => setShowMaritimeInfo(!showMaritimeInfo)}
-        className="absolute top-4 right-4 z-50 w-10 h-10 rounded-full border-2 border-text-dark flex items-center justify-center hover:bg-text-dark/10 transition-colors"
+        className="tag absolute top-4 right-4 z-50"
         aria-label="Toggle maritime information"
       >
-        <span className="text-text-dark font-bold text-xl">?</span>
+        ?
       </button>
 
       <div className="relative p-10">
@@ -149,12 +149,8 @@ export function HeroHeader({
 
               {/* Location/Date tags */}
               <div className="relative z-40 mt-4 flex gap-2">
-                <span className="text-text-dark/40 text-[10px] font-mono border border-text-dark/20 px-2 py-0.5 rounded">
-                  FELIXSTOWE
-                </span>
-                <span className="text-text-dark/40 text-[10px] font-mono border border-text-dark/20 px-2 py-0.5 rounded">
-                  2026
-                </span>
+                <span className="tag">FELIXSTOWE</span>
+                <span className="tag">2026</span>
               </div>
 
               {subtitle && (

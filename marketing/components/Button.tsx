@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ComponentProps } from "react";
 
 type ButtonProps = {
-  variant?: "primary" | "secondary" | "large";
+  variant?: "primary" | "secondary" | "tag" | "large";
   href?: string;
   children: React.ReactNode;
   className?: string;
@@ -15,11 +15,12 @@ export function Button({
   className = "",
   ...props
 }: ButtonProps) {
-  const baseStyles = "inline-flex items-center justify-center font-semibold transition-all duration-200 cursor-pointer";
+  const baseStyles = "inline-flex items-center justify-center transition-all duration-200 cursor-pointer";
 
   const variants = {
-    primary: "bg-bg-dark text-text-light px-6 py-4 text-xl tracking-tight hover:bg-opacity-80",
-    secondary: "bg-transparent border border-text-dark text-text-dark px-6 py-4 text-xl tracking-tight hover:bg-text-dark hover:text-text-light",
+    primary: "bg-bg-dark text-text-light px-6 py-4 text-xl tracking-tight font-semibold hover:bg-opacity-80",
+    secondary: "tag tag-lg",
+    tag: "tag",
     large: "bg-bg-white text-text-dark px-6 py-8 text-7xl md:text-8xl font-serif italic tracking-tight rounded-lg w-full hover:bg-opacity-90",
   };
 

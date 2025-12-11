@@ -88,24 +88,16 @@ export default function EventPageClient({
             <h1 className="font-display text-text-dark text-[40px] md:text-[80px] lg:text-[100px] leading-[0.95] tracking-tight mb-6">
               {event.title}
             </h1>
-            <div className="flex flex-wrap justify-center gap-3 text-text-dark text-lg mt-8">
-              <span className="border border-text-dark rounded-full px-4 py-1.5">
-                {formatEventType(event.type)}
-              </span>
+            <div className="flex flex-wrap justify-center gap-2 mt-8">
+              <span className="tag">{formatEventType(event.type)}</span>
               {event.date && (
-                <span className="border border-text-dark rounded-full px-4 py-1.5">
-                  {formatDate(event.date)}
-                </span>
+                <span className="tag">{formatDate(event.date)}</span>
               )}
               {event.time && (
-                <span className="border border-text-dark rounded-full px-4 py-1.5">
-                  {event.time}
-                </span>
+                <span className="tag">{event.time}</span>
               )}
               {event.location && (
-                <span className="border border-text-dark rounded-full px-4 py-1.5">
-                  {event.location}
-                </span>
+                <span className="tag">{event.location}</span>
               )}
             </div>
           </motion.div>

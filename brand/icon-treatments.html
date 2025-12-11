@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Isometric Logo V2 - Integrated Treatments</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Geist Sans', 'Helvetica Neue', Arial, sans-serif;
+      background: #e8e8e8;
+      margin: 0;
+      padding: 40px;
+      min-height: 100vh;
+    }
+    
+    h1 {
+      font-size: 13px;
+      color: #0F0E0E;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+    
+    .subtitle {
+      font-size: 11px;
+      color: #666;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .section {
+      margin-bottom: 60px;
+    }
+    
+    .section-title {
+      font-size: 11px;
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 20px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #ddd;
+    }
+    
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    .variant {
+      background: white;
+      border-radius: 8px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 1px 4px rgba(15, 14, 14, 0.08);
+    }
+    
+    .variant svg {
+      margin-bottom: 16px;
+    }
+    
+    .variant-label {
+      font-size: 10px;
+      color: #0F0E0E;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      text-align: center;
+      font-weight: 500;
+    }
+    
+    .variant-desc {
+      font-size: 10px;
+      color: #888;
+      margin-top: 6px;
+      text-align: center;
+      line-height: 1.4;
+    }
+    
+    .dark {
+      background: #0F0E0E;
+    }
+    
+    .dark .variant-label {
+      color: #F6F8FB;
+    }
+    
+    .dark .variant-desc {
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <h1>Isometric Logo: Integrated Treatments</h1>
+  <p class="subtitle">Wave + Cubes + Lichen/Fractal — exploring cohesion</p>
+  
+  <!-- SECTION 1: Wave integrated into cube faces -->
+  <div class="section">
+    <div class="section-title">1. Wave Across Isometric Cube Faces</div>
+    <div class="grid">
+      
+      <!-- 1A: Wave cuts horizontally across all cube tops -->
+      <div class="variant">
+        <svg viewBox="0 0 160 160" width="140" height="140">
+          <g transform="translate(80, 90)">
+            <!-- Back-left cube (filled) -->
+            <g transform="translate(-25.98, -15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="#0F0E0E"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="#1a1a1a"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="#2a2a2a"/>
+            </g>
+            <!-- Back-right cube (outline) -->
+            <g transform="translate(25.98, -15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+            </g>
+            <!-- Front-left cube (outline) -->
+            <g transform="translate(-25.98, 15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+            </g>
+            <!-- Front-right cube (filled) -->
+            <g transform="translate(25.98, 15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="#0F0E0E"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="#1a1a1a"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="#2a2a2a"/>
+            </g>
+            
+            <!-- Wave cutting across the horizontal plane -->
+            <path d="M -51.96,0 Q -25.98,-12 0,0 Q 25.98,12 51.96,0" 
+                  stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+          </g>
+        </svg>
+        <div class="variant-label">1A: Horizontal Wave</div>
+        <div class="variant-desc">Wave follows isometric horizontal plane</div>
+      </div>
+      
+      <!-- 1B: Wave on diagonal axis -->
+      <div class="variant">
+        <svg viewBox="0 0 160 160" width="140" height="140">
+          <g transform="translate(80, 90)">
+            <!-- Cubes -->
+            <g transform="translate(-25.98, -15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="#0F0E0E"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="#1a1a1a"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="#2a2a2a"/>
+            </g>
+            <g transform="translate(25.98, -15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+            </g>
+            <g transform="translate(-25.98, 15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+            </g>
+            <g transform="translate(25.98, 15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="#0F0E0E"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="#1a1a1a"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="#2a2a2a"/>
+            </g>
+            
+            <!-- Wave on left-right diagonal -->
+            <path d="M -51.96,-30 Q -25.98,-20 0,-30 Q 25.98,-40 51.96,-30" 
+                  stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+          </g>
+        </svg>
+        <div class="variant-label">1B: Diagonal Wave (Top)</div>
+        <div class="variant-desc">Wave across top edges of cubes</div>
+      </div>
+      
+      <!-- 1C: Wave embedded in cube face -->
+      <div class="variant dark">
+        <svg viewBox="0 0 160 160" width="140" height="140">
+          <g transform="translate(80, 90)">
+            <!-- Cubes with wave carved into top faces -->
+            <g transform="translate(-25.98, -15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="#F6F8FB"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="#e0e0e0"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="#c8c8c8"/>
+              <!-- Wave on this cube's top -->
+              <path d="M -20,-18 Q -10,-22 0,-18 Q 10,-14 20,-18" 
+                    stroke="#0F0E0E" stroke-width="2" fill="none" stroke-linecap="round"/>
+            </g>
+            <g transform="translate(25.98, -15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="none" stroke="#F6F8FB" stroke-width="1.5"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="none" stroke="#F6F8FB" stroke-width="1.5"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="none" stroke="#F6F8FB" stroke-width="1.5"/>
+            </g>
+            <g transform="translate(-25.98, 15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="none" stroke="#F6F8FB" stroke-width="1.5"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="none" stroke="#F6F8FB" stroke-width="1.5"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="none" stroke="#F6F8FB" stroke-width="1.5"/>
+            </g>
+            <g transform="translate(25.98, 15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="#F6F8FB"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="#e0e0e0"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="#c8c8c8"/>
+              <!-- Wave on this cube's top -->
+              <path d="M -20,-18 Q -10,-22 0,-18 Q 10,-14 20,-18" 
+                    stroke="#0F0E0E" stroke-width="2" fill="none" stroke-linecap="round"/>
+            </g>
+          </g>
+        </svg>
+        <div class="variant-label">1C: Waves on Filled Faces</div>
+        <div class="variant-desc">Each filled cube carries its own wave</div>
+      </div>
+      
+      <!-- 1D: Single continuous wave through all -->
+      <div class="variant">
+        <svg viewBox="0 0 160 160" width="140" height="140">
+          <g transform="translate(80, 90)">
+            <g transform="translate(-25.98, -15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="#0F0E0E"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="#1a1a1a"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="#2a2a2a"/>
+            </g>
+            <g transform="translate(25.98, -15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+            </g>
+            <g transform="translate(-25.98, 15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+            </g>
+            <g transform="translate(25.98, 15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="#0F0E0E"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="#1a1a1a"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="#2a2a2a"/>
+            </g>
+            
+            <!-- Long wave following the Z-axis (front-left to back-right) -->
+            <path d="M -51.96,30 Q -35,18 -25.98,15 Q -10,8 0,0 Q 10,-8 25.98,-15 Q 35,-18 51.96,-30" 
+                  stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+          </g>
+        </svg>
+        <div class="variant-label">1D: Through-Wave</div>
+        <div class="variant-desc">Wave travels diagonally through cube stack</div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <!-- SECTION 2: Lichen/fractal integrated with cube edges -->
+  <div class="section">
+    <div class="section-title">2. Lichen Growing From Cube Geometry</div>
+    <div class="grid">
+      
+      <!-- 2A: Lichen follows isometric axes -->
+      <div class="variant">
+        <svg viewBox="0 0 160 160" width="140" height="140">
+          <g transform="translate(80, 95)">
+            <!-- Cubes -->
+            <g transform="translate(-25.98, -15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="#0F0E0E"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="#1a1a1a"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="#2a2a2a"/>
+            </g>
+            <g transform="translate(25.98, -15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+            </g>
+            <g transform="translate(-25.98, 15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+            </g>
+            <g transform="translate(25.98, 15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="#0F0E0E"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="#1a1a1a"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="#2a2a2a"/>
+            </g>
+            
+            <!-- Lichen branches following 30° isometric angles -->
+            <g stroke="#0F0E0E" stroke-width="2" fill="none" stroke-linecap="round">
+              <!-- From top center, branching at isometric angles -->
+              <path d="M 0,-45 L 0,-60"/>
+              <!-- Left branch at 150° (iso left-up) -->
+              <path d="M 0,-52 L -12.99,-59.5"/>
+              <path d="M -12.99,-59.5 L -19.48,-63.25"/>
+              <path d="M -12.99,-59.5 L -12.99,-67"/>
+              <!-- Right branch at 30° (iso right-up) -->
+              <path d="M 0,-52 L 12.99,-59.5"/>
+              <path d="M 12.99,-59.5 L 19.48,-63.25"/>
+              <path d="M 12.99,-59.5 L 12.99,-67"/>
+              <!-- Top branches -->
+              <path d="M 0,-60 L -6.5,-67.5"/>
+              <path d="M 0,-60 L 6.5,-67.5"/>
+            </g>
+          </g>
+        </svg>
+        <div class="variant-label">2A: Isometric Branching</div>
+        <div class="variant-desc">Lichen follows 30° isometric angles</div>
+      </div>
+      
+      <!-- 2B: Lichen emerging from cube corners -->
+      <div class="variant dark">
+        <svg viewBox="0 0 160 160" width="140" height="140">
+          <g transform="translate(80, 95)">
+            <!-- Cubes -->
+            <g transform="translate(-25.98, -15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="#F6F8FB"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="#e0e0e0"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="#c8c8c8"/>
+            </g>
+            <g transform="translate(25.98, -15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="none" stroke="#F6F8FB" stroke-width="1.5"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="none" stroke="#F6F8FB" stroke-width="1.5"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="none" stroke="#F6F8FB" stroke-width="1.5"/>
+            </g>
+            <g transform="translate(-25.98, 15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="none" stroke="#F6F8FB" stroke-width="1.5"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="none" stroke="#F6F8FB" stroke-width="1.5"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="none" stroke="#F6F8FB" stroke-width="1.5"/>
+            </g>
+            <g transform="translate(25.98, 15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="#F6F8FB"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="#e0e0e0"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="#c8c8c8"/>
+            </g>
+            
+            <!-- Lichen from multiple cube tops -->
+            <g stroke="#F6F8FB" stroke-width="1.5" fill="none" stroke-linecap="round">
+              <!-- From back-left cube top -->
+              <path d="M -25.98,-45 L -25.98,-55"/>
+              <path d="M -25.98,-50 L -32,-56"/>
+              <path d="M -25.98,-50 L -20,-56"/>
+              <path d="M -25.98,-55 L -29,-62"/>
+              <path d="M -25.98,-55 L -22,-62"/>
+              
+              <!-- From front-right cube top -->
+              <path d="M 25.98,-15 L 25.98,-25"/>
+              <path d="M 25.98,-20 L 32,-26"/>
+              <path d="M 25.98,-20 L 20,-26"/>
+              <path d="M 25.98,-25 L 29,-32"/>
+              <path d="M 25.98,-25 L 22,-32"/>
+            </g>
+          </g>
+        </svg>
+        <div class="variant-label">2B: Corner Growth</div>
+        <div class="variant-desc">Lichen emerges from filled cube peaks</div>
+      </div>
+      
+      <!-- 2C: Lichen connecting cubes -->
+      <div class="variant">
+        <svg viewBox="0 0 160 160" width="140" height="140">
+          <g transform="translate(80, 90)">
+            <!-- Cubes -->
+            <g transform="translate(-25.98, -15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="#0F0E0E"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="#1a1a1a"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="#2a2a2a"/>
+            </g>
+            <g transform="translate(25.98, -15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+            </g>
+            <g transform="translate(-25.98, 15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+            </g>
+            <g transform="translate(25.98, 15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="#0F0E0E"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="#1a1a1a"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="#2a2a2a"/>
+            </g>
+            
+            <!-- Lichen as connective tissue in the center gap -->
+            <g stroke="#0F0E0E" stroke-width="2" fill="none" stroke-linecap="round">
+              <!-- Central trunk -->
+              <path d="M 0,-30 L 0,0"/>
+              <!-- Horizontal branches reaching to cube edges -->
+              <path d="M 0,-22 L -15,-15"/>
+              <path d="M 0,-22 L 15,-15"/>
+              <path d="M 0,-8 L -15,-15"/>
+              <path d="M 0,-8 L 15,-15"/>
+              <!-- Sub-branches -->
+              <path d="M -15,-15 L -20,-18"/>
+              <path d="M 15,-15 L 20,-18"/>
+              <path d="M 0,-15 L -8,-12"/>
+              <path d="M 0,-15 L 8,-12"/>
+            </g>
+          </g>
+        </svg>
+        <div class="variant-label">2C: Central Network</div>
+        <div class="variant-desc">Lichen fills the gap, connects cubes</div>
+      </div>
+      
+      <!-- 2D: Lichen on cube faces -->
+      <div class="variant">
+        <svg viewBox="0 0 160 160" width="140" height="140">
+          <g transform="translate(80, 90)">
+            <!-- Cubes with lichen on faces -->
+            <g transform="translate(-25.98, -15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="#0F0E0E"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="#1a1a1a"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="#2a2a2a"/>
+              <!-- Lichen on top face -->
+              <g stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round">
+                <path d="M 0,-18 L 0,-12"/>
+                <path d="M 0,-15 L -6,-12"/>
+                <path d="M 0,-15 L 6,-12"/>
+              </g>
+            </g>
+            <g transform="translate(25.98, -15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+            </g>
+            <g transform="translate(-25.98, 15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+            </g>
+            <g transform="translate(25.98, 15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="#0F0E0E"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="#1a1a1a"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="#2a2a2a"/>
+              <!-- Lichen on top face -->
+              <g stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round">
+                <path d="M 0,-18 L 0,-12"/>
+                <path d="M 0,-15 L -6,-12"/>
+                <path d="M 0,-15 L 6,-12"/>
+              </g>
+            </g>
+          </g>
+        </svg>
+        <div class="variant-label">2D: Surface Lichen</div>
+        <div class="variant-desc">Small lichen marks on filled cube tops</div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <!-- SECTION 3: Combined Wave + Lichen -->
+  <div class="section">
+    <div class="section-title">3. Unified: Wave + Lichen + Isometric Cubes</div>
+    <div class="grid">
+      
+      <!-- 3A: Wave below, lichen above -->
+      <div class="variant">
+        <svg viewBox="0 0 160 180" width="140" height="160">
+          <g transform="translate(80, 105)">
+            <!-- Cubes -->
+            <g transform="translate(-25.98, -15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="#0F0E0E"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="#1a1a1a"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="#2a2a2a"/>
+            </g>
+            <g transform="translate(25.98, -15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+            </g>
+            <g transform="translate(-25.98, 15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+            </g>
+            <g transform="translate(25.98, 15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="#0F0E0E"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="#1a1a1a"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="#2a2a2a"/>
+            </g>
+            
+            <!-- Wave on horizontal plane -->
+            <path d="M -51.96,0 Q -25.98,-12 0,0 Q 25.98,12 51.96,0" 
+                  stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            
+            <!-- Lichen above (isometric angles) -->
+            <g stroke="#0F0E0E" stroke-width="2" fill="none" stroke-linecap="round">
+              <path d="M 0,-45 L 0,-62"/>
+              <path d="M 0,-52 L -12.99,-59.5"/>
+              <path d="M -12.99,-59.5 L -17,-63"/>
+              <path d="M -12.99,-59.5 L -10,-65"/>
+              <path d="M 0,-52 L 12.99,-59.5"/>
+              <path d="M 12.99,-59.5 L 17,-63"/>
+              <path d="M 12.99,-59.5 L 10,-65"/>
+              <path d="M 0,-62 L -5,-70"/>
+              <path d="M 0,-62 L 5,-70"/>
+            </g>
+          </g>
+        </svg>
+        <div class="variant-label">3A: Complete Vertical</div>
+        <div class="variant-desc">Lichen rises, wave cuts through</div>
+      </div>
+      
+      <!-- 3B: Wave as stem, lichen as crown -->
+      <div class="variant dark">
+        <svg viewBox="0 0 160 180" width="140" height="160">
+          <g transform="translate(80, 110)">
+            <!-- Cubes -->
+            <g transform="translate(-25.98, -15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="#F6F8FB"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="#e0e0e0"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="#c8c8c8"/>
+            </g>
+            <g transform="translate(25.98, -15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="none" stroke="#F6F8FB" stroke-width="1.5"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="none" stroke="#F6F8FB" stroke-width="1.5"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="none" stroke="#F6F8FB" stroke-width="1.5"/>
+            </g>
+            <g transform="translate(-25.98, 15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="none" stroke="#F6F8FB" stroke-width="1.5"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="none" stroke="#F6F8FB" stroke-width="1.5"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="none" stroke="#F6F8FB" stroke-width="1.5"/>
+            </g>
+            <g transform="translate(25.98, 15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="#F6F8FB"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="#e0e0e0"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="#c8c8c8"/>
+            </g>
+            
+            <!-- Wave becomes the vertical stem -->
+            <path d="M 0,-45 Q -6,-52 0,-58 Q 6,-64 0,-70" 
+                  stroke="#F6F8FB" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            
+            <!-- Lichen crown at top -->
+            <g stroke="#F6F8FB" stroke-width="1.5" fill="none" stroke-linecap="round">
+              <path d="M 0,-70 L -10,-78"/>
+              <path d="M -10,-78 L -14,-82"/>
+              <path d="M -10,-78 L -6,-84"/>
+              <path d="M 0,-70 L 10,-78"/>
+              <path d="M 10,-78 L 14,-82"/>
+              <path d="M 10,-78 L 6,-84"/>
+              <path d="M 0,-70 L 0,-80"/>
+              <path d="M 0,-80 L -3,-86"/>
+              <path d="M 0,-80 L 3,-86"/>
+            </g>
+          </g>
+        </svg>
+        <div class="variant-label">3B: Wave Stem</div>
+        <div class="variant-desc">Wavy trunk with branching crown</div>
+      </div>
+      
+      <!-- 3C: Roots below cubes -->
+      <div class="variant">
+        <svg viewBox="0 0 160 180" width="140" height="160">
+          <g transform="translate(80, 85)">
+            <!-- Cubes -->
+            <g transform="translate(-25.98, -15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="#0F0E0E"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="#1a1a1a"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="#2a2a2a"/>
+            </g>
+            <g transform="translate(25.98, -15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+            </g>
+            <g transform="translate(-25.98, 15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+            </g>
+            <g transform="translate(25.98, 15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="#0F0E0E"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="#1a1a1a"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="#2a2a2a"/>
+            </g>
+            
+            <!-- Wave through middle -->
+            <path d="M -51.96,0 Q -25.98,-10 0,0 Q 25.98,10 51.96,0" 
+                  stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            
+            <!-- Root system below (isometric angles, inverted tree) -->
+            <g stroke="#0F0E0E" stroke-width="2" fill="none" stroke-linecap="round">
+              <!-- Main taproot -->
+              <path d="M 0,45 L 0,65"/>
+              <!-- Lateral roots following isometric -->
+              <path d="M 0,52 L -17.32,62"/>
+              <path d="M -17.32,62 L -25.98,68"/>
+              <path d="M -17.32,62 L -14.43,72"/>
+              <path d="M 0,52 L 17.32,62"/>
+              <path d="M 17.32,62 L 25.98,68"/>
+              <path d="M 17.32,62 L 14.43,72"/>
+              <!-- Fine roots -->
+              <path d="M 0,65 L -6,75"/>
+              <path d="M 0,65 L 6,75"/>
+            </g>
+          </g>
+        </svg>
+        <div class="variant-label">3C: Wave + Roots Below</div>
+        <div class="variant-desc">Cubes float above root network</div>
+      </div>
+      
+      <!-- 3D: Lichen wrapping around cubes -->
+      <div class="variant dark">
+        <svg viewBox="0 0 160 160" width="140" height="140">
+          <g transform="translate(80, 90)">
+            <!-- Cubes -->
+            <g transform="translate(-25.98, -15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="#F6F8FB"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="#e0e0e0"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="#c8c8c8"/>
+            </g>
+            <g transform="translate(25.98, -15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="none" stroke="#F6F8FB" stroke-width="1.5"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="none" stroke="#F6F8FB" stroke-width="1.5"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="none" stroke="#F6F8FB" stroke-width="1.5"/>
+            </g>
+            <g transform="translate(-25.98, 15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="none" stroke="#F6F8FB" stroke-width="1.5"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="none" stroke="#F6F8FB" stroke-width="1.5"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="none" stroke="#F6F8FB" stroke-width="1.5"/>
+            </g>
+            <g transform="translate(25.98, 15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="#F6F8FB"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="#e0e0e0"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="#c8c8c8"/>
+            </g>
+            
+            <!-- Lichen wrapping the perimeter -->
+            <g stroke="#BCE5F3" stroke-width="1.5" fill="none" stroke-linecap="round">
+              <!-- Left edge tendrils -->
+              <path d="M -51.96,0 L -60,0"/>
+              <path d="M -55,0 L -62,-6"/>
+              <path d="M -55,0 L -62,6"/>
+              
+              <!-- Top edge tendrils -->
+              <path d="M 0,-45 L 0,-55"/>
+              <path d="M 0,-50 L -6,-58"/>
+              <path d="M 0,-50 L 6,-58"/>
+              
+              <!-- Right edge tendrils -->
+              <path d="M 51.96,0 L 60,0"/>
+              <path d="M 55,0 L 62,-6"/>
+              <path d="M 55,0 L 62,6"/>
+              
+              <!-- Bottom edge tendrils -->
+              <path d="M 0,45 L 0,55"/>
+              <path d="M 0,50 L -6,58"/>
+              <path d="M 0,50 L 6,58"/>
+            </g>
+            
+            <!-- Wave through -->
+            <path d="M -51.96,0 Q -25.98,-12 0,0 Q 25.98,12 51.96,0" 
+                  stroke="#F6F8FB" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          </g>
+        </svg>
+        <div class="variant-label">3D: Perimeter Growth</div>
+        <div class="variant-desc">Lichen at edges, wave through center</div>
+      </div>
+      
+      <!-- 3E: Compact unified -->
+      <div class="variant">
+        <svg viewBox="0 0 160 160" width="140" height="140">
+          <g transform="translate(80, 95)">
+            <!-- Cubes -->
+            <g transform="translate(-25.98, -15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="#0F0E0E"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="#1a1a1a"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="#2a2a2a"/>
+            </g>
+            <g transform="translate(25.98, -15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+            </g>
+            <g transform="translate(-25.98, 15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="white" stroke="#0F0E0E" stroke-width="1.5"/>
+            </g>
+            <g transform="translate(25.98, 15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="#0F0E0E"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="#1a1a1a"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="#2a2a2a"/>
+            </g>
+            
+            <!-- Wave in center gap -->
+            <path d="M -20,-8 Q 0,-18 20,-8" 
+                  stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            
+            <!-- Simple branching from wave peak -->
+            <g stroke="#0F0E0E" stroke-width="2" fill="none" stroke-linecap="round">
+              <path d="M 0,-18 L 0,-35"/>
+              <path d="M 0,-26 L -10,-34"/>
+              <path d="M 0,-26 L 10,-34"/>
+              <path d="M -10,-34 L -14,-40"/>
+              <path d="M 10,-34 L 14,-40"/>
+            </g>
+          </g>
+        </svg>
+        <div class="variant-label">3E: Wave-Rooted</div>
+        <div class="variant-desc">Lichen grows from wave crest</div>
+      </div>
+      
+      <!-- 3F: Minimal integration -->
+      <div class="variant dark">
+        <svg viewBox="0 0 160 160" width="140" height="140">
+          <g transform="translate(80, 90)">
+            <!-- Cubes -->
+            <g transform="translate(-25.98, -15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="#F6F8FB"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="#e0e0e0"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="#c8c8c8"/>
+            </g>
+            <g transform="translate(25.98, -15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="none" stroke="#F6F8FB" stroke-width="1.5"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="none" stroke="#F6F8FB" stroke-width="1.5"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="none" stroke="#F6F8FB" stroke-width="1.5"/>
+            </g>
+            <g transform="translate(-25.98, 15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="none" stroke="#F6F8FB" stroke-width="1.5"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="none" stroke="#F6F8FB" stroke-width="1.5"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="none" stroke="#F6F8FB" stroke-width="1.5"/>
+            </g>
+            <g transform="translate(25.98, 15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="#F6F8FB"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="#e0e0e0"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="#c8c8c8"/>
+            </g>
+            
+            <!-- Minimal: just a simple fork emerging -->
+            <g stroke="#F6F8FB" stroke-width="2" fill="none" stroke-linecap="round">
+              <path d="M 0,-45 L 0,-58"/>
+              <path d="M 0,-52 L -8,-60"/>
+              <path d="M 0,-52 L 8,-60"/>
+            </g>
+            
+            <!-- Wave on cube tops -->
+            <path d="M -40,-33 Q -26,-38 -12,-33" stroke="#0F0E0E" stroke-width="2" fill="none"/>
+            <path d="M 12,-3 Q 26,-8 40,-3" stroke="#0F0E0E" stroke-width="2" fill="none"/>
+          </g>
+        </svg>
+        <div class="variant-label">3F: Minimal Unified</div>
+        <div class="variant-desc">Simple fork + waves on filled cubes</div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <!-- SECTION 4: Tighter integration experiments -->
+  <div class="section">
+    <div class="section-title">4. Deep Integration: Single Visual System</div>
+    <div class="grid">
+      
+      <!-- 4A: Branching follows cube edges -->
+      <div class="variant">
+        <svg viewBox="0 0 160 160" width="140" height="140">
+          <g transform="translate(80, 90)">
+            <!-- Outline cubes only -->
+            <g stroke="#0F0E0E" stroke-width="1.5" fill="none">
+              <g transform="translate(-25.98, -15)">
+                <polygon points="0,-30 25.98,-15 0,0 -25.98,-15"/>
+                <polygon points="0,0 -25.98,-15 -25.98,15 0,30"/>
+                <polygon points="0,0 25.98,-15 25.98,15 0,30"/>
+              </g>
+              <g transform="translate(25.98, -15)">
+                <polygon points="0,-30 25.98,-15 0,0 -25.98,-15"/>
+                <polygon points="0,0 -25.98,-15 -25.98,15 0,30"/>
+                <polygon points="0,0 25.98,-15 25.98,15 0,30"/>
+              </g>
+              <g transform="translate(-25.98, 15)">
+                <polygon points="0,-30 25.98,-15 0,0 -25.98,-15"/>
+                <polygon points="0,0 -25.98,-15 -25.98,15 0,30"/>
+                <polygon points="0,0 25.98,-15 25.98,15 0,30"/>
+              </g>
+              <g transform="translate(25.98, 15)">
+                <polygon points="0,-30 25.98,-15 0,0 -25.98,-15"/>
+                <polygon points="0,0 -25.98,-15 -25.98,15 0,30"/>
+                <polygon points="0,0 25.98,-15 25.98,15 0,30"/>
+              </g>
+            </g>
+            
+            <!-- Filled diagonal cells -->
+            <polygon points="-25.98,-45 0,-30 -25.98,-15 -51.96,-30" fill="#0F0E0E"/>
+            <polygon points="25.98,-15 51.96,0 25.98,15 0,0" fill="#0F0E0E"/>
+            
+            <!-- Branching extends from filled cells as if growing from them -->
+            <g stroke="#0F0E0E" stroke-width="2" fill="none" stroke-linecap="round">
+              <!-- From top-left filled -->
+              <path d="M -25.98,-45 L -25.98,-58"/>
+              <path d="M -25.98,-52 L -35,-58"/>
+              <path d="M -25.98,-52 L -18,-58"/>
+              
+              <!-- From right filled -->
+              <path d="M 51.96,0 L 62,0"/>
+              <path d="M 57,0 L 64,-6"/>
+              <path d="M 57,0 L 64,6"/>
+            </g>
+            
+            <!-- Wave connecting the two filled areas -->
+            <path d="M -35,-38 Q -10,-48 15,-38 Q 35,-30 50,-5" 
+                  stroke="#0F0E0E" stroke-width="2" fill="none" stroke-linecap="round"/>
+          </g>
+        </svg>
+        <div class="variant-label">4A: Growth from Fills</div>
+        <div class="variant-desc">Lichen extends from filled cells, wave connects</div>
+      </div>
+      
+      <!-- 4B: Wave becomes branching -->
+      <div class="variant dark">
+        <svg viewBox="0 0 160 160" width="140" height="140">
+          <g transform="translate(80, 90)">
+            <!-- Cubes -->
+            <g transform="translate(-25.98, -15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="#F6F8FB"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="#e0e0e0"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="#c8c8c8"/>
+            </g>
+            <g transform="translate(25.98, -15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="none" stroke="#F6F8FB" stroke-width="1.5"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="none" stroke="#F6F8FB" stroke-width="1.5"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="none" stroke="#F6F8FB" stroke-width="1.5"/>
+            </g>
+            <g transform="translate(-25.98, 15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="none" stroke="#F6F8FB" stroke-width="1.5"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="none" stroke="#F6F8FB" stroke-width="1.5"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="none" stroke="#F6F8FB" stroke-width="1.5"/>
+            </g>
+            <g transform="translate(25.98, 15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="#F6F8FB"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="#e0e0e0"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="#c8c8c8"/>
+            </g>
+            
+            <!-- Wave that branches at its ends -->
+            <g stroke="#F6F8FB" stroke-width="2" fill="none" stroke-linecap="round">
+              <!-- Main wave -->
+              <path d="M -40,0 Q -20,-12 0,0 Q 20,12 40,0"/>
+              
+              <!-- Left end branches -->
+              <path d="M -40,0 L -50,-4"/>
+              <path d="M -40,0 L -50,4"/>
+              
+              <!-- Right end branches -->
+              <path d="M 40,0 L 50,-4"/>
+              <path d="M 40,0 L 50,4"/>
+              
+              <!-- Upward growth from wave peak -->
+              <path d="M 0,0 L 0,-15"/>
+              <path d="M 0,-10 L -6,-16"/>
+              <path d="M 0,-10 L 6,-16"/>
+            </g>
+          </g>
+        </svg>
+        <div class="variant-label">4B: Branching Wave</div>
+        <div class="variant-desc">Wave terminates in lichen-like branches</div>
+      </div>
+      
+      <!-- 4C: All elements share same line weight -->
+      <div class="variant">
+        <svg viewBox="0 0 160 170" width="140" height="150">
+          <g transform="translate(80, 100)">
+            <!-- All strokes same weight for unity -->
+            <g stroke="#0F0E0E" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <!-- Cube outlines -->
+              <g transform="translate(-25.98, -15)">
+                <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="#0F0E0E" stroke="none"/>
+                <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="#1a1a1a" stroke="none"/>
+                <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="#2a2a2a" stroke="none"/>
+              </g>
+              <g transform="translate(25.98, -15)">
+                <polygon points="0,-30 25.98,-15 0,0 -25.98,-15"/>
+                <polygon points="0,0 -25.98,-15 -25.98,15 0,30"/>
+                <polygon points="0,0 25.98,-15 25.98,15 0,30"/>
+              </g>
+              <g transform="translate(-25.98, 15)">
+                <polygon points="0,-30 25.98,-15 0,0 -25.98,-15"/>
+                <polygon points="0,0 -25.98,-15 -25.98,15 0,30"/>
+                <polygon points="0,0 25.98,-15 25.98,15 0,30"/>
+              </g>
+              <g transform="translate(25.98, 15)">
+                <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="#0F0E0E" stroke="none"/>
+                <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="#1a1a1a" stroke="none"/>
+                <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="#2a2a2a" stroke="none"/>
+              </g>
+              
+              <!-- Wave - same stroke -->
+              <path d="M -51.96,0 Q -26,-12 0,0 Q 26,12 51.96,0" stroke="white"/>
+              
+              <!-- Branching - same stroke -->
+              <path d="M 0,-45 L 0,-60"/>
+              <path d="M 0,-52 L -12,-60"/>
+              <path d="M 0,-52 L 12,-60"/>
+              <path d="M -12,-60 L -16,-66"/>
+              <path d="M 12,-60 L 16,-66"/>
+            </g>
+          </g>
+        </svg>
+        <div class="variant-label">4C: Unified Stroke</div>
+        <div class="variant-desc">All elements share consistent line weight</div>
+      </div>
+      
+      <!-- 4D: Lichen fills the negative space -->
+      <div class="variant dark">
+        <svg viewBox="0 0 160 160" width="140" height="140">
+          <g transform="translate(80, 90)">
+            <!-- Cubes -->
+            <g transform="translate(-25.98, -15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="#F6F8FB"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="#e0e0e0"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="#c8c8c8"/>
+            </g>
+            <g transform="translate(25.98, -15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="none" stroke="#F6F8FB" stroke-width="1"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="none" stroke="#F6F8FB" stroke-width="1"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="none" stroke="#F6F8FB" stroke-width="1"/>
+            </g>
+            <g transform="translate(-25.98, 15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="none" stroke="#F6F8FB" stroke-width="1"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="none" stroke="#F6F8FB" stroke-width="1"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="none" stroke="#F6F8FB" stroke-width="1"/>
+            </g>
+            <g transform="translate(25.98, 15)">
+              <polygon points="0,-30 25.98,-15 0,0 -25.98,-15" fill="#F6F8FB"/>
+              <polygon points="0,0 -25.98,-15 -25.98,15 0,30" fill="#e0e0e0"/>
+              <polygon points="0,0 25.98,-15 25.98,15 0,30" fill="#c8c8c8"/>
+            </g>
+            
+            <!-- Dense lichen network in the center gap -->
+            <g stroke="#F6F8FB" stroke-width="1" fill="none" stroke-linecap="round">
+              <!-- Vertical -->
+              <path d="M 0,-25 L 0,25"/>
+              <!-- Horizontals -->
+              <path d="M -15,-12 L 15,-12"/>
+              <path d="M -15,12 L 15,12"/>
+              <!-- Diagonals (iso angles) -->
+              <path d="M -10,-20 L 10,0"/>
+              <path d="M 10,-20 L -10,0"/>
+              <path d="M -10,0 L 10,20"/>
+              <path d="M 10,0 L -10,20"/>
+              <!-- Small branches from intersections -->
+              <path d="M 0,0 L -8,-4"/>
+              <path d="M 0,0 L 8,-4"/>
+              <path d="M 0,0 L -8,4"/>
+              <path d="M 0,0 L 8,4"/>
+            </g>
+          </g>
+        </svg>
+        <div class="variant-label">4D: Lichen Fills Gap</div>
+        <div class="variant-desc">Network structure in negative space</div>
+      </div>
+      
+    </div>
+  </div>
+  
+</body>
+</html>

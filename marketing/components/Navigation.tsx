@@ -20,7 +20,7 @@ export function Navigation({ marqueeText, aboutSnippet }: NavigationProps = {}) 
       {/* Logo Button - triggers About info */}
       <button
         onClick={() => setAboutMenuOpen(!aboutMenuOpen)}
-        className="shrink-0 rounded-lg bg-gradient-brand px-4 flex items-center justify-center hover-lemon-gradient"
+        className="shrink-0 rounded bg-gradient-brand px-4 flex items-center justify-center hover-lemon-gradient"
         aria-label="Toggle about information"
       >
         <Image
@@ -33,12 +33,12 @@ export function Navigation({ marqueeText, aboutSnippet }: NavigationProps = {}) 
       </button>
 
       {/* Marquee Ticker */}
-      <div className="flex-1 rounded-lg bg-gradient-brand overflow-hidden flex items-center">
+      <div className="flex-1 rounded bg-gradient-brand overflow-hidden flex items-center">
         <div className="py-4 flex animate-marquee">
           {[...Array(4)].map((_, i) => (
             <span
               key={i}
-              className="shrink-0 px-8 text-text-dark font-semibold text-lg tracking-tight whitespace-nowrap"
+              className="shrink-0 px-8 text-text-dark font-medium text-sm uppercase tracking-wide whitespace-nowrap font-mono"
             >
               {marqueeText || "This Coastal Town — A series of events exploring art, culture, and community on the Suffolk coast."} ✦
             </span>
@@ -49,7 +49,7 @@ export function Navigation({ marqueeText, aboutSnippet }: NavigationProps = {}) 
       {/* Nav Menu Button */}
       <button
         onClick={() => setNavMenuOpen(!navMenuOpen)}
-        className="shrink-0 rounded-lg bg-gradient-brand px-4 flex items-center justify-center hover-lemon-gradient"
+        className="shrink-0 rounded bg-gradient-brand px-4 flex items-center justify-center hover-lemon-gradient"
         aria-label="Toggle navigation menu"
       >
         <Image
@@ -69,7 +69,7 @@ export function Navigation({ marqueeText, aboutSnippet }: NavigationProps = {}) 
             initial={{ height: 0, opacity: 0, marginTop: 0 }}
             animate={{ height: 'auto', opacity: 1, marginTop: 10 }}
             exit={{ height: 0, opacity: 0, marginTop: 0 }}
-            className="relative z-20 rounded-lg bg-gradient-brand overflow-hidden"
+            className="relative z-20 rounded bg-gradient-brand overflow-hidden"
           >
             <div className="px-5 py-4">
               <p className="text-text-dark text-sm leading-relaxed">
@@ -87,31 +87,31 @@ export function Navigation({ marqueeText, aboutSnippet }: NavigationProps = {}) 
             initial={{ height: 0, opacity: 0, marginTop: 0 }}
             animate={{ height: 'auto', opacity: 1, marginTop: 10 }}
             exit={{ height: 0, opacity: 0, marginTop: 0 }}
-            className="relative z-20 rounded-lg bg-gradient-brand overflow-hidden"
+            className="relative z-20 rounded bg-gradient-brand overflow-hidden"
           >
-            <div className="flex items-center justify-end px-4 py-2">
+            <div className="flex items-center justify-end px-4 py-3">
               {/* Nav Links */}
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
                 <Link
                   href="/#programme"
                   onClick={() => setNavMenuOpen(false)}
-                  className="text-text-dark text-lg border border-text-dark rounded-full px-4 py-1.5 hover-lemon-gradient relative z-10"
+                  className="tag"
                 >
-                  <span className="relative z-10">Programme</span>
+                  Programme
                 </Link>
                 <Link
                   href="/about"
                   onClick={() => setNavMenuOpen(false)}
-                  className="text-text-dark text-lg border border-text-dark rounded-full px-4 py-1.5 hover-lemon-gradient relative z-10"
+                  className="tag"
                 >
-                  <span className="relative z-10">About</span>
+                  About
                 </Link>
                 <Link
                   href="/"
                   onClick={() => setNavMenuOpen(false)}
-                  className="text-text-dark text-lg border border-text-dark rounded-full px-4 py-1.5 hover-lemon-gradient relative z-10"
+                  className="tag"
                 >
-                  <span className="relative z-10">Home</span>
+                  Home
                 </Link>
               </div>
             </div>
