@@ -1,14 +1,24 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export function Footer() {
   return (
     <footer className="w-full p-5">
       <div className="bg-gradient-brand rounded-lg p-5 pt-[400px] flex flex-col md:flex-row items-end justify-between gap-10">
         {/* Logo */}
-        <div className="font-display text-text-dark text-[80px] md:text-[140px] leading-none">
-          <h2 className="mb-0">This</h2>
-          <h2 className="mb-0">Coastal</h2>
-          <h2>Town</h2>
+        <div className="flex flex-col gap-6">
+          <div className="font-display text-text-dark text-[50px] md:text-[80px] leading-none">
+            <h2 className="mb-0">Reimagine</h2>
+            <h2 className="mb-0">This Coastal</h2>
+            <h2>Town</h2>
+          </div>
+          <Image
+            src="/logo-white.png"
+            alt="Furtherfield"
+            width={200}
+            height={50}
+            className="invert"
+          />
         </div>
 
         {/* Footer Links */}

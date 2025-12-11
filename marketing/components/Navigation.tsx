@@ -20,7 +20,7 @@ export function Navigation({ marqueeText, aboutSnippet }: NavigationProps = {}) 
       {/* Logo Button - triggers About info */}
       <button
         onClick={() => setAboutMenuOpen(!aboutMenuOpen)}
-        className="shrink-0 rounded-lg bg-gradient-brand px-4 flex items-center justify-center hover:opacity-90 transition-opacity"
+        className="shrink-0 rounded-lg bg-gradient-brand px-4 flex items-center justify-center hover-lemon-gradient"
         aria-label="Toggle about information"
       >
         <Image
@@ -28,7 +28,7 @@ export function Navigation({ marqueeText, aboutSnippet }: NavigationProps = {}) 
           alt="Furtherfield"
           width={24}
           height={24}
-          className="invert"
+          className="invert relative z-10"
         />
       </button>
 
@@ -49,7 +49,7 @@ export function Navigation({ marqueeText, aboutSnippet }: NavigationProps = {}) 
       {/* Nav Menu Button */}
       <button
         onClick={() => setNavMenuOpen(!navMenuOpen)}
-        className="shrink-0 rounded-lg bg-gradient-brand px-4 flex items-center justify-center hover:opacity-90 transition-opacity"
+        className="shrink-0 rounded-lg bg-gradient-brand px-4 flex items-center justify-center hover-lemon-gradient"
         aria-label="Toggle navigation menu"
       >
         <Image
@@ -57,6 +57,7 @@ export function Navigation({ marqueeText, aboutSnippet }: NavigationProps = {}) 
           alt="Menu"
           width={40}
           height={40}
+          className="relative z-10"
         />
       </button>
       </nav>
@@ -94,23 +95,23 @@ export function Navigation({ marqueeText, aboutSnippet }: NavigationProps = {}) 
                 <Link
                   href="/#programme"
                   onClick={() => setNavMenuOpen(false)}
-                  className="text-text-dark text-lg border border-text-dark rounded-full px-4 py-1.5 hover:opacity-70 transition-opacity"
+                  className="text-text-dark text-lg border border-text-dark rounded-full px-4 py-1.5 hover-lemon-gradient relative z-10"
                 >
-                  Programme
+                  <span className="relative z-10">Programme</span>
                 </Link>
                 <Link
                   href="/about"
                   onClick={() => setNavMenuOpen(false)}
-                  className="text-text-dark text-lg border border-text-dark rounded-full px-4 py-1.5 hover:opacity-70 transition-opacity"
+                  className="text-text-dark text-lg border border-text-dark rounded-full px-4 py-1.5 hover-lemon-gradient relative z-10"
                 >
-                  About
+                  <span className="relative z-10">About</span>
                 </Link>
                 <Link
                   href="/"
                   onClick={() => setNavMenuOpen(false)}
-                  className="text-text-dark text-lg border border-text-dark rounded-full px-4 py-1.5 hover:opacity-70 transition-opacity"
+                  className="text-text-dark text-lg border border-text-dark rounded-full px-4 py-1.5 hover-lemon-gradient relative z-10"
                 >
-                  Home
+                  <span className="relative z-10">Home</span>
                 </Link>
               </div>
             </div>

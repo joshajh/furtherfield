@@ -88,3 +88,24 @@ html, body {
   font-family: var(--font-instrument-serif), ui-serif, Georgia, serif;
 }
 
+/* Lemon gradient hover effect */
+.hover-lemon-gradient {
+  position: relative;
+  overflow: hidden;
+}
+
+.hover-lemon-gradient::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(245, 235, 180, 0.9) 0%, rgba(220, 200, 140, 0.85) 100%);
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.hover-lemon-gradient:hover::after {
+  opacity: 1;
+}
+

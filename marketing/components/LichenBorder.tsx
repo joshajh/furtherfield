@@ -29,24 +29,21 @@ export function LichenBorder() {
           className="absolute inset-0 opacity-80"
           style={{
             backgroundImage: 'url(/lichen/borders/border-left.png)',
-            backgroundSize: 'auto 100vh',
+            backgroundSize: 'auto 60vh',
             backgroundPosition: 'left bottom',
             backgroundRepeat: 'no-repeat',
-            maskImage: 'linear-gradient(to top, black 0%, black 50%, transparent 60%)',
-            WebkitMaskImage: 'linear-gradient(to top, black 0%, black 50%, transparent 60%)',
           }}
         />
         {/* Tint overlay with transition */}
         <div
           className={`absolute inset-0 ${treatmentClass} mix-blend-multiply transition-colors duration-700 ease-in-out`}
           style={{
-            maskImage: 'url(/lichen/borders/border-left.png), linear-gradient(to top, black 0%, black 50%, transparent 60%)',
-            maskSize: 'auto 100vh, 100% 100%',
-            maskPosition: 'left bottom, center',
+            maskImage: 'url(/lichen/borders/border-left.png)',
+            maskSize: 'auto 60vh',
+            maskPosition: 'left bottom',
             maskRepeat: 'no-repeat',
-            maskComposite: 'intersect',
             WebkitMaskImage: 'url(/lichen/borders/border-left.png)',
-            WebkitMaskSize: 'auto 100vh',
+            WebkitMaskSize: 'auto 60vh',
             WebkitMaskPosition: 'left bottom',
             WebkitMaskRepeat: 'no-repeat',
           }}
@@ -63,24 +60,21 @@ export function LichenBorder() {
           className="absolute inset-0 opacity-80"
           style={{
             backgroundImage: 'url(/lichen/borders/border-right.png)',
-            backgroundSize: 'auto 100vh',
+            backgroundSize: 'auto 60vh',
             backgroundPosition: 'right bottom',
             backgroundRepeat: 'no-repeat',
-            maskImage: 'linear-gradient(to top, black 0%, black 50%, transparent 60%)',
-            WebkitMaskImage: 'linear-gradient(to top, black 0%, black 50%, transparent 60%)',
           }}
         />
         {/* Tint overlay with transition */}
         <div
           className={`absolute inset-0 ${treatmentClass} mix-blend-multiply transition-colors duration-700 ease-in-out`}
           style={{
-            maskImage: 'url(/lichen/borders/border-right.png), linear-gradient(to top, black 0%, black 50%, transparent 60%)',
-            maskSize: 'auto 100vh, 100% 100%',
-            maskPosition: 'right bottom, center',
+            maskImage: 'url(/lichen/borders/border-right.png)',
+            maskSize: 'auto 60vh',
+            maskPosition: 'right bottom',
             maskRepeat: 'no-repeat',
-            maskComposite: 'intersect',
             WebkitMaskImage: 'url(/lichen/borders/border-right.png)',
-            WebkitMaskSize: 'auto 100vh',
+            WebkitMaskSize: 'auto 60vh',
             WebkitMaskPosition: 'right bottom',
             WebkitMaskRepeat: 'no-repeat',
           }}
