@@ -4,6 +4,11 @@ export default config({
   storage: {
     kind: "local",
   },
+  ui: {
+    brand: {
+      name: "This Coastal Town",
+    },
+  },
   collections: {
     events: collection({
       label: "Events",
@@ -68,6 +73,63 @@ export default config({
         heroSubtitle: fields.text({ label: "Hero Subtitle", multiline: true }),
         ctaText: fields.text({ label: "CTA Button Text" }),
         ctaUrl: fields.url({ label: "CTA Button URL" }),
+        marqueeText: fields.text({
+          label: "Marquee Text",
+          description: "Scrolling text in the navigation bar",
+          multiline: false,
+        }),
+        aboutSnippet: fields.text({
+          label: "About Snippet",
+          description: "Short about text shown when clicking the logo",
+          multiline: true,
+        }),
+      },
+    },
+    aboutPage: {
+      label: "About Page",
+      path: "content/about-page",
+      schema: {
+        heroTitle: fields.text({ label: "Hero Title" }),
+        heroSubtitle: fields.text({ label: "Hero Subtitle" }),
+        storyTitle: fields.text({ label: "Story Section Title" }),
+        storyContent: fields.text({ label: "Story Content", multiline: true }),
+        missionTitle: fields.text({ label: "Mission Title" }),
+        missionContent: fields.text({ label: "Mission Content", multiline: true }),
+        visionTitle: fields.text({ label: "Vision Title" }),
+        visionContent: fields.text({ label: "Vision Content", multiline: true }),
+        accessibilityIntro: fields.text({ label: "Accessibility Introduction", multiline: true }),
+        contactEmail: fields.text({ label: "Contact Email" }),
+        partnersIntro: fields.text({ label: "Partners Introduction", multiline: true }),
+        partners: fields.array(
+          fields.object({
+            name: fields.text({ label: "Partner Name" }),
+            logo: fields.image({
+              label: "Partner Logo",
+              directory: "public/images/partners",
+              publicPath: "/images/partners",
+            }),
+          }),
+          {
+            label: "Partners",
+            itemLabel: (props) => props.fields.name.value || "New Partner",
+          }
+        ),
+        venues: fields.array(
+          fields.object({
+            name: fields.text({ label: "Venue Name" }),
+            address: fields.text({ label: "Address" }),
+            type: fields.text({ label: "Venue Type" }),
+            description: fields.text({ label: "Description", multiline: true }),
+            accessibility: fields.array(
+              fields.text({ label: "Accessibility Feature" }),
+              { label: "Accessibility Features" }
+            ),
+          }),
+          {
+            label: "Venues",
+            itemLabel: (props) => props.fields.name.value || "New Venue",
+          }
+        ),
       },
     },
   },

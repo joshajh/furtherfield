@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --port 3009",
+    "dev": "next dev --port 3009 --hostname 0.0.0.0",
     "build": "next build",
     "start": "next start --port 3009",
     "lint": "eslint"
@@ -17,6 +17,7 @@
     "react-dom": "19.2.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.57.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
@@ -26,5 +27,10 @@
     "sharp": "^0.34.5",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "@keystatic/core": "patches/@keystatic__core.patch"
+    }
   }
 }

@@ -1,0 +1,63 @@
+heroTitle: "About\nThis Coastal Town"
+heroSubtitle: ""
+storyTitle: "Our Story"
+storyContent: |
+  This Coastal Town is a cultural programme bringing together artists, communities, and ideas on the Suffolk coast. We believe in the transformative power of art to reimagine our relationship with place, ecology, and each other.
+
+  Founded by Furtherfield, the programme draws on decades of experience in participatory art and digital culture to create meaningful encounters between people and place.
+
+  Through workshops, performances, exhibitions, and conversations, we invite you to explore new ways of seeing, being, and belonging in coastal communities.
+missionTitle: "Our Mission"
+missionContent: |
+  To create spaces where art, ecology, and community intersect. We bring people together to imagine and enact new relationships with our coastal environments, fostering creativity, connection, and care for the places we inhabit.
+visionTitle: "Our Vision"
+visionContent: |
+  A coast where communities thrive alongside nature, where art opens new possibilities for living together, and where everyone can participate in shaping the future of their places.
+accessibilityIntro: |
+  We are committed to making all our events and venues as accessible as possible. Our programme includes a range of access provisions, and we're always happy to discuss individual requirements.
+contactEmail: "hello@thiscoastaltown.org"
+partnersIntro: |
+  This Coastal Town is made possible through the generous support of our partners and funders. We're grateful for their commitment to arts and culture on the Suffolk coast.
+partners:
+  - name: "Arts Council England"
+    logo: null
+  - name: "Suffolk County Council"
+    logo: null
+  - name: "Felixstowe Town Council"
+    logo: null
+  - name: "National Lottery Heritage Fund"
+    logo: null
+venues:
+  - name: "Felixstowe Beach Hut Gallery"
+    address: "Sea Road, Felixstowe, IP11 2AS"
+    type: "Gallery Space"
+    description: "A unique gallery space in a converted beach hut, offering intimate exhibitions with sea views."
+    accessibility:
+      - "Wheelchair accessible"
+      - "Accessible parking nearby"
+      - "Assistance dogs welcome"
+  - name: "The Clocktower Pavilion"
+    address: "Undercliff Road West, Felixstowe, IP11 2AF"
+    type: "Event Venue"
+    description: "A historic pavilion on the seafront, perfect for performances and community gatherings."
+    accessibility:
+      - "Step-free access"
+      - "Accessible toilets"
+      - "Hearing loop available"
+  - name: "Landguard Fort"
+    address: "View Point Road, Felixstowe, IP11 3TW"
+    type: "Heritage Site"
+    description: "A stunning historic fort at the mouth of the River Orwell, offering a unique backdrop for art installations."
+    accessibility:
+      - "Limited wheelchair access"
+      - "Uneven surfaces"
+      - "Assistance available on request"
+  - name: "Felixstowe Library"
+    address: "Crescent Road, Felixstowe, IP11 7BY"
+    type: "Community Space"
+    description: "A welcoming community hub in the heart of town, hosting workshops and talks."
+    accessibility:
+      - "Full wheelchair access"
+      - "Accessible toilets"
+      - "Large print materials"
+      - "Quiet space available"

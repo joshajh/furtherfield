@@ -8,9 +8,9 @@ export type Event = {
   slug: string;
   title: string;
   type: string;
-  date: string;
-  image: string;
-  summary?: string;
+  date: string | null;
+  image: string | null;
+  summary?: string | null;
 };
 
 type EventCardProps = {
@@ -30,12 +30,14 @@ export function EventCard({ event, index = 0 }: EventCardProps) {
         {/* Image section with lemon treatment */}
         <div className="relative h-[68%]">
           {/* Base image */}
-          <Image
-            src={event.image}
-            alt={event.title}
-            fill
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-          />
+          {event.image && (
+            <Image
+              src={event.image}
+              alt={event.title}
+              fill
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+          )}
 
           {/* Lemon color tint */}
           <div
@@ -70,9 +72,11 @@ export function EventCard({ event, index = 0 }: EventCardProps) {
             <span className="border border-text-dark/60 rounded-full px-3 py-1 text-text-dark/80 text-xs font-medium">
               {event.type}
             </span>
-            <span className="border border-text-dark/60 rounded-full px-3 py-1 text-text-dark/80 text-xs font-medium">
-              {event.date}
-            </span>
+            {event.date && (
+              <span className="border border-text-dark/60 rounded-full px-3 py-1 text-text-dark/80 text-xs font-medium">
+                {event.date}
+              </span>
+            )}
           </div>
 
           {/* Title - z-40 to appear above lichen border */}

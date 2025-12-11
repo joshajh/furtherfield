@@ -5,7 +5,12 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 
-export function Navigation() {
+type NavigationProps = {
+  marqueeText?: string | null;
+  aboutSnippet?: string | null;
+};
+
+export function Navigation({ marqueeText, aboutSnippet }: NavigationProps = {}) {
   const [aboutMenuOpen, setAboutMenuOpen] = useState(false)
   const [navMenuOpen, setNavMenuOpen] = useState(false)
 
@@ -35,7 +40,7 @@ export function Navigation() {
               key={i}
               className="shrink-0 px-8 text-text-dark font-semibold text-lg tracking-tight whitespace-nowrap"
             >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ✦
+              {marqueeText || "This Coastal Town — A series of events exploring art, culture, and community on the Suffolk coast."} ✦
             </span>
           ))}
         </div>
@@ -67,10 +72,7 @@ export function Navigation() {
           >
             <div className="px-5 py-4">
               <p className="text-text-dark text-sm leading-relaxed">
-                Furtherfield is a leading international arts organisation exploring the intersections of art, technology and social change. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </p>
-              <p className="text-text-dark text-sm leading-relaxed mt-2">
-                Furtherfield is committed to building and sustaining creative networks across borders and boundaries, working with artists, technologists, thinkers and communities worldwide. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+                {aboutSnippet || "Furtherfield is a leading international arts organisation exploring the intersections of art, technology and social change. We work with artists, technologists, thinkers and communities worldwide to build creative networks across borders and boundaries."}
               </p>
             </div>
           </motion.div>

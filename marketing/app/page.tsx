@@ -10,53 +10,44 @@ import {
   type Event,
 } from "@/components";
 import { FullWidthImage } from "@/components/FullWidthImage";
+import { getEvents, getSettings } from "@/lib/keystatic";
 
-// Mock data - will be replaced with CMS data
-const events: Event[] = [
-  {
-    slug: "larping-chattanooga",
-    title: "LARPing, is that the Chattanooga ChooChoo",
-    type: "Workshop",
-    date: "Aug 12",
-    image: "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=800&q=80",
-    summary: "Join us for a LARPing experience",
-  },
-  {
-    slug: "larping-find-out",
-    title: "LARPing, Find Out What It Means To Me",
-    type: "Workshop",
-    date: "Aug 6, 2028",
-    image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&q=80",
-    summary: "We are all chimeras, theorized and fabricated hybrids",
-  },
-  {
-    slug: "larping-red-light",
-    title: "LARPing, You Don't Have To Put On That Red Light",
-    type: "Performance",
-    date: "Aug 15",
-    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
-    summary: "For the light leaks and long silences",
-  },
-  {
-    slug: "larp-basics",
-    title: "LARP",
-    type: "Exhibition",
-    date: "Aug 20",
-    image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&q=80",
-    summary: "Hands-on experience",
-  },
-];
+function formatEventType(type: string): string {
+  return type.charAt(0).toUpperCase() + type.slice(1);
+}
 
-export default function Home() {
+function formatDate(dateStr: string | null): string | null {
+  if (!dateStr) return null;
+  const date = new Date(dateStr);
+  return date.toLocaleDateString("en-GB", { month: "short", day: "numeric", year: "numeric" });
+}
+
+export default async function Home() {
+  const [events, settings] = await Promise.all([getEvents(), getSettings()]);
+
+  const formattedEvents: Event[] = events.map((e) => ({
+    slug: e.slug,
+    title: e.title,
+    type: formatEventType(e.type),
+    date: formatDate(e.date),
+    image: e.image,
+    summary: e.summary,
+  }));
   return (
     <div className="min-h-screen flex flex-col gap-2.5 py-2.5">
       <AnimatedSprites />
-      <Navigation />
+      <Navigation
+        marqueeText={settings?.marqueeText}
+        aboutSnippet={settings?.aboutSnippet}
+      />
 
       <main className="flex flex-col gap-2.5">
-        <HeroHeader />
+        <HeroHeader
+          title={settings?.heroTitle || "Reimagine\nThis Coastal Town"}
+          subtitle={settings?.heroSubtitle || undefined}
+        />
 
-        <EventGrid events={events} />
+        <EventGrid events={formattedEvents} />
 
         <div className="px-2.5">
           <Button variant="large" href="/events">
@@ -69,13 +60,13 @@ export default function Home() {
           alt="Shipping containers"
         />
 
-        <ProgrammeTable events={events} />
+        <ProgrammeTable events={formattedEvents} />
 
         <CTASection
-          title="Book or other CTA"
-          subtitle="Supporting two-liner"
-          buttonText="CTA"
-          buttonHref="#"
+          title={settings?.ctaText || "Book or other CTA"}
+          subtitle={settings?.tagline || "Supporting two-liner"}
+          buttonText={settings?.ctaText || "CTA"}
+          buttonHref={settings?.ctaUrl || "#"}
         />
 
       </main>
