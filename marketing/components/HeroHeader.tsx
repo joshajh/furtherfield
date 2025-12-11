@@ -30,6 +30,15 @@ export function HeroHeader({
 
   return (
     <section className="relative rounded-lg overflow-hidden bg-gradient-brand mx-2.5 pt-16">
+      {/* SVG Filter for weathered text effect */}
+      <svg className="absolute w-0 h-0" aria-hidden="true">
+        <defs>
+          <filter id="weathered-filter">
+            <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="2" xChannelSelector="R" yChannelSelector="G" />
+          </filter>
+        </defs>
+      </svg>
       {showTidalGrid && (
         <TidalGrid
           className="absolute inset-0 w-full h-full opacity-40 pointer-events-none"
@@ -112,14 +121,41 @@ export function HeroHeader({
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.4, ease: 'easeOut' }}
+              className="relative"
             >
-              <h1 className="relative z-40 font-display text-text-dark text-[60px] md:text-[100px] lg:text-[140px] leading-none">
+              <h1 className="relative z-40 font-display text-[60px] md:text-[100px] leading-none weathered-text">
                 {titleLines.map((line, i) => (
-                  <span key={i} className={i === 0 ? 'italic block' : 'block'}>
-                    {line}
-                  </span>
+                  i === 0 ? (
+                    <span key={i} className="block relative italic">
+                      <Image
+                        src="/svg-icon.svg"
+                        alt=""
+                        width={40}
+                        height={40}
+                        className="inline-block mr-2 -ml-1 align-top animate-spin-slow"
+                        aria-hidden="true"
+                      />
+                      <span className="glitch-base-text text-gradient-dark">{line}</span>
+                      <span className="absolute inset-0 left-[1em] glitch-shadow-text text-treatment-acid" aria-hidden="true">
+                        {line}
+                      </span>
+                    </span>
+                  ) : (
+                    <span key={i} className="block text-gradient-dark">{line}</span>
+                  )
                 ))}
               </h1>
+
+
+              {/* Location/Date tags */}
+              <div className="relative z-40 mt-4 flex gap-2">
+                <span className="text-text-dark/40 text-[10px] font-mono border border-text-dark/20 px-2 py-0.5 rounded">
+                  FELIXSTOWE
+                </span>
+                <span className="text-text-dark/40 text-[10px] font-mono border border-text-dark/20 px-2 py-0.5 rounded">
+                  2026
+                </span>
+              </div>
 
               {subtitle && (
                 <p className="relative z-10 text-text-dark text-xl max-w-md mt-6">
