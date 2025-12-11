@@ -5,6 +5,11 @@ import { usePathname } from 'next/navigation';
 export function LichenBorder() {
   const pathname = usePathname();
 
+  // Hide on Keystatic CMS routes
+  if (pathname?.startsWith('/keystatic')) {
+    return null;
+  }
+
   // Use 'dark' treatment on event detail pages, 'lemon' elsewhere
   const isEventDetail = pathname?.startsWith('/events/') && pathname !== '/events';
   const treatmentClass = isEventDetail ? 'bg-treatment-dark' : 'bg-treatment-lemon';
