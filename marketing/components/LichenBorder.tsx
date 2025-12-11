@@ -10,9 +10,9 @@ export function LichenBorder() {
     return null;
   }
 
-  // Use 'dark' treatment on event detail pages, 'lemon' elsewhere
+  // Use 'dark' treatment on event detail pages, 'acid' elsewhere
   const isEventDetail = pathname?.startsWith('/events/') && pathname !== '/events';
-  const treatmentClass = isEventDetail ? 'bg-treatment-dark' : 'bg-treatment-lemon';
+  const treatmentClass = isEventDetail ? 'bg-treatment-dark' : 'bg-treatment-acid';
 
   return (
     <div
