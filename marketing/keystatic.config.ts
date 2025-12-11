@@ -1,9 +1,17 @@
 import { config, fields, collection, singleton } from "@keystatic/core";
 
+const isProd = process.env.NODE_ENV === "production";
+
 export default config({
-  storage: {
-    kind: "local",
-  },
+  storage: isProd
+    ? {
+        kind: "github",
+        repo: "joshajh/furtherfield",
+        pathPrefix: "marketing",
+      }
+    : {
+        kind: "local",
+      },
   ui: {
     brand: {
       name: "This Coastal Town",
