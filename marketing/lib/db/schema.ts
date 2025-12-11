@@ -1,0 +1,56 @@
+import { sqliteTable, text, integer } from "drizzle-orm/sqlite-core";
+
+export const events = sqliteTable("events", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  slug: text("slug").notNull().unique(),
+  title: text("title").notNull(),
+  date: text("date"), // ISO date string
+  time: text("time"),
+  type: text("type").notNull().default("other"), // workshop, performance, exhibition, screening, talk, other
+  venueId: integer("venue_id").references(() => venues.id),
+  image: text("image"),
+  summary: text("summary"),
+  description: text("description"), // MDX/Markdown content
+  bookingUrl: text("booking_url"),
+  featured: integer("featured", { mode: "boolean" }).default(false),
+  createdAt: text("created_at").default("CURRENT_TIMESTAMP"),
+  updatedAt: text("updated_at").default("CURRENT_TIMESTAMP"),
+});
+
+export const venues = sqliteTable("venues", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  slug: text("slug").notNull().unique(),
+  name: text("name").notNull(),
+  address: text("address"),
+  type: text("type"),
+  description: text("description"),
+  accessibility: text("accessibility"), // JSON array stored as text
+});
+
+export const settings = sqliteTable("settings", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  key: text("key").notNull().unique(),
+  value: text("value"),
+});
+
+export const partners = sqliteTable("partners", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  name: text("name").notNull(),
+  logo: text("logo"),
+  sortOrder: integer("sort_order").default(0),
+});
+
+export const aboutPage = sqliteTable("about_page", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  heroTitle: text("hero_title"),
+  heroSubtitle: text("hero_subtitle"),
+  storyTitle: text("story_title"),
+  storyContent: text("story_content"),
+  missionTitle: text("mission_title"),
+  missionContent: text("mission_content"),
+  visionTitle: text("vision_title"),
+  visionContent: text("vision_content"),
+  accessibilityIntro: text("accessibility_intro"),
+  contactEmail: text("contact_email"),
+  partnersIntro: text("partners_intro"),
+});

@@ -1,4 +1,4 @@
-import { getEvents, getSettings } from "@/lib/keystatic";
+import { getEvents, getSettings } from "@/lib/cms";
 import EventsPageClient from "./EventsPageClient";
 
 export default async function EventsPage() {

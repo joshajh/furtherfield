@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { Navigation, Footer, EventGrid, TidalGrid, RotatingCubesIcon, type Event } from "@/components";
-import type { Venue } from "@/lib/keystatic";
+import type { Venue } from "@/lib/cms";
 
 type EventData = {
   slug: string;

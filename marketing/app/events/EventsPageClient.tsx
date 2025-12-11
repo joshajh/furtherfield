@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { Navigation, Footer, AnimatedSprites } from "@/components";
-import type { Event } from "@/lib/keystatic";
+import type { Event } from "@/lib/cms";
 
 type EventsPageClientProps = {
   events: Event[];

@@ -1,4 +1,4 @@
-import { getAboutPage, getSettings, getVenues } from "@/lib/keystatic";
+import { getAboutPage, getSettings, getVenues } from "@/lib/cms";
 import AboutPageClient from "./AboutPageClient";
 
 export default async function AboutPage() {

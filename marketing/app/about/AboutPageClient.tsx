@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useCallback } from "react";
 import { Navigation, Footer, TidalGrid } from "@/components";
-import type { AboutPage, Venue } from "@/lib/keystatic";
+import type { AboutPage, Venue } from "@/lib/cms";
 
 type AboutPageClientProps = {
   aboutPage: AboutPage | null;

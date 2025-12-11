@@ -10,7 +10,7 @@ import {
   type Event,
 } from "@/components";
 import { FullWidthImage } from "@/components/FullWidthImage";
-import { getEvents, getSettings } from "@/lib/keystatic";
+import { getEvents, getSettings } from "@/lib/cms";
 
 function formatEventType(type: string): string {
   return type.charAt(0).toUpperCase() + type.slice(1);

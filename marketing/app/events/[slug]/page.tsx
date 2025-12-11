@@ -1,4 +1,4 @@
-import { getEvent, getEvents, getSettings } from "@/lib/keystatic";
+import { getEvent, getEvents, getSettings } from "@/lib/cms";
 import { notFound } from "next/navigation";
 import EventPageClient from "./EventPageClient";
 

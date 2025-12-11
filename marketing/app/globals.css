@@ -331,4 +331,250 @@ html, body {
   -webkit-mask-image: linear-gradient(135deg, black 30%, transparent 70%);
 }
 
+/* ============================================
+   ADMIN CMS FORM STYLES (RPG-inspired)
+   ============================================ */
+
+/* Admin input - matches tag styling */
+.admin-input {
+  width: 100%;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 14px;
+  padding: 10px 14px;
+  border-radius: 4px;
+  border: 1px solid var(--color-text-dark);
+  color: var(--color-text-dark);
+  background: transparent;
+  transition: all 0.2s ease;
+}
+
+.admin-input:focus {
+  outline: none;
+  background: var(--color-treatment-lemon);
+  border-color: var(--color-text-dark);
+}
+
+.admin-input::placeholder {
+  color: var(--color-divider);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-size: 12px;
+}
+
+/* Admin textarea - same styling as input */
+textarea.admin-input {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Admin select - matches tag styling */
+.admin-select {
+  width: 100%;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 14px;
+  padding: 10px 14px;
+  border-radius: 4px;
+  border: 1px solid var(--color-text-dark);
+  color: var(--color-text-dark);
+  background: transparent;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%230F0E0E' d='M6 8L2 4h8z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+}
+
+.admin-select:focus {
+  outline: none;
+  background-color: var(--color-treatment-lemon);
+}
+
+/* Admin label - uppercase like tags */
+.admin-label {
+  display: block;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-dark);
+  margin-bottom: 6px;
+}
+
+/* Admin button - primary action */
+.admin-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  padding: 10px 20px;
+  border-radius: 4px;
+  border: 1px solid var(--color-text-dark);
+  color: var(--color-text-light);
+  background: var(--color-bg-dark);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.admin-btn:hover {
+  background: var(--color-treatment-acid);
+  color: var(--color-text-dark);
+}
+
+/* Admin button - secondary/cancel */
+.admin-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  padding: 10px 20px;
+  border-radius: 4px;
+  border: 1px solid var(--color-text-dark);
+  color: var(--color-text-dark);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.admin-btn-secondary:hover {
+  background: var(--color-treatment-lemon);
+}
+
+/* Admin checkbox - styled */
+.admin-checkbox {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--color-text-dark);
+  border-radius: 2px;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.admin-checkbox:checked {
+  background: var(--color-treatment-acid);
+}
+
+.admin-checkbox:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 12px;
+  color: var(--color-text-dark);
+  font-weight: bold;
+}
+
+.admin-checkbox:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-treatment-lemon);
+}
+
+/* Admin section header */
+.admin-section-header {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-dark);
+  padding-bottom: 8px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--color-text-dark);
+}
+
+/* Admin card container */
+.admin-card {
+  background: linear-gradient(to bottom, var(--color-gradient-start), var(--color-gradient-end));
+  border: 1px solid var(--color-text-dark);
+  border-radius: 4px;
+  padding: 24px;
+  position: relative;
+  isolation: isolate;
+}
+
+.admin-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.6;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 1;
+}
+
+/* Admin table styling */
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-table th {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-dark);
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--color-text-dark);
+}
+
+.admin-table td {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 14px;
+  color: var(--color-text-dark);
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(15, 14, 14, 0.2);
+}
+
+.admin-table tr:hover td {
+  background: var(--color-treatment-lemon);
+}
+
+/* Admin link styling */
+.admin-link {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--color-text-dark);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.admin-link:hover {
+  color: var(--color-treatment-acid);
+  background: var(--color-bg-dark);
+  padding: 2px 6px;
+  margin: -2px -6px;
+  border-radius: 2px;
+}
+
+.admin-link-danger {
+  color: var(--color-divider);
+}
+
+.admin-link-danger:hover {
+  color: #dc2626;
+  background: transparent;
+}
+
 
