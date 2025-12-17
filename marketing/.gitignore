@@ -48,6 +48,5 @@ node_modules/
 /playwright/.cache/
 /playwright/.auth/
 
-# SQLite database
-data/*.db
+# SQLite journal files (temp files, not the actual database)
 data/*.db-journal

@@ -29,7 +29,7 @@ export function HeroHeader({
   }, [])
 
   return (
-    <section className="relative rounded-lg overflow-hidden bg-gradient-brand mx-2.5 pt-16">
+    <section className="relative rounded-lg overflow-hidden bg-gradient-brand mx-2.5 pt-8 md:pt-16">
       {/* SVG Filter for weathered text effect */}
       <svg className="absolute w-0 h-0" aria-hidden="true">
         <defs>
@@ -60,7 +60,7 @@ export function HeroHeader({
         ?
       </button>
 
-      <div className="relative p-10">
+      <div className="relative p-4 md:p-10">
         <AnimatePresence mode="wait">
           {showMaritimeInfo ? (
             <motion.div
@@ -123,7 +123,7 @@ export function HeroHeader({
               transition={{ duration: 0.4, ease: 'easeOut' }}
               className="relative"
             >
-              <h1 className="relative z-40 font-display text-[80px] md:text-[140px] lg:text-[180px] leading-none weathered-text">
+              <h1 className="relative z-40 font-display text-[48px] sm:text-[64px] md:text-[140px] lg:text-[180px] leading-[0.9] md:leading-none weathered-text">
                 {titleLines.map((line, i) => (
                   i === 0 ? (
                     <span key={i} className="block relative italic">
@@ -132,7 +132,7 @@ export function HeroHeader({
                         alt=""
                         width={40}
                         height={40}
-                        className="inline-block mr-2 -ml-1 align-top animate-spin-slow"
+                        className="inline-block mr-1 md:mr-2 -ml-1 w-6 h-6 md:w-10 md:h-10 align-top animate-spin-slow"
                         aria-hidden="true"
                       />
                       <span className="glitch-base-text text-gradient-dark">{line}</span>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 
 interface RichTextEditorProps {
   name: string;
@@ -17,6 +17,15 @@ export function RichTextEditor({
 }: RichTextEditorProps) {
   const [content, setContent] = useState(defaultValue);
   const editorRef = useRef<HTMLDivElement>(null);
+  const initializedRef = useRef(false);
+
+  // Set initial content after mount (avoids React warning about contentEditable + dangerouslySetInnerHTML)
+  useEffect(() => {
+    if (editorRef.current && !initializedRef.current) {
+      editorRef.current.innerHTML = defaultValue;
+      initializedRef.current = true;
+    }
+  }, [defaultValue]);
 
   const execCommand = useCallback((command: string, value?: string) => {
     document.execCommand(command, false, value);
@@ -37,6 +46,17 @@ export function RichTextEditor({
     e.preventDefault();
     const text = e.clipboardData.getData("text/plain");
     document.execCommand("insertText", false, text);
+    // Sync content after paste
+    if (editorRef.current) {
+      setContent(editorRef.current.innerHTML);
+    }
+  }, []);
+
+  const handleBlur = useCallback(() => {
+    // Ensure content is synced when leaving the editor (before form submission)
+    if (editorRef.current) {
+      setContent(editorRef.current.innerHTML);
+    }
   }, []);
 
   return (
@@ -137,9 +157,10 @@ export function RichTextEditor({
       <div
         ref={editorRef}
         contentEditable
+        suppressContentEditableWarning
         onInput={handleInput}
         onPaste={handlePaste}
-        dangerouslySetInnerHTML={{ __html: defaultValue }}
+        onBlur={handleBlur}
         className="w-full border border-text-dark border-t-0 rounded-b p-3 min-h-[150px] bg-transparent text-text-dark focus:outline-none focus:bg-treatment-lemon/20 prose prose-sm max-w-none"
         style={{ minHeight: `${rows * 24}px` }}
         data-placeholder={placeholder}

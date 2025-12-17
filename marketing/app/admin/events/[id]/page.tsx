@@ -38,6 +38,8 @@ async function saveEvent(formData: FormData) {
   revalidatePath("/admin/events");
   revalidatePath("/");
   revalidatePath("/events");
+  // Revalidate the specific event detail page
+  revalidatePath(`/events/${data.slug}`);
   redirect("/admin/events");
 }
 

@@ -16,7 +16,8 @@ export function LichenBorder() {
 
   return (
     <div
-      className="fixed inset-0 z-30 pointer-events-none"
+      className="fixed top-0 left-0 right-0 z-30 pointer-events-none"
+      style={{ height: '100dvh' }}
       aria-hidden="true"
     >
       {/* Left edge - offset off-screen, starts at bottom, fades at 40% from bottom */}

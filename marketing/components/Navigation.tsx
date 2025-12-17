@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -14,119 +14,222 @@ type ContentMode = 'marquee' | 'about' | 'nav';
 
 export function Navigation({ marqueeText, aboutSnippet }: NavigationProps = {}) {
   const [contentMode, setContentMode] = useState<ContentMode>('marquee')
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [mobileMenuOpen])
 
   const toggleMode = (mode: ContentMode) => {
     setContentMode(current => current === mode ? 'marquee' : mode)
   }
 
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false)
+  }
+
   return (
-    <div className="sticky top-2.5 mx-2.5 z-40">
-      <nav className="flex items-stretch justify-between gap-2.5 relative z-50">
-        {/* Logo Button - triggers About info */}
-        <button
-          onClick={() => toggleMode('about')}
-          className="shrink-0 rounded bg-gradient-brand px-4 flex items-center justify-center hover-lemon-gradient"
-          aria-label="Toggle about information"
-        >
-          <Image
-            src="/f-mark-white-trans.png"
-            alt="Furtherfield"
-            width={24}
-            height={24}
-            className="invert relative z-10"
-          />
-        </button>
+    <>
+      <div className="sticky top-2.5 mx-2.5 z-40">
+        <nav className="flex items-stretch justify-between gap-2.5 relative z-50">
+          {/* Logo Button - triggers About info */}
+          <button
+            onClick={() => toggleMode('about')}
+            className="shrink-0 rounded bg-gradient-brand px-4 flex items-center justify-center hover-lemon-gradient"
+            aria-label="Toggle about information"
+          >
+            <Image
+              src="/f-mark-white-trans.png"
+              alt="Furtherfield"
+              width={24}
+              height={24}
+              className="invert relative z-10"
+            />
+          </button>
 
-        {/* Content Container */}
-        <div className="flex-1 rounded bg-gradient-brand overflow-hidden flex items-center relative min-h-[56px]">
-          <AnimatePresence mode="wait">
-            {contentMode === 'marquee' && (
-              <motion.div
-                key="marquee"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.2 }}
-                className="flex animate-marquee"
-              >
-                {[...Array(4)].map((_, i) => (
-                  <span
-                    key={i}
-                    className="shrink-0 px-8 text-text-dark font-medium text-sm uppercase tracking-wide whitespace-nowrap font-mono"
-                  >
-                    {marqueeText || "This Coastal Town — A series of events exploring art, culture, and community on the Suffolk coast."} ✦
-                  </span>
-                ))}
-              </motion.div>
-            )}
+          {/* Content Container */}
+          <div className="flex-1 rounded bg-gradient-brand overflow-hidden flex items-center relative min-h-[56px]">
+            <AnimatePresence mode="wait">
+              {contentMode === 'marquee' && (
+                <motion.div
+                  key="marquee"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                  className="flex animate-marquee"
+                >
+                  {[...Array(4)].map((_, i) => (
+                    <span
+                      key={i}
+                      className="shrink-0 px-8 text-text-dark font-medium text-sm uppercase tracking-wide whitespace-nowrap font-mono"
+                    >
+                      {marqueeText || "This Coastal Town — A series of events exploring art, culture, and community on the Suffolk coast."} ✦
+                    </span>
+                  ))}
+                </motion.div>
+              )}
 
-            {contentMode === 'about' && (
-              <motion.div
-                key="about"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.2 }}
-                className="px-8 w-full"
-              >
-                <p className="text-text-dark font-medium text-sm uppercase tracking-wide font-mono">
-                  {aboutSnippet || "Furtherfield is a leading international arts organisation exploring the intersections of art, technology and social change. We work with artists, technologists, thinkers and communities worldwide to build creative networks across borders and boundaries."}
+              {contentMode === 'about' && (
+                <motion.div
+                  key="about"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                  className="px-4 md:px-8 w-full"
+                >
+                  <p className="text-text-dark font-medium text-xs md:text-sm uppercase tracking-wide font-mono">
+                    {aboutSnippet || "Furtherfield is a leading international arts organisation exploring the intersections of art, technology and social change. We work with artists, technologists, thinkers and communities worldwide to build creative networks across borders and boundaries."}
+                  </p>
+                </motion.div>
+              )}
+
+              {contentMode === 'nav' && (
+                <motion.div
+                  key="nav"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                  className="hidden md:flex items-center justify-end px-4 py-3 w-full"
+                >
+                  <div className="flex items-center gap-2">
+                    <Link
+                      href="/#programme"
+                      onClick={() => setContentMode('marquee')}
+                      className="tag"
+                    >
+                      Programme
+                    </Link>
+                    <Link
+                      href="/about"
+                      onClick={() => setContentMode('marquee')}
+                      className="tag"
+                    >
+                      About
+                    </Link>
+                    <Link
+                      href="/"
+                      onClick={() => setContentMode('marquee')}
+                      className="tag"
+                    >
+                      Home
+                    </Link>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          {/* Nav Menu Button - Desktop: inline toggle, Mobile: opens overlay */}
+          <button
+            onClick={() => {
+              // On mobile, open the full-screen menu
+              if (window.innerWidth < 768) {
+                setMobileMenuOpen(true)
+              } else {
+                toggleMode('nav')
+              }
+            }}
+            className="shrink-0 rounded bg-gradient-brand px-4 flex items-center justify-center hover-lemon-gradient"
+            aria-label="Toggle navigation menu"
+          >
+            <Image
+              src="/svg-icon.svg"
+              alt="Menu"
+              width={40}
+              height={40}
+              className="relative z-10"
+            />
+          </button>
+        </nav>
+      </div>
+
+      {/* Full-viewport Mobile Menu Overlay */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-[100] md:hidden"
+          >
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-bg-dark/95 backdrop-blur-sm"
+              onClick={closeMobileMenu}
+            />
+
+            {/* Menu Content */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ duration: 0.3, delay: 0.1 }}
+              className="relative h-full flex flex-col"
+            >
+              {/* Close Button */}
+              <div className="flex justify-end p-4">
+                <button
+                  onClick={closeMobileMenu}
+                  className="tag text-lg px-6 py-3"
+                  aria-label="Close menu"
+                >
+                  Close
+                </button>
+              </div>
+
+              {/* Navigation Links */}
+              <nav className="flex-1 flex flex-col items-center justify-center gap-6 px-8">
+                <Link
+                  href="/"
+                  onClick={closeMobileMenu}
+                  className="font-display text-5xl text-text-light hover:text-treatment-lemon transition-colors"
+                >
+                  Home
+                </Link>
+                <Link
+                  href="/#programme"
+                  onClick={closeMobileMenu}
+                  className="font-display text-5xl text-text-light hover:text-treatment-lemon transition-colors"
+                >
+                  Programme
+                </Link>
+                <Link
+                  href="/about"
+                  onClick={closeMobileMenu}
+                  className="font-display text-5xl text-text-light hover:text-treatment-lemon transition-colors"
+                >
+                  About
+                </Link>
+              </nav>
+
+              {/* Footer */}
+              <div className="p-8 text-center">
+                <p className="text-text-light/60 font-mono text-sm uppercase tracking-wide">
+                  This Coastal Town
                 </p>
-              </motion.div>
-            )}
-
-            {contentMode === 'nav' && (
-              <motion.div
-                key="nav"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.2 }}
-                className="flex items-center justify-end px-4 py-3 w-full"
-              >
-                <div className="flex items-center gap-2">
-                  <Link
-                    href="/#programme"
-                    onClick={() => setContentMode('marquee')}
-                    className="tag"
-                  >
-                    Programme
-                  </Link>
-                  <Link
-                    href="/about"
-                    onClick={() => setContentMode('marquee')}
-                    className="tag"
-                  >
-                    About
-                  </Link>
-                  <Link
-                    href="/"
-                    onClick={() => setContentMode('marquee')}
-                    className="tag"
-                  >
-                    Home
-                  </Link>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-
-        {/* Nav Menu Button */}
-        <button
-          onClick={() => toggleMode('nav')}
-          className="shrink-0 rounded bg-gradient-brand px-4 flex items-center justify-center hover-lemon-gradient"
-          aria-label="Toggle navigation menu"
-        >
-          <Image
-            src="/svg-icon.svg"
-            alt="Menu"
-            width={40}
-            height={40}
-            className="relative z-10"
-          />
-        </button>
-      </nav>
-    </div>
+                <p className="text-text-light/40 font-mono text-xs mt-2">
+                  Felixstowe 2026
+                </p>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   )
 }

@@ -139,9 +139,10 @@ export default function EventPageClient({
               </div>
             )}
             {event.description && (
-              <div className="text-text-dark text-lg leading-relaxed whitespace-pre-line">
-                {event.description}
-              </div>
+              <div
+                className="text-text-dark text-lg leading-relaxed prose prose-lg max-w-none prose-headings:font-serif prose-headings:text-text-dark prose-p:text-text-dark prose-li:text-text-dark prose-a:text-treatment-acid prose-strong:text-text-dark"
+                dangerouslySetInnerHTML={{ __html: event.description }}
+              />
             )}
           </div>
         </section>
