@@ -58,3 +58,12 @@
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
+
+/* Font family definitions for canvas rendering */
+.font-instrument-serif {
+  font-family: var(--font-instrument-serif), serif;
+}
+
+.font-instrument-sans {
+  font-family: var(--font-instrument-sans), sans-serif;
+}

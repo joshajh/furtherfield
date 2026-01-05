@@ -62,7 +62,7 @@ export default function GridGeneratorPage() {
     }
   }, [gridSize, waveAmplitude, waveFrequency, dataSource])
 
-  const generateGrid = (currentData: DataSource = dataSource) => {
+  const generateGrid = (currentData: DataSource | null = dataSource) => {
     if (!svgRef.current || !currentData) return
 
     const svg = svgRef.current
