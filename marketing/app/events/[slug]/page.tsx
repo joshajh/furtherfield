@@ -1,4 +1,4 @@
-import { getEvent, getEvents, getSettings } from "@/lib/cms";
+import { getEvent, getEvents, getSettings, getEventPeople } from "@/lib/cms";
 import { notFound } from "next/navigation";
 import EventPageClient from "./EventPageClient";
 
@@ -15,10 +15,11 @@ export async function generateStaticParams() {
 
 export default async function EventPage({ params }: PageProps) {
   const { slug } = await params;
-  const [event, allEvents, settings] = await Promise.all([
+  const [event, allEvents, settings, eventPeople] = await Promise.all([
     getEvent(slug),
     getEvents(),
     getSettings(),
+    getEventPeople(slug),
   ]);
 
   if (!event) {
@@ -33,6 +34,7 @@ export default async function EventPage({ params }: PageProps) {
     <EventPageClient
       event={event}
       relatedEvents={relatedEvents}
+      people={eventPeople}
       marqueeText={settings?.marqueeText}
       aboutSnippet={settings?.aboutSnippet}
     />

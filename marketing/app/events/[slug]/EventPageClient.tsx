@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { Navigation, Footer, EventGrid, TidalGrid, RotatingCubesIcon, type Event } from "@/components";
-import type { Venue } from "@/lib/cms";
+import type { Venue, Person } from "@/lib/cms";
 
 type EventData = {
   slug: string;
@@ -37,8 +37,16 @@ type CMSEvent = {
 type EventPageClientProps = {
   event: EventData;
   relatedEvents: CMSEvent[];
+  people?: Person[];
   marqueeText?: string | null;
   aboutSnippet?: string | null;
+};
+
+const PERSON_TYPE_LABELS: Record<string, string> = {
+  team: "Team",
+  collaborator: "Creative Collaborator",
+  advisor: "Advisor",
+  partner: "Partner",
 };
 
 function formatEventType(type: string): string {
@@ -54,6 +62,7 @@ function formatDate(dateStr: string | null): string | null {
 export default function EventPageClient({
   event,
   relatedEvents,
+  people = [],
   marqueeText,
   aboutSnippet,
 }: EventPageClientProps) {
@@ -146,6 +155,68 @@ export default function EventPageClient({
             )}
           </div>
         </section>
+
+        {/* People Section */}
+        {people.length > 0 && (
+          <section className="bg-gradient-brand rounded-lg mx-2.5 px-5 py-16">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="font-display text-text-dark text-4xl md:text-5xl mb-10">
+                People
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {people.map((person) => (
+                  <motion.div
+                    key={person.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4 }}
+                    className="bg-bg-light rounded-lg p-5 flex flex-col"
+                  >
+                    {person.image && (
+                      <div className="relative w-full aspect-square mb-4 rounded-lg overflow-hidden">
+                        <Image
+                          src={person.image}
+                          alt={person.name}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                    )}
+                    <h3 className="font-serif text-text-dark text-xl mb-1">
+                      {person.link ? (
+                        <a
+                          href={person.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:text-treatment-acid transition-colors"
+                        >
+                          {person.name}
+                        </a>
+                      ) : (
+                        person.name
+                      )}
+                    </h3>
+                    <div className="flex flex-wrap gap-1 mb-2">
+                      <span className="tag tag-sm">
+                        {PERSON_TYPE_LABELS[person.type] || person.type}
+                      </span>
+                      {person.role && (
+                        <span className="tag tag-sm bg-treatment-acid/30">
+                          {person.role}
+                        </span>
+                      )}
+                    </div>
+                    {person.bio && (
+                      <p className="text-text-dark/80 text-sm leading-relaxed">
+                        {person.bio}
+                      </p>
+                    )}
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* Booking Button */}
         {event.bookingUrl && (

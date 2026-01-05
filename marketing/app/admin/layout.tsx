@@ -81,6 +81,9 @@ export default async function AdminLayout({
           <Link href="/admin/events" className="tag">
             Events
           </Link>
+          <Link href="/admin/people" className="tag">
+            People
+          </Link>
           <Link href="/admin/venues" className="tag">
             Venues
           </Link>

@@ -1,5 +1,5 @@
 import { db } from "./db";
-import { events, venues, settings, aboutPage, partners, eventDates } from "./db/schema";
+import { events, venues, settings, aboutPage, partners, eventDates, people, eventPeople } from "./db/schema";
 import { eq, desc, asc } from "drizzle-orm";
 
 export type EventDate = {
@@ -45,6 +45,16 @@ export type Venue = {
 export type Partner = {
   name: string | null;
   logo: string | null;
+};
+
+export type Person = {
+  id: number;
+  name: string;
+  bio: string | null;
+  image: string | null;
+  link: string | null;
+  type: "team" | "collaborator" | "advisor" | "partner";
+  role?: string; // Optional role when associated with an event
 };
 
 export type AboutPage = {
@@ -279,4 +289,57 @@ export async function getEvent(
 export async function getFeaturedEvents(): Promise<Event[]> {
   const allEvents = await getEvents();
   return allEvents.filter((e) => e.featured);
+}
+
+export async function getEventPeople(eventSlug: string): Promise<Person[]> {
+  try {
+    // First get the event ID from the slug
+    const event = db.select().from(events).where(eq(events.slug, eventSlug)).get();
+    if (!event) return [];
+
+    // Get all people linked to this event
+    const rows = db
+      .select({
+        person: people,
+        role: eventPeople.role,
+      })
+      .from(eventPeople)
+      .innerJoin(people, eq(eventPeople.personId, people.id))
+      .where(eq(eventPeople.eventId, event.id))
+      .orderBy(asc(people.sortOrder), asc(people.name))
+      .all();
+
+    return rows.map(({ person: p, role }) => ({
+      id: p.id,
+      name: p.name,
+      bio: p.bio,
+      image: p.image,
+      link: p.link,
+      type: p.type as Person["type"],
+      role: role || undefined,
+    }));
+  } catch {
+    return [];
+  }
+}
+
+export async function getAllPeople(): Promise<Person[]> {
+  try {
+    const rows = db
+      .select()
+      .from(people)
+      .orderBy(asc(people.sortOrder), asc(people.name))
+      .all();
+
+    return rows.map((p) => ({
+      id: p.id,
+      name: p.name,
+      bio: p.bio,
+      image: p.image,
+      link: p.link,
+      type: p.type as Person["type"],
+    }));
+  } catch {
+    return [];
+  }
 }

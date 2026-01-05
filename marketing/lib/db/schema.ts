@@ -47,6 +47,23 @@ export const partners = sqliteTable("partners", {
   sortOrder: integer("sort_order").default(0),
 });
 
+export const people = sqliteTable("people", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  name: text("name").notNull(),
+  bio: text("bio"), // 50 word max, enforced in UI
+  image: text("image"),
+  link: text("link"), // optional URL
+  type: text("type").notNull().default("team"), // team, collaborator, advisor, partner
+  sortOrder: integer("sort_order").default(0),
+});
+
+export const eventPeople = sqliteTable("event_people", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  eventId: integer("event_id").notNull().references(() => events.id, { onDelete: "cascade" }),
+  personId: integer("person_id").notNull().references(() => people.id, { onDelete: "cascade" }),
+  role: text("role"), // optional role description for this event
+});
+
 export const aboutPage = sqliteTable("about_page", {
   id: integer("id").primaryKey({ autoIncrement: true }),
   heroTitle: text("hero_title"),

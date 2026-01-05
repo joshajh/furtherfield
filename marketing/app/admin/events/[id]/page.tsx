@@ -1,11 +1,12 @@
 import { db } from "@/lib/db";
-import { events, venues, eventDates } from "@/lib/db/schema";
-import { eq } from "drizzle-orm";
+import { events, venues, eventDates, people, eventPeople } from "@/lib/db/schema";
+import { eq, asc } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { ImageUploader } from "@/components/ImageUploader";
 import { RichTextEditor } from "@/components/RichTextEditor";
 import { DateListEditor } from "@/components/DateListEditor";
+import { PeopleSelector } from "@/components/PeopleSelector";
 import { SaveButton } from "@/components/SaveButton";
 
 async function saveEvent(formData: FormData) {
@@ -14,6 +15,8 @@ async function saveEvent(formData: FormData) {
   const id = formData.get("id") as string;
   const datesJson = formData.get("dates") as string;
   const dates: { date: string; time?: string }[] = datesJson ? JSON.parse(datesJson) : [];
+  const peopleJson = formData.get("people") as string;
+  const selectedPeople: { personId: number; role?: string }[] = peopleJson ? JSON.parse(peopleJson) : [];
 
   // Use first date from dates array if available
   const firstDate = dates.length > 0 ? dates[0].date : null;
@@ -61,7 +64,22 @@ async function saveEvent(formData: FormData) {
     }
   }
 
+  // Clear existing people
+  db.delete(eventPeople).where(eq(eventPeople.eventId, eventId)).run();
+
+  // Insert new people
+  if (selectedPeople.length > 0) {
+    for (const entry of selectedPeople) {
+      db.insert(eventPeople).values({
+        eventId,
+        personId: entry.personId,
+        role: entry.role || null,
+      }).run();
+    }
+  }
+
   revalidatePath("/admin/events");
+  revalidatePath("/admin/people");
   revalidatePath("/");
   revalidatePath("/events");
   // Revalidate the specific event detail page
@@ -78,6 +96,7 @@ export default async function EventEditPage({ params }: PageProps) {
   const isNew = id === "new";
   let event = null;
   let existingDates: { date: string; time?: string }[] = [];
+  let existingPeople: { personId: number; role?: string }[] = [];
 
   if (!isNew) {
     event = db
@@ -102,9 +121,21 @@ export default async function EventEditPage({ params }: PageProps) {
     if (existingDates.length === 0 && event.date) {
       existingDates = [{ date: event.date, time: event.time || undefined }];
     }
+
+    // Fetch existing people
+    const peopleRows = db
+      .select()
+      .from(eventPeople)
+      .where(eq(eventPeople.eventId, parseInt(id)))
+      .all();
+    existingPeople = peopleRows.map((p) => ({
+      personId: p.personId,
+      role: p.role || undefined,
+    }));
   }
 
   const allVenues = db.select().from(venues).all();
+  const allPeople = db.select().from(people).orderBy(asc(people.sortOrder), asc(people.name)).all();
 
   return (
     <div>
@@ -206,6 +237,15 @@ export default async function EventEditPage({ params }: PageProps) {
             type="url"
             defaultValue={event?.bookingUrl || ""}
             className="admin-input"
+          />
+        </div>
+
+        <div>
+          <label className="admin-label">People</label>
+          <PeopleSelector
+            name="people"
+            people={allPeople}
+            defaultValue={JSON.stringify(existingPeople)}
           />
         </div>
 
