@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useRef, useCallback, useEffect } from "react";
 
 interface RichTextEditorProps {
   name: string;
@@ -15,8 +15,8 @@ export function RichTextEditor({
   rows = 6,
   placeholder = "Enter content...",
 }: RichTextEditorProps) {
-  const [content, setContent] = useState(defaultValue);
   const editorRef = useRef<HTMLDivElement>(null);
+  const hiddenInputRef = useRef<HTMLInputElement>(null);
   const initializedRef = useRef(false);
 
   // Set initial content after mount
@@ -27,9 +27,10 @@ export function RichTextEditor({
     }
   }, [defaultValue]);
 
+  // Sync content to hidden input without causing re-render
   const syncContent = useCallback(() => {
-    if (editorRef.current) {
-      setContent(editorRef.current.innerHTML);
+    if (editorRef.current && hiddenInputRef.current) {
+      hiddenInputRef.current.value = editorRef.current.innerHTML;
     }
   }, []);
 
@@ -251,7 +252,7 @@ export function RichTextEditor({
 
   return (
     <div className="space-y-2">
-      <input type="hidden" name={name} value={content} />
+      <input type="hidden" ref={hiddenInputRef} name={name} defaultValue={defaultValue} />
 
       {/* Toolbar */}
       <div className="flex flex-wrap gap-1 p-2 border border-text-dark rounded-t bg-bg-dark/5">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 interface DateEntry {
   date: string;
@@ -10,13 +10,11 @@ interface DateEntry {
 interface DateListEditorProps {
   name: string;
   defaultValue?: string; // JSON array string of DateEntry
-  defaultTime?: string; // Default time to show
 }
 
 export function DateListEditor({
   name,
   defaultValue = "[]",
-  defaultTime = "",
 }: DateListEditorProps) {
   const [dates, setDates] = useState<DateEntry[]>(() => {
     try {
@@ -26,7 +24,15 @@ export function DateListEditor({
     }
   });
   const [newDate, setNewDate] = useState("");
-  const [newTime, setNewTime] = useState(defaultTime);
+  const [newTime, setNewTime] = useState("");
+  const hiddenInputRef = useRef<HTMLInputElement>(null);
+
+  // Sync dates to hidden input without relying on React state for form value
+  useEffect(() => {
+    if (hiddenInputRef.current) {
+      hiddenInputRef.current.value = JSON.stringify(dates);
+    }
+  }, [dates]);
 
   const addDate = () => {
     if (newDate.trim()) {
@@ -54,9 +60,22 @@ export function DateListEditor({
     }
   };
 
+  const formatTime = (timeStr: string) => {
+    if (!timeStr) return "";
+    try {
+      // timeStr is in HH:MM format (24h)
+      const [hours, minutes] = timeStr.split(":").map(Number);
+      const period = hours >= 12 ? "PM" : "AM";
+      const displayHours = hours % 12 || 12;
+      return `${displayHours}:${minutes.toString().padStart(2, "0")} ${period}`;
+    } catch {
+      return timeStr;
+    }
+  };
+
   return (
     <div className="space-y-3">
-      <input type="hidden" name={name} value={JSON.stringify(dates)} />
+      <input type="hidden" ref={hiddenInputRef} name={name} defaultValue={defaultValue} />
 
       {/* Current dates */}
       {dates.length > 0 && (
@@ -68,7 +87,7 @@ export function DateListEditor({
             >
               <span className="flex-1">
                 {formatDate(entry.date)}
-                {entry.time && <span className="text-text-dark/70 ml-2">@ {entry.time}</span>}
+                {entry.time && <span className="text-text-dark/70 ml-2">@ {formatTime(entry.time)}</span>}
               </span>
               <button
                 type="button"
@@ -94,12 +113,11 @@ export function DateListEditor({
           />
         </div>
         <div className="flex-1">
-          <label className="text-xs text-text-dark/70 mb-1 block">Time (optional)</label>
+          <label className="text-xs text-text-dark/70 mb-1 block">Start Time</label>
           <input
-            type="text"
+            type="time"
             value={newTime}
             onChange={(e) => setNewTime(e.target.value)}
-            placeholder="e.g. 7:00 PM"
             className="admin-input"
           />
         </div>
@@ -112,7 +130,7 @@ export function DateListEditor({
         </button>
       </div>
       <p className="text-xs text-text-dark/50">
-        Add multiple dates for recurring or multi-day events. Leave time blank to use the default time above.
+        Add multiple dates for recurring or multi-day events.
       </p>
     </div>
   );

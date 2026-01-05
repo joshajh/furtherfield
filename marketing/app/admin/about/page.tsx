@@ -75,7 +75,7 @@ export default async function AboutAdmin() {
           <h2 className="admin-section-header">Our Story</h2>
           <div className="space-y-4">
             <div>
-              <label className="admin-label">Story Title</label>
+              <label className="admin-label">Main Title</label>
               <input
                 name="storyTitle"
                 defaultValue={about?.storyTitle || ""}
@@ -83,7 +83,7 @@ export default async function AboutAdmin() {
               />
             </div>
             <div>
-              <label className="admin-label">Story Content</label>
+              <label className="admin-label">Main Content</label>
               <RichTextEditor
                 name="storyContent"
                 defaultValue={about?.storyContent || ""}
@@ -98,7 +98,7 @@ export default async function AboutAdmin() {
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-4">
               <div>
-                <label className="admin-label">Mission Title</label>
+                <label className="admin-label">Block 1 - Title</label>
                 <input
                   name="missionTitle"
                   defaultValue={about?.missionTitle || ""}
@@ -106,7 +106,7 @@ export default async function AboutAdmin() {
                 />
               </div>
               <div>
-                <label className="admin-label">Mission Content</label>
+                <label className="admin-label">Block 1 - Content</label>
                 <RichTextEditor
                   name="missionContent"
                   defaultValue={about?.missionContent || ""}
@@ -116,7 +116,7 @@ export default async function AboutAdmin() {
             </div>
             <div className="space-y-4">
               <div>
-                <label className="admin-label">Vision Title</label>
+                <label className="admin-label">Block 2 - Title</label>
                 <input
                   name="visionTitle"
                   defaultValue={about?.visionTitle || ""}
@@ -124,7 +124,7 @@ export default async function AboutAdmin() {
                 />
               </div>
               <div>
-                <label className="admin-label">Vision Content</label>
+                <label className="admin-label">Block 2 - Content</label>
                 <RichTextEditor
                   name="visionContent"
                   defaultValue={about?.visionContent || ""}
@@ -151,7 +151,7 @@ export default async function AboutAdmin() {
           <div className="grid grid-cols-2 gap-4 mt-6">
             <div className="space-y-4">
               <div>
-                <label className="admin-label">Physical Access - Title</label>
+                <label className="admin-label">Block 1 - Title</label>
                 <input
                   name="physicalAccessTitle"
                   defaultValue={about?.physicalAccessTitle || "Physical Access"}
@@ -159,7 +159,7 @@ export default async function AboutAdmin() {
                 />
               </div>
               <div>
-                <label className="admin-label">Physical Access - Content</label>
+                <label className="admin-label">Block 1 - Content</label>
                 <RichTextEditor
                   name="physicalAccessContent"
                   defaultValue={about?.physicalAccessContent || ""}
@@ -170,7 +170,7 @@ export default async function AboutAdmin() {
             </div>
             <div className="space-y-4">
               <div>
-                <label className="admin-label">Sensory & Communication - Title</label>
+                <label className="admin-label">Block 2 - Title</label>
                 <input
                   name="sensoryCommTitle"
                   defaultValue={about?.sensoryCommTitle || "Sensory & Communication"}
@@ -178,7 +178,7 @@ export default async function AboutAdmin() {
                 />
               </div>
               <div>
-                <label className="admin-label">Sensory & Communication - Content</label>
+                <label className="admin-label">Block 2 - Content</label>
                 <RichTextEditor
                   name="sensoryCommContent"
                   defaultValue={about?.sensoryCommContent || ""}
@@ -191,7 +191,7 @@ export default async function AboutAdmin() {
 
           <div className="space-y-4 mt-6">
             <div>
-              <label className="admin-label">Need Assistance? - Title</label>
+              <label className="admin-label">Block 3 - Title</label>
               <input
                 name="needAssistanceTitle"
                 defaultValue={about?.needAssistanceTitle || "Need Assistance?"}
@@ -199,7 +199,7 @@ export default async function AboutAdmin() {
               />
             </div>
             <div>
-              <label className="admin-label">Need Assistance? - Content</label>
+              <label className="admin-label">Block 3 - Content</label>
               <RichTextEditor
                 name="needAssistanceContent"
                 defaultValue={about?.needAssistanceContent || ""}

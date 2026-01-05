@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 interface ImageUploaderProps {
   name: string;
@@ -13,6 +13,14 @@ export function ImageUploader({ name, currentImage, onUpload }: ImageUploaderPro
   const [isUploading, setIsUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const hiddenInputRef = useRef<HTMLInputElement>(null);
+
+  // Sync imageUrl to hidden input without relying on React state for form value
+  useEffect(() => {
+    if (hiddenInputRef.current) {
+      hiddenInputRef.current.value = imageUrl;
+    }
+  }, [imageUrl]);
 
   async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -50,11 +58,14 @@ export function ImageUploader({ name, currentImage, onUpload }: ImageUploaderPro
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
+    if (hiddenInputRef.current) {
+      hiddenInputRef.current.value = "";
+    }
   }
 
   return (
     <div className="space-y-3">
-      <input type="hidden" name={name} value={imageUrl} />
+      <input type="hidden" ref={hiddenInputRef} name={name} defaultValue={currentImage || ""} />
 
       {imageUrl ? (
         <div className="relative">

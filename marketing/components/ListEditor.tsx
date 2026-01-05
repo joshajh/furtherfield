@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 interface ListEditorProps {
   name: string;
@@ -21,6 +21,14 @@ export function ListEditor({
     }
   });
   const [newItem, setNewItem] = useState("");
+  const hiddenInputRef = useRef<HTMLInputElement>(null);
+
+  // Sync items to hidden input without relying on React state for form value
+  useEffect(() => {
+    if (hiddenInputRef.current) {
+      hiddenInputRef.current.value = JSON.stringify(items);
+    }
+  }, [items]);
 
   const addItem = () => {
     if (newItem.trim()) {
@@ -42,7 +50,7 @@ export function ListEditor({
 
   return (
     <div className="space-y-3">
-      <input type="hidden" name={name} value={JSON.stringify(items)} />
+      <input type="hidden" ref={hiddenInputRef} name={name} defaultValue={defaultValue} />
 
       {/* Current items */}
       {items.length > 0 && (

@@ -15,15 +15,15 @@ async function saveEvent(formData: FormData) {
   const datesJson = formData.get("dates") as string;
   const dates: { date: string; time?: string }[] = datesJson ? JSON.parse(datesJson) : [];
 
-  // Use first date from dates array if available, otherwise use legacy date field
+  // Use first date from dates array if available
   const firstDate = dates.length > 0 ? dates[0].date : null;
-  const defaultTime = (formData.get("time") as string) || null;
+  const firstTime = dates.length > 0 ? dates[0].time || null : null;
 
   const data = {
     title: formData.get("title") as string,
     slug: formData.get("slug") as string,
-    date: firstDate || (formData.get("date") as string) || null,
-    time: defaultTime,
+    date: firstDate,
+    time: firstTime,
     type: formData.get("type") as string,
     image: (formData.get("image") as string) || null,
     summary: (formData.get("summary") as string) || null,
@@ -140,24 +140,10 @@ export default async function EventEditPage({ params }: PageProps) {
         </div>
 
         <div>
-          <label className="admin-label">Default Time</label>
-          <input
-            name="time"
-            defaultValue={event?.time || ""}
-            placeholder="e.g. 7:00 PM - 10:00 PM"
-            className="admin-input"
-          />
-          <p className="text-xs text-text-dark/50 mt-1">
-            Default time for all dates. Individual dates can override this.
-          </p>
-        </div>
-
-        <div>
           <label className="admin-label">Event Dates</label>
           <DateListEditor
             name="dates"
             defaultValue={JSON.stringify(existingDates)}
-            defaultTime={event?.time || ""}
           />
         </div>
 
