@@ -1,20 +1,29 @@
 import { db } from "@/lib/db";
-import { events, venues } from "@/lib/db/schema";
+import { events, venues, eventDates } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { ImageUploader } from "@/components/ImageUploader";
 import { RichTextEditor } from "@/components/RichTextEditor";
+import { DateListEditor } from "@/components/DateListEditor";
+import { SaveButton } from "@/components/SaveButton";
 
 async function saveEvent(formData: FormData) {
   "use server";
 
   const id = formData.get("id") as string;
+  const datesJson = formData.get("dates") as string;
+  const dates: { date: string; time?: string }[] = datesJson ? JSON.parse(datesJson) : [];
+
+  // Use first date from dates array if available, otherwise use legacy date field
+  const firstDate = dates.length > 0 ? dates[0].date : null;
+  const defaultTime = (formData.get("time") as string) || null;
+
   const data = {
     title: formData.get("title") as string,
     slug: formData.get("slug") as string,
-    date: (formData.get("date") as string) || null,
-    time: (formData.get("time") as string) || null,
+    date: firstDate || (formData.get("date") as string) || null,
+    time: defaultTime,
     type: formData.get("type") as string,
     image: (formData.get("image") as string) || null,
     summary: (formData.get("summary") as string) || null,
@@ -26,13 +35,30 @@ async function saveEvent(formData: FormData) {
       : null,
   };
 
+  let eventId: number;
+
   if (id === "new") {
-    db.insert(events).values(data).run();
+    const result = db.insert(events).values(data).returning({ id: events.id }).get();
+    eventId = result.id;
   } else {
+    eventId = parseInt(id);
     db.update(events)
       .set(data)
-      .where(eq(events.id, parseInt(id)))
+      .where(eq(events.id, eventId))
       .run();
+    // Clear existing dates
+    db.delete(eventDates).where(eq(eventDates.eventId, eventId)).run();
+  }
+
+  // Insert new dates
+  if (dates.length > 0) {
+    for (const dateEntry of dates) {
+      db.insert(eventDates).values({
+        eventId,
+        date: dateEntry.date,
+        time: dateEntry.time || null,
+      }).run();
+    }
   }
 
   revalidatePath("/admin/events");
@@ -51,6 +77,7 @@ export default async function EventEditPage({ params }: PageProps) {
   const { id } = await params;
   const isNew = id === "new";
   let event = null;
+  let existingDates: { date: string; time?: string }[] = [];
 
   if (!isNew) {
     event = db
@@ -59,6 +86,22 @@ export default async function EventEditPage({ params }: PageProps) {
       .where(eq(events.id, parseInt(id)))
       .get();
     if (!event) redirect("/admin/events");
+
+    // Fetch existing dates
+    const dateRows = db
+      .select()
+      .from(eventDates)
+      .where(eq(eventDates.eventId, parseInt(id)))
+      .all();
+    existingDates = dateRows.map((d) => ({
+      date: d.date,
+      time: d.time || undefined,
+    }));
+
+    // If no dates in new table but legacy date exists, use that
+    if (existingDates.length === 0 && event.date) {
+      existingDates = [{ date: event.date, time: event.time || undefined }];
+    }
   }
 
   const allVenues = db.select().from(venues).all();
@@ -96,25 +139,26 @@ export default async function EventEditPage({ params }: PageProps) {
           <ImageUploader name="image" currentImage={event?.image} />
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label className="admin-label">Date</label>
-            <input
-              type="date"
-              name="date"
-              defaultValue={event?.date || ""}
-              className="admin-input"
-            />
-          </div>
-          <div>
-            <label className="admin-label">Time</label>
-            <input
-              name="time"
-              defaultValue={event?.time || ""}
-              placeholder="e.g. 7:00 PM - 10:00 PM"
-              className="admin-input"
-            />
-          </div>
+        <div>
+          <label className="admin-label">Default Time</label>
+          <input
+            name="time"
+            defaultValue={event?.time || ""}
+            placeholder="e.g. 7:00 PM - 10:00 PM"
+            className="admin-input"
+          />
+          <p className="text-xs text-text-dark/50 mt-1">
+            Default time for all dates. Individual dates can override this.
+          </p>
+        </div>
+
+        <div>
+          <label className="admin-label">Event Dates</label>
+          <DateListEditor
+            name="dates"
+            defaultValue={JSON.stringify(existingDates)}
+            defaultTime={event?.time || ""}
+          />
         </div>
 
         <div className="grid grid-cols-2 gap-4">
@@ -192,9 +236,7 @@ export default async function EventEditPage({ params }: PageProps) {
         </div>
 
         <div className="flex gap-4 pt-2">
-          <button type="submit" className="admin-btn">
-            Save
-          </button>
+          <SaveButton>Save</SaveButton>
           <a href="/admin/events" className="admin-btn-secondary">
             Cancel
           </a>

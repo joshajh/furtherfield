@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useCallback } from "react";
 import { Navigation, Footer, TidalGrid } from "@/components";
+import { HtmlContent } from "@/components/HtmlContent";
 import type { AboutPage, Venue } from "@/lib/cms";
 
 type AboutPageClientProps = {
@@ -108,9 +109,10 @@ function VenueModal({ venue, onClose }: VenueModalProps) {
           </div>
 
           {venue.description && (
-            <p className="text-text-dark leading-relaxed mb-6">
-              {venue.description}
-            </p>
+            <HtmlContent
+              html={venue.description}
+              className="prose max-w-none text-text-dark mb-6 [&_p]:leading-relaxed [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_a]:underline"
+            />
           )}
 
           {/* Accessibility features */}
@@ -231,11 +233,10 @@ export default function AboutPageClient({ aboutPage, venues, marqueeText, aboutS
               <h2 className="font-serif text-text-dark text-3xl md:text-5xl mb-8">
                 {aboutPage?.storyTitle || "Our Story"}
               </h2>
-              <div className="space-y-6 text-text-dark text-lg md:text-xl leading-relaxed">
-                {(aboutPage?.storyContent || "").split("\n\n").map((paragraph, i) => (
-                  <p key={i}>{paragraph}</p>
-                ))}
-              </div>
+              <HtmlContent
+                html={aboutPage?.storyContent}
+                className="prose prose-lg md:prose-xl max-w-none text-text-dark [&_p]:leading-relaxed [&_h2]:font-serif [&_h2]:text-2xl [&_h3]:font-semibold [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_a]:underline"
+              />
             </motion.div>
           </div>
         </section>
@@ -254,17 +255,19 @@ export default function AboutPageClient({ aboutPage, venues, marqueeText, aboutS
                 <h2 className="font-serif text-text-dark text-3xl md:text-4xl mb-6">
                   {aboutPage?.missionTitle || "Our Mission"}
                 </h2>
-                <p className="text-text-dark text-lg leading-relaxed">
-                  {aboutPage?.missionContent}
-                </p>
+                <HtmlContent
+                  html={aboutPage?.missionContent}
+                  className="prose max-w-none text-text-dark text-lg [&_p]:leading-relaxed [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_a]:underline"
+                />
               </div>
               <div>
                 <h2 className="font-serif text-text-dark text-3xl md:text-4xl mb-6">
                   {aboutPage?.visionTitle || "Our Vision"}
                 </h2>
-                <p className="text-text-dark text-lg leading-relaxed">
-                  {aboutPage?.visionContent}
-                </p>
+                <HtmlContent
+                  html={aboutPage?.visionContent}
+                  className="prose max-w-none text-text-dark text-lg [&_p]:leading-relaxed [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_a]:underline"
+                />
               </div>
             </motion.div>
           </div>
@@ -283,65 +286,41 @@ export default function AboutPageClient({ aboutPage, venues, marqueeText, aboutS
                 Accessibility
               </h2>
               <div className="space-y-8">
-                <p className="text-text-dark text-lg md:text-xl leading-relaxed">
-                  {aboutPage?.accessibilityIntro || "We are committed to making all our events and venues as accessible as possible."}
-                </p>
+                <HtmlContent
+                  html={aboutPage?.accessibilityIntro || "We are committed to making all our events and venues as accessible as possible."}
+                  className="prose prose-lg md:prose-xl max-w-none text-text-dark [&_p]:leading-relaxed [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_a]:underline"
+                />
 
                 <div className="grid md:grid-cols-2 gap-8">
                   <div className="bg-white/50 rounded-lg p-6">
-                    <h3 className="font-semibold text-text-dark text-xl mb-4">Physical Access</h3>
-                    <ul className="space-y-2 text-text-dark">
-                      <li className="flex items-start gap-2">
-                        <span className="text-gradient-start">&#8226;</span>
-                        Wheelchair accessible venues clearly marked
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span className="text-gradient-start">&#8226;</span>
-                        Blue Badge parking available at most locations
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span className="text-gradient-start">&#8226;</span>
-                        Accessible toilet facilities
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span className="text-gradient-start">&#8226;</span>
-                        Seating available at all standing events
-                      </li>
-                    </ul>
+                    <h3 className="font-semibold text-text-dark text-xl mb-4">
+                      {aboutPage?.physicalAccessTitle || "Physical Access"}
+                    </h3>
+                    <HtmlContent
+                      html={aboutPage?.physicalAccessContent}
+                      className="prose max-w-none text-text-dark [&_ul]:space-y-2 [&_ul]:list-none [&_ul]:pl-0 [&_li]:flex [&_li]:items-start [&_li]:gap-2 [&_li]:before:content-['•'] [&_li]:before:text-gradient-start [&_ol]:list-decimal [&_ol]:pl-6 [&_a]:underline"
+                    />
                   </div>
 
                   <div className="bg-white/50 rounded-lg p-6">
-                    <h3 className="font-semibold text-text-dark text-xl mb-4">Sensory & Communication</h3>
-                    <ul className="space-y-2 text-text-dark">
-                      <li className="flex items-start gap-2">
-                        <span className="text-gradient-start">&#8226;</span>
-                        BSL interpretation available on request
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span className="text-gradient-start">&#8226;</span>
-                        Hearing loops at select venues
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span className="text-gradient-start">&#8226;</span>
-                        Large print materials available
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span className="text-gradient-start">&#8226;</span>
-                        Quiet spaces at larger events
-                      </li>
-                    </ul>
+                    <h3 className="font-semibold text-text-dark text-xl mb-4">
+                      {aboutPage?.sensoryCommTitle || "Sensory & Communication"}
+                    </h3>
+                    <HtmlContent
+                      html={aboutPage?.sensoryCommContent}
+                      className="prose max-w-none text-text-dark [&_ul]:space-y-2 [&_ul]:list-none [&_ul]:pl-0 [&_li]:flex [&_li]:items-start [&_li]:gap-2 [&_li]:before:content-['•'] [&_li]:before:text-gradient-start [&_ol]:list-decimal [&_ol]:pl-6 [&_a]:underline"
+                    />
                   </div>
                 </div>
 
                 <div className="bg-gradient-brand rounded-lg p-6">
-                  <h3 className="font-semibold text-text-dark text-xl mb-4">Need Assistance?</h3>
-                  <p className="text-text-dark">
-                    If you have specific access requirements or questions about attending our events, please contact us at{" "}
-                    <a href={`mailto:${aboutPage?.contactEmail || "hello@thiscoastaltown.org"}`} className="underline hover:opacity-70">
-                      {aboutPage?.contactEmail || "hello@thiscoastaltown.org"}
-                    </a>
-                    . We&apos;re happy to discuss your needs and make arrangements.
-                  </p>
+                  <h3 className="font-semibold text-text-dark text-xl mb-4">
+                    {aboutPage?.needAssistanceTitle || "Need Assistance?"}
+                  </h3>
+                  <HtmlContent
+                    html={aboutPage?.needAssistanceContent || `If you have specific access requirements or questions about attending our events, please contact us at <a href="mailto:${aboutPage?.contactEmail || "hello@thiscoastaltown.org"}">${aboutPage?.contactEmail || "hello@thiscoastaltown.org"}</a>. We're happy to discuss your needs and make arrangements.`}
+                    className="prose max-w-none text-text-dark [&_p]:leading-relaxed [&_a]:underline [&_a]:hover:opacity-70"
+                  />
                 </div>
               </div>
             </motion.div>
@@ -435,9 +414,10 @@ export default function AboutPageClient({ aboutPage, venues, marqueeText, aboutS
                 <h2 className="font-serif text-text-dark text-3xl md:text-5xl mb-8">
                   Our Partners
                 </h2>
-                <p className="text-text-dark text-lg md:text-xl leading-relaxed mb-12">
-                  {aboutPage?.partnersIntro || "This Coastal Town is made possible through the generous support of our partners and funders."}
-                </p>
+                <HtmlContent
+                  html={aboutPage?.partnersIntro || "This Coastal Town is made possible through the generous support of our partners and funders."}
+                  className="prose prose-lg md:prose-xl max-w-none text-text-dark mb-12 [&_p]:leading-relaxed [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_a]:underline"
+                />
 
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                   {partners.map((partner, i) => (

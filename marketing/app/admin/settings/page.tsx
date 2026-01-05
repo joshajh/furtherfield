@@ -2,6 +2,7 @@ import { db } from "@/lib/db";
 import { settings } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
+import { SaveButton } from "@/components/SaveButton";
 
 async function saveSettings(formData: FormData) {
   "use server";
@@ -71,9 +72,7 @@ export default async function SettingsAdmin() {
         ))}
 
         <div className="pt-2">
-          <button type="submit" className="admin-btn">
-            Save Settings
-          </button>
+          <SaveButton>Save Settings</SaveButton>
         </div>
       </form>
     </div>

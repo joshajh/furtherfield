@@ -4,7 +4,7 @@ export const events = sqliteTable("events", {
   id: integer("id").primaryKey({ autoIncrement: true }),
   slug: text("slug").notNull().unique(),
   title: text("title").notNull(),
-  date: text("date"), // ISO date string
+  date: text("date"), // ISO date string (legacy, kept for backward compat)
   time: text("time"),
   type: text("type").notNull().default("other"), // workshop, performance, exhibition, screening, talk, other
   venueId: integer("venue_id").references(() => venues.id),
@@ -15,6 +15,13 @@ export const events = sqliteTable("events", {
   featured: integer("featured", { mode: "boolean" }).default(false),
   createdAt: text("created_at").default("CURRENT_TIMESTAMP"),
   updatedAt: text("updated_at").default("CURRENT_TIMESTAMP"),
+});
+
+export const eventDates = sqliteTable("event_dates", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  eventId: integer("event_id").notNull().references(() => events.id, { onDelete: "cascade" }),
+  date: text("date").notNull(), // ISO date string
+  time: text("time"), // Optional time override for this specific date
 });
 
 export const venues = sqliteTable("venues", {
@@ -51,6 +58,15 @@ export const aboutPage = sqliteTable("about_page", {
   visionTitle: text("vision_title"),
   visionContent: text("vision_content"),
   accessibilityIntro: text("accessibility_intro"),
+  // Physical Access section
+  physicalAccessTitle: text("physical_access_title"),
+  physicalAccessContent: text("physical_access_content"), // HTML content with list items
+  // Sensory & Communication section
+  sensoryCommTitle: text("sensory_comm_title"),
+  sensoryCommContent: text("sensory_comm_content"), // HTML content with list items
+  // Need Assistance section
+  needAssistanceTitle: text("need_assistance_title"),
+  needAssistanceContent: text("need_assistance_content"), // HTML content
   contactEmail: text("contact_email"),
   partnersIntro: text("partners_intro"),
 });

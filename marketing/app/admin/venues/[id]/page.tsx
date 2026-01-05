@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { RichTextEditor } from "@/components/RichTextEditor";
 import { ListEditor } from "@/components/ListEditor";
+import { SaveButton } from "@/components/SaveButton";
 
 async function saveVenue(formData: FormData) {
   "use server";
@@ -123,9 +124,7 @@ export default async function VenueEditPage({ params }: PageProps) {
         </div>
 
         <div className="flex gap-4 pt-2">
-          <button type="submit" className="admin-btn">
-            Save
-          </button>
+          <SaveButton>Save</SaveButton>
           <a href="/admin/venues" className="admin-btn-secondary">
             Cancel
           </a>

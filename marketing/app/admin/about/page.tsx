@@ -2,6 +2,7 @@ import { db } from "@/lib/db";
 import { aboutPage } from "@/lib/db/schema";
 import { revalidatePath } from "next/cache";
 import { RichTextEditor } from "@/components/RichTextEditor";
+import { SaveButton } from "@/components/SaveButton";
 
 async function saveAboutPage(formData: FormData) {
   "use server";
@@ -16,6 +17,12 @@ async function saveAboutPage(formData: FormData) {
     visionTitle: (formData.get("visionTitle") as string) || null,
     visionContent: (formData.get("visionContent") as string) || null,
     accessibilityIntro: (formData.get("accessibilityIntro") as string) || null,
+    physicalAccessTitle: (formData.get("physicalAccessTitle") as string) || null,
+    physicalAccessContent: (formData.get("physicalAccessContent") as string) || null,
+    sensoryCommTitle: (formData.get("sensoryCommTitle") as string) || null,
+    sensoryCommContent: (formData.get("sensoryCommContent") as string) || null,
+    needAssistanceTitle: (formData.get("needAssistanceTitle") as string) || null,
+    needAssistanceContent: (formData.get("needAssistanceContent") as string) || null,
     contactEmail: (formData.get("contactEmail") as string) || null,
     partnersIntro: (formData.get("partnersIntro") as string) || null,
   };
@@ -129,7 +136,7 @@ export default async function AboutAdmin() {
         </section>
 
         <section>
-          <h2 className="admin-section-header">Other Content</h2>
+          <h2 className="admin-section-header">Accessibility</h2>
           <div className="space-y-4">
             <div>
               <label className="admin-label">Accessibility Intro</label>
@@ -139,6 +146,73 @@ export default async function AboutAdmin() {
                 rows={3}
               />
             </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4 mt-6">
+            <div className="space-y-4">
+              <div>
+                <label className="admin-label">Physical Access - Title</label>
+                <input
+                  name="physicalAccessTitle"
+                  defaultValue={about?.physicalAccessTitle || "Physical Access"}
+                  className="admin-input"
+                />
+              </div>
+              <div>
+                <label className="admin-label">Physical Access - Content</label>
+                <RichTextEditor
+                  name="physicalAccessContent"
+                  defaultValue={about?.physicalAccessContent || ""}
+                  rows={4}
+                  placeholder="Use bullet lists to list accessibility features..."
+                />
+              </div>
+            </div>
+            <div className="space-y-4">
+              <div>
+                <label className="admin-label">Sensory & Communication - Title</label>
+                <input
+                  name="sensoryCommTitle"
+                  defaultValue={about?.sensoryCommTitle || "Sensory & Communication"}
+                  className="admin-input"
+                />
+              </div>
+              <div>
+                <label className="admin-label">Sensory & Communication - Content</label>
+                <RichTextEditor
+                  name="sensoryCommContent"
+                  defaultValue={about?.sensoryCommContent || ""}
+                  rows={4}
+                  placeholder="Use bullet lists to list accessibility features..."
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-4 mt-6">
+            <div>
+              <label className="admin-label">Need Assistance? - Title</label>
+              <input
+                name="needAssistanceTitle"
+                defaultValue={about?.needAssistanceTitle || "Need Assistance?"}
+                className="admin-input"
+              />
+            </div>
+            <div>
+              <label className="admin-label">Need Assistance? - Content</label>
+              <RichTextEditor
+                name="needAssistanceContent"
+                defaultValue={about?.needAssistanceContent || ""}
+                rows={3}
+                placeholder="Information about how to get help with accessibility needs..."
+              />
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2 className="admin-section-header">Partners & Contact</h2>
+          <div className="space-y-4">
             <div>
               <label className="admin-label">Partners Intro</label>
               <RichTextEditor
@@ -160,9 +234,7 @@ export default async function AboutAdmin() {
         </section>
 
         <div className="pt-2">
-          <button type="submit" className="admin-btn">
-            Save About Page
-          </button>
+          <SaveButton>Save About Page</SaveButton>
         </div>
       </form>
     </div>

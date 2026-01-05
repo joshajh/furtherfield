@@ -1,12 +1,18 @@
 import { db } from "./db";
-import { events, venues, settings, aboutPage, partners } from "./db/schema";
-import { eq, desc } from "drizzle-orm";
+import { events, venues, settings, aboutPage, partners, eventDates } from "./db/schema";
+import { eq, desc, asc } from "drizzle-orm";
+
+export type EventDate = {
+  date: string;
+  time: string | null;
+};
 
 export type Event = {
   slug: string;
   title: string;
   date: string | null;
   time: string | null;
+  dates: EventDate[]; // Multiple dates support
   type: "workshop" | "performance" | "exhibition" | "screening" | "talk" | "other";
   venueSlug: string | null;
   venue: Venue | null;
@@ -51,6 +57,12 @@ export type AboutPage = {
   visionTitle: string | null;
   visionContent: string | null;
   accessibilityIntro: string | null;
+  physicalAccessTitle: string | null;
+  physicalAccessContent: string | null;
+  sensoryCommTitle: string | null;
+  sensoryCommContent: string | null;
+  needAssistanceTitle: string | null;
+  needAssistanceContent: string | null;
   contactEmail: string | null;
   partnersIntro: string | null;
   partners: readonly Partner[];
@@ -102,6 +114,12 @@ export async function getAboutPage(): Promise<AboutPage | null> {
       visionTitle: about.visionTitle,
       visionContent: about.visionContent,
       accessibilityIntro: about.accessibilityIntro,
+      physicalAccessTitle: about.physicalAccessTitle,
+      physicalAccessContent: about.physicalAccessContent,
+      sensoryCommTitle: about.sensoryCommTitle,
+      sensoryCommContent: about.sensoryCommContent,
+      needAssistanceTitle: about.needAssistanceTitle,
+      needAssistanceContent: about.needAssistanceContent,
       contactEmail: about.contactEmail,
       partnersIntro: about.partnersIntro,
       partners: partnerRows.map((p) => ({ name: p.name, logo: p.logo })),
@@ -153,28 +171,51 @@ export async function getEvents(): Promise<Event[]> {
       .orderBy(desc(events.date))
       .all();
 
-    return rows.map(({ events: e, venues: v }) => ({
-      slug: e.slug,
-      title: e.title,
-      date: e.date,
-      time: e.time,
-      type: e.type as Event["type"],
-      venueSlug: v?.slug ?? null,
-      venue: v
-        ? {
-            slug: v.slug,
-            name: v.name,
-            address: v.address,
-            type: v.type,
-            description: v.description,
-            accessibility: v.accessibility ? JSON.parse(v.accessibility) : [],
-          }
-        : null,
-      image: e.image,
-      summary: e.summary,
-      bookingUrl: e.bookingUrl,
-      featured: e.featured ?? false,
-    }));
+    // Fetch all event dates in one query for efficiency
+    const allEventDates = db
+      .select()
+      .from(eventDates)
+      .orderBy(asc(eventDates.date))
+      .all();
+
+    // Group dates by event ID
+    const datesByEventId = new Map<number, EventDate[]>();
+    for (const d of allEventDates) {
+      if (!datesByEventId.has(d.eventId)) {
+        datesByEventId.set(d.eventId, []);
+      }
+      datesByEventId.get(d.eventId)!.push({ date: d.date, time: d.time });
+    }
+
+    return rows.map(({ events: e, venues: v }) => {
+      const dates = datesByEventId.get(e.id) || [];
+      // Fall back to legacy date if no dates in new table
+      const effectiveDates = dates.length > 0 ? dates : (e.date ? [{ date: e.date, time: e.time }] : []);
+
+      return {
+        slug: e.slug,
+        title: e.title,
+        date: e.date,
+        time: e.time,
+        dates: effectiveDates,
+        type: e.type as Event["type"],
+        venueSlug: v?.slug ?? null,
+        venue: v
+          ? {
+              slug: v.slug,
+              name: v.name,
+              address: v.address,
+              type: v.type,
+              description: v.description,
+              accessibility: v.accessibility ? JSON.parse(v.accessibility) : [],
+            }
+          : null,
+        image: e.image,
+        summary: e.summary,
+        bookingUrl: e.bookingUrl,
+        featured: e.featured ?? false,
+      };
+    });
   } catch {
     return [];
   }
@@ -194,11 +235,24 @@ export async function getEvent(
     if (!row) return null;
     const { events: e, venues: v } = row;
 
+    // Fetch dates for this event
+    const dateRows = db
+      .select()
+      .from(eventDates)
+      .where(eq(eventDates.eventId, e.id))
+      .orderBy(asc(eventDates.date))
+      .all();
+
+    const dates = dateRows.map((d) => ({ date: d.date, time: d.time }));
+    // Fall back to legacy date if no dates in new table
+    const effectiveDates = dates.length > 0 ? dates : (e.date ? [{ date: e.date, time: e.time }] : []);
+
     return {
       slug: e.slug,
       title: e.title,
       date: e.date,
       time: e.time,
+      dates: effectiveDates,
       type: e.type as Event["type"],
       venueSlug: v?.slug ?? null,
       venue: v
