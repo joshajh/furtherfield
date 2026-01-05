@@ -117,7 +117,7 @@ export function HeroHeader({
               <h1 className="relative z-40 font-display text-[42px] sm:text-[56px] md:text-[120px] lg:text-[150px] leading-[0.9] md:leading-none">
                 {titleLines.map((line, i) => (
                   i === 0 ? (
-                    <span key={i} className="block relative italic">
+                    <span key={i} className="block italic">
                       <Image
                         src="/svg-icon.svg"
                         alt=""
@@ -126,13 +126,13 @@ export function HeroHeader({
                         className="inline-block mr-1 md:mr-2 -ml-1 w-6 h-6 md:w-10 md:h-10 align-top animate-spin-slow"
                         aria-hidden="true"
                       />
-                      <span className="glitch-base-text text-gradient-dark">{line}</span>
-                      <span className="absolute inset-0 left-[1em] glitch-shadow-text text-treatment-acid" aria-hidden="true">
-                        {line}
+                      <span className="hero-gradient-text-wrapper">
+                        <span className="hero-gradient-text">{line}</span>
+                        <span className="hero-gradient-overlay" aria-hidden="true">{line}</span>
                       </span>
                     </span>
                   ) : (
-                    <span key={i} className="block text-gradient-dark">{line}</span>
+                    <span key={i} className="block text-text-dark">{line}</span>
                   )
                 ))}
               </h1>

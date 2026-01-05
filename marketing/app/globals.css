@@ -95,6 +95,48 @@ html, body {
   color: var(--color-text-dark);
 }
 
+/* Animated gradient text for hero h1 */
+.hero-gradient-text {
+  color: var(--color-gradient-start);
+  -webkit-text-stroke: 1px var(--color-text-dark);
+  text-stroke: 1px var(--color-text-dark);
+  paint-order: stroke fill;
+  position: relative;
+}
+
+.hero-gradient-text-wrapper {
+  position: relative;
+  display: inline;
+}
+
+.hero-gradient-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(208, 214, 253, 0.4) 25%,
+    rgba(188, 229, 243, 0.5) 50%,
+    rgba(208, 214, 253, 0.4) 75%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: hero-gradient-shift 8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes hero-gradient-shift {
+  0%, 100% {
+    background-position: -100% 50%;
+  }
+  50% {
+    background-position: 200% 50%;
+  }
+}
+
 /* RPG-style tag styling */
 .tag {
   display: inline-flex;
