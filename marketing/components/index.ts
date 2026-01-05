@@ -12,3 +12,4 @@ export { AnimatedSprites } from "./AnimatedSprites";
 export { SycamoreBorder } from "./SycamoreBorder";
 export { LichenBorder } from "./LichenBorder";
 export { RotatingCubesIcon } from "./RotatingCubesIcon";
+export { VenueModal } from "./VenueModal";

@@ -289,9 +289,11 @@ export class KeystonesRenderer {
   }
 
   async loadAssets(): Promise<void> {
+    // Use basePath for assets when configured
+    const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
     const assetPaths = {
-      borderLeft: '/assets/social-generator/border-left.png',
-      borderRight: '/assets/social-generator/border-right.png',
+      borderLeft: `${basePath}/assets/social-generator/border-left.png`,
+      borderRight: `${basePath}/assets/social-generator/border-right.png`,
     }
 
     const loadImage = (src: string): Promise<HTMLImageElement> => {

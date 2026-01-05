@@ -1,8 +1,6 @@
 'use client'
 
 import { useRef, useState, useEffect, useCallback } from 'react'
-import Link from 'next/link'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Slider } from '@/components/ui/slider'
 import { Input } from '@/components/ui/input'
@@ -253,82 +251,77 @@ export default function SocialGeneratorPage() {
   }
 
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen">
       <div className="container mx-auto px-4 py-8 max-w-7xl">
         <header className="mb-8">
-          <Link href="/" className="text-sm text-muted-foreground hover:text-foreground mb-2 inline-block">
-            ← Back to Apps
-          </Link>
-          <h1 className="text-4xl font-bold mb-2">Keystones Social Generator</h1>
-          <p className="text-muted-foreground">Create social graphics with dynamic marine data grids</p>
+          <h1 className="text-3xl font-bold mb-2 font-mono uppercase tracking-wide">Reimagine This Social Generator</h1>
+          <p className="text-muted-foreground font-mono text-sm">Create social graphics with dynamic marine data grids</p>
         </header>
 
         <div className="grid lg:grid-cols-[400px_1fr] gap-6">
           {/* Controls Panel */}
           <div className="space-y-4 max-h-[calc(100vh-180px)] overflow-y-auto pr-2">
             {/* Headline */}
-            <Card>
-              <CardHeader className="pb-3">
-                <CardTitle className="text-lg">Headline</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="space-y-1">
-                  <label className="text-sm text-muted-foreground">Line 1 (italic)</label>
+            <div className="card-gradient rounded-md border border-[#0F0E0E] p-5">
+              <h3 className="font-mono text-sm font-semibold uppercase tracking-wider text-[#0F0E0E] border-b border-[#0F0E0E] pb-2 mb-4">Headline</h3>
+              <div className="space-y-4 relative z-10">
+                <div className="space-y-1.5">
+                  <label className="font-mono text-xs uppercase tracking-wider text-[#0F0E0E]">Line 1 (italic)</label>
                   <Input
                     value={state.headlineLine1}
                     onChange={(e) => setState((prev) => ({ ...prev, headlineLine1: e.target.value }))}
                     placeholder="Reimagine"
+                    className="font-mono bg-transparent border-[#0F0E0E] text-[#0F0E0E] placeholder:text-[#555659] focus:bg-[rgba(245,235,180,0.85)]"
                   />
                 </div>
-                <div className="space-y-1">
-                  <label className="text-sm text-muted-foreground">Line 2</label>
+                <div className="space-y-1.5">
+                  <label className="font-mono text-xs uppercase tracking-wider text-[#0F0E0E]">Line 2</label>
                   <Input
                     value={state.headlineLine2}
                     onChange={(e) => setState((prev) => ({ ...prev, headlineLine2: e.target.value }))}
                     placeholder="This Coastal Town"
+                    className="font-mono bg-transparent border-[#0F0E0E] text-[#0F0E0E] placeholder:text-[#555659] focus:bg-[rgba(245,235,180,0.85)]"
                   />
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
             {/* Subheads */}
-            <Card>
-              <CardHeader className="pb-3">
-                <CardTitle className="text-lg">Subheads</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="space-y-1">
-                  <label className="text-sm text-muted-foreground">Left tag</label>
+            <div className="card-gradient rounded-md border border-[#0F0E0E] p-5">
+              <h3 className="font-mono text-sm font-semibold uppercase tracking-wider text-[#0F0E0E] border-b border-[#0F0E0E] pb-2 mb-4">Subheads</h3>
+              <div className="space-y-4 relative z-10">
+                <div className="space-y-1.5">
+                  <label className="font-mono text-xs uppercase tracking-wider text-[#0F0E0E]">Left tag</label>
                   <Input
                     value={state.subheadLeft}
                     onChange={(e) => setState((prev) => ({ ...prev, subheadLeft: e.target.value }))}
                     placeholder="Live Action Role Play"
+                    className="font-mono bg-transparent border-[#0F0E0E] text-[#0F0E0E] placeholder:text-[#555659] focus:bg-[rgba(245,235,180,0.85)]"
                   />
                 </div>
-                <div className="space-y-1">
-                  <label className="text-sm text-muted-foreground">Right tag</label>
+                <div className="space-y-1.5">
+                  <label className="font-mono text-xs uppercase tracking-wider text-[#0F0E0E]">Right tag</label>
                   <Input
                     value={state.subheadRight}
                     onChange={(e) => setState((prev) => ({ ...prev, subheadRight: e.target.value }))}
                     placeholder="Felixstowe"
+                    className="font-mono bg-transparent border-[#0F0E0E] text-[#0F0E0E] placeholder:text-[#555659] focus:bg-[rgba(245,235,180,0.85)]"
                   />
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
             {/* Grid Controls */}
-            <Card>
-              <CardHeader className="pb-3">
-                <CardTitle className="text-lg">Grid Pattern</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Data Source</label>
+            <div className="card-gradient rounded-md border border-[#0F0E0E] p-5">
+              <h3 className="font-mono text-sm font-semibold uppercase tracking-wider text-[#0F0E0E] border-b border-[#0F0E0E] pb-2 mb-4">Grid Pattern</h3>
+              <div className="space-y-4 relative z-10">
+                <div className="space-y-1.5">
+                  <label className="font-mono text-xs uppercase tracking-wider text-[#0F0E0E]">Data Source</label>
                   <Select value={dataSourceType} onValueChange={(v: 'tidal' | 'ships') => setDataSourceType(v)}>
-                    <SelectTrigger>
+                    <SelectTrigger className="font-mono bg-transparent border-[#0F0E0E] text-[#0F0E0E]">
                       <SelectValue />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="font-mono">
                       <SelectItem value="tidal">Live Tidal Data</SelectItem>
                       <SelectItem value="ships">Ship Movements</SelectItem>
                     </SelectContent>
@@ -337,72 +330,74 @@ export default function SocialGeneratorPage() {
 
                 <div className="space-y-2">
                   <div className="flex justify-between">
-                    <label className="text-sm font-medium">Grid Density</label>
-                    <span className="text-sm text-muted-foreground">{gridSize}</span>
+                    <label className="font-mono text-xs uppercase tracking-wider text-[#0F0E0E]">Grid Density</label>
+                    <span className="font-mono text-xs text-[#555659]">{gridSize}</span>
                   </div>
-                  <Slider value={[gridSize]} onValueChange={([v]) => setGridSize(v)} min={10} max={30} step={1} />
+                  <Slider value={[gridSize]} onValueChange={([v]) => setGridSize(v)} min={10} max={30} step={1} className="[&_[role=slider]]:bg-[#0F0E0E]" />
                 </div>
 
                 <div className="space-y-2">
                   <div className="flex justify-between">
-                    <label className="text-sm font-medium">Wave Intensity</label>
-                    <span className="text-sm text-muted-foreground">{waveAmount}</span>
+                    <label className="font-mono text-xs uppercase tracking-wider text-[#0F0E0E]">Wave Intensity</label>
+                    <span className="font-mono text-xs text-[#555659]">{waveAmount}</span>
                   </div>
-                  <Slider value={[waveAmount]} onValueChange={([v]) => setWaveAmount(v)} min={5} max={30} step={1} />
+                  <Slider value={[waveAmount]} onValueChange={([v]) => setWaveAmount(v)} min={5} max={30} step={1} className="[&_[role=slider]]:bg-[#0F0E0E]" />
                 </div>
 
-                <Button onClick={handleGenerateGrid} disabled={isGenerating} className="w-full">
+                <Button
+                  onClick={handleGenerateGrid}
+                  disabled={isGenerating}
+                  className="w-full font-mono uppercase tracking-wider bg-[#0F0E0E] text-[#F6F8FB] hover:bg-[rgba(200,255,0,0.85)] hover:text-[#0F0E0E] border border-[#0F0E0E]"
+                >
                   {isGenerating ? 'Generating...' : 'Generate Grid from Live Data'}
                 </Button>
 
                 {state.dataSource && (
-                  <div className="bg-muted p-3 rounded text-sm space-y-1">
-                    <div className="font-medium">Data Used:</div>
+                  <div className="bg-[rgba(245,235,180,0.85)] p-3 rounded text-sm space-y-1 font-mono text-[#0F0E0E]">
+                    <div className="font-semibold uppercase text-xs tracking-wider">Data Used:</div>
                     {state.dataSource.type === 'tidal' ? (
                       <>
-                        <div>{state.dataSource.station}</div>
-                        <div>
+                        <div className="text-xs">{state.dataSource.station}</div>
+                        <div className="text-xs">
                           {state.dataSource.level.toFixed(2)} {state.dataSource.unit}
                         </div>
-                        <div className="text-muted-foreground">{state.dataSource.time.toLocaleTimeString()}</div>
+                        <div className="text-xs text-[#555659]">{state.dataSource.time.toLocaleTimeString()}</div>
                       </>
                     ) : (
                       <>
-                        <div>Total Ships: {state.dataSource.total}</div>
-                        <div>
+                        <div className="text-xs">Total Ships: {state.dataSource.total}</div>
+                        <div className="text-xs">
                           Flow: {state.dataSource.flow > 0 ? '+' : ''}
                           {state.dataSource.flow}
                         </div>
-                        <div className="text-muted-foreground">{state.dataSource.time.toLocaleTimeString()}</div>
+                        <div className="text-xs text-[#555659]">{state.dataSource.time.toLocaleTimeString()}</div>
                       </>
                     )}
                   </div>
                 )}
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
             {/* Image Upload */}
-            <Card>
-              <CardHeader className="pb-3">
-                <CardTitle className="text-lg">Image</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
+            <div className="card-gradient rounded-md border border-[#0F0E0E] p-5">
+              <h3 className="font-mono text-sm font-semibold uppercase tracking-wider text-[#0F0E0E] border-b border-[#0F0E0E] pb-2 mb-4">Image</h3>
+              <div className="space-y-4 relative z-10">
                 <div
-                  className="border-2 border-dashed rounded-lg p-6 text-center cursor-pointer hover:border-primary transition-colors"
+                  className="border-2 border-dashed border-[#0F0E0E] rounded-md p-6 text-center cursor-pointer hover:bg-[rgba(245,235,180,0.85)] transition-colors"
                   onClick={() => fileInputRef.current?.click()}
                   onDrop={handleDrop}
                   onDragOver={handleDragOver}
                 >
                   {state.userImage ? (
                     <div className="space-y-2">
-                      <div className="text-sm text-muted-foreground">Image loaded</div>
-                      <div className="text-xs">{state.userImage.width} × {state.userImage.height}px</div>
-                      <Button variant="outline" size="sm">Change Image</Button>
+                      <div className="font-mono text-xs uppercase tracking-wider text-[#0F0E0E]">Image loaded</div>
+                      <div className="font-mono text-xs text-[#555659]">{state.userImage.width} × {state.userImage.height}px</div>
+                      <button className="font-mono text-xs uppercase tracking-wider border border-[#0F0E0E] px-3 py-1.5 rounded hover:bg-[rgba(245,235,180,0.85)] text-[#0F0E0E]">Change Image</button>
                     </div>
                   ) : (
                     <div className="space-y-2">
-                      <div className="text-sm">Drop image here or click to upload</div>
-                      <div className="text-xs text-muted-foreground">PNG, JPG recommended</div>
+                      <div className="font-mono text-sm text-[#0F0E0E]">Drop image here or click to upload</div>
+                      <div className="font-mono text-xs text-[#555659]">PNG, JPG recommended</div>
                     </div>
                   )}
                 </div>
@@ -415,60 +410,66 @@ export default function SocialGeneratorPage() {
                 />
 
                 {state.userImage && (
-                  <div className="text-xs text-muted-foreground pt-2">
+                  <div className="font-mono text-xs text-[#555659] pt-2">
                     Drag on preview to reposition
                   </div>
                 )}
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
             {/* Supporting Text */}
-            <Card>
-              <CardHeader className="pb-3">
-                <CardTitle className="text-lg">Supporting Text</CardTitle>
-              </CardHeader>
-              <CardContent>
+            <div className="card-gradient rounded-md border border-[#0F0E0E] p-5">
+              <h3 className="font-mono text-sm font-semibold uppercase tracking-wider text-[#0F0E0E] border-b border-[#0F0E0E] pb-2 mb-4">Supporting Text</h3>
+              <div className="relative z-10">
                 <Input
                   value={state.supportingText}
                   onChange={(e) => setState((prev) => ({ ...prev, supportingText: e.target.value }))}
                   placeholder="Supporting Secondary Text"
+                  className="font-mono bg-transparent border-[#0F0E0E] text-[#0F0E0E] placeholder:text-[#555659] focus:bg-[rgba(245,235,180,0.85)]"
                 />
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
             {/* Export */}
-            <Card>
-              <CardHeader className="pb-3">
-                <CardTitle className="text-lg">Export</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <Button onClick={handleExportPNG} className="w-full">
+            <div className="card-gradient rounded-md border border-[#0F0E0E] p-5">
+              <h3 className="font-mono text-sm font-semibold uppercase tracking-wider text-[#0F0E0E] border-b border-[#0F0E0E] pb-2 mb-4">Export</h3>
+              <div className="space-y-3 relative z-10">
+                <Button
+                  onClick={handleExportPNG}
+                  className="w-full font-mono uppercase tracking-wider bg-[#0F0E0E] text-[#F6F8FB] hover:bg-[rgba(200,255,0,0.85)] hover:text-[#0F0E0E] border border-[#0F0E0E]"
+                >
                   Download PNG
                 </Button>
                 <div className="space-y-2">
                   <div className="flex justify-between">
-                    <label className="text-sm">JPG Quality</label>
-                    <span className="text-sm text-muted-foreground">{jpgQuality}%</span>
+                    <label className="font-mono text-xs uppercase tracking-wider text-[#0F0E0E]">JPG Quality</label>
+                    <span className="font-mono text-xs text-[#555659]">{jpgQuality}%</span>
                   </div>
-                  <Slider value={[jpgQuality]} onValueChange={([v]) => setJpgQuality(v)} min={50} max={100} step={1} />
+                  <Slider value={[jpgQuality]} onValueChange={([v]) => setJpgQuality(v)} min={50} max={100} step={1} className="[&_[role=slider]]:bg-[#0F0E0E]" />
                 </div>
-                <Button onClick={handleExportJPG} variant="outline" className="w-full">
+                <Button
+                  onClick={handleExportJPG}
+                  className="w-full font-mono uppercase tracking-wider bg-transparent text-[#0F0E0E] border border-[#0F0E0E] hover:bg-[rgba(245,235,180,0.85)]"
+                >
                   Download JPG
                 </Button>
-                <Button onClick={handleReset} variant="ghost" className="w-full text-muted-foreground">
+                <Button
+                  onClick={handleReset}
+                  className="w-full font-mono uppercase tracking-wider bg-transparent text-[#555659] border border-transparent hover:border-[#0F0E0E] hover:text-[#0F0E0E]"
+                >
                   Reset All
                 </Button>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </div>
 
           {/* Preview Panel */}
-          <div className="lg:sticky lg:top-4 bg-card border rounded-lg p-4 flex flex-col items-center justify-center gap-2">
+          <div className="lg:sticky lg:top-4 bg-[#1a1a1a] border border-[#333] rounded-md p-4 flex flex-col items-center justify-center gap-2">
             <canvas
               ref={canvasRef}
               width={CANVAS_WIDTH}
               height={CANVAS_HEIGHT}
-              className="max-w-full max-h-[calc(100vh-220px)] border shadow-lg"
+              className="max-w-full max-h-[calc(100vh-220px)] border border-[#333] shadow-lg"
               style={{
                 aspectRatio: `${CANVAS_WIDTH}/${CANVAS_HEIGHT}`,
                 cursor: state.userImage ? (isDragging ? 'grabbing' : 'grab') : 'default',
@@ -479,7 +480,7 @@ export default function SocialGeneratorPage() {
               onMouseLeave={handleCanvasMouseLeave}
             />
             {state.userImage && (
-              <div className="text-xs text-muted-foreground">
+              <div className="font-mono text-xs text-muted-foreground uppercase tracking-wider">
                 Drag on canvas to reposition image
               </div>
             )}

@@ -1,8 +1,16 @@
 import type { Metadata } from 'next'
-import { Inter, Instrument_Serif, Instrument_Sans } from 'next/font/google'
+import { Geist, Geist_Mono, Instrument_Serif, Instrument_Sans } from 'next/font/google'
 import './globals.css'
 
-const inter = Inter({ subsets: ['latin'] })
+const geistSans = Geist({
+  variable: '--font-geist-sans',
+  subsets: ['latin'],
+})
+
+const geistMono = Geist_Mono({
+  variable: '--font-geist-mono',
+  subsets: ['latin'],
+})
 
 const instrumentSerif = Instrument_Serif({
   variable: '--font-instrument-serif',
@@ -18,8 +26,8 @@ const instrumentSans = Instrument_Sans({
 })
 
 export const metadata: Metadata = {
-  title: 'Crafting Table - Furtherfield',
-  description: 'Modular micro-apps for generative visual identity',
+  title: 'Reimagine This Social Generator',
+  description: 'Create social graphics with dynamic marine data grids',
 }
 
 export default function RootLayout({
@@ -29,7 +37,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} ${instrumentSerif.variable} ${instrumentSans.variable}`}>{children}</body>
+      <body className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} ${instrumentSans.variable} antialiased`}>
+        {children}
+      </body>
     </html>
   )
 }

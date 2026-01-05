@@ -2,7 +2,8 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { Navigation, Footer, EventGrid, TidalGrid, RotatingCubesIcon, type Event } from "@/components";
+import { useState, useCallback } from "react";
+import { Navigation, Footer, EventGrid, TidalGrid, RotatingCubesIcon, VenueModal, type Event } from "@/components";
 import type { Venue, Person } from "@/lib/cms";
 
 type EventData = {
@@ -66,6 +67,18 @@ export default function EventPageClient({
   marqueeText,
   aboutSnippet,
 }: EventPageClientProps) {
+  const [selectedVenue, setSelectedVenue] = useState<Venue | null>(null);
+
+  const openVenueModal = useCallback(() => {
+    if (event.venue) {
+      setSelectedVenue(event.venue);
+    }
+  }, [event.venue]);
+
+  const closeVenueModal = useCallback(() => {
+    setSelectedVenue(null);
+  }, []);
+
   const formattedRelatedEvents: Event[] = relatedEvents.map((e) => ({
     slug: e.slug,
     title: e.title,
@@ -109,7 +122,12 @@ export default function EventPageClient({
                 <span className="tag">{event.time}</span>
               )}
               {event.venue && (
-                <span className="tag">{event.venue.name}</span>
+                <button
+                  onClick={openVenueModal}
+                  className="tag cursor-pointer hover:bg-text-dark hover:text-text-light transition-colors"
+                >
+                  {event.venue.name}
+                </button>
               )}
             </div>
           </motion.div>
@@ -254,6 +272,9 @@ export default function EventPageClient({
       </main>
 
       <Footer />
+
+      {/* Venue Modal */}
+      <VenueModal venue={selectedVenue} onClose={closeVenueModal} />
     </div>
   );
 }
