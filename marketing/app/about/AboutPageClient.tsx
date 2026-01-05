@@ -31,7 +31,7 @@ export default function AboutPageClient({ aboutPage, venues, marqueeText, aboutS
 
       <main className="flex flex-col gap-2.5">
         {/* Hero Section */}
-        <section className="relative bg-gradient-brand rounded-lg mx-2.5 px-5 py-24 md:py-32 overflow-hidden">
+        <section className="relative bg-gradient-brand rounded-lg mx-2.5 px-5 py-12 md:py-16 overflow-hidden">
           <TidalGrid
             className="absolute inset-0 w-full h-full opacity-40 pointer-events-none"
             gridSize={16}

@@ -243,9 +243,12 @@ export default function EventPageClient({
               href={event.bookingUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="block w-full bg-gradient-brand rounded-lg px-8 py-6 text-center text-text-dark text-xl font-semibold hover:opacity-90 transition-opacity"
+              className="group relative block w-full bg-gradient-brand rounded-lg px-8 py-8 text-center overflow-hidden hover:shadow-lg transition-shadow"
             >
-              Book Now
+              <span className="relative z-10 font-display text-text-dark text-3xl md:text-4xl">
+                Book Now
+              </span>
+              <span className="absolute inset-0 bg-treatment-lemon opacity-0 group-hover:opacity-100 transition-opacity" />
             </a>
           </section>
         )}

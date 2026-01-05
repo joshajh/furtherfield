@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { Venue } from "@/lib/cms";
 import { HtmlContent } from "@/components/HtmlContent";
@@ -10,6 +11,18 @@ type VenueModalProps = {
 };
 
 function VenueModalContent({ venue, onClose }: { venue: Venue; onClose: () => void }) {
+  // Handle Escape key
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    if (e.key === "Escape") {
+      onClose();
+    }
+  }, [onClose]);
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [handleKeyDown]);
+
   // Generate Google Maps embed URL from address
   const getMapUrl = (address: string | null) => {
     if (!address) return null;
@@ -49,7 +62,7 @@ function VenueModalContent({ venue, onClose }: { venue: Venue; onClose: () => vo
         <button
           onClick={onClose}
           className="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-text-dark/10 hover:bg-text-dark/20 transition-colors"
-          aria-label="Close modal"
+          aria-label="Close modal (Esc)"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -126,42 +139,34 @@ function VenueModalContent({ venue, onClose }: { venue: Venue; onClose: () => vo
             </div>
           )}
 
-          {/* Actions */}
-          <div className="flex flex-col sm:flex-row gap-3">
-            <a
-              href={getDirectionsUrl(venue.address)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 bg-text-dark text-text-light px-6 py-3 rounded-full font-semibold hover:opacity-90 transition-opacity"
+          {/* Get Directions */}
+          <a
+            href={getDirectionsUrl(venue.address)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="tag inline-flex items-center gap-2 hover:bg-text-dark hover:text-text-light transition-colors"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-4 h-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-5 h-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                />
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                />
-              </svg>
-              Get Directions
-            </a>
-            <button
-              onClick={onClose}
-              className="inline-flex items-center justify-center gap-2 border-2 border-text-dark text-text-dark px-6 py-3 rounded-full font-semibold hover:bg-text-dark hover:text-text-light transition-colors"
-            >
-              Close
-            </button>
-          </div>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+              />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+              />
+            </svg>
+            Get Directions
+          </a>
         </div>
       </motion.div>
     </motion.div>

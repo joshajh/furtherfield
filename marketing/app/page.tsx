@@ -51,7 +51,7 @@ export default async function Home() {
 
         <div className="px-2.5">
           <Button variant="large" href="/events">
-            View more
+            Book Now
           </Button>
         </div>
 

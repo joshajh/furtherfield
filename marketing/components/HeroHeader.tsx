@@ -30,15 +30,6 @@ export function HeroHeader({
 
   return (
     <section className="relative rounded-lg overflow-hidden bg-gradient-brand mx-2.5 pt-8 md:pt-16">
-      {/* SVG Filter for weathered text effect */}
-      <svg className="absolute w-0 h-0" aria-hidden="true">
-        <defs>
-          <filter id="weathered-filter">
-            <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" result="noise" />
-            <feDisplacementMap in="SourceGraphic" in2="noise" scale="2" xChannelSelector="R" yChannelSelector="G" />
-          </filter>
-        </defs>
-      </svg>
       {showTidalGrid && (
         <TidalGrid
           className="absolute inset-0 w-full h-full opacity-40 pointer-events-none"
@@ -123,7 +114,7 @@ export function HeroHeader({
               transition={{ duration: 0.4, ease: 'easeOut' }}
               className="relative"
             >
-              <h1 className="relative z-40 font-display text-[48px] sm:text-[64px] md:text-[140px] lg:text-[180px] leading-[0.9] md:leading-none weathered-text">
+              <h1 className="relative z-40 font-display text-[42px] sm:text-[56px] md:text-[120px] lg:text-[150px] leading-[0.9] md:leading-none">
                 {titleLines.map((line, i) => (
                   i === 0 ? (
                     <span key={i} className="block relative italic">
