@@ -47,7 +47,7 @@ export default function AboutPageClient({ aboutPage, venues, marqueeText, aboutS
             transition={{ duration: 0.6 }}
             className="relative z-10 max-w-4xl"
           >
-            <h1 className="font-display text-text-dark text-[50px] md:text-[80px] lg:text-[120px] leading-[0.95] tracking-tight">
+            <h1 className="font-display text-text-dark text-[36px] sm:text-[50px] md:text-[80px] lg:text-[120px] leading-[0.95] tracking-tight">
               {(aboutPage?.heroTitle || "About\nThis Coastal Town").split("\n").map((line, i) => (
                 <span key={i} className={i === 0 ? "italic block" : "block"}>
                   {line}

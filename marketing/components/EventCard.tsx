@@ -24,7 +24,7 @@ export function EventCard({ event, index = 0 }: EventCardProps) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1, duration: 0.5 }}
-      className="group relative flex-1 min-w-[300px] md:min-w-[600px] h-[700px] rounded-lg overflow-hidden"
+      className="group relative flex-1 min-w-[280px] sm:min-w-[300px] md:min-w-[600px] h-[500px] sm:h-[600px] md:h-[700px] rounded-lg overflow-hidden"
     >
       <Link href={`/events/${event.slug}`} className="flex flex-col size-full">
         {/* Image section with lemon treatment */}

@@ -56,12 +56,12 @@ function VenueModalContent({ venue, onClose }: { venue: Venue; onClose: () => vo
         exit={{ opacity: 0, scale: 0.95, y: 20 }}
         transition={{ type: "spring", damping: 25, stiffness: 300 }}
         onClick={(e) => e.stopPropagation()}
-        className="relative bg-bg-light rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden"
+        className="relative bg-bg-light rounded-xl shadow-2xl w-[95vw] sm:w-full max-w-2xl max-h-[90vh] overflow-hidden"
       >
         {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-text-dark/10 hover:bg-text-dark/20 transition-colors"
+          className="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 w-11 h-11 flex items-center justify-center rounded-full bg-text-dark/10 hover:bg-text-dark/20 transition-colors"
           aria-label="Close modal (Esc)"
         >
           <svg
@@ -97,7 +97,7 @@ function VenueModalContent({ venue, onClose }: { venue: Venue; onClose: () => vo
         )}
 
         {/* Content */}
-        <div className="p-6 md:p-8 overflow-y-auto max-h-[calc(90vh-16rem)]">
+        <div className="p-4 sm:p-6 md:p-8 overflow-y-auto max-h-[calc(90vh-12rem)] sm:max-h-[calc(90vh-16rem)]">
           <div className="flex items-start justify-between gap-4 mb-4">
             <div>
               <h2 className="font-serif text-text-dark text-2xl md:text-3xl mb-2">

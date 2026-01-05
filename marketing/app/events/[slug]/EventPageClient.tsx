@@ -110,7 +110,7 @@ export default function EventPageClient({
             transition={{ duration: 0.6 }}
             className="max-w-4xl mx-auto text-center"
           >
-            <h1 className="font-display text-text-dark text-[40px] md:text-[80px] lg:text-[100px] leading-[0.95] tracking-tight mb-6">
+            <h1 className="font-display text-text-dark text-[28px] sm:text-[40px] md:text-[80px] lg:text-[100px] leading-[0.95] tracking-tight mb-6">
               {event.title}
             </h1>
             <div className="flex flex-wrap justify-center gap-2 mt-8">
@@ -243,9 +243,9 @@ export default function EventPageClient({
               href={event.bookingUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative block w-full bg-gradient-brand rounded-lg px-8 py-8 text-center overflow-hidden hover:shadow-lg transition-shadow"
+              className="group relative block w-full bg-gradient-brand rounded-lg px-6 sm:px-8 py-6 sm:py-8 text-center overflow-hidden hover:shadow-lg transition-shadow"
             >
-              <span className="relative z-10 font-display text-text-dark text-3xl md:text-4xl">
+              <span className="relative z-10 font-display text-text-dark text-2xl sm:text-3xl md:text-4xl">
                 Book Now
               </span>
               <span className="absolute inset-0 bg-treatment-lemon opacity-0 group-hover:opacity-100 transition-opacity" />

@@ -200,32 +200,32 @@ export function Navigation({ marqueeText, aboutSnippet }: NavigationProps = {}) 
               </div>
 
               {/* Navigation Links */}
-              <nav className="flex-1 flex flex-col items-center justify-center gap-6 px-8">
+              <nav className="flex-1 flex flex-col items-center justify-center gap-4 sm:gap-6 px-6 sm:px-8">
                 <Link
                   href="/"
                   onClick={closeMobileMenu}
-                  className="font-display text-5xl text-text-light hover:text-treatment-lemon transition-colors"
+                  className="font-display text-4xl sm:text-5xl text-text-light hover:text-treatment-lemon transition-colors py-2"
                 >
                   Home
                 </Link>
                 <Link
                   href="/#programme"
                   onClick={closeMobileMenu}
-                  className="font-display text-5xl text-text-light hover:text-treatment-lemon transition-colors"
+                  className="font-display text-4xl sm:text-5xl text-text-light hover:text-treatment-lemon transition-colors py-2"
                 >
                   Programme
                 </Link>
                 <Link
                   href="/people"
                   onClick={closeMobileMenu}
-                  className="font-display text-5xl text-text-light hover:text-treatment-lemon transition-colors"
+                  className="font-display text-4xl sm:text-5xl text-text-light hover:text-treatment-lemon transition-colors py-2"
                 >
                   People
                 </Link>
                 <Link
                   href="/about"
                   onClick={closeMobileMenu}
-                  className="font-display text-5xl text-text-light hover:text-treatment-lemon transition-colors"
+                  className="font-display text-4xl sm:text-5xl text-text-light hover:text-treatment-lemon transition-colors py-2"
                 >
                   About
                 </Link>

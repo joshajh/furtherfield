@@ -59,7 +59,7 @@ export default function PeoplePageClient({
             transition={{ duration: 0.6 }}
             className="relative z-10 max-w-4xl"
           >
-            <h1 className="font-display text-text-dark text-[50px] md:text-[80px] lg:text-[120px] leading-[0.95] tracking-tight">
+            <h1 className="font-display text-text-dark text-[36px] sm:text-[50px] md:text-[80px] lg:text-[120px] leading-[0.95] tracking-tight">
               People
             </h1>
           </motion.div>

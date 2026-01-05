@@ -21,7 +21,7 @@ export function Button({
     primary: "bg-bg-dark text-text-light px-6 py-4 text-xl tracking-tight font-semibold hover:bg-opacity-80",
     secondary: "tag tag-lg",
     tag: "tag",
-    large: "bg-bg-white text-text-dark px-6 py-8 text-7xl md:text-8xl font-serif italic tracking-tight rounded-lg w-full hover:bg-opacity-90",
+    large: "bg-bg-white text-text-dark px-4 sm:px-6 py-6 sm:py-8 text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-serif italic tracking-tight rounded-lg w-full hover:bg-opacity-90",
   };
 
   const combinedClassName = `${baseStyles} ${variants[variant]} ${className}`;
