@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Instrument_Serif, Playfair_Display } from "next/font/google";
 import "./globals.css";
-import { SycamoreBorder, LichenBorder } from "@/components";
+import { SycamoreBorder, LichenBorder, LichenGaps } from "@/components";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -43,6 +43,7 @@ export default function RootLayout({
       >
         {/* <SycamoreBorder /> */}
         <LichenBorder />
+        <LichenGaps />
         {children}
       </body>
     </html>

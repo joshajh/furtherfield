@@ -82,36 +82,6 @@ export function LichenBorder() {
         />
       </div>
 
-      {/* Bottom edge - offset off-screen */}
-      <div
-        className="absolute left-0 right-0 h-[300px]"
-        style={{ bottom: '-75px' }}
-      >
-        {/* Original image */}
-        <div
-          className="absolute inset-0 opacity-80"
-          style={{
-            backgroundImage: 'url(/lichen/borders/border-bottom.png)',
-            backgroundSize: '100% auto',
-            backgroundPosition: 'center bottom',
-            backgroundRepeat: 'no-repeat',
-          }}
-        />
-        {/* Tint overlay with transition */}
-        <div
-          className={`absolute inset-0 ${treatmentClass} mix-blend-multiply transition-colors duration-700 ease-in-out`}
-          style={{
-            maskImage: 'url(/lichen/borders/border-bottom.png)',
-            maskSize: '100% auto',
-            maskPosition: 'center bottom',
-            maskRepeat: 'no-repeat',
-            WebkitMaskImage: 'url(/lichen/borders/border-bottom.png)',
-            WebkitMaskSize: '100% auto',
-            WebkitMaskPosition: 'center bottom',
-            WebkitMaskRepeat: 'no-repeat',
-          }}
-        />
-      </div>
     </div>
   );
 }

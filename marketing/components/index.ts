@@ -11,5 +11,6 @@ export { TidalGrid } from "./TidalGrid";
 export { AnimatedSprites } from "./AnimatedSprites";
 export { SycamoreBorder } from "./SycamoreBorder";
 export { LichenBorder } from "./LichenBorder";
+export { LichenGaps } from "./LichenGaps";
 export { RotatingCubesIcon } from "./RotatingCubesIcon";
 export { VenueModal } from "./VenueModal";

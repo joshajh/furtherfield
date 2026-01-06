@@ -38,7 +38,7 @@ export default function PeoplePageClient({
   );
 
   return (
-    <div className="min-h-screen flex flex-col gap-2.5 py-2.5">
+    <div className="min-h-screen flex flex-col gap-2.5 py-2.5 relative z-10">
       <Navigation marqueeText={marqueeText} aboutSnippet={aboutSnippet} />
 
       <main className="flex flex-col gap-2.5">

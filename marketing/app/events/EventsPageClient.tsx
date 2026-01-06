@@ -149,7 +149,7 @@ export default function EventsPageClient({
   });
 
   return (
-    <div className="min-h-screen flex flex-col gap-2.5 py-2.5">
+    <div className="min-h-screen flex flex-col gap-2.5 py-2.5 relative z-10">
       <AnimatedSprites />
       <Navigation marqueeText={marqueeText} aboutSnippet={aboutSnippet} />
 

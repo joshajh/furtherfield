@@ -29,7 +29,7 @@ export function HeroHeader({
   }, [])
 
   return (
-    <section className="relative rounded-lg overflow-hidden bg-gradient-brand mx-2.5 pt-8 md:pt-16">
+    <section className="relative rounded-lg overflow-hidden bg-gradient-brand mx-2.5 h-[calc(100dvh-20px-56px-10px)] md:min-h-[calc(100vh-1.25rem)] md:h-auto">
       {showTidalGrid && (
         <TidalGrid
           className="absolute inset-0 w-full h-full opacity-40 pointer-events-none"
@@ -51,7 +51,7 @@ export function HeroHeader({
         ?
       </button>
 
-      <div className="relative p-4 md:p-10">
+      <div className="relative p-4 pb-12 md:p-10 h-full md:min-h-[calc(100vh-1.25rem)] flex flex-col">
         <AnimatePresence mode="wait">
           {showMaritimeInfo ? (
             <motion.div
@@ -60,48 +60,40 @@ export function HeroHeader({
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.4, ease: 'easeOut' }}
-              className="relative z-40"
+              className="relative z-40 flex-1 flex flex-col justify-center items-center md:items-start"
             >
-              <h2 className="font-display text-text-dark text-[60px] md:text-[100px] lg:text-[140px] leading-none mb-4">
+              <h2 className="font-display text-text-dark text-[42px] sm:text-[56px] md:text-[100px] lg:text-[140px] leading-[0.9] md:leading-none text-center md:text-left italic mb-6 md:mb-8">
                 Live Data
               </h2>
 
-              <div className="flex flex-wrap gap-4 mb-4">
-                <div className="bg-text-dark/10 rounded-lg px-4 py-2">
-                  <div className="text-text-dark font-bold text-2xl md:text-3xl">
+              <div className="flex flex-wrap gap-2 md:gap-3 mb-6 justify-center md:justify-start">
+                <div className="tag flex items-center">
+                  <span className="font-display text-lg md:text-2xl mr-1 leading-none">
                     {maritimeData.tideLevel.toFixed(1)}m
-                  </div>
-                  <div className="text-text-dark/70 text-xs">
-                    Tide AOD
-                  </div>
+                  </span>
+                  <span className="opacity-70 leading-none">Tide</span>
                 </div>
-                <div className="bg-text-dark/10 rounded-lg px-4 py-2">
-                  <div className="text-text-dark font-bold text-2xl md:text-3xl">
+                <div className="tag flex items-center">
+                  <span className="font-display text-lg md:text-2xl mr-1 leading-none">
                     {maritimeData.totalShips}
-                  </div>
-                  <div className="text-text-dark/70 text-xs">
-                    Vessels
-                  </div>
+                  </span>
+                  <span className="opacity-70 leading-none">Vessels</span>
                 </div>
-                <div className="bg-text-dark/10 rounded-lg px-4 py-2">
-                  <div className="text-text-dark font-bold text-2xl md:text-3xl">
+                <div className="tag flex items-center">
+                  <span className="font-display text-lg md:text-2xl mr-1 leading-none">
                     {maritimeData.arrivals}
-                  </div>
-                  <div className="text-text-dark/70 text-xs">
-                    Arriving
-                  </div>
+                  </span>
+                  <span className="opacity-70 leading-none">Arriving</span>
                 </div>
-                <div className="bg-text-dark/10 rounded-lg px-4 py-2">
-                  <div className="text-text-dark font-bold text-2xl md:text-3xl">
+                <div className="tag flex items-center">
+                  <span className="font-display text-lg md:text-2xl mr-1 leading-none">
                     {maritimeData.departures}
-                  </div>
-                  <div className="text-text-dark/70 text-xs">
-                    Departing
-                  </div>
+                  </span>
+                  <span className="opacity-70 leading-none">Departing</span>
                 </div>
               </div>
 
-              <p className="text-text-dark/80 text-sm max-w-xl leading-relaxed">
+              <p className="text-text-dark/70 text-sm max-w-md leading-relaxed font-mono uppercase tracking-wide text-center md:text-left">
                 Live tidal and marine traffic data from the Port of Felixstowe, the UK&apos;s busiest container port.
               </p>
             </motion.div>
@@ -112,43 +104,95 @@ export function HeroHeader({
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.4, ease: 'easeOut' }}
-              className="relative"
+              className="relative flex-1 flex flex-col items-center md:items-start"
             >
-              <h1 className="relative z-40 font-display text-[42px] sm:text-[56px] md:text-[120px] lg:text-[150px] leading-[0.9] md:leading-none">
-                {titleLines.map((line, i) => (
-                  i === 0 ? (
-                    <span key={i} className="block italic text-text-dark">
-                      <Image
-                        src="/svg-icon.svg"
-                        alt=""
-                        width={40}
-                        height={40}
-                        className="inline-block mr-1 md:mr-2 -ml-1 w-6 h-6 md:w-10 md:h-10 align-top animate-spin-slow"
-                        aria-hidden="true"
-                      />
-                      {line}
-                    </span>
-                  ) : (
-                    <span key={i} className="block text-text-dark">{line}</span>
-                  )
-                ))}
-              </h1>
+              {/* Spacer to center the main content */}
+              <div className="flex-1" />
 
+              <div>
+                {/* Animated icon - centered above on mobile, inline on desktop */}
+                <div className="flex justify-center mb-2 md:hidden">
+                  <Image
+                    src="/svg-icon.svg"
+                    alt=""
+                    width={40}
+                    height={40}
+                    className="w-8 h-8 animate-spin-slow"
+                    aria-hidden="true"
+                  />
+                </div>
 
-              {/* Location/Date tags */}
-              <div className="relative z-40 mt-4 flex gap-2">
-                <span className="tag">FELIXSTOWE</span>
-                <span className="tag">2026</span>
+                <h1 className="relative z-40 font-display text-[60px] sm:text-[60px] md:text-[120px] lg:text-[150px] leading-[0.9] md:leading-none text-center md:text-left">
+                  {titleLines.map((line, i) => (
+                    i === 0 ? (
+                      <span key={i} className="block italic text-text-dark">
+                        <Image
+                          src="/svg-icon.svg"
+                          alt=""
+                          width={40}
+                          height={40}
+                          className="hidden md:inline-block mr-2 -ml-1 w-10 h-10 align-top animate-spin-slow"
+                          aria-hidden="true"
+                        />
+                        {line}
+                      </span>
+                    ) : (
+                      <span key={i} className="block text-text-dark">{line}</span>
+                    )
+                  ))}
+                </h1>
+
+                {/* Location/Date tags */}
+                <div className="relative z-40 mt-4 flex gap-2 justify-center md:justify-start">
+                  <span className="tag">FELIXSTOWE</span>
+                  <span className="tag">2026</span>
+                </div>
+
+                {/* Subtitle - inline on desktop */}
+                {subtitle && (
+                  <p className="relative z-10 text-text-dark text-xl max-w-md mt-6 hidden md:block">
+                    {subtitle}
+                  </p>
+                )}
               </div>
 
+              {/* Spacer to center the main content */}
+              <div className="flex-1" />
+
+              {/* Subtitle - bottom on mobile */}
               {subtitle && (
-                <p className="relative z-10 text-text-dark text-xl max-w-md mt-6">
+                <p className="relative z-10 text-text-dark/70 text-sm max-w-md font-mono uppercase tracking-wide text-center md:hidden">
                   {subtitle}
                 </p>
               )}
             </motion.div>
           )}
         </AnimatePresence>
+
+        {/* Scroll indicator */}
+        <motion.div
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 z-40"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1, y: [0, 8, 0] }}
+          transition={{
+            opacity: { delay: 1, duration: 0.5 },
+            y: { delay: 1.5, duration: 1.5, repeat: Infinity, ease: 'easeInOut' }
+          }}
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="text-text-dark/60"
+          >
+            <path d="M12 5v14M19 12l-7 7-7-7" />
+          </svg>
+        </motion.div>
       </div>
 
       <div className="absolute bottom-0 left-0 right-0 z-0 translate-x-[70%] translate-y-[55%]">
