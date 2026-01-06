@@ -126,7 +126,19 @@ function AnimatedSprite({
 export function AnimatedSprites() {
   const [sprites, setSprites] = useState<SpriteInstance[]>([])
   const [mounted, setMounted] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
   const [cursorPos, setCursorPos] = useState<CursorPosition>({ x: -1000, y: -1000 })
+
+  // Check if mobile on mount and resize
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   // Track cursor position
   useEffect(() => {
@@ -156,7 +168,8 @@ export function AnimatedSprites() {
     setSprites(instances)
   }, [])
 
-  if (!mounted) return null
+  // Don't render on mobile or before mounted
+  if (!mounted || isMobile) return null
 
   return (
     <>
