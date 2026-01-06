@@ -6,6 +6,11 @@ import { Navigation, Footer, TidalGrid, VenueModal } from "@/components";
 import { HtmlContent } from "@/components/HtmlContent";
 import type { AboutPage, Venue } from "@/lib/cms";
 
+function stripHtml(html: string | null | undefined): string {
+  if (!html) return "";
+  return html.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
+}
+
 type AboutPageClientProps = {
   aboutPage: AboutPage | null;
   venues: Venue[];
@@ -206,7 +211,7 @@ export default function AboutPageClient({ aboutPage, venues, marqueeText, aboutS
                       )}
                     </div>
                     <p className="text-text-dark text-sm mb-4 line-clamp-2">
-                      {venue.description}
+                      {stripHtml(venue.description)}
                     </p>
                     <div className="flex items-center justify-between">
                       <div className="flex flex-wrap gap-2">
