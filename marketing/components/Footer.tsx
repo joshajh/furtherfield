@@ -10,7 +10,7 @@ export function Footer() {
         <img
           src="/lichen/acid-footer.png"
           alt=""
-          className="absolute inset-x-0 bottom-0 w-full object-contain object-bottom opacity-60 pointer-events-none z-10"
+          className="absolute inset-x-0 bottom-0 w-full object-contain object-bottom pointer-events-none z-10"
         />
 
         {/* Mobile Layout */}
