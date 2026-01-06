@@ -8,12 +8,10 @@ type Brandmark3DProps = {
   autoRotate?: boolean
 }
 
-// Lichen images for texturing rearward faces
+// Dense lichen svg-face images for texturing rearward faces
 const lichenImages = [
-  '/lichen/lichen-1.png',
-  '/lichen/lichen-2.png',
-  '/lichen/lichen-3.png',
-  '/lichen/lichen-4.png',
+  '/lichen/svg-face-1.png',
+  '/lichen/svg-face-2.png',
 ]
 
 export function Brandmark3D({ size = 40, className = '', autoRotate = true }: Brandmark3DProps) {
@@ -66,11 +64,15 @@ export function Brandmark3D({ size = 40, className = '', autoRotate = true }: Br
   const blueGradient = 'linear-gradient(180deg, #BCE5F3 0%, #D0D6FD 100%)'
 
   // Helper to create lichen background style with blue gradient behind
-  const lichenBg = (index: number): React.CSSProperties => ({
-    backgroundImage: `url(${lichenImages[index % lichenImages.length]}), ${blueGradient}`,
-    backgroundSize: 'cover, 100% 100%',
-    backgroundPosition: 'center, center',
-  })
+  // Uses unique x-offset per face so no two look identical
+  const lichenBg = (index: number): React.CSSProperties => {
+    const xOffset = (index * 25) % 100; // 0%, 25%, 50%, 75%, etc.
+    return {
+      backgroundImage: `url(${lichenImages[index % lichenImages.length]}), ${blueGradient}`,
+      backgroundSize: '200% 100%, 100% 100%',
+      backgroundPosition: `${xOffset}% center, center`,
+    };
+  }
 
   const Cube = ({ transform, cubeIndex }: { transform: string; cubeIndex: number }) => (
     <div style={{ ...cubeStyle, transform }}>

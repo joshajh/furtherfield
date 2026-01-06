@@ -8,7 +8,7 @@ export function Footer() {
       <div className="relative bg-gradient-brand rounded-lg p-4 md:p-8 overflow-hidden">
         {/* Lichen growing up from bottom */}
         <img
-          src="/lichen-divider-ends.png"
+          src="/lichen/acid-footer.png"
           alt=""
           className="absolute inset-x-0 bottom-0 w-full object-contain object-bottom opacity-60 pointer-events-none z-10"
         />
