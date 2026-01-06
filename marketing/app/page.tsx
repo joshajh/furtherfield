@@ -35,7 +35,7 @@ export default async function Home() {
     summary: e.summary,
   }));
   return (
-    <div className="min-h-screen flex flex-col gap-2.5 py-2.5 relative z-10 overflow-x-hidden">
+    <div className="min-h-screen flex flex-col gap-2.5 pt-[calc(56px+20px)] pb-2.5 relative z-10 overflow-x-hidden">
       <AnimatedSprites />
       <Navigation
         marqueeText={settings?.marqueeText}
