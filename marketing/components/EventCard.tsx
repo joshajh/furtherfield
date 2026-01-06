@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { LichenContainer } from "./LichenContainer";
 
 export type Event = {
   slug: string;
@@ -20,13 +21,19 @@ type EventCardProps = {
 
 export function EventCard({ event, index = 0 }: EventCardProps) {
   return (
-    <motion.article
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.1, duration: 0.5 }}
-      className="group relative flex-1 min-w-[280px] sm:min-w-[300px] md:min-w-[600px] h-[500px] sm:h-[600px] md:h-[700px] rounded-lg overflow-hidden"
+    <LichenContainer
+      seed={index * 100 + event.slug.length}
+      density="sparse"
+      edges={['top', 'bottom', 'left', 'right']}
+      className="flex-1 min-w-[280px] sm:min-w-[300px] md:min-w-[600px] h-[500px] sm:h-[600px] md:h-[700px]"
     >
-      <Link href={`/events/${event.slug}`} className="flex flex-col size-full">
+      <motion.article
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: index * 0.1, duration: 0.5 }}
+        className="group relative size-full rounded-lg overflow-hidden"
+      >
+        <Link href={`/events/${event.slug}`} className="flex flex-col size-full">
         {/* Image section with lemon treatment */}
         <div className="relative h-[68%]">
           {/* Base image */}
@@ -87,8 +94,9 @@ export function EventCard({ event, index = 0 }: EventCardProps) {
             </p>
           )}
         </div>
-      </Link>
-    </motion.article>
+        </Link>
+      </motion.article>
+    </LichenContainer>
   );
 }
 

@@ -7,6 +7,7 @@ import {
   CTASection,
   Button,
   AnimatedSprites,
+  LichenContainer,
   type Event,
 } from "@/components";
 import { FullWidthImage } from "@/components/FullWidthImage";
@@ -34,7 +35,7 @@ export default async function Home() {
     summary: e.summary,
   }));
   return (
-    <div className="min-h-screen flex flex-col gap-2.5 py-2.5 relative z-10">
+    <div className="min-h-screen flex flex-col gap-2.5 py-2.5 relative z-10 overflow-x-hidden">
       <AnimatedSprites />
       <Navigation
         marqueeText={settings?.marqueeText}
@@ -49,25 +50,31 @@ export default async function Home() {
 
         <EventGrid events={formattedEvents} />
 
-        <div className="px-2.5">
+        <LichenContainer seed={100} density="sparse" edges={['top', 'bottom']} className="px-2.5">
           <Button variant="large" href="/events">
             Book Now
           </Button>
-        </div>
+        </LichenContainer>
 
-        <FullWidthImage
-          src="https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=1600&q=80"
-          alt="Shipping containers"
-        />
+        <LichenContainer seed={200} density="normal" edges={['top', 'bottom', 'left', 'right']} className="mx-2.5">
+          <FullWidthImage
+            src="https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=1600&q=80"
+            alt="Shipping containers"
+          />
+        </LichenContainer>
 
-        <ProgrammeTable events={formattedEvents} />
+        <LichenContainer seed={300} density="normal" edges={['top', 'bottom', 'left', 'right']} className="mx-2.5">
+          <ProgrammeTable events={formattedEvents} />
+        </LichenContainer>
 
-        <CTASection
-          title={settings?.ctaText || "Book or other CTA"}
-          subtitle={settings?.tagline || "Supporting two-liner"}
-          buttonText={settings?.ctaText || "CTA"}
-          buttonHref={settings?.ctaUrl || "#"}
-        />
+        <LichenContainer seed={400} density="normal" edges={['top', 'bottom', 'left', 'right']} className="mx-2.5">
+          <CTASection
+            title={settings?.ctaText || "Book or other CTA"}
+            subtitle={settings?.tagline || "Supporting two-liner"}
+            buttonText={settings?.ctaText || "CTA"}
+            buttonHref={settings?.ctaUrl || "#"}
+          />
+        </LichenContainer>
 
       </main>
 

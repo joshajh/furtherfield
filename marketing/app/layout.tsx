@@ -43,7 +43,7 @@ export default function RootLayout({
       >
         {/* <SycamoreBorder /> */}
         <LichenBorder />
-        <LichenGaps />
+        {/* <LichenGaps /> - replaced with container-based lichen */}
         {children}
       </body>
     </html>

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import { TidalGrid, generateMaritimeData } from './TidalGrid'
+import { LichenContainer } from './LichenContainer'
 
 type HeroHeaderProps = {
   title?: string
@@ -29,7 +30,13 @@ export function HeroHeader({
   }, [])
 
   return (
-    <section className="relative rounded-lg overflow-hidden bg-gradient-brand mx-2.5 h-[calc(100dvh-20px-56px-10px)] md:min-h-[calc(100vh-1.25rem)] md:h-auto">
+    <LichenContainer
+      seed={42}
+      density="dense"
+      edges={['top', 'bottom', 'left', 'right']}
+      className="mx-2.5"
+    >
+    <section className="relative rounded-lg overflow-hidden bg-gradient-brand h-[calc(100dvh-20px-56px-10px)] md:min-h-[calc(100vh-1.25rem)] md:h-auto">
       {showTidalGrid && (
         <TidalGrid
           className="absolute inset-0 w-full h-full opacity-40 pointer-events-none"
@@ -206,5 +213,6 @@ export function HeroHeader({
         />
       </div>
     </section>
+    </LichenContainer>
   )
 }
