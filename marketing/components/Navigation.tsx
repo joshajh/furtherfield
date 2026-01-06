@@ -55,7 +55,7 @@ export function Navigation({ marqueeText, aboutSnippet }: NavigationProps = {}) 
             aria-label="Toggle navigation menu"
           >
             <span className="relative z-10">
-              <Brandmark3D size={16} autoRotate={false} />
+              <Brandmark3D size={10} autoRotate={false} />
             </span>
           </button>
 
