@@ -284,19 +284,19 @@ export default function EventPageClient({
         {/* Brandmark with lichen collage background */}
         <div className="relative flex justify-center items-center py-16 overflow-hidden">
           {/* Lichen collage background */}
-          <div className="absolute inset-0 opacity-30">
-            {[...Array(40)].map((_, i) => (
+          <div className="absolute inset-0 opacity-40">
+            {[...Array(100)].map((_, i) => (
               <img
                 key={i}
                 src={`/lichen/lichen-${(i % 9) + 1}.png`}
                 alt=""
                 className="absolute"
                 style={{
-                  width: `${60 + (i * 17) % 80}px`,
-                  left: `${(i * 37) % 100}%`,
-                  top: `${(i * 23) % 100}%`,
-                  transform: `rotate(${(i * 47) % 360}deg) scale(${0.8 + (i % 5) * 0.2})`,
-                  opacity: 0.6 + (i % 4) * 0.1,
+                  width: `${40 + (i * 17) % 60}px`,
+                  left: `${(i * 13) % 100}%`,
+                  top: `${(i * 17) % 100}%`,
+                  transform: `rotate(${(i * 47) % 360}deg) scale(${0.6 + (i % 5) * 0.3})`,
+                  opacity: 0.5 + (i % 4) * 0.15,
                 }}
               />
             ))}
@@ -317,19 +317,19 @@ export default function EventPageClient({
         {/* Brandmark with lichen collage background */}
         <div className="relative flex justify-center items-center py-10 overflow-hidden">
           {/* Lichen collage background */}
-          <div className="absolute inset-0 opacity-30">
-            {[...Array(40)].map((_, i) => (
+          <div className="absolute inset-0 opacity-40">
+            {[...Array(100)].map((_, i) => (
               <img
                 key={i}
                 src={`/lichen/lichen-${(i % 9) + 1}.png`}
                 alt=""
                 className="absolute"
                 style={{
-                  width: `${60 + (i * 13) % 80}px`,
-                  left: `${(i * 41) % 100}%`,
-                  top: `${(i * 29) % 100}%`,
-                  transform: `rotate(${(i * 53) % 360}deg) scale(${0.8 + (i % 5) * 0.2})`,
-                  opacity: 0.6 + (i % 4) * 0.1,
+                  width: `${40 + (i * 13) % 60}px`,
+                  left: `${(i * 19) % 100}%`,
+                  top: `${(i * 23) % 100}%`,
+                  transform: `rotate(${(i * 53) % 360}deg) scale(${0.6 + (i % 5) * 0.3})`,
+                  opacity: 0.5 + (i % 4) * 0.15,
                 }}
               />
             ))}
