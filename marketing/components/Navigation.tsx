@@ -118,11 +118,11 @@ export function Navigation({ marqueeText, aboutSnippet }: NavigationProps = {}) 
                       Home
                     </Link>
                     <Link
-                      href="/#programme"
+                      href="/events"
                       onClick={() => setContentMode('marquee')}
                       className="tag"
                     >
-                      Programme
+                      What&apos;s On
                     </Link>
                     <Link
                       href="/people"
@@ -209,11 +209,11 @@ export function Navigation({ marqueeText, aboutSnippet }: NavigationProps = {}) 
                   Home
                 </Link>
                 <Link
-                  href="/#programme"
+                  href="/events"
                   onClick={closeMobileMenu}
                   className="font-display text-4xl sm:text-5xl text-text-light hover:text-treatment-lemon transition-colors py-2"
                 >
-                  Programme
+                  What&apos;s On
                 </Link>
                 <Link
                   href="/people"
