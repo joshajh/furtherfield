@@ -41,14 +41,14 @@ function EventCard({ event, index }: EventCardProps) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.05, duration: 0.4 }}
-      className="group"
+      className="group h-[420px] md:h-[450px]"
     >
       <Link
         href={`/events/${event.slug}`}
-        className="block rounded-lg overflow-hidden bg-gradient-brand hover:shadow-lg transition-shadow duration-300"
+        className="flex flex-col h-full rounded-lg overflow-hidden bg-gradient-brand hover:shadow-lg transition-shadow duration-300"
       >
         {/* Image section */}
-        <div className="relative aspect-[4/3] overflow-hidden">
+        <div className="relative aspect-[4/3] overflow-hidden shrink-0">
           {event.image ? (
             <>
               <Image
@@ -79,7 +79,7 @@ function EventCard({ event, index }: EventCardProps) {
         </div>
 
         {/* Content section */}
-        <div className="p-4 md:p-5">
+        <div className="p-4 md:p-5 flex flex-col flex-1">
           {/* Event type and date pills */}
           <div className="flex flex-wrap gap-2 mb-3">
             <span className="border border-text-dark/60 rounded-full px-3 py-1 text-text-dark/80 text-xs font-medium">
