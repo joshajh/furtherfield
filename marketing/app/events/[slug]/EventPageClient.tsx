@@ -281,8 +281,26 @@ export default function EventPageClient({
           </section>
         )}
 
-        {/* Rotating Cubes Icon */}
-        <div className="flex justify-center py-16 bg-bg-dark">
+        {/* Brandmark with lichen collage background */}
+        <div className="relative flex justify-center items-center py-16 overflow-hidden">
+          {/* Lichen collage background */}
+          <div className="absolute inset-0 opacity-30">
+            {[...Array(40)].map((_, i) => (
+              <img
+                key={i}
+                src={`/lichen/lichen-${(i % 9) + 1}.png`}
+                alt=""
+                className="absolute"
+                style={{
+                  width: `${60 + (i * 17) % 80}px`,
+                  left: `${(i * 37) % 100}%`,
+                  top: `${(i * 23) % 100}%`,
+                  transform: `rotate(${(i * 47) % 360}deg) scale(${0.8 + (i % 5) * 0.2})`,
+                  opacity: 0.6 + (i % 4) * 0.1,
+                }}
+              />
+            ))}
+          </div>
           <Brandmark3D size={80} />
         </div>
 
@@ -296,8 +314,26 @@ export default function EventPageClient({
           </section>
         )}
 
-        {/* Rotating Cubes Icon */}
-        <div className="flex justify-center py-10 bg-bg-dark">
+        {/* Brandmark with lichen collage background */}
+        <div className="relative flex justify-center items-center py-10 overflow-hidden">
+          {/* Lichen collage background */}
+          <div className="absolute inset-0 opacity-30">
+            {[...Array(40)].map((_, i) => (
+              <img
+                key={i}
+                src={`/lichen/lichen-${(i % 9) + 1}.png`}
+                alt=""
+                className="absolute"
+                style={{
+                  width: `${60 + (i * 13) % 80}px`,
+                  left: `${(i * 41) % 100}%`,
+                  top: `${(i * 29) % 100}%`,
+                  transform: `rotate(${(i * 53) % 360}deg) scale(${0.8 + (i % 5) * 0.2})`,
+                  opacity: 0.6 + (i % 4) * 0.1,
+                }}
+              />
+            ))}
+          </div>
           <Brandmark3D size={80} />
         </div>
       </main>
