@@ -89,7 +89,7 @@ export default function EventPageClient({
   }));
 
   return (
-    <div className="min-h-screen flex flex-col gap-2.5 pt-[calc(56px+20px)] pb-2.5 relative z-10">
+    <div className="min-h-screen flex flex-col gap-2.5 pt-[calc(56px+20px)] pb-2.5 relative z-10 overflow-x-hidden">
       <Navigation marqueeText={marqueeText} aboutSnippet={aboutSnippet} />
 
       <main className="flex flex-col gap-2.5">
@@ -113,6 +113,7 @@ export default function EventPageClient({
             <h1 className="font-display text-text-dark text-[28px] sm:text-[40px] md:text-[80px] lg:text-[100px] leading-[0.95] tracking-tight mb-6">
               {event.title}
             </h1>
+            {/* Event metadata */}
             <div className="flex flex-wrap justify-center gap-2 mt-8">
               <span className="tag">{formatEventType(event.type)}</span>
               {event.date && (
@@ -121,13 +122,34 @@ export default function EventPageClient({
               {event.time && (
                 <span className="tag">{event.time}</span>
               )}
+            </div>
+
+            {/* Venue button and Book Now - separate row */}
+            <div className="flex flex-wrap justify-center gap-3 mt-4">
               {event.venue && (
                 <button
                   onClick={openVenueModal}
-                  className="tag cursor-pointer hover:bg-text-dark hover:text-text-light transition-colors"
+                  className="inline-flex items-center gap-2 bg-text-dark text-text-light px-5 py-2.5 rounded-full font-medium hover:bg-text-dark/80 transition-colors"
                 >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                    <circle cx="12" cy="10" r="3" />
+                  </svg>
                   {event.venue.name}
                 </button>
+              )}
+              {event.bookingUrl && (
+                <a
+                  href={event.bookingUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-treatment-lemon text-text-dark px-5 py-2.5 rounded-full font-medium hover:bg-treatment-lemon/80 transition-colors"
+                >
+                  Book Now
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M7 17L17 7M17 7H7M17 7V17" />
+                  </svg>
+                </a>
               )}
             </div>
           </motion.div>
