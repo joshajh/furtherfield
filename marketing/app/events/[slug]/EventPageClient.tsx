@@ -110,7 +110,7 @@ export default function EventPageClient({
             transition={{ duration: 0.6 }}
             className="max-w-4xl mx-auto text-center"
           >
-            <h1 className="font-display text-text-dark text-[28px] sm:text-[40px] md:text-[80px] lg:text-[100px] leading-[0.95] tracking-tight mb-6">
+            <h1 className="font-display text-text-dark text-[36px] sm:text-[40px] md:text-[80px] lg:text-[100px] leading-[0.95] tracking-tight mb-6">
               {event.title}
             </h1>
             {/* Event metadata */}
@@ -182,7 +182,7 @@ export default function EventPageClient({
                 <h2 className="font-serif text-text-dark text-3xl md:text-4xl shrink-0">
                   Summary
                 </h2>
-                <p className="text-text-dark text-xl md:text-2xl leading-relaxed">
+                <p className="text-text-dark text-xl md:text-2xl leading-relaxed font-semibold">
                   {event.summary}
                 </p>
               </div>
