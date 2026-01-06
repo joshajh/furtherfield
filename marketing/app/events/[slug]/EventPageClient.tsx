@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useState, useCallback } from "react";
-import { Navigation, Footer, EventGrid, TidalGrid, RotatingCubesIcon, VenueModal, type Event } from "@/components";
+import { Navigation, Footer, EventGrid, TidalGrid, Brandmark3D, VenueModal, type Event } from "@/components";
 import type { Venue, Person } from "@/lib/cms";
 
 type EventData = {
@@ -283,7 +283,7 @@ export default function EventPageClient({
 
         {/* Rotating Cubes Icon */}
         <div className="flex justify-center py-16 bg-bg-dark">
-          <RotatingCubesIcon size={200} />
+          <Brandmark3D size={80} />
         </div>
 
         {/* More Events */}
@@ -298,7 +298,7 @@ export default function EventPageClient({
 
         {/* Rotating Cubes Icon */}
         <div className="flex justify-center py-10 bg-bg-dark">
-          <RotatingCubesIcon size={200} />
+          <Brandmark3D size={80} />
         </div>
       </main>
 
