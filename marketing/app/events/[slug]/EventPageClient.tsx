@@ -125,13 +125,13 @@ export default function EventPageClient({
             </div>
 
             {/* Venue button and Book Now - separate row */}
-            <div className="flex flex-wrap justify-center gap-3 mt-4">
+            <div className="flex flex-wrap justify-center gap-2 mt-4">
               {event.venue && (
                 <button
                   onClick={openVenueModal}
-                  className="inline-flex items-center gap-2 bg-text-dark text-text-light px-5 py-2.5 rounded-full font-medium hover:bg-text-dark/80 transition-colors"
+                  className="tag tag-lg gap-2 cursor-pointer"
                 >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
                     <circle cx="12" cy="10" r="3" />
                   </svg>
@@ -143,10 +143,10 @@ export default function EventPageClient({
                   href={event.bookingUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-treatment-lemon text-text-dark px-5 py-2.5 rounded-full font-medium hover:bg-treatment-lemon/80 transition-colors"
+                  className="tag tag-lg gap-2 bg-text-dark text-text-light border-text-dark hover:bg-treatment-acid hover:text-text-dark"
                 >
                   Book Now
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M7 17L17 7M17 7H7M17 7V17" />
                   </svg>
                 </a>
