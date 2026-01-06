@@ -281,32 +281,19 @@ export default function EventPageClient({
           </section>
         )}
 
-        {/* Brandmark with lichen collage background */}
-        <div className="relative flex justify-center items-center py-16 overflow-hidden">
-          {/* Lichen collage background */}
-          <div className="absolute inset-0 opacity-40">
-            {[...Array(100)].map((_, i) => (
-              <img
-                key={i}
-                src={`/lichen/lichen-${(i % 9) + 1}.png`}
-                alt=""
-                className="absolute"
-                style={{
-                  width: `${40 + (i * 17) % 60}px`,
-                  left: `${(i * 13) % 100}%`,
-                  top: `${(i * 17) % 100}%`,
-                  transform: `rotate(${(i * 47) % 360}deg) scale(${0.6 + (i % 5) * 0.3})`,
-                  opacity: 0.5 + (i % 4) * 0.15,
-                }}
-              />
-            ))}
-          </div>
+        {/* Brandmark with lichen divider background - grows into More section */}
+        <div className="relative flex justify-center items-center py-16 overflow-hidden mx-2.5 mb-0">
+          <img
+            src="/lichen-divider-ends.png"
+            alt=""
+            className="absolute inset-0 w-full h-full object-contain opacity-60"
+          />
           <Brandmark3D size={80} />
         </div>
 
         {/* More Events */}
         {formattedRelatedEvents.length > 0 && (
-          <section className="bg-gradient-brand rounded-lg mx-2.5 px-5 py-16">
+          <section className="bg-gradient-brand rounded-lg mx-2.5 px-5 py-16 -mt-5">
             <h2 className="font-display text-text-dark text-4xl md:text-6xl mb-8">
               More
             </h2>
@@ -314,28 +301,6 @@ export default function EventPageClient({
           </section>
         )}
 
-        {/* Brandmark with lichen collage background */}
-        <div className="relative flex justify-center items-center py-10 overflow-hidden">
-          {/* Lichen collage background */}
-          <div className="absolute inset-0 opacity-40">
-            {[...Array(100)].map((_, i) => (
-              <img
-                key={i}
-                src={`/lichen/lichen-${(i % 9) + 1}.png`}
-                alt=""
-                className="absolute"
-                style={{
-                  width: `${40 + (i * 13) % 60}px`,
-                  left: `${(i * 19) % 100}%`,
-                  top: `${(i * 23) % 100}%`,
-                  transform: `rotate(${(i * 53) % 360}deg) scale(${0.6 + (i % 5) * 0.3})`,
-                  opacity: 0.5 + (i % 4) * 0.15,
-                }}
-              />
-            ))}
-          </div>
-          <Brandmark3D size={80} />
-        </div>
       </main>
 
       <Footer />
