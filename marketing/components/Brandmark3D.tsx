@@ -51,7 +51,7 @@ export function Brandmark3D({ size = 40, className = '', autoRotate = true }: Br
     position: 'absolute',
     width: cubeSize,
     height: cubeSize,
-    border: '2px solid #0F0E0E',
+    border: '0.5px solid #0F0E0E',
     boxSizing: 'border-box',
   }
 

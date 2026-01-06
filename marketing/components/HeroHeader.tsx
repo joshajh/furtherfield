@@ -120,7 +120,7 @@ export function HeroHeader({
               <div>
                 {/* Animated 3D brandmark - centered above on mobile, inline on desktop */}
                 <div className="flex justify-center mb-2 md:hidden">
-                  <Brandmark3D size={32} />
+                  <Brandmark3D size={20} />
                 </div>
 
                 <h1 className="relative z-40 font-display text-[60px] sm:text-[60px] md:text-[120px] lg:text-[150px] leading-[0.9] md:leading-none text-center md:text-left">
@@ -128,7 +128,7 @@ export function HeroHeader({
                     i === 0 ? (
                       <span key={i} className="block italic text-text-dark">
                         <span className="hidden md:inline-block mr-2 -ml-1 align-top">
-                          <Brandmark3D size={40} />
+                          <Brandmark3D size={28} />
                         </span>
                         {line}
                       </span>
