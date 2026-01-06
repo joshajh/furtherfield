@@ -36,7 +36,7 @@ export function HeroHeader({
       edges={['top', 'bottom', 'left', 'right']}
       className="mx-2.5"
     >
-    <section className="relative rounded-lg overflow-hidden bg-gradient-brand h-[calc(100dvh-20px-56px-10px)] md:min-h-[calc(100vh-1.25rem)] md:h-auto">
+    <section className="relative rounded-lg overflow-hidden bg-gradient-brand h-[calc(100dvh-20px-56px-10px)] md:h-[calc(100vh-56px-20px-10px)]">
       {showTidalGrid && (
         <TidalGrid
           className="absolute inset-0 w-full h-full opacity-40 pointer-events-none"
@@ -58,7 +58,7 @@ export function HeroHeader({
         ?
       </button>
 
-      <div className="relative p-4 pb-12 md:p-10 h-full md:min-h-[calc(100vh-1.25rem)] flex flex-col">
+      <div className="relative p-4 pb-12 md:p-10 h-full flex flex-col">
         <AnimatePresence mode="wait">
           {showMaritimeInfo ? (
             <motion.div
