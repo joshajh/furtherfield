@@ -1,21 +1,21 @@
-<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="200" height="240" viewBox="0 0 200 240" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <!-- Blue gradient - inner step faces -->
+    <!-- Blue gradient - front/right faces (inner steps) -->
     <linearGradient id="blueGrad" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#BCE5F3"/>
       <stop offset="100%" stop-color="#D0D6FD"/>
     </linearGradient>
 
-    <!-- Lemon gradient - outer shell (top faces) -->
-    <linearGradient id="lemonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+    <!-- Lemon gradient - top faces -->
+    <linearGradient id="topGrad" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#BEA6B0"/>
       <stop offset="38%" stop-color="#BCE5F3"/>
       <stop offset="61%" stop-color="#FFFCB9"/>
       <stop offset="100%" stop-color="#F6F7F9"/>
     </linearGradient>
 
-    <!-- Lemon gradient - left faces -->
-    <linearGradient id="lemonGradVert" x1="0%" y1="0%" x2="0%" y2="100%">
+    <!-- Lemon gradient - left/back faces -->
+    <linearGradient id="sideGrad" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#BEA6B0"/>
       <stop offset="38%" stop-color="#BCE5F3"/>
       <stop offset="61%" stop-color="#FFFCB9"/>
@@ -24,48 +24,56 @@
   </defs>
 
   <!--
-    Isometric stair-step arrangement of 4 cubes
-    Each cube shows 3 visible faces: top (diamond), left (parallelogram), right (parallelogram)
-    Cubes arranged diagonally from top-left to bottom-right
+    Isometric projection with true 2:1 ratio
+    Cube size: 30 units wide, 15 units for vertical offset per step
+
+    The 4 cubes form a diagonal stair from top-back-left to bottom-front-right
+
+    In isometric:
+    - Moving right: x+30, y+15
+    - Moving left: x-30, y+15
+    - Moving down (Y): y+40
+    - Moving forward: x-30, y+15
+    - Moving back: x+30, y-15
   -->
 
-  <!-- Cube 1: Top-left (highest) -->
-  <g transform="translate(50, 20)">
+  <!-- Cube 4: Bottom-front-right (lowest, drawn first) -->
+  <g transform="translate(100, 140)">
+    <!-- Left face (blue - inner step) -->
+    <polygon points="0,15 0,55 30,70 30,30" fill="url(#blueGrad)" stroke="#0F0E0E" stroke-width="2" stroke-linejoin="round"/>
+    <!-- Right face (lemon - outer) -->
+    <polygon points="30,30 30,70 60,55 60,15" fill="url(#sideGrad)" stroke="#0F0E0E" stroke-width="2" stroke-linejoin="round"/>
     <!-- Top face -->
-    <polygon points="25,0 50,15 25,30 0,15" fill="url(#lemonGrad)" stroke="#0F0E0E" stroke-width="2" stroke-linejoin="round"/>
-    <!-- Left face -->
-    <polygon points="0,15 25,30 25,60 0,45" fill="url(#lemonGradVert)" stroke="#0F0E0E" stroke-width="2" stroke-linejoin="round"/>
-    <!-- Right face -->
-    <polygon points="50,15 50,45 25,60 25,30" fill="url(#blueGrad)" stroke="#0F0E0E" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="30,0 60,15 30,30 0,15" fill="url(#topGrad)" stroke="#0F0E0E" stroke-width="2" stroke-linejoin="round"/>
   </g>
 
-  <!-- Cube 2: Upper-right (one step down) -->
-  <g transform="translate(100, 50)">
+  <!-- Cube 3: Middle-front-left -->
+  <g transform="translate(40, 100)">
+    <!-- Left face (lemon - outer) -->
+    <polygon points="0,15 0,55 30,70 30,30" fill="url(#sideGrad)" stroke="#0F0E0E" stroke-width="2" stroke-linejoin="round"/>
+    <!-- Right face (blue - inner step) -->
+    <polygon points="30,30 30,70 60,55 60,15" fill="url(#blueGrad)" stroke="#0F0E0E" stroke-width="2" stroke-linejoin="round"/>
     <!-- Top face -->
-    <polygon points="25,0 50,15 25,30 0,15" fill="url(#lemonGrad)" stroke="#0F0E0E" stroke-width="2" stroke-linejoin="round"/>
-    <!-- Left face -->
-    <polygon points="0,15 25,30 25,60 0,45" fill="url(#blueGrad)" stroke="#0F0E0E" stroke-width="2" stroke-linejoin="round"/>
-    <!-- Right face -->
-    <polygon points="50,15 50,45 25,60 25,30" fill="url(#lemonGradVert)" stroke="#0F0E0E" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="30,0 60,15 30,30 0,15" fill="url(#topGrad)" stroke="#0F0E0E" stroke-width="2" stroke-linejoin="round"/>
   </g>
 
-  <!-- Cube 3: Lower-left (one step down from cube 1) -->
-  <g transform="translate(0, 80)">
+  <!-- Cube 2: Middle-back-right -->
+  <g transform="translate(100, 60)">
+    <!-- Left face (blue - inner step) -->
+    <polygon points="0,15 0,55 30,70 30,30" fill="url(#blueGrad)" stroke="#0F0E0E" stroke-width="2" stroke-linejoin="round"/>
+    <!-- Right face (lemon - outer) -->
+    <polygon points="30,30 30,70 60,55 60,15" fill="url(#sideGrad)" stroke="#0F0E0E" stroke-width="2" stroke-linejoin="round"/>
     <!-- Top face -->
-    <polygon points="25,0 50,15 25,30 0,15" fill="url(#lemonGrad)" stroke="#0F0E0E" stroke-width="2" stroke-linejoin="round"/>
-    <!-- Left face -->
-    <polygon points="0,15 25,30 25,60 0,45" fill="url(#lemonGradVert)" stroke="#0F0E0E" stroke-width="2" stroke-linejoin="round"/>
-    <!-- Right face -->
-    <polygon points="50,15 50,45 25,60 25,30" fill="url(#blueGrad)" stroke="#0F0E0E" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="30,0 60,15 30,30 0,15" fill="url(#topGrad)" stroke="#0F0E0E" stroke-width="2" stroke-linejoin="round"/>
   </g>
 
-  <!-- Cube 4: Bottom-right (lowest) -->
-  <g transform="translate(50, 110)">
+  <!-- Cube 1: Top-back-left (highest, drawn last) -->
+  <g transform="translate(40, 20)">
+    <!-- Left face (lemon - outer) -->
+    <polygon points="0,15 0,55 30,70 30,30" fill="url(#sideGrad)" stroke="#0F0E0E" stroke-width="2" stroke-linejoin="round"/>
+    <!-- Right face (blue - inner step) -->
+    <polygon points="30,30 30,70 60,55 60,15" fill="url(#blueGrad)" stroke="#0F0E0E" stroke-width="2" stroke-linejoin="round"/>
     <!-- Top face -->
-    <polygon points="25,0 50,15 25,30 0,15" fill="url(#lemonGrad)" stroke="#0F0E0E" stroke-width="2" stroke-linejoin="round"/>
-    <!-- Left face -->
-    <polygon points="0,15 25,30 25,60 0,45" fill="url(#blueGrad)" stroke="#0F0E0E" stroke-width="2" stroke-linejoin="round"/>
-    <!-- Right face -->
-    <polygon points="50,15 50,45 25,60 25,30" fill="url(#lemonGradVert)" stroke="#0F0E0E" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="30,0 60,15 30,30 0,15" fill="url(#topGrad)" stroke="#0F0E0E" stroke-width="2" stroke-linejoin="round"/>
   </g>
 </svg>
