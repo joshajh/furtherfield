@@ -282,18 +282,23 @@ export default function EventPageClient({
         )}
 
         {/* Brandmark with lichen divider background - grows into More section */}
-        <div className="relative flex justify-center items-center py-16 overflow-hidden mx-2.5 mb-0">
+        <div className="relative flex justify-center items-center py-8 md:py-16 overflow-hidden mx-2.5">
           <img
             src="/lichen-divider-ends.png"
             alt=""
-            className="absolute inset-0 w-full h-full object-contain opacity-60"
+            className="absolute inset-x-0 bottom-0 w-full object-contain object-bottom opacity-60"
           />
-          <Brandmark3D size={80} />
+          <div className="md:hidden">
+            <Brandmark3D size={30} />
+          </div>
+          <div className="hidden md:block">
+            <Brandmark3D size={80} />
+          </div>
         </div>
 
         {/* More Events */}
         {formattedRelatedEvents.length > 0 && (
-          <section className="bg-gradient-brand rounded-lg mx-2.5 px-5 py-16 -mt-5">
+          <section className="bg-gradient-brand rounded-lg mx-2.5 px-5 py-10 md:py-16 -mt-0">
             <h2 className="font-display text-text-dark text-4xl md:text-6xl mb-8">
               More
             </h2>
