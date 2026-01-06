@@ -8,6 +8,14 @@ type Brandmark3DProps = {
   autoRotate?: boolean
 }
 
+// Lichen images for texturing rearward faces
+const lichenImages = [
+  '/lichen/lichen-1.png',
+  '/lichen/lichen-2.png',
+  '/lichen/lichen-3.png',
+  '/lichen/lichen-4.png',
+]
+
 export function Brandmark3D({ size = 40, className = '', autoRotate = true }: Brandmark3DProps) {
   const shapeRef = useRef<HTMLDivElement>(null)
   const rotationRef = useRef({ x: -30, y: -45 })
@@ -56,24 +64,28 @@ export function Brandmark3D({ size = 40, className = '', autoRotate = true }: Br
   }
 
   const blueGradient = 'linear-gradient(180deg, #BCE5F3 0%, #D0D6FD 100%)'
-  const lemonGradient = 'linear-gradient(135deg, #BEA6B0 0%, #BCE5F3 38%, #FFFCB9 61%, #F6F7F9 100%)'
-  const lemonGradientVert = 'linear-gradient(180deg, #BEA6B0 0%, #BCE5F3 38%, #FFFCB9 61%, #F6F7F9 100%)'
-  const deepGradient = 'linear-gradient(135deg, #720A08 0%, #C29ABB 39%, #D0D6FD 62%, #BEA6B0 100%)'
 
-  const Cube = ({ transform }: { transform: string }) => (
+  // Helper to create lichen background style with blue gradient behind
+  const lichenBg = (index: number): React.CSSProperties => ({
+    backgroundImage: `url(${lichenImages[index % lichenImages.length]}), ${blueGradient}`,
+    backgroundSize: 'cover, 100% 100%',
+    backgroundPosition: 'center, center',
+  })
+
+  const Cube = ({ transform, cubeIndex }: { transform: string; cubeIndex: number }) => (
     <div style={{ ...cubeStyle, transform }}>
-      {/* Front */}
+      {/* Front - blue gradient */}
       <div style={{ ...faceStyle, transform: `translateZ(${halfCube}px)`, background: blueGradient }} />
-      {/* Back */}
-      <div style={{ ...faceStyle, transform: `rotateY(180deg) translateZ(${halfCube}px)`, background: lemonGradientVert }} />
-      {/* Right */}
+      {/* Back - lichen */}
+      <div style={{ ...faceStyle, transform: `rotateY(180deg) translateZ(${halfCube}px)`, ...lichenBg(cubeIndex) }} />
+      {/* Right - blue gradient */}
       <div style={{ ...faceStyle, transform: `rotateY(90deg) translateZ(${halfCube}px)`, background: blueGradient }} />
-      {/* Left */}
-      <div style={{ ...faceStyle, transform: `rotateY(-90deg) translateZ(${halfCube}px)`, background: lemonGradientVert }} />
-      {/* Top */}
-      <div style={{ ...faceStyle, transform: `rotateX(90deg) translateZ(${halfCube}px)`, background: lemonGradient }} />
-      {/* Bottom */}
-      <div style={{ ...faceStyle, transform: `rotateX(-90deg) translateZ(${halfCube}px)`, background: deepGradient }} />
+      {/* Left - lichen */}
+      <div style={{ ...faceStyle, transform: `rotateY(-90deg) translateZ(${halfCube}px)`, ...lichenBg(cubeIndex + 1) }} />
+      {/* Top - blue gradient (upward facing) */}
+      <div style={{ ...faceStyle, transform: `rotateX(90deg) translateZ(${halfCube}px)`, background: blueGradient }} />
+      {/* Bottom - lichen */}
+      <div style={{ ...faceStyle, transform: `rotateX(-90deg) translateZ(${halfCube}px)`, ...lichenBg(cubeIndex + 3) }} />
     </div>
   )
 
@@ -97,13 +109,13 @@ export function Brandmark3D({ size = 40, className = '', autoRotate = true }: Br
         }}
       >
         {/* Cube 1: top-back-left (highest) */}
-        <Cube transform={`translate3d(${-halfCube}px, ${-cubeSize}px, ${-halfCube}px)`} />
+        <Cube transform={`translate3d(${-halfCube}px, ${-cubeSize}px, ${-halfCube}px)`} cubeIndex={0} />
         {/* Cube 2: middle-back-right */}
-        <Cube transform={`translate3d(${halfCube}px, 0px, ${-halfCube}px)`} />
+        <Cube transform={`translate3d(${halfCube}px, 0px, ${-halfCube}px)`} cubeIndex={1} />
         {/* Cube 3: middle-front-left */}
-        <Cube transform={`translate3d(${-halfCube}px, 0px, ${halfCube}px)`} />
+        <Cube transform={`translate3d(${-halfCube}px, 0px, ${halfCube}px)`} cubeIndex={2} />
         {/* Cube 4: bottom-front-right (lowest) */}
-        <Cube transform={`translate3d(${halfCube}px, ${cubeSize}px, ${halfCube}px)`} />
+        <Cube transform={`translate3d(${halfCube}px, ${cubeSize}px, ${halfCube}px)`} cubeIndex={3} />
       </div>
     </div>
   )
