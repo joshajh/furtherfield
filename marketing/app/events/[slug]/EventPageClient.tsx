@@ -114,7 +114,7 @@ export default function EventPageClient({
               {event.title}
             </h1>
             {/* Event metadata */}
-            <div className="flex flex-wrap justify-center items-center gap-x-3 gap-y-1 mt-8 font-mono text-sm uppercase tracking-wide text-text-dark/70">
+            <div className="flex flex-wrap justify-center items-center gap-x-4 gap-y-1 mt-8 font-mono text-base md:text-lg uppercase tracking-wide text-text-dark/70">
               <span>{formatEventType(event.type)}</span>
               {event.date && (
                 <>
