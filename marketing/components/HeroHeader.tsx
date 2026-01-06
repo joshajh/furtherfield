@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import { TidalGrid, generateMaritimeData } from './TidalGrid'
 import { LichenContainer } from './LichenContainer'
+import { Brandmark3D } from './Brandmark3D'
 
 type HeroHeaderProps = {
   title?: string
@@ -117,30 +118,18 @@ export function HeroHeader({
               <div className="flex-1" />
 
               <div>
-                {/* Animated icon - centered above on mobile, inline on desktop */}
+                {/* Animated 3D brandmark - centered above on mobile, inline on desktop */}
                 <div className="flex justify-center mb-2 md:hidden">
-                  <Image
-                    src="/svg-icon.svg"
-                    alt=""
-                    width={40}
-                    height={40}
-                    className="w-8 h-8 animate-spin-slow"
-                    aria-hidden="true"
-                  />
+                  <Brandmark3D size={32} />
                 </div>
 
                 <h1 className="relative z-40 font-display text-[60px] sm:text-[60px] md:text-[120px] lg:text-[150px] leading-[0.9] md:leading-none text-center md:text-left">
                   {titleLines.map((line, i) => (
                     i === 0 ? (
                       <span key={i} className="block italic text-text-dark">
-                        <Image
-                          src="/svg-icon.svg"
-                          alt=""
-                          width={40}
-                          height={40}
-                          className="hidden md:inline-block mr-2 -ml-1 w-10 h-10 align-top animate-spin-slow"
-                          aria-hidden="true"
-                        />
+                        <span className="hidden md:inline-block mr-2 -ml-1 align-top">
+                          <Brandmark3D size={40} />
+                        </span>
                         {line}
                       </span>
                     ) : (

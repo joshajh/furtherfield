@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Brandmark3D } from './Brandmark3D'
 
 type NavigationProps = {
   marqueeText?: string | null;
@@ -53,13 +54,9 @@ export function Navigation({ marqueeText, aboutSnippet }: NavigationProps = {}) 
             className="shrink-0 rounded bg-gradient-brand px-4 flex items-center justify-center hover-lemon-gradient"
             aria-label="Toggle navigation menu"
           >
-            <Image
-              src="/svg-icon.svg"
-              alt="Menu"
-              width={40}
-              height={40}
-              className="relative z-10"
-            />
+            <span className="relative z-10">
+              <Brandmark3D size={24} autoRotate={false} />
+            </span>
           </button>
 
           {/* Content Container */}
