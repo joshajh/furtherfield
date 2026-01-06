@@ -48,19 +48,19 @@ export function EventCard({ event, index = 0 }: EventCardProps) {
 
           {/* Lemon color tint */}
           <div
-            className="absolute inset-0 pointer-events-none bg-treatment-lemon mix-blend-multiply"
+            className="absolute inset-0 pointer-events-none bg-treatment-lemon/50 mix-blend-multiply"
             aria-hidden="true"
           />
 
           {/* Cream wash overlay to fade the image */}
           <div
-            className="absolute inset-0 pointer-events-none bg-[#F5F0E0]/50"
+            className="absolute inset-0 pointer-events-none bg-[#F5F0E0]/25"
             aria-hidden="true"
           />
 
           {/* Film grain noise */}
           <div
-            className="absolute inset-0 pointer-events-none treatment-noise"
+            className="absolute inset-0 pointer-events-none treatment-noise opacity-40"
             aria-hidden="true"
           />
 
