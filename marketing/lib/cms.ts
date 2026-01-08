@@ -4,7 +4,10 @@ import { eq, desc, asc } from "drizzle-orm";
 
 export type EventDate = {
   date: string;
-  time: string | null;
+  endDate?: string | null;
+  time?: string | null;
+  isQualitative?: boolean;
+  qualitativeText?: string | null;
 };
 
 export type Event = {
@@ -194,7 +197,13 @@ export async function getEvents(): Promise<Event[]> {
       if (!datesByEventId.has(d.eventId)) {
         datesByEventId.set(d.eventId, []);
       }
-      datesByEventId.get(d.eventId)!.push({ date: d.date, time: d.time });
+      datesByEventId.get(d.eventId)!.push({
+        date: d.date,
+        endDate: d.endDate,
+        time: d.time,
+        isQualitative: d.isQualitative ?? false,
+        qualitativeText: d.qualitativeText,
+      });
     }
 
     return rows.map(({ events: e, venues: v }) => {
@@ -253,7 +262,13 @@ export async function getEvent(
       .orderBy(asc(eventDates.date))
       .all();
 
-    const dates = dateRows.map((d) => ({ date: d.date, time: d.time }));
+    const dates = dateRows.map((d) => ({
+      date: d.date,
+      endDate: d.endDate,
+      time: d.time,
+      isQualitative: d.isQualitative ?? false,
+      qualitativeText: d.qualitativeText,
+    }));
     // Fall back to legacy date if no dates in new table
     const effectiveDates = dates.length > 0 ? dates : (e.date ? [{ date: e.date, time: e.time }] : []);
 

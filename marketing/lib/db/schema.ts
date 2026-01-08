@@ -20,8 +20,11 @@ export const events = sqliteTable("events", {
 export const eventDates = sqliteTable("event_dates", {
   id: integer("id").primaryKey({ autoIncrement: true }),
   eventId: integer("event_id").notNull().references(() => events.id, { onDelete: "cascade" }),
-  date: text("date").notNull(), // ISO date string
+  date: text("date").notNull(), // ISO date string (use placeholder for qualitative)
+  endDate: text("end_date"), // ISO date string for date ranges (e.g., 16th-17th December)
   time: text("time"), // Optional time override for this specific date
+  isQualitative: integer("is_qualitative", { mode: "boolean" }).default(false),
+  qualitativeText: text("qualitative_text"), // e.g., "Last Sunday of every month"
 });
 
 export const venues = sqliteTable("venues", {

@@ -14,13 +14,20 @@ async function saveEvent(formData: FormData) {
 
   const id = formData.get("id") as string;
   const datesJson = formData.get("dates") as string;
-  const dates: { date: string; time?: string }[] = datesJson ? JSON.parse(datesJson) : [];
+  const dates: {
+    date: string;
+    endDate?: string;
+    time?: string;
+    isQualitative?: boolean;
+    qualitativeText?: string;
+  }[] = datesJson ? JSON.parse(datesJson) : [];
   const peopleJson = formData.get("people") as string;
   const selectedPeople: { personId: number; role?: string }[] = peopleJson ? JSON.parse(peopleJson) : [];
 
-  // Use first date from dates array if available
-  const firstDate = dates.length > 0 ? dates[0].date : null;
-  const firstTime = dates.length > 0 ? dates[0].time || null : null;
+  // Use first non-qualitative date from dates array if available for legacy field
+  const firstSpecificDate = dates.find(d => !d.isQualitative);
+  const firstDate = firstSpecificDate ? firstSpecificDate.date : null;
+  const firstTime = firstSpecificDate ? firstSpecificDate.time || null : null;
 
   const data = {
     title: formData.get("title") as string,
@@ -59,7 +66,10 @@ async function saveEvent(formData: FormData) {
       db.insert(eventDates).values({
         eventId,
         date: dateEntry.date,
+        endDate: dateEntry.endDate || null,
         time: dateEntry.time || null,
+        isQualitative: dateEntry.isQualitative || false,
+        qualitativeText: dateEntry.qualitativeText || null,
       }).run();
     }
   }
@@ -95,7 +105,13 @@ export default async function EventEditPage({ params }: PageProps) {
   const { id } = await params;
   const isNew = id === "new";
   let event = null;
-  let existingDates: { date: string; time?: string }[] = [];
+  let existingDates: {
+    date: string;
+    endDate?: string;
+    time?: string;
+    isQualitative?: boolean;
+    qualitativeText?: string;
+  }[] = [];
   let existingPeople: { personId: number; role?: string }[] = [];
 
   if (!isNew) {
@@ -114,7 +130,10 @@ export default async function EventEditPage({ params }: PageProps) {
       .all();
     existingDates = dateRows.map((d) => ({
       date: d.date,
+      endDate: d.endDate || undefined,
       time: d.time || undefined,
+      isQualitative: d.isQualitative || undefined,
+      qualitativeText: d.qualitativeText || undefined,
     }));
 
     // If no dates in new table but legacy date exists, use that

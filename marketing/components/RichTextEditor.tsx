@@ -87,24 +87,43 @@ export function RichTextEditor({
     const range = selection.getRangeAt(0);
     if (!editorRef.current?.contains(range.commonAncestorContainer)) return;
 
-    // Find the block-level parent
-    let blockParent = range.commonAncestorContainer as Node;
+    // Get the node where the cursor/selection starts
+    let startNode = range.startContainer;
+
+    // If it's a text node, get the parent element
+    if (startNode.nodeType === Node.TEXT_NODE) {
+      startNode = startNode.parentNode as Node;
+    }
+
+    // Find the immediate block-level parent (but only direct children of editor or nested one level)
+    const blockTags = ["P", "H1", "H2", "H3", "H4", "H5", "H6", "DIV", "BLOCKQUOTE"];
+    let blockParent: Node | null = startNode;
+
     while (blockParent && blockParent !== editorRef.current) {
-      if (blockParent.nodeType === Node.ELEMENT_NODE) {
-        const el = blockParent as HTMLElement;
-        const display = window.getComputedStyle(el).display;
-        if (display === "block" || ["P", "H1", "H2", "H3", "H4", "DIV"].includes(el.tagName)) {
+      if (blockParent.nodeType === Node.ELEMENT_NODE && blockTags.includes((blockParent as HTMLElement).tagName)) {
+        // Found a block element - only use it if it's a direct child of the editor
+        // or if the selection is fully within this block
+        if (blockParent.parentNode === editorRef.current) {
           break;
         }
       }
-      blockParent = blockParent.parentNode as Node;
+      blockParent = blockParent.parentNode;
     }
 
-    if (blockParent && blockParent !== editorRef.current && blockParent.nodeType === Node.ELEMENT_NODE) {
-      // Replace the block element
+    // If we found a valid block parent that's a direct child of the editor
+    if (blockParent && blockParent !== editorRef.current && blockParent.parentNode === editorRef.current) {
+      const oldBlock = blockParent as HTMLElement;
+
+      // If it's already the target tag, do nothing (toggle off could be added later)
+      if (oldBlock.tagName.toLowerCase() === tagName.toLowerCase()) {
+        editorRef.current?.focus();
+        return;
+      }
+
+      // Replace the block element with the new tag type
       const newBlock = document.createElement(tagName);
-      newBlock.innerHTML = (blockParent as HTMLElement).innerHTML;
-      blockParent.parentNode?.replaceChild(newBlock, blockParent);
+      newBlock.innerHTML = oldBlock.innerHTML;
+      oldBlock.parentNode?.replaceChild(newBlock, oldBlock);
 
       // Set cursor inside new block
       const newRange = document.createRange();
@@ -113,11 +132,26 @@ export function RichTextEditor({
       selection.removeAllRanges();
       selection.addRange(newRange);
     } else {
-      // Wrap content in new block
+      // No block parent found - wrap the current line/selection in a new block
+      // First, try to get the text content around the cursor on the current "line"
       const content = range.extractContents();
       const newBlock = document.createElement(tagName);
-      newBlock.appendChild(content);
+
+      // If content is empty, add a br to keep the block visible
+      if (!content.textContent?.trim()) {
+        newBlock.innerHTML = "<br>";
+      } else {
+        newBlock.appendChild(content);
+      }
+
       range.insertNode(newBlock);
+
+      // Set cursor inside new block
+      const newRange = document.createRange();
+      newRange.selectNodeContents(newBlock);
+      newRange.collapse(false);
+      selection.removeAllRanges();
+      selection.addRange(newRange);
     }
 
     syncContent();
@@ -131,26 +165,87 @@ export function RichTextEditor({
     const range = selection.getRangeAt(0);
     if (!editorRef.current?.contains(range.commonAncestorContainer)) return;
 
-    const listTag = ordered ? "ol" : "ul";
-    const list = document.createElement(listTag);
-    const li = document.createElement("li");
+    // Check if we're already inside a list
+    let currentNode: Node | null = range.commonAncestorContainer;
+    while (currentNode && currentNode !== editorRef.current) {
+      if (currentNode.nodeType === Node.ELEMENT_NODE) {
+        const tagName = (currentNode as HTMLElement).tagName;
+        if (tagName === "UL" || tagName === "OL") {
+          // Already in a list - convert to the other type or remove
+          const existingList = currentNode as HTMLElement;
+          const newListTag = ordered ? "ol" : "ul";
 
-    const selectedContent = range.extractContents();
-    if (selectedContent.textContent?.trim()) {
-      li.appendChild(selectedContent);
-    } else {
-      li.innerHTML = "<br>";
+          if (existingList.tagName.toLowerCase() === newListTag) {
+            // Same type - unwrap the list (convert to paragraphs)
+            const items = existingList.querySelectorAll("li");
+            const fragment = document.createDocumentFragment();
+            items.forEach((li) => {
+              const p = document.createElement("p");
+              p.innerHTML = li.innerHTML || "<br>";
+              fragment.appendChild(p);
+            });
+            existingList.parentNode?.replaceChild(fragment, existingList);
+          } else {
+            // Different type - convert to the new list type
+            const newList = document.createElement(newListTag);
+            newList.innerHTML = existingList.innerHTML;
+            existingList.parentNode?.replaceChild(newList, existingList);
+          }
+
+          syncContent();
+          editorRef.current?.focus();
+          return;
+        }
+      }
+      currentNode = currentNode.parentNode;
     }
 
-    list.appendChild(li);
+    const listTag = ordered ? "ol" : "ul";
+    const list = document.createElement(listTag);
+
+    const selectedContent = range.extractContents();
+    const textContent = selectedContent.textContent || "";
+
+    // Split content by line breaks and create list items
+    if (textContent.trim()) {
+      // Get text and split by newlines or br tags
+      const tempDiv = document.createElement("div");
+      tempDiv.appendChild(selectedContent);
+      const html = tempDiv.innerHTML;
+
+      // Split by br tags or actual newlines in text
+      const lines = html.split(/<br\s*\/?>/gi).map((line) => line.trim()).filter((line) => line.length > 0);
+
+      if (lines.length > 0) {
+        lines.forEach((line) => {
+          const li = document.createElement("li");
+          li.innerHTML = line;
+          list.appendChild(li);
+        });
+      } else {
+        // Single line or no content
+        const li = document.createElement("li");
+        li.appendChild(selectedContent.cloneNode(true));
+        list.appendChild(li);
+      }
+    } else {
+      // No selection - create empty list item
+      const li = document.createElement("li");
+      li.innerHTML = "<br>";
+      list.appendChild(li);
+    }
+
     range.insertNode(list);
 
-    // Move cursor to the list item
-    const newRange = document.createRange();
-    newRange.selectNodeContents(li);
-    newRange.collapse(false);
-    selection.removeAllRanges();
-    selection.addRange(newRange);
+    // Move cursor to the last list item
+    const lastLi = list.querySelector("li:last-child");
+    if (lastLi) {
+      const newRange = document.createRange();
+      newRange.selectNodeContents(lastLi);
+      newRange.collapse(false);
+      selection.removeAllRanges();
+      selection.addRange(newRange);
+    }
 
     syncContent();
     editorRef.current?.focus();
@@ -350,7 +445,7 @@ export function RichTextEditor({
         onPaste={handlePaste}
         onKeyDown={handleKeyDown}
         onBlur={handleBlur}
-        className="w-full border border-text-dark border-t-0 rounded-b p-3 min-h-[150px] bg-transparent text-text-dark focus:outline-none focus:bg-treatment-lemon/20 prose prose-sm max-w-none [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:my-2 [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:my-2 [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:my-2 [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:my-2 [&_a]:text-[rgb(200,255,0)] [&_a]:underline [&_p]:my-2"
+        className="w-full border border-text-dark border-t-0 rounded-b p-3 min-h-[150px] bg-transparent text-text-dark focus:outline-none focus:bg-treatment-lemon/20 prose prose-sm max-w-none [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:my-2 [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:my-2 [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:my-2 [&_ul]:ml-0 [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:my-2 [&_ol]:ml-0 [&_li]:my-1 [&_li]:pl-0 [&_a]:text-[rgb(200,255,0)] [&_a]:underline [&_p]:my-2"
         style={{ minHeight: `${rows * 24}px` }}
         data-placeholder={placeholder}
       />
@@ -360,6 +455,15 @@ export function RichTextEditor({
           content: attr(data-placeholder);
           color: var(--color-divider);
           pointer-events: none;
+        }
+        [contenteditable] :global(ul),
+        [contenteditable] :global(ol) {
+          list-style-position: outside;
+          margin-left: 1.5rem;
+        }
+        [contenteditable] :global(li) {
+          display: list-item;
+          margin: 0.25rem 0;
         }
       `}</style>
     </div>
