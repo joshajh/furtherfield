@@ -68,8 +68,78 @@ export const FURTHERFIELD_CONFIG = {
     creator: 'Crafting Table',
     license: 'CC BY-SA 4.0',
   },
+
+  // Brand treatment colors (from marketing design system)
+  brandTreatments: {
+    lavender: {
+      name: 'Lavender',
+      bg: 'rgba(220, 200, 220, 0.85)',
+      solid: '#DCC8DC',
+    },
+    lime: {
+      name: 'Acid Lime',
+      bg: 'rgba(200, 255, 0, 0.85)',
+      solid: '#C8FF00',
+    },
+    lemon: {
+      name: 'Lemon',
+      bg: 'rgba(245, 235, 180, 0.85)',
+      solid: '#F5EBB4',
+    },
+    dark: {
+      name: 'Dark',
+      bg: 'rgba(140, 160, 180, 0.7)',
+      solid: '#8CA0B4',
+    },
+    gradient: {
+      name: 'Brand Gradient',
+      start: '#BCE5F3',
+      end: '#D0D6FD',
+    },
+  },
+
+  // Instagram social layouts (1080x1350)
+  instagramLayouts: {
+    cover: {
+      id: 'cover',
+      name: 'Cover',
+      description: 'Carousel opener with bold headline',
+      regions: ['header', 'tags-bar', 'accent-bar'],
+      defaults: { header: 'gradient', 'tags-bar': 'lavender', 'accent-bar': 'lemon' },
+    },
+    'event-card': {
+      id: 'event-card',
+      name: 'Event Card',
+      description: 'Promote events with details',
+      regions: ['header', 'body', 'image-strip'],
+      defaults: { header: 'gradient', body: 'lemon', 'image-strip': 'dark' },
+    },
+    'info-stack': {
+      id: 'info-stack',
+      name: 'Info Stack',
+      description: 'Information-dense text blocks',
+      regions: ['headline-block', 'body-block', 'tags-block'],
+      defaults: { 'headline-block': 'gradient', 'body-block': 'lemon', 'tags-block': 'lavender' },
+    },
+    'feature-image': {
+      id: 'feature-image',
+      name: 'Feature Image',
+      description: 'Showcase photography or artwork',
+      regions: ['accent-bar', 'tags'],
+      defaults: { 'accent-bar': 'lemon', tags: 'lime' },
+    },
+    split: {
+      id: 'split',
+      name: 'Split',
+      description: 'Equal image and text balance',
+      regions: ['left-panel', 'right-panel'],
+      defaults: { 'left-panel': 'dark', 'right-panel': 'gradient' },
+    },
+  },
 } as const
 
 export type ContentType = keyof typeof FURTHERFIELD_CONFIG.taxonomy.contentTypes
 export type PaletteName = keyof typeof FURTHERFIELD_CONFIG.palettes
 export type TagName = keyof typeof FURTHERFIELD_CONFIG.taxonomy.tags
+export type TreatmentId = keyof typeof FURTHERFIELD_CONFIG.brandTreatments
+export type LayoutId = keyof typeof FURTHERFIELD_CONFIG.instagramLayouts
