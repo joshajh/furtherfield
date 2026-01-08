@@ -203,7 +203,7 @@ export default function AboutPageClient({ aboutPage, venues, marqueeText, aboutS
                         </p>
                       </div>
                       {venue.type && (
-                        <span className="tag tag-sm">{venue.type}</span>
+                        <span className="callout-sm">{venue.type}</span>
                       )}
                     </div>
                     <p className="text-text-dark text-sm mb-4 line-clamp-2">
@@ -215,7 +215,7 @@ export default function AboutPageClient({ aboutPage, venues, marqueeText, aboutS
                           feature && (
                             <span
                               key={fi}
-                              className="bg-gradient-brand text-text-dark text-xs px-2 py-1 rounded"
+                              className="callout-underline-sm"
                             >
                               {feature}
                             </span>

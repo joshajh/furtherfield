@@ -168,6 +168,124 @@ html, body {
   background: var(--color-treatment-lemon);
 }
 
+/* Callout style - non-interactive highlighted information (acid yellow background, monospace) */
+.callout {
+  display: inline;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--color-text-dark);
+  background: var(--color-treatment-acid);
+}
+
+@media (min-width: 640px) {
+  .callout {
+    font-size: 14px;
+  }
+}
+
+.callout-sm {
+  display: inline;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--color-text-dark);
+  background: var(--color-treatment-acid);
+}
+
+@media (min-width: 640px) {
+  .callout-sm {
+    font-size: 12px;
+  }
+}
+
+/* Callout underline style - acid L-shape underline */
+.callout-underline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  padding: 4px 8px 4px 0;
+  color: var(--color-text-dark);
+  background: transparent;
+  position: relative;
+}
+
+.callout-underline::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--color-treatment-acid);
+}
+
+.callout-underline::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--color-treatment-acid);
+}
+
+@media (min-width: 640px) {
+  .callout-underline {
+    font-size: 14px;
+  }
+}
+
+.callout-underline-sm {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  padding: 2px 6px 2px 0;
+  color: var(--color-text-dark);
+  background: transparent;
+  position: relative;
+}
+
+.callout-underline-sm::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--color-treatment-acid);
+}
+
+.callout-underline-sm::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: var(--color-treatment-acid);
+}
+
+@media (min-width: 640px) {
+  .callout-underline-sm {
+    font-size: 12px;
+  }
+}
+
 .tag-sm {
   font-size: 11px;
   padding: 6px 10px;

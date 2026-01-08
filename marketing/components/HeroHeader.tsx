@@ -138,10 +138,10 @@ export function HeroHeader({
                   ))}
                 </h1>
 
-                {/* Location/Date tags */}
+                {/* Location/Date callouts */}
                 <div className="relative z-40 mt-4 flex gap-2 justify-center md:justify-start">
-                  <span className="tag">FELIXSTOWE</span>
-                  <span className="tag">2026</span>
+                  <span className="callout">FELIXSTOWE</span>
+                  <span className="callout">2026</span>
                 </div>
 
                 {/* Subtitle - inline on desktop */}

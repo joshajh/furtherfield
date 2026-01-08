@@ -74,11 +74,11 @@ export function EventCard({ event, index = 0 }: EventCardProps) {
 
         {/* Content section with blue gradient */}
         <div className="relative flex flex-col flex-1 p-4 md:p-5 bg-gradient-brand">
-          {/* Event type and date tags - z-40 to appear above lichen border */}
+          {/* Event type and date callouts - z-40 to appear above lichen border */}
           <div className="relative z-40 flex flex-wrap gap-2 mb-2">
-            <span className="tag tag-sm">{event.type}</span>
+            <span className="callout-sm">{event.type}</span>
             {event.date && (
-              <span className="tag tag-sm">{event.date}</span>
+              <span className="callout-sm">{event.date}</span>
             )}
           </div>
 

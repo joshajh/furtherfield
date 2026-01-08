@@ -165,33 +165,25 @@ export default function EventPageClient({
               {event.title}
             </h1>
             {/* Event metadata */}
-            <div className="flex flex-wrap justify-center items-center gap-x-4 gap-y-1 mt-8 font-mono text-base md:text-lg uppercase tracking-wide text-text-dark/70">
-              <span>{formatEventType(event.type)}</span>
+            <div className="flex flex-wrap justify-center items-center gap-2 mt-8">
+              <span className="callout">{formatEventType(event.type)}</span>
               {event.dates && event.dates.length > 0 ? (
                 <>
-                  <span className="text-text-dark/30">•</span>
-                  <span className={event.dates[0]?.isQualitative ? "normal-case" : ""}>
+                  <span className={`callout ${event.dates[0]?.isQualitative ? "normal-case" : ""}`}>
                     {event.dates.length === 1
                       ? formatEventDate(event.dates[0])
                       : `${formatEventDate(event.dates[0])} + ${event.dates.length - 1} more`
                     }
                   </span>
                   {event.dates[0]?.time && !event.dates[0]?.isQualitative && (
-                    <>
-                      <span className="text-text-dark/30">•</span>
-                      <span>{formatTime(event.dates[0].time)}</span>
-                    </>
+                    <span className="callout">{formatTime(event.dates[0].time)}</span>
                   )}
                 </>
               ) : event.date && (
                 <>
-                  <span className="text-text-dark/30">•</span>
-                  <span>{formatDate(event.date)}</span>
+                  <span className="callout">{formatDate(event.date)}</span>
                   {event.time && (
-                    <>
-                      <span className="text-text-dark/30">•</span>
-                      <span>{formatTime(event.time)}</span>
-                    </>
+                    <span className="callout">{formatTime(event.time)}</span>
                   )}
                 </>
               )}
@@ -203,8 +195,8 @@ export default function EventPageClient({
                 {event.dates.map((dateEntry, index) => (
                   <span
                     key={index}
-                    className={`inline-block px-3 py-1 text-sm font-mono rounded-full border border-text-dark/30 ${
-                      dateEntry.isQualitative ? "normal-case italic" : "uppercase"
+                    className={`callout-sm ${
+                      dateEntry.isQualitative ? "normal-case italic" : ""
                     }`}
                   >
                     {formatEventDate(dateEntry)}
@@ -327,11 +319,11 @@ export default function EventPageClient({
                       )}
                     </h3>
                     <div className="flex flex-wrap gap-1 mb-2">
-                      <span className="tag tag-sm">
+                      <span className="callout-sm">
                         {PERSON_TYPE_LABELS[person.type] || person.type}
                       </span>
                       {person.role && (
-                        <span className="tag tag-sm bg-treatment-acid/30">
+                        <span className="callout-sm">
                           {person.role}
                         </span>
                       )}

@@ -108,7 +108,7 @@ function VenueModalContent({ venue, onClose }: { venue: Venue; onClose: () => vo
               )}
             </div>
             {venue.type && (
-              <span className="tag">{venue.type}</span>
+              <span className="callout">{venue.type}</span>
             )}
           </div>
 
@@ -129,7 +129,7 @@ function VenueModalContent({ venue, onClose }: { venue: Venue; onClose: () => vo
                     feature && (
                       <span
                         key={i}
-                        className="bg-gradient-brand text-text-dark text-sm px-3 py-1.5 rounded-lg"
+                        className="callout-underline-sm"
                       >
                         {feature}
                       </span>
