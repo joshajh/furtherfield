@@ -1,0 +1,8 @@
+services:
+  crafting-table:
+    build: .
+    ports:
+      - "${PORT:-3005}:${PORT:-3005}"
+    environment:
+      - PORT=${PORT:-3005}
+    restart: unless-stopped
