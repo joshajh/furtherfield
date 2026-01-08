@@ -69,32 +69,37 @@ export const FURTHERFIELD_CONFIG = {
     license: 'CC BY-SA 4.0',
   },
 
-  // Brand treatment colors (from marketing design system)
+  // Brand treatment colors (aligned with design-tokens)
   brandTreatments: {
     lavender: {
       name: 'Lavender',
-      bg: 'rgba(220, 200, 220, 0.85)',
+      bg: 'rgba(220, 200, 220, 0.85)',  // treatment-lavender
       solid: '#DCC8DC',
     },
-    lime: {
-      name: 'Acid Lime',
-      bg: 'rgba(200, 255, 0, 0.85)',
+    acid: {
+      name: 'Acid',
+      bg: 'rgba(200, 255, 0, 0.85)',  // treatment-acid
       solid: '#C8FF00',
     },
     lemon: {
       name: 'Lemon',
-      bg: 'rgba(245, 235, 180, 0.85)',
+      bg: 'rgba(245, 235, 180, 0.85)',  // treatment-lemon
       solid: '#F5EBB4',
     },
     dark: {
       name: 'Dark',
-      bg: 'rgba(140, 160, 180, 0.7)',
+      bg: 'rgba(140, 160, 180, 0.7)',  // treatment-dark
       solid: '#8CA0B4',
+    },
+    light: {
+      name: 'Light',
+      bg: 'rgba(220, 200, 210, 0.6)',  // treatment-light
+      solid: '#DCC8D2',
     },
     gradient: {
       name: 'Brand Gradient',
-      start: '#BCE5F3',
-      end: '#D0D6FD',
+      start: '#BCE5F3',  // gradient-start
+      end: '#D0D6FD',    // gradient-end
     },
   },
 
@@ -126,7 +131,7 @@ export const FURTHERFIELD_CONFIG = {
       name: 'Feature Image',
       description: 'Showcase photography or artwork',
       regions: ['accent-bar', 'tags'],
-      defaults: { 'accent-bar': 'lemon', tags: 'lime' },
+      defaults: { 'accent-bar': 'lemon', tags: 'acid' },
     },
     split: {
       id: 'split',

@@ -2,263 +2,109 @@
   "$schema": "https://design-tokens.github.io/community-group/format/",
   "meta": {
     "name": "Furtherfield Design Tokens - Colors",
-    "version": "3.0.0",
-    "description": "Color system extracted from marketing site and Figma keystones"
+    "version": "5.0.0",
+    "description": "Flattened color system - 1:1 with CSS variables"
   },
   "colors": {
-    "primitive": {
-      "black": {
-        "value": "#0F0E0E",
-        "type": "color",
-        "description": "Primary black - near-true black"
-      },
-      "white": {
-        "value": "#FFFFFF",
-        "type": "color",
-        "description": "Pure white"
-      },
-      "gray": {
-        "100": {
-          "value": "#F6F8FB",
-          "type": "color",
-          "description": "Lightest gray - primary light text"
-        },
-        "200": {
-          "value": "#F5F5F5",
-          "type": "color",
-          "description": "Light background gray"
-        },
-        "300": {
-          "value": "#F2F2F5",
-          "type": "color",
-          "description": "Card background gray"
-        },
-        "600": {
-          "value": "#555659",
-          "type": "color",
-          "description": "Divider gray"
-        }
-      },
-      "blue": {
-        "100": {
-          "value": "#BCE5F3",
-          "type": "color",
-          "description": "Light sky blue - gradient start"
-        },
-        "200": {
-          "value": "#a7c7e7",
-          "type": "color",
-          "description": "Sky blue"
-        },
-        "300": {
-          "value": "#7fa8c9",
-          "type": "color",
-          "description": "Medium blue"
-        },
-        "400": {
-          "value": "#3a7ca5",
-          "type": "color",
-          "description": "Ocean blue"
-        },
-        "500": {
-          "value": "#2e5a7d",
-          "type": "color",
-          "description": "Deep ocean"
-        },
-        "600": {
-          "value": "#0f3057",
-          "type": "color",
-          "description": "Darkest blue"
-        }
-      },
-      "purple": {
-        "100": {
-          "value": "#D0D6FD",
-          "type": "color",
-          "description": "Light lavender - gradient end"
-        }
-      },
-      "yellow": {
-        "100": {
-          "value": "#FFFCB9",
-          "type": "color",
-          "description": "Pale sunshine yellow - accent"
-        },
-        "200": {
-          "value": "#fff8a3",
-          "type": "color",
-          "description": "Light butter"
-        },
-        "300": {
-          "value": "#f4d35e",
-          "type": "color",
-          "description": "Warm yellow"
-        },
-        "400": {
-          "value": "#e8b339",
-          "type": "color",
-          "description": "Golden"
-        }
-      },
-      "green": {
-        "100": {
-          "value": "#c8e89c",
-          "type": "color",
-          "description": "Light flora green"
-        },
-        "200": {
-          "value": "#9bc54d",
-          "type": "color",
-          "description": "Spring green"
-        },
-        "300": {
-          "value": "#6fa834",
-          "type": "color",
-          "description": "Grass green"
-        },
-        "400": {
-          "value": "#4a7c23",
-          "type": "color",
-          "description": "Forest green"
-        }
-      }
+    "bg-dark": {
+      "value": "#0F0E0E",
+      "type": "color",
+      "description": "Primary dark background, also used for dark text"
     },
-    "semantic": {
-      "background": {
-        "dark": {
-          "value": "#0F0E0E",
-          "type": "color",
-          "description": "Primary dark background"
-        },
-        "light": {
-          "value": "#F5F5F5",
-          "type": "color",
-          "description": "Light background"
-        },
-        "white": {
-          "value": "#FFFFFF",
-          "type": "color",
-          "description": "White background"
-        },
-        "card": {
-          "value": "#F2F2F5",
-          "type": "color",
-          "description": "Card/asset background"
-        }
-      },
-      "text": {
-        "light": {
-          "value": "#F6F8FB",
-          "type": "color",
-          "description": "Light text on dark backgrounds"
-        },
-        "dark": {
-          "value": "#0F0E0E",
-          "type": "color",
-          "description": "Dark text on light backgrounds"
-        },
-        "muted": {
-          "value": "#555659",
-          "type": "color",
-          "description": "Muted/secondary text"
-        }
-      },
-      "border": {
-        "divider": {
-          "value": "#555659",
-          "type": "color",
-          "description": "Divider lines and borders"
-        }
-      },
-      "accent": {
-        "yellow": {
-          "value": "#FFFCB9",
-          "type": "color",
-          "description": "Accent highlight color"
-        },
-        "blue": {
-          "value": "#3a7ca5",
-          "type": "color",
-          "description": "Interactive accent"
-        }
-      },
-      "content-types": {
-        "event": {
-          "value": "#dc2626",
-          "type": "color",
-          "description": "Red for event content type"
-        },
-        "artwork": {
-          "value": "#7c3aed",
-          "type": "color",
-          "description": "Purple for artwork content type"
-        },
-        "exhibition": {
-          "value": "#059669",
-          "type": "color",
-          "description": "Green for exhibition content type"
-        },
-        "project": {
-          "value": "#e8b339",
-          "type": "color",
-          "description": "Golden for project content type"
-        },
-        "archive": {
-          "value": "#4b5563",
-          "type": "color",
-          "description": "Gray for archive content type"
-        }
-      }
+    "text-light": {
+      "value": "#F6F8FB",
+      "type": "color",
+      "description": "Light text on dark backgrounds"
     },
-    "gradient": {
-      "brand": {
-        "start": {
-          "value": "#BCE5F3",
-          "type": "color",
-          "description": "Brand gradient start (top) - sky blue"
-        },
-        "end": {
-          "value": "#D0D6FD",
-          "type": "color",
-          "description": "Brand gradient end (bottom) - lavender"
-        }
-      }
+    "text-dark": {
+      "value": "#0F0E0E",
+      "type": "color",
+      "description": "Dark text on light backgrounds (same as bg-dark)"
+    },
+    "divider": {
+      "value": "#555659",
+      "type": "color",
+      "description": "Divider lines, borders, muted text"
+    },
+    "gradient-start": {
+      "value": "#BCE5F3",
+      "type": "color",
+      "description": "Brand gradient start - sky blue"
+    },
+    "gradient-end": {
+      "value": "#D0D6FD",
+      "type": "color",
+      "description": "Brand gradient end - lavender"
+    },
+    "treatment-dark": {
+      "value": "rgba(140, 160, 180, 0.7)",
+      "type": "color",
+      "description": "Dark image treatment overlay"
+    },
+    "treatment-light": {
+      "value": "rgba(220, 200, 210, 0.6)",
+      "type": "color",
+      "description": "Light image treatment overlay"
+    },
+    "treatment-lemon": {
+      "value": "rgba(245, 235, 180, 0.85)",
+      "type": "color",
+      "description": "Lemon/cream treatment - hover states, highlights"
+    },
+    "treatment-acid": {
+      "value": "rgba(200, 255, 0, 0.85)",
+      "type": "color",
+      "description": "Acid yellow - callouts, active states, primary accent"
+    },
+    "treatment-lavender": {
+      "value": "rgba(220, 200, 220, 0.85)",
+      "type": "color",
+      "description": "Lavender overlay for soft accents"
+    }
+  },
+  "gradients": {
+    "brand": {
+      "value": "linear-gradient(to bottom, #BCE5F3, #D0D6FD)",
+      "type": "gradient",
+      "description": "Primary brand gradient with noise overlay"
+    },
+    "lemon": {
+      "value": "linear-gradient(135deg, rgba(245, 235, 180, 0.9) 0%, rgba(220, 200, 140, 0.85) 100%)",
+      "type": "gradient",
+      "description": "Lemon gradient for hover effects"
     }
   },
   "css": {
     "variables": {
       "--color-bg-dark": "#0F0E0E",
-      "--color-bg-light": "#F5F5F5",
-      "--color-bg-white": "#FFFFFF",
-      "--color-bg-card": "#F2F2F5",
       "--color-text-light": "#F6F8FB",
       "--color-text-dark": "#0F0E0E",
-      "--color-text-muted": "#555659",
       "--color-divider": "#555659",
-      "--color-accent-yellow": "#FFFCB9",
-      "--color-accent-blue": "#3a7ca5",
       "--color-gradient-start": "#BCE5F3",
-      "--color-gradient-end": "#D0D6FD"
-    },
-    "gradients": {
-      "--gradient-brand": "linear-gradient(to bottom, #BCE5F3, #D0D6FD)"
+      "--color-gradient-end": "#D0D6FD",
+      "--color-treatment-dark": "rgba(140, 160, 180, 0.7)",
+      "--color-treatment-light": "rgba(220, 200, 210, 0.6)",
+      "--color-treatment-lemon": "rgba(245, 235, 180, 0.85)",
+      "--color-treatment-acid": "rgba(200, 255, 0, 0.85)",
+      "--color-treatment-lavender": "rgba(220, 200, 220, 0.85)",
+      "--gradient-brand": "linear-gradient(to bottom, #BCE5F3, #D0D6FD)",
+      "--gradient-lemon": "linear-gradient(135deg, rgba(245, 235, 180, 0.9) 0%, rgba(220, 200, 140, 0.85) 100%)"
     }
   },
   "tailwind": {
     "extend": {
       "colors": {
         "bg-dark": "#0F0E0E",
-        "bg-light": "#F5F5F5",
-        "bg-white": "#FFFFFF",
-        "bg-card": "#F2F2F5",
         "text-light": "#F6F8FB",
         "text-dark": "#0F0E0E",
-        "text-muted": "#555659",
         "divider": "#555659",
-        "accent-yellow": "#FFFCB9",
-        "accent-blue": "#3a7ca5",
         "gradient-start": "#BCE5F3",
-        "gradient-end": "#D0D6FD"
+        "gradient-end": "#D0D6FD",
+        "treatment-dark": "rgba(140, 160, 180, 0.7)",
+        "treatment-light": "rgba(220, 200, 210, 0.6)",
+        "treatment-lemon": "rgba(245, 235, 180, 0.85)",
+        "treatment-acid": "rgba(200, 255, 0, 0.85)",
+        "treatment-lavender": "rgba(220, 200, 220, 0.85)"
       }
     }
   }

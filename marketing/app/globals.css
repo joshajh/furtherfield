@@ -47,7 +47,7 @@
 html, body {
   background: var(--color-bg-dark);
   color: var(--color-text-light);
-  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-plus-jakarta), ui-sans-serif, system-ui, sans-serif;
   overscroll-behavior: none;
 }
 
@@ -321,11 +321,11 @@ html, body {
 
 /* Typography utilities - using CSS variables from next/font */
 .font-display {
-  font-family: var(--font-playfair), ui-serif, Georgia, serif;
+  font-family: var(--font-rubik), ui-sans-serif, system-ui, sans-serif;
 }
 
 .font-serif {
-  font-family: var(--font-instrument-serif), ui-serif, Georgia, serif;
+  font-family: var(--font-rubik), ui-sans-serif, system-ui, sans-serif;
 }
 
 /* Lemon gradient hover effect */

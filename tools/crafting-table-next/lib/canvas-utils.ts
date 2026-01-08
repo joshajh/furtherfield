@@ -1075,7 +1075,7 @@ export class SocialLayoutRenderer extends KeystonesRenderer {
     }
 
     // Draw tag pills on top
-    this.drawTagPills([subheadLeft, subheadRight], { ...tagsBounds, y: tagsY + blockHeight / 2 - 18 }, 'lime')
+    this.drawTagPills([subheadLeft, subheadRight], { ...tagsBounds, y: tagsY + blockHeight / 2 - 18 }, 'acid')
 
     // Footer (fixed style)
     this.drawSupportingTextBar(supportingText, width, height - footerHeight - padding, footerHeight)
@@ -1101,7 +1101,7 @@ export class SocialLayoutRenderer extends KeystonesRenderer {
     }
 
     // Floating tag pills on image
-    const tagsTreatment = regionColors['tags'] || 'lime'
+    const tagsTreatment = regionColors['tags'] || 'acid'
     this.drawTagPills([subheadLeft, subheadRight], imageBounds, tagsTreatment, 'top-spread')
 
     // Accent bar (same as other layouts)

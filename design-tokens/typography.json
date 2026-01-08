@@ -2,40 +2,25 @@
   "$schema": "https://design-tokens.github.io/community-group/format/",
   "meta": {
     "name": "Furtherfield Design Tokens - Typography",
-    "version": "3.0.0",
-    "description": "Typography system extracted from marketing site and Figma keystones"
+    "version": "5.0.0",
+    "description": "Typography system - sans-serif focused"
   },
   "typography": {
     "fontFamily": {
       "sans": {
-        "value": "Geist Sans, ui-sans-serif, system-ui, sans-serif",
+        "value": "Plus Jakarta Sans, ui-sans-serif, system-ui, sans-serif",
         "type": "fontFamily",
         "description": "Primary sans-serif font for body text"
       },
       "mono": {
         "value": "Geist Mono, ui-monospace, monospace",
         "type": "fontFamily",
-        "description": "Monospace font for code and technical content"
-      },
-      "serif": {
-        "value": "Instrument Serif, ui-serif, Georgia, serif",
-        "type": "fontFamily",
-        "description": "Serif font for emphasis and accent text"
+        "description": "Monospace font for tags, callouts, and technical content"
       },
       "display": {
-        "value": "Playfair Display, ui-serif, Georgia, serif",
+        "value": "Rubik, ui-sans-serif, system-ui, sans-serif",
         "type": "fontFamily",
-        "description": "Display serif font for headings"
-      },
-      "displayAlt": {
-        "value": "P22 Mackinac Pro, ui-serif, Georgia, serif",
-        "type": "fontFamily",
-        "description": "Alternative display font for large hero text"
-      },
-      "label": {
-        "value": "Instrument Sans, ui-sans-serif, system-ui, sans-serif",
-        "type": "fontFamily",
-        "description": "Condensed sans-serif for labels and tags"
+        "description": "Display font for headings and subheads"
       }
     },
     "fontWeight": {
@@ -50,283 +35,58 @@
       "semibold": {
         "value": "600",
         "type": "fontWeight"
-      },
-      "bold": {
-        "value": "650",
-        "type": "fontWeight",
-        "description": "Used for Instrument Sans labels (variable font)"
-      },
-      "heavy": {
-        "value": "700",
-        "type": "fontWeight"
       }
     },
     "fontSize": {
       "xs": {
-        "value": "10px",
+        "value": "11px",
         "type": "fontSize",
-        "description": "Extra small - badges, labels"
+        "description": "Extra small - callout-sm, tag-sm"
       },
       "sm": {
-        "value": "14px",
+        "value": "12px",
         "type": "fontSize",
-        "description": "Small - secondary text"
+        "description": "Small - tags, callouts"
       },
       "base": {
-        "value": "16px",
+        "value": "14px",
         "type": "fontSize",
-        "description": "Base - body text"
+        "description": "Base - tags (desktop), body small"
       },
       "lg": {
-        "value": "18px",
+        "value": "16px",
         "type": "fontSize",
-        "description": "Large - navigation items"
-      },
-      "xl": {
-        "value": "20px",
-        "type": "fontSize",
-        "description": "Extra large - lead paragraphs"
-      },
-      "2xl": {
-        "value": "24px",
-        "type": "fontSize",
-        "description": "2x large - small headings"
-      },
-      "3xl": {
-        "value": "30px",
-        "type": "fontSize",
-        "description": "3x large - medium headings"
-      },
-      "4xl": {
-        "value": "40px",
-        "type": "fontSize",
-        "description": "4x large - section labels (Figma H3)"
-      },
-      "5xl": {
-        "value": "50px",
-        "type": "fontSize",
-        "description": "5x large - large headings"
-      },
-      "6xl": {
-        "value": "60px",
-        "type": "fontSize",
-        "description": "6x large - hero titles"
-      },
-      "7xl": {
-        "value": "80px",
-        "type": "fontSize",
-        "description": "7x large - display text"
-      },
-      "8xl": {
-        "value": "100px",
-        "type": "fontSize",
-        "description": "8x large - large display"
-      },
-      "9xl": {
-        "value": "120px",
-        "type": "fontSize",
-        "description": "9x large - hero display (Figma)"
-      },
-      "10xl": {
-        "value": "140px",
-        "type": "fontSize",
-        "description": "10x large - maximum display"
+        "description": "Large - body text"
       }
     },
-    "lineHeight": {
-      "none": {
-        "value": "1",
-        "type": "lineHeight",
-        "description": "No leading - display text"
-      },
-      "tight": {
-        "value": "1.1",
-        "type": "lineHeight",
-        "description": "Tight - large headings"
-      },
-      "snug": {
-        "value": "1.25",
-        "type": "lineHeight",
-        "description": "Snug - section headings"
-      },
-      "normal": {
-        "value": "1.5",
-        "type": "lineHeight",
-        "description": "Normal - body text"
-      },
-      "relaxed": {
-        "value": "1.625",
-        "type": "lineHeight",
-        "description": "Relaxed - long-form text"
-      },
-      "display": {
-        "value": "0.8",
-        "type": "lineHeight",
-        "description": "Display - hero text (Figma)"
-      },
-      "compact": {
-        "value": "0.9",
-        "type": "lineHeight",
-        "description": "Compact - CTA sections"
+    "textTransform": {
+      "uppercase": {
+        "value": "uppercase",
+        "type": "textTransform",
+        "description": "Used for tags and callouts"
       }
     },
     "letterSpacing": {
-      "tighter": {
-        "value": "-0.05em",
+      "tags": {
+        "value": "0.02em",
         "type": "letterSpacing",
-        "description": "Tighter tracking"
-      },
-      "tight": {
-        "value": "-0.025em",
-        "type": "letterSpacing",
-        "description": "Tight tracking"
-      },
-      "display": {
-        "value": "-7.2px",
-        "type": "letterSpacing",
-        "description": "Display tracking (Figma hero)"
-      },
-      "normal": {
-        "value": "0",
-        "type": "letterSpacing",
-        "description": "Normal tracking"
-      },
-      "wide": {
-        "value": "0.025em",
-        "type": "letterSpacing",
-        "description": "Wide tracking"
-      },
-      "wider": {
-        "value": "0.05em",
-        "type": "letterSpacing",
-        "description": "Wider tracking"
-      },
-      "widest": {
-        "value": "0.1em",
-        "type": "letterSpacing",
-        "description": "Widest tracking - uppercase labels"
+        "description": "Letter spacing for tags and callouts"
       }
-    },
-    "fontVariation": {
-      "condensed": {
-        "value": "'wdth' 80",
-        "type": "fontVariation",
-        "description": "Condensed width for Instrument Sans"
-      }
-    }
-  },
-  "textStyles": {
-    "heroDisplay": {
-      "fontFamily": "P22 Mackinac Pro, ui-serif, Georgia, serif",
-      "fontSize": "120px",
-      "fontWeight": "400",
-      "lineHeight": "0.8",
-      "letterSpacing": "-7.2px",
-      "description": "Hero section display text"
-    },
-    "sectionLabel": {
-      "fontFamily": "Instrument Sans, ui-sans-serif, system-ui, sans-serif",
-      "fontSize": "40px",
-      "fontWeight": "650",
-      "lineHeight": "1",
-      "fontVariationSettings": "'wdth' 80",
-      "description": "Section labels and tags"
-    },
-    "heading1": {
-      "fontFamily": "Playfair Display, ui-serif, Georgia, serif",
-      "fontSize": "80px",
-      "fontWeight": "500",
-      "lineHeight": "1.1",
-      "fontStyle": "italic",
-      "description": "Primary page headings"
-    },
-    "heading2": {
-      "fontFamily": "Playfair Display, ui-serif, Georgia, serif",
-      "fontSize": "50px",
-      "fontWeight": "400",
-      "lineHeight": "1.25",
-      "fontStyle": "italic",
-      "description": "Section headings"
-    },
-    "heading3": {
-      "fontFamily": "Instrument Serif, ui-serif, Georgia, serif",
-      "fontSize": "30px",
-      "fontWeight": "400",
-      "lineHeight": "1.25",
-      "description": "Subsection headings"
-    },
-    "body": {
-      "fontFamily": "Geist Sans, ui-sans-serif, system-ui, sans-serif",
-      "fontSize": "16px",
-      "fontWeight": "400",
-      "lineHeight": "1.5",
-      "description": "Body text"
-    },
-    "bodyLarge": {
-      "fontFamily": "Geist Sans, ui-sans-serif, system-ui, sans-serif",
-      "fontSize": "20px",
-      "fontWeight": "400",
-      "lineHeight": "1.5",
-      "description": "Lead paragraphs"
-    },
-    "label": {
-      "fontFamily": "Geist Sans, ui-sans-serif, system-ui, sans-serif",
-      "fontSize": "10px",
-      "fontWeight": "600",
-      "lineHeight": "1",
-      "letterSpacing": "0.1em",
-      "textTransform": "uppercase",
-      "description": "Small labels and badges"
-    },
-    "navigation": {
-      "fontFamily": "Geist Sans, ui-sans-serif, system-ui, sans-serif",
-      "fontSize": "18px",
-      "fontWeight": "400",
-      "lineHeight": "1",
-      "description": "Navigation items"
-    },
-    "code": {
-      "fontFamily": "Geist Mono, ui-monospace, monospace",
-      "fontSize": "14px",
-      "fontWeight": "400",
-      "lineHeight": "1.5",
-      "description": "Code and technical content"
     }
   },
   "css": {
     "variables": {
-      "--font-sans": "Geist Sans, ui-sans-serif, system-ui, sans-serif",
+      "--font-sans": "Plus Jakarta Sans, ui-sans-serif, system-ui, sans-serif",
       "--font-mono": "Geist Mono, ui-monospace, monospace",
-      "--font-serif": "Instrument Serif, ui-serif, Georgia, serif",
-      "--font-display": "Playfair Display, ui-serif, Georgia, serif",
-      "--font-display-alt": "P22 Mackinac Pro, ui-serif, Georgia, serif",
-      "--font-label": "Instrument Sans, ui-sans-serif, system-ui, sans-serif"
+      "--font-display": "Rubik, ui-sans-serif, system-ui, sans-serif"
     }
   },
   "tailwind": {
     "extend": {
       "fontFamily": {
-        "sans": ["var(--font-geist-sans)", "ui-sans-serif", "system-ui", "sans-serif"],
+        "sans": ["var(--font-plus-jakarta)", "ui-sans-serif", "system-ui", "sans-serif"],
         "mono": ["var(--font-geist-mono)", "ui-monospace", "monospace"],
-        "serif": ["var(--font-instrument-serif)", "ui-serif", "Georgia", "serif"],
-        "display": ["var(--font-playfair)", "ui-serif", "Georgia", "serif"]
-      },
-      "fontSize": {
-        "xs": "10px",
-        "4xl": "40px",
-        "5xl": "50px",
-        "6xl": "60px",
-        "7xl": "80px",
-        "8xl": "100px",
-        "9xl": "120px",
-        "10xl": "140px"
-      },
-      "lineHeight": {
-        "display": "0.8",
-        "compact": "0.9"
-      },
-      "letterSpacing": {
-        "display": "-7.2px"
+        "display": ["var(--font-rubik)", "ui-sans-serif", "system-ui", "sans-serif"]
       }
     }
   }

@@ -1,0 +1,211 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "meta": {
+    "name": "Furtherfield Design Tokens - Components",
+    "version": "4.0.0",
+    "description": "Component styles extracted from marketing site"
+  },
+  "components": {
+    "tag": {
+      "description": "Interactive tag/button component with border",
+      "base": {
+        "display": "inline-flex",
+        "alignItems": "center",
+        "justifyContent": "center",
+        "fontFamily": "var(--font-geist-mono), ui-monospace, monospace",
+        "fontSize": "12px",
+        "fontWeight": "500",
+        "textTransform": "uppercase",
+        "letterSpacing": "0.02em",
+        "padding": "8px 12px",
+        "minHeight": "36px",
+        "borderRadius": "4px",
+        "border": "1px solid var(--color-text-dark)",
+        "color": "var(--color-text-dark)",
+        "background": "transparent",
+        "transition": "all 0.2s ease"
+      },
+      "hover": {
+        "background": "var(--color-treatment-lemon)"
+      },
+      "variants": {
+        "sm": {
+          "fontSize": "11px",
+          "padding": "6px 10px",
+          "minHeight": "32px"
+        },
+        "lg": {
+          "fontSize": "14px",
+          "padding": "10px 16px",
+          "minHeight": "44px"
+        }
+      },
+      "responsive": {
+        "sm": {
+          "fontSize": "14px",
+          "padding": "8px 14px",
+          "minHeight": "40px"
+        }
+      }
+    },
+    "callout": {
+      "description": "Non-interactive highlighted text with acid background",
+      "base": {
+        "display": "inline",
+        "fontFamily": "var(--font-geist-mono), ui-monospace, monospace",
+        "fontSize": "12px",
+        "fontWeight": "500",
+        "textTransform": "uppercase",
+        "letterSpacing": "0.02em",
+        "color": "var(--color-text-dark)",
+        "background": "var(--color-treatment-acid)"
+      },
+      "variants": {
+        "sm": {
+          "fontSize": "11px"
+        }
+      },
+      "responsive": {
+        "sm": {
+          "fontSize": "14px"
+        }
+      }
+    },
+    "calloutUnderline": {
+      "description": "Non-interactive text with L-shaped acid underline accent",
+      "base": {
+        "display": "inline-flex",
+        "alignItems": "center",
+        "justifyContent": "center",
+        "fontFamily": "var(--font-geist-mono), ui-monospace, monospace",
+        "fontSize": "12px",
+        "fontWeight": "500",
+        "textTransform": "uppercase",
+        "letterSpacing": "0.02em",
+        "padding": "4px 8px 4px 0",
+        "color": "var(--color-text-dark)",
+        "background": "transparent",
+        "position": "relative"
+      },
+      "pseudoAfter": {
+        "content": "''",
+        "position": "absolute",
+        "bottom": "0",
+        "left": "0",
+        "right": "0",
+        "height": "3px",
+        "background": "var(--color-treatment-acid)"
+      },
+      "pseudoBefore": {
+        "content": "''",
+        "position": "absolute",
+        "bottom": "0",
+        "right": "0",
+        "width": "3px",
+        "height": "100%",
+        "background": "var(--color-treatment-acid)"
+      },
+      "variants": {
+        "sm": {
+          "fontSize": "11px",
+          "padding": "2px 6px 2px 0",
+          "underlineHeight": "2px",
+          "borderWidth": "2px"
+        }
+      },
+      "responsive": {
+        "sm": {
+          "fontSize": "14px"
+        }
+      }
+    },
+    "adminInput": {
+      "description": "Admin form input field",
+      "base": {
+        "width": "100%",
+        "fontFamily": "var(--font-geist-mono), ui-monospace, monospace",
+        "fontSize": "14px",
+        "padding": "10px 14px",
+        "borderRadius": "4px",
+        "border": "1px solid var(--color-text-dark)",
+        "color": "var(--color-text-dark)",
+        "background": "transparent",
+        "transition": "all 0.2s ease"
+      },
+      "focus": {
+        "outline": "none",
+        "background": "var(--color-treatment-lemon)",
+        "borderColor": "var(--color-text-dark)"
+      },
+      "placeholder": {
+        "color": "var(--color-divider)",
+        "textTransform": "uppercase",
+        "letterSpacing": "0.02em",
+        "fontSize": "12px"
+      }
+    },
+    "adminButton": {
+      "description": "Admin primary action button",
+      "base": {
+        "display": "inline-flex",
+        "alignItems": "center",
+        "justifyContent": "center",
+        "fontFamily": "var(--font-geist-mono), ui-monospace, monospace",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "textTransform": "uppercase",
+        "letterSpacing": "0.02em",
+        "padding": "10px 20px",
+        "borderRadius": "4px",
+        "border": "1px solid var(--color-text-dark)",
+        "color": "var(--color-text-light)",
+        "background": "var(--color-bg-dark)",
+        "cursor": "pointer",
+        "transition": "all 0.2s ease"
+      },
+      "hover": {
+        "background": "var(--color-treatment-acid)",
+        "color": "var(--color-text-dark)"
+      },
+      "variants": {
+        "secondary": {
+          "color": "var(--color-text-dark)",
+          "background": "transparent",
+          "hoverBackground": "var(--color-treatment-lemon)"
+        }
+      }
+    },
+    "adminCard": {
+      "description": "Admin card container with gradient and noise",
+      "base": {
+        "background": "linear-gradient(to bottom, var(--color-gradient-start), var(--color-gradient-end))",
+        "border": "1px solid var(--color-text-dark)",
+        "borderRadius": "4px",
+        "padding": "24px",
+        "position": "relative",
+        "isolation": "isolate"
+      },
+      "noise": {
+        "opacity": "0.6",
+        "mixBlendMode": "overlay"
+      }
+    }
+  },
+  "utilities": {
+    "bgGradientBrand": {
+      "description": "Brand gradient background with noise texture",
+      "background": "linear-gradient(to bottom, var(--color-gradient-start), var(--color-gradient-end))",
+      "noiseOpacity": "0.6",
+      "noiseMixBlendMode": "overlay"
+    },
+    "treatmentNoise": {
+      "description": "Film grain noise overlay for image treatments",
+      "opacity": "0.8",
+      "mixBlendMode": "overlay"
+    },
+    "hoverLemonGradient": {
+      "description": "Lemon gradient hover effect",
+      "hoverBackground": "linear-gradient(135deg, rgba(245, 235, 180, 0.9) 0%, rgba(220, 200, 140, 0.85) 100%)"
+    }
+  }
+}
