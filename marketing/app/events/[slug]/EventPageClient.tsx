@@ -4,13 +4,14 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { useState, useCallback } from "react";
 import { Navigation, Footer, EventGrid, TidalGrid, Brandmark3D, VenueModal, type Event } from "@/components";
-import type { Venue, Person } from "@/lib/cms";
+import type { Venue, Person, EventDate } from "@/lib/cms";
 
 type EventData = {
   slug: string;
   title: string;
   date: string | null;
   time: string | null;
+  dates: EventDate[];
   type: string;
   venueSlug: string | null;
   venue: Venue | null;
@@ -55,9 +56,59 @@ function formatEventType(type: string): string {
 }
 
 function formatDate(dateStr: string | null): string | null {
-  if (!dateStr) return null;
-  const date = new Date(dateStr);
+  if (!dateStr || dateStr === "9999-12-31") return null;
+  const date = new Date(dateStr + "T00:00:00");
   return date.toLocaleDateString("en-GB", { month: "short", day: "numeric", year: "numeric" });
+}
+
+function getOrdinalSuffix(day: number): string {
+  if (day > 3 && day < 21) return "th";
+  switch (day % 10) {
+    case 1: return "st";
+    case 2: return "nd";
+    case 3: return "rd";
+    default: return "th";
+  }
+}
+
+function formatDateRange(startDate: string, endDate: string): string {
+  const start = new Date(startDate + "T00:00:00");
+  const end = new Date(endDate + "T00:00:00");
+
+  const sameMonth = start.getMonth() === end.getMonth() && start.getFullYear() === end.getFullYear();
+  const sameYear = start.getFullYear() === end.getFullYear();
+
+  if (sameMonth) {
+    return `${start.getDate()}${getOrdinalSuffix(start.getDate())}–${end.getDate()}${getOrdinalSuffix(end.getDate())} ${start.toLocaleDateString("en-GB", { month: "long", year: "numeric" })}`;
+  } else if (sameYear) {
+    return `${start.getDate()}${getOrdinalSuffix(start.getDate())} ${start.toLocaleDateString("en-GB", { month: "long" })} – ${end.getDate()}${getOrdinalSuffix(end.getDate())} ${end.toLocaleDateString("en-GB", { month: "long", year: "numeric" })}`;
+  } else {
+    return `${formatDate(startDate)} – ${formatDate(endDate)}`;
+  }
+}
+
+function formatTime(timeStr: string | null | undefined): string | null {
+  if (!timeStr) return null;
+  try {
+    const [hours, minutes] = timeStr.split(":").map(Number);
+    const period = hours >= 12 ? "PM" : "AM";
+    const displayHours = hours % 12 || 12;
+    return `${displayHours}:${minutes.toString().padStart(2, "0")} ${period}`;
+  } catch {
+    return timeStr;
+  }
+}
+
+function formatEventDate(dateEntry: EventDate): string {
+  if (dateEntry.isQualitative && dateEntry.qualitativeText) {
+    return dateEntry.qualitativeText;
+  }
+
+  if (dateEntry.endDate) {
+    return formatDateRange(dateEntry.date, dateEntry.endDate);
+  }
+
+  return formatDate(dateEntry.date) || "";
 }
 
 export default function EventPageClient({
@@ -116,19 +167,52 @@ export default function EventPageClient({
             {/* Event metadata */}
             <div className="flex flex-wrap justify-center items-center gap-x-4 gap-y-1 mt-8 font-mono text-base md:text-lg uppercase tracking-wide text-text-dark/70">
               <span>{formatEventType(event.type)}</span>
-              {event.date && (
+              {event.dates && event.dates.length > 0 ? (
+                <>
+                  <span className="text-text-dark/30">•</span>
+                  <span className={event.dates[0]?.isQualitative ? "normal-case" : ""}>
+                    {event.dates.length === 1
+                      ? formatEventDate(event.dates[0])
+                      : `${formatEventDate(event.dates[0])} + ${event.dates.length - 1} more`
+                    }
+                  </span>
+                  {event.dates[0]?.time && !event.dates[0]?.isQualitative && (
+                    <>
+                      <span className="text-text-dark/30">•</span>
+                      <span>{formatTime(event.dates[0].time)}</span>
+                    </>
+                  )}
+                </>
+              ) : event.date && (
                 <>
                   <span className="text-text-dark/30">•</span>
                   <span>{formatDate(event.date)}</span>
-                </>
-              )}
-              {event.time && (
-                <>
-                  <span className="text-text-dark/30">•</span>
-                  <span>{event.time}</span>
+                  {event.time && (
+                    <>
+                      <span className="text-text-dark/30">•</span>
+                      <span>{formatTime(event.time)}</span>
+                    </>
+                  )}
                 </>
               )}
             </div>
+
+            {/* Multiple dates display */}
+            {event.dates && event.dates.length > 1 && (
+              <div className="mt-4 flex flex-wrap justify-center gap-2">
+                {event.dates.map((dateEntry, index) => (
+                  <span
+                    key={index}
+                    className={`inline-block px-3 py-1 text-sm font-mono rounded-full border border-text-dark/30 ${
+                      dateEntry.isQualitative ? "normal-case italic" : "uppercase"
+                    }`}
+                  >
+                    {formatEventDate(dateEntry)}
+                    {dateEntry.time && !dateEntry.isQualitative && ` @ ${formatTime(dateEntry.time)}`}
+                  </span>
+                ))}
+              </div>
+            )}
 
             {/* Venue and Book Now */}
             <div className="flex flex-wrap justify-center items-center gap-4 mt-4">
