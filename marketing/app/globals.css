@@ -328,6 +328,10 @@ html, body {
   font-family: var(--font-rubik), ui-sans-serif, system-ui, sans-serif;
 }
 
+.font-mackinac {
+  font-family: "P22 Mackinac Pro", "P22 Mackinac", Georgia, serif;
+}
+
 /* Lemon gradient hover effect */
 .hover-lemon-gradient {
   position: relative;
@@ -349,61 +353,87 @@ html, body {
   opacity: 1;
 }
 
+/* Lichen text mask - stacked text layers with lichen texture on top */
+.lichen-text-mask {
+  position: relative;
+  display: inline-block;
+  color: var(--color-text-dark);
+}
+
+.lichen-text-mask::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  background-image: url('/lichen/borders/border-bottom.png');
+  background-size: 100% auto;
+  background-position: center calc(100% + 5px);
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  pointer-events: none;
+}
+
+@media (min-width: 768px) {
+  .lichen-text-mask::after {
+    background-position: center calc(100% + 20px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .lichen-text-mask::after {
+    background-position: center calc(100% + 65px);
+  }
+}
+
 /* ============================================
    H1 STYLE PROTOTYPES
    ============================================ */
 
-/* Option 1: Shimmer + Stutter Effect */
+/* Acid glitch effect - static black text with acid shadow behind */
 .glitch-base-text {
   position: relative;
   display: inline-block;
-  animation: shimmer-stutter 6s ease-in-out infinite;
 }
 
-.glitch-shadow-text {
+.glitch-base-text::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: rgba(200, 255, 0, 1);
+  z-index: -1;
   opacity: 0;
-  animation: shadow-stutter 6s ease-in-out infinite;
+  transform: scale(1.02);
+  transform-origin: left center;
+  animation: acid-glitch 3s ease-in-out infinite;
+  pointer-events: none;
 }
 
-@keyframes shimmer-stutter {
-  0%, 84%, 92%, 100% {
-    transform: translate(0);
-    text-shadow: none;
+@keyframes acid-glitch {
+  0%, 70%, 82%, 100% {
+    opacity: 0;
+    transform: scale(1.02) translate(0);
   }
-  25% {
-    text-shadow: 0 0 20px rgba(200, 255, 0, 0.08);
+  72% {
+    opacity: 1;
+    transform: scale(1.02) translate(6px, 3px);
   }
-  50% {
-    text-shadow: 0 0 20px rgba(200, 255, 0, 0.06);
+  74% {
+    opacity: 0.9;
+    transform: scale(1.02) translate(-5px, 2px);
   }
-  /* Stutter */
-  85% {
-    transform: translate(-2px, 0);
-    text-shadow: 2px 0 0 rgba(200, 255, 0, 0.4);
+  76% {
+    opacity: 1;
+    transform: scale(1.02) translate(8px, -2px);
   }
-  86% {
-    transform: translate(2px, 0);
-    text-shadow: -2px 0 0 rgba(200, 255, 0, 0.3);
+  78% {
+    opacity: 0.8;
+    transform: scale(1.02) translate(-6px, 3px);
   }
-  87% {
-    transform: translate(-1px, 1px);
-    text-shadow: 1px -1px 0 rgba(200, 255, 0, 0.4);
-  }
-  88% {
-    transform: translate(1px, -1px);
-    text-shadow: -1px 1px 0 rgba(200, 255, 0, 0.3);
-  }
-  89% {
-    transform: translate(-2px, 0);
-    text-shadow: 2px 0 0 rgba(200, 255, 0, 0.4);
-  }
-  90% {
-    transform: translate(0, 1px);
-    text-shadow: 0 -1px 0 rgba(200, 255, 0, 0.2);
-  }
-  91% {
-    transform: translate(1px, 0);
-    text-shadow: -1px 0 0 rgba(200, 255, 0, 0.3);
+  80% {
+    opacity: 1;
+    transform: scale(1.02) translate(5px, -3px);
   }
 }
 

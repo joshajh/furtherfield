@@ -130,37 +130,32 @@ export function HeroHeader({
                         <span className="hidden md:inline-block mr-2 -ml-1 align-top">
                           <Brandmark3D size={28} />
                         </span>
-                        {line}
+                        <span className="glitch-base-text" data-text={line}>{line}</span>
                       </span>
                     ) : (
-                      <span key={i} className="block text-text-dark">{line}</span>
+                      <span
+                        key={i}
+                        className="block text-text-dark lichen-text-mask"
+                        data-text={line}
+                      >
+                        {line}
+                      </span>
                     )
                   ))}
                 </h1>
 
-                {/* Location/Date callouts */}
-                <div className="relative z-40 mt-4 flex gap-2 justify-center md:justify-start">
+                {/* Location/Date/Subtitle callouts */}
+                <div className="relative z-40 mt-4 flex flex-wrap gap-2 justify-center md:justify-start items-center">
                   <span className="callout">FELIXSTOWE</span>
                   <span className="callout">2026</span>
+                  {subtitle && (
+                    <span className="callout-underline hidden md:inline-flex">{subtitle.toUpperCase()}</span>
+                  )}
                 </div>
-
-                {/* Subtitle - inline on desktop */}
-                {subtitle && (
-                  <p className="relative z-10 text-text-dark text-xl max-w-md mt-6 hidden md:block">
-                    {subtitle}
-                  </p>
-                )}
               </div>
 
               {/* Spacer to center the main content */}
               <div className="flex-1" />
-
-              {/* Subtitle - bottom on mobile */}
-              {subtitle && (
-                <p className="relative z-10 text-text-dark/70 text-sm max-w-md font-mono uppercase tracking-wide text-center md:hidden">
-                  {subtitle}
-                </p>
-              )}
             </motion.div>
           )}
         </AnimatePresence>
