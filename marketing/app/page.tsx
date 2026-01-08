@@ -50,7 +50,7 @@ export default async function Home() {
 
         <EventGrid events={formattedEvents} />
 
-        <LichenContainer seed={100} density="sparse" edges={['top', 'bottom']} className="px-2.5">
+        <LichenContainer seed={100} density="sparse" edges={['top', 'bottom']} className="mx-2.5">
           <Button variant="large" href="/events">
             Book Now
           </Button>

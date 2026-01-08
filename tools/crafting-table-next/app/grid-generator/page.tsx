@@ -2,18 +2,14 @@
 
 import { useRef, useState, useEffect } from 'react'
 import Link from 'next/link'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Slider } from '@/components/ui/slider'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { fetchTidalData, fetchShipData } from '@/lib/api'
 import { createWavyLine, calculateWaveParameters, exportSVGFile, exportSVGAsPNG } from '@/lib/svg-utils'
 import { generateFilename } from '@/lib/canvas-utils'
 import type { DataSource } from '@/lib/canvas-utils'
 import { createAssetMetadata } from '@/lib/metadata'
-import type { AssetMetadata } from '@/lib/metadata'
-import { MetadataPreview } from '@/components/ui/metadata-preview'
 
 const CANVAS_SIZE = 800
 
@@ -25,7 +21,6 @@ export default function GridGeneratorPage() {
   const [dataSourceType, setDataSourceType] = useState<'tidal' | 'ships'>('tidal')
   const [dataSource, setDataSource] = useState<DataSource | null>(null)
   const [isGenerating, setIsGenerating] = useState(false)
-  const [previewMetadata, setPreviewMetadata] = useState<AssetMetadata | null>(null)
 
   useEffect(() => {
     handleFetchData()
@@ -45,22 +40,6 @@ export default function GridGeneratorPage() {
   useEffect(() => {
     handleFetchData()
   }, [dataSourceType])
-
-  // Update metadata preview whenever parameters change
-  useEffect(() => {
-    if (dataSource) {
-      const metadata = createAssetMetadata(
-        'grid-generator',
-        {
-          gridSize,
-          waveAmplitude,
-          waveFrequency,
-        },
-        dataSource
-      )
-      setPreviewMetadata(metadata)
-    }
-  }, [gridSize, waveAmplitude, waveFrequency, dataSource])
 
   const generateGrid = (currentData: DataSource | null = dataSource) => {
     if (!svgRef.current || !currentData) return
@@ -105,9 +84,8 @@ export default function GridGeneratorPage() {
 
   const handleExportSVG = () => {
     if (!svgRef.current || !dataSource) return
-    const filename = generateFilename('grid', 'svg', dataSourceType)
+    const filename = generateFilename('RTCT-grid', 'svg', dataSourceType)
 
-    // Create comprehensive metadata
     const metadata = createAssetMetadata(
       'grid-generator',
       {
@@ -123,9 +101,8 @@ export default function GridGeneratorPage() {
 
   const handleExportPNG = () => {
     if (!svgRef.current || !dataSource) return
-    const filename = generateFilename('grid', 'png', dataSourceType)
+    const filename = generateFilename('RTCT-grid', 'png', dataSourceType)
 
-    // Create comprehensive metadata
     const metadata = createAssetMetadata(
       'grid-generator',
       {
@@ -140,147 +117,76 @@ export default function GridGeneratorPage() {
   }
 
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen bg-[#F6F8FB]">
       <div className="container mx-auto px-4 py-8 max-w-7xl">
         <header className="mb-8">
-          <Link href="/" className="text-sm text-muted-foreground hover:text-foreground mb-2 inline-block">
-            ← Back to Apps
+          <Link href="/" className="font-mono text-xs uppercase tracking-wider text-[#555659] hover:text-[#0F0E0E] mb-4 inline-block">
+            ← Crafting Table
           </Link>
-          <h1 className="text-4xl font-bold mb-2">Grid Generator</h1>
-          <p className="text-muted-foreground">
-            Dynamic grids influenced by Felixstowe&apos;s maritime data
+          <h1 className="text-3xl font-bold font-mono uppercase tracking-wide text-[#0F0E0E]">Grid Generator</h1>
+          <p className="font-mono text-sm text-[#555659] mt-2">
+            Generate wave-distorted grids from live tidal and ship data
           </p>
         </header>
 
         <div className="grid lg:grid-cols-[400px_1fr] gap-6">
           {/* Controls Panel */}
-          <div className="space-y-6">
-            <Card>
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <CardTitle>Settings</CardTitle>
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button variant="outline" size="sm">
-                        ℹ️ How it works
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
-                      <DialogHeader>
-                        <DialogTitle>How Live Data Influences the Grid</DialogTitle>
-                        <DialogDescription>
-                          The grid patterns are shaped by real-time maritime data from Felixstowe
-                        </DialogDescription>
-                      </DialogHeader>
-                      <div className="space-y-6 text-sm">
-                        <div>
-                          <p className="text-foreground leading-relaxed mb-4">
-                            The sliders you adjust set the <strong>base values</strong>. The live data then <strong>modulates</strong> these
-                            to create unique patterns that reflect real-world conditions at that moment.
-                          </p>
+          <div className="space-y-4 max-h-[calc(100vh-180px)] overflow-y-auto pr-2">
+            {/* Data Source */}
+            <div className="card-gradient rounded-md border border-[#0F0E0E] p-5">
+              <h3 className="font-mono text-sm font-semibold uppercase tracking-wider text-[#0F0E0E] border-b border-[#0F0E0E] pb-2 mb-4">Data Source</h3>
+              <div className="space-y-4 relative z-10">
+                <Select value={dataSourceType} onValueChange={(v: 'tidal' | 'ships') => setDataSourceType(v)}>
+                  <SelectTrigger className="font-mono bg-transparent border-[#0F0E0E] text-[#0F0E0E]">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent className="font-mono">
+                    <SelectItem value="tidal">Live Tidal Data</SelectItem>
+                    <SelectItem value="ships">Ship Movements</SelectItem>
+                  </SelectContent>
+                </Select>
+
+                {dataSource && (
+                  <div className="bg-[rgba(245,235,180,0.85)] p-3 rounded text-sm space-y-1 font-mono text-[#0F0E0E]">
+                    <div className="font-semibold uppercase text-xs tracking-wider">Current Data:</div>
+                    {dataSource.type === 'tidal' ? (
+                      <>
+                        <div className="text-xs">{dataSource.station}</div>
+                        <div className="text-xs">
+                          {dataSource.level.toFixed(2)} {dataSource.unit}
                         </div>
-
-                        <div className="space-y-3">
-                          <h3 className="font-semibold text-base">🌊 Tidal Flow Mode</h3>
-                          <p className="text-muted-foreground">
-                            Uses tide levels from the UK Environment Agency (typically -2m to +4m above ordnance datum)
-                          </p>
-
-                          <div className="bg-muted p-3 rounded space-y-2">
-                            <div>
-                              <strong className="text-foreground">Wave Amplitude (height):</strong>
-                              <p className="text-muted-foreground mt-1">
-                                • Low tide → waves are 50% of your slider value<br/>
-                                • High tide → waves are 100% of your slider value<br/>
-                                <em>Higher tides create bigger waves</em>
-                              </p>
-                            </div>
-                            <div>
-                              <strong className="text-foreground">Wave Frequency (repetition):</strong>
-                              <p className="text-muted-foreground mt-1">
-                                • Low tide → slower, stretched waves (80%)<br/>
-                                • High tide → faster, compressed waves (120%)<br/>
-                                <em>High tide brings more frequent wave cycles</em>
-                              </p>
-                            </div>
-                            <div>
-                              <strong className="text-foreground">Phase (offset):</strong>
-                              <p className="text-muted-foreground mt-1">
-                                Creates a rotational shift based on the tide&apos;s current position in its cycle
-                              </p>
-                            </div>
-                          </div>
+                        <div className="text-xs text-[#555659]">{dataSource.time.toLocaleTimeString()}</div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="text-xs">Total Ships: {dataSource.total}</div>
+                        <div className="text-xs">
+                          Flow: {dataSource.flow > 0 ? '+' : ''}{dataSource.flow}
                         </div>
-
-                        <div className="space-y-3">
-                          <h3 className="font-semibold text-base">🚢 Ship Movement Mode</h3>
-                          <p className="text-muted-foreground">
-                            Uses simulated port traffic data (total ships and flow direction)
-                          </p>
-
-                          <div className="bg-muted p-3 rounded space-y-2">
-                            <div>
-                              <strong className="text-foreground">Wave Amplitude (height):</strong>
-                              <p className="text-muted-foreground mt-1">
-                                More ships in port → bigger waves<br/>
-                                <em>Port activity creates visual disturbance</em>
-                              </p>
-                            </div>
-                            <div>
-                              <strong className="text-foreground">Wave Frequency (repetition):</strong>
-                              <p className="text-muted-foreground mt-1">
-                                • More departures → slower waves (50-100%)<br/>
-                                • More arrivals → faster waves (100-150%)<br/>
-                                <em>Ships arriving create incoming wave patterns</em>
-                              </p>
-                            </div>
-                            <div>
-                              <strong className="text-foreground">Phase (offset):</strong>
-                              <p className="text-muted-foreground mt-1">
-                                Flow direction determines wave orientation
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="border-t pt-4">
-                          <p className="text-muted-foreground italic">
-                            Each grid is a unique snapshot of Felixstowe&apos;s maritime state.
-                            The same settings will produce different patterns depending on the time of day,
-                            tide state, or port activity—making each grid a true data visualization.
-                          </p>
-                        </div>
-                      </div>
-                    </DialogContent>
-                  </Dialog>
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Data Source</label>
-                  <Select value={dataSourceType} onValueChange={(v: 'tidal' | 'ships') => setDataSourceType(v)}>
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="tidal">Tidal Flow</SelectItem>
-                      <SelectItem value="ships">Ship Movement</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div className="space-y-2">
-                  <div className="flex justify-between">
-                    <label className="text-sm font-medium">Grid Size</label>
-                    <span className="text-sm text-muted-foreground">{gridSize}</span>
+                        <div className="text-xs text-[#555659]">{dataSource.time.toLocaleTimeString()}</div>
+                      </>
+                    )}
                   </div>
-                  <Slider value={[gridSize]} onValueChange={([v]) => setGridSize(v)} min={5} max={50} step={1} />
+                )}
+              </div>
+            </div>
+
+            {/* Grid Settings */}
+            <div className="card-gradient rounded-md border border-[#0F0E0E] p-5">
+              <h3 className="font-mono text-sm font-semibold uppercase tracking-wider text-[#0F0E0E] border-b border-[#0F0E0E] pb-2 mb-4">Grid Settings</h3>
+              <div className="space-y-4 relative z-10">
+                <div className="space-y-2">
+                  <div className="flex justify-between">
+                    <label className="font-mono text-xs uppercase tracking-wider text-[#0F0E0E]">Grid Size</label>
+                    <span className="font-mono text-xs text-[#555659]">{gridSize}</span>
+                  </div>
+                  <Slider value={[gridSize]} onValueChange={([v]) => setGridSize(v)} min={5} max={50} step={1} className="[&_[role=slider]]:bg-[#0F0E0E]" />
                 </div>
 
                 <div className="space-y-2">
                   <div className="flex justify-between">
-                    <label className="text-sm font-medium">Wave Amplitude</label>
-                    <span className="text-sm text-muted-foreground">{waveAmplitude}</span>
+                    <label className="font-mono text-xs uppercase tracking-wider text-[#0F0E0E]">Wave Amplitude</label>
+                    <span className="font-mono text-xs text-[#555659]">{waveAmplitude}</span>
                   </div>
                   <Slider
                     value={[waveAmplitude]}
@@ -288,13 +194,14 @@ export default function GridGeneratorPage() {
                     min={0}
                     max={30}
                     step={1}
+                    className="[&_[role=slider]]:bg-[#0F0E0E]"
                   />
                 </div>
 
                 <div className="space-y-2">
                   <div className="flex justify-between">
-                    <label className="text-sm font-medium">Wave Frequency</label>
-                    <span className="text-sm text-muted-foreground">{waveFrequency.toFixed(1)}</span>
+                    <label className="font-mono text-xs uppercase tracking-wider text-[#0F0E0E]">Wave Frequency</label>
+                    <span className="font-mono text-xs text-[#555659]">{waveFrequency.toFixed(1)}</span>
                   </div>
                   <Slider
                     value={[waveFrequency]}
@@ -302,78 +209,48 @@ export default function GridGeneratorPage() {
                     min={1}
                     max={4}
                     step={0.1}
+                    className="[&_[role=slider]]:bg-[#0F0E0E]"
                   />
                 </div>
 
-                <Button onClick={handleGenerate} disabled={isGenerating} className="w-full">
-                  {isGenerating ? 'Generating...' : 'Generate New Grid'}
+                <Button
+                  onClick={handleGenerate}
+                  disabled={isGenerating}
+                  className="w-full font-mono uppercase tracking-wider bg-[#0F0E0E] text-[#F6F8FB] hover:bg-[rgba(200,255,0,0.85)] hover:text-[#0F0E0E] border border-[#0F0E0E]"
+                >
+                  {isGenerating ? 'Generating...' : 'Generate Grid'}
                 </Button>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
-            {dataSource && (
-              <Card>
-                <CardHeader>
-                  <CardTitle>Current Data</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-2 text-sm">
-                  {dataSource.type === 'tidal' ? (
-                    <>
-                      <div>
-                        <span className="font-medium">Station:</span> {dataSource.station}
-                      </div>
-                      <div>
-                        <span className="font-medium">Tide Level:</span> {dataSource.level.toFixed(2)}{' '}
-                        {dataSource.unit}
-                      </div>
-                      <div className="text-xs text-muted-foreground">
-                        Last updated: {dataSource.time.toLocaleTimeString()}
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <div>
-                        <span className="font-medium">Total Vessels:</span> {dataSource.total}
-                      </div>
-                      <div>
-                        <span className="font-medium">Arrivals:</span> {dataSource.arrivals} |{' '}
-                        <span className="font-medium">Departures:</span> {dataSource.departures}
-                      </div>
-                      <div>
-                        <span className="font-medium">Net Flow:</span> {dataSource.flow > 0 ? '+' : ''}
-                        {dataSource.flow}
-                      </div>
-                      <div className="text-xs text-muted-foreground">
-                        Last updated: {dataSource.time.toLocaleTimeString()}
-                      </div>
-                    </>
-                  )}
-                </CardContent>
-              </Card>
-            )}
-
-            <Card>
-              <CardContent className="pt-6 space-y-2">
-                <Button onClick={handleExportSVG} variant="secondary" className="w-full">
+            {/* Export */}
+            <div className="card-gradient rounded-md border border-[#0F0E0E] p-5">
+              <h3 className="font-mono text-sm font-semibold uppercase tracking-wider text-[#0F0E0E] border-b border-[#0F0E0E] pb-2 mb-4">Export</h3>
+              <div className="space-y-3 relative z-10">
+                <Button
+                  onClick={handleExportSVG}
+                  className="w-full font-mono uppercase tracking-wider bg-[#0F0E0E] text-[#F6F8FB] hover:bg-[rgba(200,255,0,0.85)] hover:text-[#0F0E0E] border border-[#0F0E0E]"
+                >
                   Download SVG
                 </Button>
-                <Button onClick={handleExportPNG} variant="secondary" className="w-full">
+                <Button
+                  onClick={handleExportPNG}
+                  className="w-full font-mono uppercase tracking-wider bg-transparent text-[#0F0E0E] border border-[#0F0E0E] hover:bg-[rgba(245,235,180,0.85)]"
+                >
                   Download PNG
                 </Button>
-              </CardContent>
-            </Card>
-
-            <MetadataPreview metadata={previewMetadata} />
+              </div>
+            </div>
           </div>
 
           {/* Preview Panel */}
-          <div className="lg:sticky lg:top-8 bg-card border rounded-lg p-8 flex items-center justify-center min-h-[600px]">
+          <div className="lg:sticky lg:top-4 bg-[#1a1a1a] border border-[#333] rounded-md p-4 flex flex-col items-center justify-center">
             <svg
               ref={svgRef}
               width={CANVAS_SIZE}
               height={CANVAS_SIZE}
               viewBox={`0 0 ${CANVAS_SIZE} ${CANVAS_SIZE}`}
-              className="max-w-full h-auto border shadow-lg"
+              className="max-w-full h-auto border border-[#333] shadow-lg"
             >
               <rect width={CANVAS_SIZE} height={CANVAS_SIZE} fill="white" />
             </svg>

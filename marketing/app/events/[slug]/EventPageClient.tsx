@@ -181,7 +181,7 @@ export default function EventPageClient({
         )}
 
         {/* Summary Section */}
-        <section className="bg-bg-light rounded-lg mx-2.5 px-5 py-16">
+        <section className="bg-bg-light rounded-lg mx-2.5 px-5 py-16 md:py-24">
           <div className="max-w-4xl mx-auto">
             {event.summary && (
               <div className="flex flex-col md:flex-row gap-8 md:gap-16 mb-12">
@@ -204,7 +204,7 @@ export default function EventPageClient({
 
         {/* People Section */}
         {people.length > 0 && (
-          <section className="bg-gradient-brand rounded-lg mx-2.5 px-5 py-16">
+          <section className="bg-gradient-brand rounded-lg mx-2.5 px-5 py-16 md:py-24">
             <div className="max-w-4xl mx-auto">
               <h2 className="font-display text-text-dark text-4xl md:text-5xl mb-10">
                 People

@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  basePath: '/social-generator',
-  assetPrefix: '/social-generator',
+  basePath: '/crafting-table',
+  assetPrefix: '/crafting-table',
   env: {
-    NEXT_PUBLIC_BASE_PATH: '/social-generator',
+    NEXT_PUBLIC_BASE_PATH: '/crafting-table',
   },
 }
 

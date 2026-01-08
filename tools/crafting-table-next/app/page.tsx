@@ -15,7 +15,7 @@ export default function Home() {
     {
       name: 'CMS',
       description: 'Admin interface for the Marketing app',
-      href: 'https://furtherfield.org/admin',
+      href: 'https://example.com',
       external: true,
     },
   ]

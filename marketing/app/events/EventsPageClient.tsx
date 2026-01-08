@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { Navigation, Footer, AnimatedSprites } from "@/components";
+import { Navigation, Footer, AnimatedSprites, TidalGrid } from "@/components";
 import type { Event } from "@/lib/cms";
 
 type EventsPageClientProps = {
@@ -41,7 +41,7 @@ function EventCard({ event, index }: EventCardProps) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.05, duration: 0.4 }}
-      className="group h-[420px] md:h-[450px]"
+      className="group h-auto min-h-[420px] md:min-h-[450px]"
     >
       <Link
         href={`/events/${event.slug}`}
@@ -153,25 +153,32 @@ export default function EventsPageClient({
       <AnimatedSprites />
       <Navigation marqueeText={marqueeText} aboutSnippet={aboutSnippet} />
 
-      <main className="flex flex-col gap-2.5 px-2.5">
-        {/* Page Header */}
-        <motion.header
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="rounded-lg bg-gradient-brand p-6 md:p-10"
-        >
-          <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-text-dark tracking-tight mb-3">
-            Programme
-          </h1>
-          <p className="text-text-dark/70 text-lg md:text-xl max-w-2xl">
-            Explore our full programme of workshops, performances, exhibitions,
-            and more.
-          </p>
-        </motion.header>
+      <main className="flex flex-col gap-2.5">
+        {/* Hero Section */}
+        <section className="relative bg-gradient-brand rounded-lg mx-2.5 px-5 py-12 md:py-16 overflow-hidden">
+          <TidalGrid
+            className="absolute inset-0 w-full h-full opacity-40 pointer-events-none"
+            gridSize={16}
+            waveAmplitude={6}
+            waveFrequency={2.5}
+            strokeColor="#9A8B55"
+            strokeWidth={0.8}
+            animationSpeed={0.00015}
+          />
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="relative z-10 max-w-6xl mx-auto"
+          >
+            <h1 className="font-display text-text-dark text-[36px] sm:text-[50px] md:text-[80px] lg:text-[120px] leading-[0.95] tracking-tight">
+              What&apos;s On
+            </h1>
+          </motion.div>
+        </section>
 
         {/* Events Grid */}
-        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2.5">
+        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2.5 mx-2.5">
           {sortedEvents.map((event, index) => (
             <EventCard key={event.slug} event={event} index={index} />
           ))}
@@ -179,7 +186,7 @@ export default function EventsPageClient({
 
         {/* Empty state */}
         {events.length === 0 && (
-          <div className="rounded-lg bg-gradient-brand p-10 text-center">
+          <div className="rounded-lg bg-gradient-brand p-10 text-center mx-2.5">
             <p className="text-text-dark/70 text-lg">
               No events scheduled at the moment. Check back soon!
             </p>

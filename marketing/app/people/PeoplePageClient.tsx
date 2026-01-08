@@ -57,7 +57,7 @@ export default function PeoplePageClient({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="relative z-10 max-w-4xl"
+            className="relative z-10 max-w-6xl mx-auto"
           >
             <h1 className="font-display text-text-dark text-[36px] sm:text-[50px] md:text-[80px] lg:text-[120px] leading-[0.95] tracking-tight">
               People

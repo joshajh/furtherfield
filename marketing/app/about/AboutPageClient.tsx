@@ -50,14 +50,10 @@ export default function AboutPageClient({ aboutPage, venues, marqueeText, aboutS
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="relative z-10 max-w-4xl"
+            className="relative z-10 max-w-6xl mx-auto"
           >
             <h1 className="font-display text-text-dark text-[36px] sm:text-[50px] md:text-[80px] lg:text-[120px] leading-[0.95] tracking-tight">
-              {(aboutPage?.heroTitle || "About\nThis Coastal Town").split("\n").map((line, i) => (
-                <span key={i} className={i === 0 ? "italic block" : "block"}>
-                  {line}
-                </span>
-              ))}
+              {aboutPage?.heroTitle || "About"}
             </h1>
           </motion.div>
         </section>
@@ -299,13 +295,13 @@ export default function AboutPageClient({ aboutPage, venues, marqueeText, aboutS
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a
                   href={`mailto:${aboutPage?.contactEmail || "hello@thiscoastaltown.org"}`}
-                  className="inline-flex items-center justify-center gap-2 bg-text-dark text-text-light px-8 py-4 rounded-full font-semibold hover:opacity-90 transition-opacity"
+                  className="tag tag-lg bg-text-dark text-text-light border-text-dark hover:bg-treatment-acid hover:text-text-dark"
                 >
                   Email Us
                 </a>
                 <a
                   href="#"
-                  className="inline-flex items-center justify-center gap-2 border-2 border-text-dark text-text-dark px-8 py-4 rounded-full font-semibold hover:bg-text-dark hover:text-text-light transition-colors"
+                  className="tag tag-lg hover:bg-treatment-lemon"
                 >
                   Newsletter Signup
                 </a>
@@ -314,18 +310,6 @@ export default function AboutPageClient({ aboutPage, venues, marqueeText, aboutS
           </div>
         </section>
 
-        {/* Decorative Ovals */}
-        <div className="flex justify-center py-10">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="flex flex-col gap-4"
-          >
-            <div className="w-48 h-32 md:w-72 md:h-48 rounded-[50%] border-2 border-text-light/20" />
-            <div className="w-48 h-32 md:w-72 md:h-48 rounded-[50%] border-2 border-text-light/20" />
-          </motion.div>
-        </div>
       </main>
 
       <Footer />
