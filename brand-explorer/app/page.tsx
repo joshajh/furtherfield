@@ -2,6 +2,7 @@ import colors from "../../design-tokens/colors.json";
 import typography from "../../design-tokens/typography.json";
 import spacing from "../../design-tokens/spacing.json";
 import components from "../../design-tokens/components.json";
+import { Brandmark3D } from "../components/Brandmark3D";
 
 type ColorToken = {
   value: string;
@@ -56,9 +57,12 @@ export default function BrandExplorer() {
 
   return (
     <main className="min-h-screen p-6 md:p-8">
-      <header className="mb-10">
-        <h1 className="text-3xl md:text-4xl font-bold mb-2">Brand Explorer</h1>
-        <p className="text-text-light/60">Furtherfield design tokens v{colors.meta.version}</p>
+      <header className="mb-10 flex items-center gap-6">
+        <Brandmark3D size={40} />
+        <div>
+          <h1 className="text-3xl md:text-4xl font-bold mb-2">Brand Explorer</h1>
+          <p className="text-text-light/60">Furtherfield design tokens v{colors.meta.version}</p>
+        </div>
       </header>
 
       {/* Colors Section */}
@@ -155,6 +159,26 @@ export default function BrandExplorer() {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Brandmark Section */}
+      <section className="mb-12">
+        <h2 className="text-xl font-bold mb-6 pb-2 border-b border-white/20">Brandmark</h2>
+        <p className="text-text-light/50 text-sm mb-6">3D rotating brandmark with brand gradient and acid accent faces</p>
+        <div className="bg-gradient-brand rounded-lg p-8 flex items-center justify-center gap-12">
+          <div className="text-center">
+            <Brandmark3D size={20} />
+            <p className="font-mono text-xs text-text-dark mt-4">size=20</p>
+          </div>
+          <div className="text-center">
+            <Brandmark3D size={40} />
+            <p className="font-mono text-xs text-text-dark mt-4">size=40</p>
+          </div>
+          <div className="text-center">
+            <Brandmark3D size={60} />
+            <p className="font-mono text-xs text-text-dark mt-4">size=60</p>
           </div>
         </div>
       </section>
