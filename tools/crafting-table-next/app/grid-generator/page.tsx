@@ -117,14 +117,14 @@ export default function GridGeneratorPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#F6F8FB]">
+    <main className="min-h-screen">
       <div className="container mx-auto px-4 py-8 max-w-7xl">
         <header className="mb-8">
-          <Link href="/" className="font-mono text-xs uppercase tracking-wider text-[#555659] hover:text-[#0F0E0E] mb-4 inline-block">
+          <Link href="/" className="font-mono text-xs uppercase tracking-wider text-[#9ca3af] hover:text-[#F6F8FB] mb-4 inline-block">
             ← Crafting Table
           </Link>
-          <h1 className="text-3xl font-bold font-mono uppercase tracking-wide text-[#0F0E0E]">Grid Generator</h1>
-          <p className="font-mono text-sm text-[#555659] mt-2">
+          <h1 className="text-3xl font-bold font-mono uppercase tracking-wide text-[#F6F8FB]">Grid Generator</h1>
+          <p className="font-mono text-sm text-[#9ca3af] mt-2">
             Generate wave-distorted grids from live tidal and ship data
           </p>
         </header>

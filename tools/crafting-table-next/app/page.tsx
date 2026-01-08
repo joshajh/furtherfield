@@ -21,13 +21,13 @@ export default function Home() {
   ]
 
   return (
-    <main className="min-h-screen bg-[#F6F8FB]">
+    <main className="min-h-screen">
       <div className="container mx-auto px-4 py-16 max-w-3xl">
         <header className="mb-16">
-          <h1 className="text-4xl font-bold font-mono uppercase tracking-wide text-[#0F0E0E]">
+          <h1 className="text-4xl font-bold font-mono uppercase tracking-wide text-[#F6F8FB]">
             Crafting Table
           </h1>
-          <p className="font-mono text-sm text-[#555659] mt-2">
+          <p className="font-mono text-sm text-[#9ca3af] mt-2">
             Tools for Reimagine This Coastal Town
           </p>
         </header>

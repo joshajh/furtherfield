@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef, useState, useEffect, useCallback } from 'react'
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Slider } from '@/components/ui/slider'
 import { Input } from '@/components/ui/input'
@@ -390,8 +391,11 @@ export default function SocialGeneratorPage() {
     <main className="min-h-screen">
       <div className="container mx-auto px-4 py-8 max-w-7xl">
         <header className="mb-8">
-          <h1 className="text-3xl font-bold mb-2 font-mono uppercase tracking-wide">Reimagine This Social Generator</h1>
-          <p className="text-muted-foreground font-mono text-sm">Create carousel posts with dynamic marine data grids</p>
+          <Link href="/" className="font-mono text-xs uppercase tracking-wider text-[#9ca3af] hover:text-[#F6F8FB] mb-4 inline-block">
+            ← Crafting Table
+          </Link>
+          <h1 className="text-3xl font-bold font-mono uppercase tracking-wide text-[#F6F8FB]">Social Generator</h1>
+          <p className="font-mono text-sm text-[#9ca3af] mt-2">Create carousel posts with dynamic marine data grids</p>
         </header>
 
         <div className="grid lg:grid-cols-[400px_1fr] gap-6">
