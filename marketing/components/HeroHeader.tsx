@@ -59,7 +59,7 @@ export function HeroHeader({
         ?
       </button>
 
-      <div className="relative p-4 pb-12 md:p-10 h-full flex flex-col">
+      <div className="relative px-6 py-4 pb-12 md:px-12 md:py-10 h-full flex flex-col">
         <AnimatePresence mode="wait">
           {showMaritimeInfo ? (
             <motion.div
@@ -108,10 +108,10 @@ export function HeroHeader({
           ) : (
             <motion.div
               key="title"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.4, ease: 'easeOut' }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15, ease: 'easeOut' }}
               className="relative flex-1 flex flex-col items-center md:items-start"
             >
               {/* Spacer to center the main content */}
@@ -130,7 +130,9 @@ export function HeroHeader({
                         <span className="hidden md:inline-block mr-2 -ml-1 align-top">
                           <Brandmark3D size={28} />
                         </span>
-                        <span className="glitch-base-text" data-text={line}>{line}</span>
+                        <span className="glitch-base-text" data-text={line}>
+                          <span className="relative z-10">{line}</span>
+                        </span>
                       </span>
                     ) : (
                       <span
@@ -166,8 +168,8 @@ export function HeroHeader({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1, y: [0, 8, 0] }}
           transition={{
-            opacity: { delay: 1, duration: 0.5 },
-            y: { delay: 1.5, duration: 1.5, repeat: Infinity, ease: 'easeInOut' }
+            opacity: { delay: 0.3, duration: 0.3 },
+            y: { delay: 0.6, duration: 1.5, repeat: Infinity, ease: 'easeInOut' }
           }}
         >
           <svg

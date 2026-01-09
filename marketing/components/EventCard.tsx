@@ -89,7 +89,7 @@ export function EventCard({ event, index = 0 }: EventCardProps) {
 
           {/* Description - z-40 to appear above lichen border */}
           {event.summary && (
-            <p className="relative z-40 text-text-dark/60 text-sm leading-relaxed line-clamp-2 mt-auto">
+            <p className="relative z-40 text-text-dark/60 text-base md:text-lg leading-relaxed line-clamp-2 mt-auto">
               {event.summary}
             </p>
           )}
@@ -106,7 +106,7 @@ type EventGridProps = {
 
 export function EventGrid({ events }: EventGridProps) {
   return (
-    <section className="flex flex-wrap gap-2.5 justify-center px-2.5">
+    <section className="flex flex-wrap gap-2.5 justify-center mx-2.5">
       {events.map((event, i) => (
         <EventCard key={event.slug} event={event} index={i} />
       ))}

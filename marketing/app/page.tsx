@@ -8,9 +8,9 @@ import {
   Button,
   AnimatedSprites,
   LichenContainer,
+  VimeoEmbed,
   type Event,
 } from "@/components";
-import { FullWidthImage } from "@/components/FullWidthImage";
 import { getEvents, getSettings } from "@/lib/cms";
 
 function formatEventType(type: string): string {
@@ -50,17 +50,14 @@ export default async function Home() {
 
         <EventGrid events={formattedEvents} />
 
-        <LichenContainer seed={100} density="sparse" edges={['top', 'bottom']} className="mx-2.5">
+        <LichenContainer seed={100} density="normal" edges={['top', 'bottom', 'left', 'right']} className="mx-2.5">
           <Button variant="large" href="/events">
             Book Now
           </Button>
         </LichenContainer>
 
         <LichenContainer seed={200} density="normal" edges={['top', 'bottom', 'left', 'right']} className="mx-2.5">
-          <FullWidthImage
-            src="https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=1600&q=80"
-            alt="Shipping containers"
-          />
+          <VimeoEmbed videoId="1036303680" />
         </LichenContainer>
 
         <LichenContainer seed={300} density="normal" edges={['top', 'bottom', 'left', 'right']} className="mx-2.5">

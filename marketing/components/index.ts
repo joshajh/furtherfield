@@ -6,6 +6,7 @@ export { EventCard, EventGrid, type Event } from "./EventCard";
 export { ProgrammeTable } from "./ProgrammeTable";
 export { CTASection } from "./CTASection";
 export { FullWidthImage } from "./FullWidthImage";
+export { VimeoEmbed } from "./VimeoEmbed";
 export { ImageTreatment, type TreatmentVariant } from "./ImageTreatment";
 export { TidalGrid } from "./TidalGrid";
 export { AnimatedSprites } from "./AnimatedSprites";

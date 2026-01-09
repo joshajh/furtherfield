@@ -12,7 +12,7 @@ export function ProgrammeTable({ events }: ProgrammeTableProps) {
   return (
     <section
       id="programme"
-      className="bg-bg-light rounded-lg px-5 py-16 mx-2.5"
+      className="bg-bg-light rounded-lg px-6 md:px-12 py-16"
     >
       <motion.h2
         initial={{ opacity: 0, y: 20 }}

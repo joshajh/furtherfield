@@ -260,10 +260,7 @@ export default function EventPageClient({
         <section className="bg-bg-light rounded-lg mx-2.5 px-5 py-16 md:py-24">
           <div className="max-w-4xl mx-auto">
             {event.summary && (
-              <div className="flex flex-col md:flex-row gap-8 md:gap-16 mb-12">
-                <h2 className="font-serif text-text-dark text-3xl md:text-4xl shrink-0">
-                  Summary
-                </h2>
+              <div className="mb-12">
                 <p className="text-text-dark text-xl md:text-2xl leading-relaxed font-semibold">
                   {event.summary}
                 </p>
@@ -274,6 +271,21 @@ export default function EventPageClient({
                 className="text-text-dark text-lg leading-relaxed prose prose-lg max-w-none prose-headings:font-serif prose-headings:text-text-dark prose-p:text-text-dark prose-li:text-text-dark prose-a:text-treatment-acid prose-strong:text-text-dark [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:my-4 [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:my-4 [&_li]:my-1 [&_h2]:text-2xl [&_h2]:mt-6 [&_h2]:mb-3 [&_h3]:text-xl [&_h3]:mt-4 [&_h3]:mb-2"
                 dangerouslySetInnerHTML={{ __html: event.description }}
               />
+            )}
+            {event.bookingUrl && (
+              <div className="mt-12">
+                <a
+                  href={event.bookingUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="tag gap-1.5 bg-text-dark text-text-light border-text-dark hover:bg-treatment-acid hover:text-text-dark"
+                >
+                  Book Now
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M7 17L17 7M17 7H7M17 7V17" />
+                  </svg>
+                </a>
+              </div>
             )}
           </div>
         </section>
@@ -349,8 +361,8 @@ export default function EventPageClient({
               rel="noopener noreferrer"
               className="group relative block w-full bg-gradient-brand rounded-lg px-6 sm:px-8 py-6 sm:py-8 text-center overflow-hidden hover:shadow-lg transition-shadow"
             >
-              <span className="relative z-10 font-display text-text-dark text-2xl sm:text-3xl md:text-4xl">
-                Book Now
+              <span className="relative z-10 font-display text-text-dark text-2xl sm:text-3xl md:text-4xl italic glitch-base-text" data-text="Book Now">
+                <span className="relative z-10">Book Now</span>
               </span>
               <span className="absolute inset-0 bg-treatment-lemon opacity-0 group-hover:opacity-100 transition-opacity" />
             </a>
