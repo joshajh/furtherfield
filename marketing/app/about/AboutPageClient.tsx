@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useState, useCallback } from "react";
+import Image from "next/image";
 import { Navigation, Footer, TidalGrid, VenueModal } from "@/components";
 import { HtmlContent } from "@/components/HtmlContent";
 import type { AboutPage, Venue } from "@/lib/cms";
@@ -233,11 +234,21 @@ export default function AboutPageClient({ aboutPage, venues, marqueeText, aboutS
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.1 }}
-                    className="flex items-center justify-center h-24 bg-white/50 rounded-lg"
+                    className="flex items-center justify-center h-24 bg-white/50 rounded-lg p-4"
                   >
-                    <span className="text-text-dark/50 text-sm text-center px-4">
-                      {partner.name}
-                    </span>
+                    {partner.logo ? (
+                      <Image
+                        src={partner.logo}
+                        alt={partner.name || "Partner logo"}
+                        width={160}
+                        height={80}
+                        className="object-contain max-h-full"
+                      />
+                    ) : (
+                      <span className="text-text-dark/50 text-sm text-center px-4">
+                        {partner.name}
+                      </span>
+                    )}
                   </motion.div>
                 ))}
               </div>
