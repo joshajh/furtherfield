@@ -16,4 +16,4 @@ export { LichenGaps } from "./LichenGaps";
 export { LichenContainer } from "./LichenContainer";
 export { RotatingCubesIcon } from "./RotatingCubesIcon";
 export { VenueModal } from "./VenueModal";
-export { Brandmark3D } from "./Brandmark3D";
+export { Brandmark3D, BrandmarkSVG } from "./Brandmark3D";

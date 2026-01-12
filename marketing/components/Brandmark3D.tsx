@@ -2,12 +2,89 @@
 
 import { useEffect, useRef } from 'react'
 
-type Brandmark3DProps = {
+type BrandmarkProps = {
   size?: number
   className?: string
+}
+
+type Brandmark3DProps = BrandmarkProps & {
   autoRotate?: boolean
 }
 
+/**
+ * Static SVG version of the brandmark - lightweight, no animation
+ * Use this for navbars, footers, and places where you don't need rotation
+ */
+export function BrandmarkSVG({ size = 40, className = '' }: BrandmarkProps) {
+  // The SVG represents the isometric view of 4 cubes in a diagonal staircase pattern
+  // Scaled to fit within the size parameter
+  const scale = size / 40
+
+  return (
+    <svg
+      width={size * 2.5}
+      height={size * 2.5}
+      viewBox="0 0 100 100"
+      className={className}
+      aria-label="Furtherfield brandmark"
+    >
+      <defs>
+        <linearGradient id="brandmark-blue-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#BCE5F3" />
+          <stop offset="100%" stopColor="#D0D6FD" />
+        </linearGradient>
+      </defs>
+
+      {/* Isometric cube representation - 4 cubes in staircase pattern */}
+      {/* Each cube has 3 visible faces: top (blue), left (acid), right (blue) */}
+
+      {/* Cube 1: Top-left (highest) */}
+      <g transform="translate(50, 15)">
+        {/* Top face */}
+        <polygon points="0,-8 14,0 0,8 -14,0" fill="url(#brandmark-blue-gradient)" stroke="#0F0E0E" strokeWidth="0.5" />
+        {/* Left face */}
+        <polygon points="-14,0 0,8 0,22 -14,14" fill="rgba(200, 255, 0, 0.85)" stroke="#0F0E0E" strokeWidth="0.5" />
+        {/* Right face */}
+        <polygon points="14,0 0,8 0,22 14,14" fill="url(#brandmark-blue-gradient)" stroke="#0F0E0E" strokeWidth="0.5" />
+      </g>
+
+      {/* Cube 2: Middle-right */}
+      <g transform="translate(64, 30)">
+        {/* Top face */}
+        <polygon points="0,-8 14,0 0,8 -14,0" fill="url(#brandmark-blue-gradient)" stroke="#0F0E0E" strokeWidth="0.5" />
+        {/* Left face */}
+        <polygon points="-14,0 0,8 0,22 -14,14" fill="rgba(200, 255, 0, 0.85)" stroke="#0F0E0E" strokeWidth="0.5" />
+        {/* Right face */}
+        <polygon points="14,0 0,8 0,22 14,14" fill="url(#brandmark-blue-gradient)" stroke="#0F0E0E" strokeWidth="0.5" />
+      </g>
+
+      {/* Cube 3: Middle-left */}
+      <g transform="translate(36, 30)">
+        {/* Top face */}
+        <polygon points="0,-8 14,0 0,8 -14,0" fill="url(#brandmark-blue-gradient)" stroke="#0F0E0E" strokeWidth="0.5" />
+        {/* Left face */}
+        <polygon points="-14,0 0,8 0,22 -14,14" fill="rgba(200, 255, 0, 0.85)" stroke="#0F0E0E" strokeWidth="0.5" />
+        {/* Right face */}
+        <polygon points="14,0 0,8 0,22 14,14" fill="url(#brandmark-blue-gradient)" stroke="#0F0E0E" strokeWidth="0.5" />
+      </g>
+
+      {/* Cube 4: Bottom-right (lowest) */}
+      <g transform="translate(50, 45)">
+        {/* Top face */}
+        <polygon points="0,-8 14,0 0,8 -14,0" fill="url(#brandmark-blue-gradient)" stroke="#0F0E0E" strokeWidth="0.5" />
+        {/* Left face */}
+        <polygon points="-14,0 0,8 0,22 -14,14" fill="rgba(200, 255, 0, 0.85)" stroke="#0F0E0E" strokeWidth="0.5" />
+        {/* Right face */}
+        <polygon points="14,0 0,8 0,22 14,14" fill="url(#brandmark-blue-gradient)" stroke="#0F0E0E" strokeWidth="0.5" />
+      </g>
+    </svg>
+  )
+}
+
+/**
+ * 3D CSS rotating version of the brandmark
+ * Use this for hero sections and places where animation adds value
+ */
 export function Brandmark3D({ size = 40, className = '', autoRotate = true }: Brandmark3DProps) {
   const shapeRef = useRef<HTMLDivElement>(null)
   const rotationRef = useRef({ x: -30, y: -45 })
