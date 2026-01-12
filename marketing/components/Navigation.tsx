@@ -33,7 +33,7 @@ export function Navigation({ marqueeText, aboutSnippet }: NavigationProps = {}) 
 
   return (
     <>
-      <div className="fixed top-2.5 left-2.5 right-2.5 z-40">
+      <div className="fixed top-2.5 left-1 right-1 z-40">
         <nav className="flex items-stretch justify-between gap-2.5 relative z-50 p-2 bg-bg-dark rounded-lg">
           {/* Nav Menu Button - Mobile only: opens overlay */}
           <button

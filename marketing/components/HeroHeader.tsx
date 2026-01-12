@@ -151,7 +151,7 @@ export function HeroHeader({
                   <span className="callout">FELIXSTOWE</span>
                   <span className="callout">2026</span>
                   {subtitle && (
-                    <span className="callout-underline hidden md:inline-flex">{subtitle.toUpperCase()}</span>
+                    <span className="callout-underline">{subtitle.toUpperCase()}</span>
                   )}
                 </div>
               </div>

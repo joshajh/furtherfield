@@ -2,67 +2,10 @@
 
 import { useEffect, useRef } from 'react'
 
-type BrandmarkProps = {
+type Brandmark3DProps = {
   size?: number
   className?: string
-}
-
-type Brandmark3DProps = BrandmarkProps & {
   autoRotate?: boolean
-}
-
-/**
- * Static SVG version of the brandmark - lightweight, no animation
- * Use this for navbars, footers, and places where you don't need rotation
- * Matches the Brandmark3D appearance at its default static angle
- */
-export function BrandmarkSVG({ size = 40, className = '' }: BrandmarkProps) {
-  return (
-    <svg
-      width={size * 2.5}
-      height={size * 2.5}
-      viewBox="0 0 100 100"
-      className={className}
-      aria-label="Furtherfield brandmark"
-    >
-      <defs>
-        <linearGradient id="brandmark-blue-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#BCE5F3" />
-          <stop offset="100%" stopColor="#D0D6FD" />
-        </linearGradient>
-      </defs>
-
-      {/* 4 cubes in diagonal staircase pattern - matches Brandmark3D at rotateX(-30deg) rotateY(-45deg) */}
-
-      {/* Cube 1: Top-back-left (highest) */}
-      <g transform="translate(35, 20)">
-        <polygon points="0,0 12,7 0,14 -12,7" fill="url(#brandmark-blue-gradient)" stroke="#0F0E0E" strokeWidth="0.5" />
-        <polygon points="-12,7 0,14 0,28 -12,21" fill="rgba(200, 255, 0, 0.85)" stroke="#0F0E0E" strokeWidth="0.5" />
-        <polygon points="12,7 0,14 0,28 12,21" fill="url(#brandmark-blue-gradient)" stroke="#0F0E0E" strokeWidth="0.5" />
-      </g>
-
-      {/* Cube 2: Middle-back-right */}
-      <g transform="translate(59, 34)">
-        <polygon points="0,0 12,7 0,14 -12,7" fill="url(#brandmark-blue-gradient)" stroke="#0F0E0E" strokeWidth="0.5" />
-        <polygon points="-12,7 0,14 0,28 -12,21" fill="rgba(200, 255, 0, 0.85)" stroke="#0F0E0E" strokeWidth="0.5" />
-        <polygon points="12,7 0,14 0,28 12,21" fill="url(#brandmark-blue-gradient)" stroke="#0F0E0E" strokeWidth="0.5" />
-      </g>
-
-      {/* Cube 3: Middle-front-left */}
-      <g transform="translate(35, 48)">
-        <polygon points="0,0 12,7 0,14 -12,7" fill="url(#brandmark-blue-gradient)" stroke="#0F0E0E" strokeWidth="0.5" />
-        <polygon points="-12,7 0,14 0,28 -12,21" fill="rgba(200, 255, 0, 0.85)" stroke="#0F0E0E" strokeWidth="0.5" />
-        <polygon points="12,7 0,14 0,28 12,21" fill="url(#brandmark-blue-gradient)" stroke="#0F0E0E" strokeWidth="0.5" />
-      </g>
-
-      {/* Cube 4: Bottom-front-right (lowest) */}
-      <g transform="translate(59, 62)">
-        <polygon points="0,0 12,7 0,14 -12,7" fill="url(#brandmark-blue-gradient)" stroke="#0F0E0E" strokeWidth="0.5" />
-        <polygon points="-12,7 0,14 0,28 -12,21" fill="rgba(200, 255, 0, 0.85)" stroke="#0F0E0E" strokeWidth="0.5" />
-        <polygon points="12,7 0,14 0,28 12,21" fill="url(#brandmark-blue-gradient)" stroke="#0F0E0E" strokeWidth="0.5" />
-      </g>
-    </svg>
-  )
 }
 
 /**
