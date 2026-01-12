@@ -203,40 +203,22 @@ html, body {
   }
 }
 
-/* Callout underline style - acid L-shape underline */
+/* Callout underline style - acid underline that works on wrapped text */
 .callout-underline {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  display: inline;
   font-family: var(--font-geist-mono), ui-monospace, monospace;
   font-size: 12px;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.02em;
-  padding: 4px 8px 4px 0;
   color: var(--color-text-dark);
   background: transparent;
-  position: relative;
-}
-
-.callout-underline::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: var(--color-treatment-acid);
-}
-
-.callout-underline::before {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 3px;
-  height: 100%;
-  background: var(--color-treatment-acid);
+  text-decoration: underline;
+  text-decoration-color: rgb(200, 255, 0);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 4px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
 }
 
 @media (min-width: 640px) {
@@ -372,6 +354,12 @@ html, body {
   background-clip: text;
   color: transparent;
   pointer-events: none;
+  animation: fade-in 0.15s ease-out forwards;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @media (min-width: 768px) {
@@ -834,4 +822,32 @@ textarea.admin-input {
   background: transparent;
 }
 
+/* ============================================
+   PROSE CONTENT ISOLATION
+   Ensures rich text content styles don't leak to siblings
+   ============================================ */
+
+/* Reset styles for elements immediately following prose containers */
+.prose + *,
+[class*="prose"] + * {
+  /* Ensure following elements reset to normal */
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  margin-top: 0;
+}
+
+/* Contain prose styles within their container */
+.prose,
+[class*="prose"] {
+  contain: layout style;
+}
+
+/* Ensure lists inside prose don't affect siblings */
+.prose ul,
+.prose ol,
+[class*="prose"] ul,
+[class*="prose"] ol {
+  contain: layout;
+}
 

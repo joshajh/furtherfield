@@ -95,17 +95,18 @@ export function RichTextEditor({
       startNode = startNode.parentNode as Node;
     }
 
-    // Find the immediate block-level parent (but only direct children of editor or nested one level)
+    // Find the closest block-level parent (direct child of editor)
     const blockTags = ["P", "H1", "H2", "H3", "H4", "H5", "H6", "DIV", "BLOCKQUOTE"];
     let blockParent: Node | null = startNode;
 
+    // Walk up to find a block element that's a direct child of the editor
     while (blockParent && blockParent !== editorRef.current) {
-      if (blockParent.nodeType === Node.ELEMENT_NODE && blockTags.includes((blockParent as HTMLElement).tagName)) {
-        // Found a block element - only use it if it's a direct child of the editor
-        // or if the selection is fully within this block
-        if (blockParent.parentNode === editorRef.current) {
-          break;
-        }
+      if (
+        blockParent.nodeType === Node.ELEMENT_NODE &&
+        blockTags.includes((blockParent as HTMLElement).tagName) &&
+        blockParent.parentNode === editorRef.current
+      ) {
+        break;
       }
       blockParent = blockParent.parentNode;
     }
@@ -114,15 +115,27 @@ export function RichTextEditor({
     if (blockParent && blockParent !== editorRef.current && blockParent.parentNode === editorRef.current) {
       const oldBlock = blockParent as HTMLElement;
 
-      // If it's already the target tag, do nothing (toggle off could be added later)
+      // If it's already the target tag, convert to paragraph
       if (oldBlock.tagName.toLowerCase() === tagName.toLowerCase()) {
+        if (tagName.toLowerCase() !== "p") {
+          const newBlock = document.createElement("p");
+          newBlock.innerHTML = oldBlock.innerHTML || "<br>";
+          oldBlock.parentNode?.replaceChild(newBlock, oldBlock);
+
+          const newRange = document.createRange();
+          newRange.selectNodeContents(newBlock);
+          newRange.collapse(false);
+          selection.removeAllRanges();
+          selection.addRange(newRange);
+        }
+        syncContent();
         editorRef.current?.focus();
         return;
       }
 
       // Replace the block element with the new tag type
       const newBlock = document.createElement(tagName);
-      newBlock.innerHTML = oldBlock.innerHTML;
+      newBlock.innerHTML = oldBlock.innerHTML || "<br>";
       oldBlock.parentNode?.replaceChild(newBlock, oldBlock);
 
       // Set cursor inside new block
@@ -132,26 +145,41 @@ export function RichTextEditor({
       selection.removeAllRanges();
       selection.addRange(newRange);
     } else {
-      // No block parent found - wrap the current line/selection in a new block
-      // First, try to get the text content around the cursor on the current "line"
-      const content = range.extractContents();
-      const newBlock = document.createElement(tagName);
+      // No block parent found - we're likely in raw text directly in the editor
+      // or the editor is empty. Wrap the current selection/line in a new block.
 
-      // If content is empty, add a br to keep the block visible
-      if (!content.textContent?.trim()) {
+      // If editor is empty or only has a BR, create the block element directly
+      if (!editorRef.current?.textContent?.trim()) {
+        editorRef.current!.innerHTML = "";
+        const newBlock = document.createElement(tagName);
         newBlock.innerHTML = "<br>";
+        editorRef.current!.appendChild(newBlock);
+
+        const newRange = document.createRange();
+        newRange.setStart(newBlock, 0);
+        newRange.collapse(true);
+        selection.removeAllRanges();
+        selection.addRange(newRange);
       } else {
-        newBlock.appendChild(content);
+        // There's content but it's not in a block - wrap it
+        const content = range.extractContents();
+        const newBlock = document.createElement(tagName);
+
+        if (!content.textContent?.trim()) {
+          newBlock.innerHTML = "<br>";
+        } else {
+          newBlock.appendChild(content);
+        }
+
+        range.insertNode(newBlock);
+
+        // Set cursor inside new block
+        const newRange = document.createRange();
+        newRange.selectNodeContents(newBlock);
+        newRange.collapse(false);
+        selection.removeAllRanges();
+        selection.addRange(newRange);
       }
-
-      range.insertNode(newBlock);
-
-      // Set cursor inside new block
-      const newRange = document.createRange();
-      newRange.selectNodeContents(newBlock);
-      newRange.collapse(false);
-      selection.removeAllRanges();
-      selection.addRange(newRange);
     }
 
     syncContent();
@@ -200,6 +228,43 @@ export function RichTextEditor({
       currentNode = currentNode.parentNode;
     }
 
+    // Check if cursor is inside a block element (p, h2, h3, etc.) - convert that block to a list item
+    let blockParent: Node | null = range.startContainer;
+    if (blockParent.nodeType === Node.TEXT_NODE) {
+      blockParent = blockParent.parentNode;
+    }
+
+    const blockTags = ["P", "H1", "H2", "H3", "H4", "H5", "H6", "DIV"];
+    while (blockParent && blockParent !== editorRef.current) {
+      if (
+        blockParent.nodeType === Node.ELEMENT_NODE &&
+        blockTags.includes((blockParent as HTMLElement).tagName) &&
+        blockParent.parentNode === editorRef.current
+      ) {
+        // Found a block element - convert it to a list
+        const oldBlock = blockParent as HTMLElement;
+        const listTag = ordered ? "ol" : "ul";
+        const list = document.createElement(listTag);
+        const li = document.createElement("li");
+        li.innerHTML = oldBlock.innerHTML || "<br>";
+        list.appendChild(li);
+        oldBlock.parentNode?.replaceChild(list, oldBlock);
+
+        // Set cursor inside the list item
+        const newRange = document.createRange();
+        newRange.selectNodeContents(li);
+        newRange.collapse(false);
+        selection.removeAllRanges();
+        selection.addRange(newRange);
+
+        syncContent();
+        editorRef.current?.focus();
+        return;
+      }
+      blockParent = blockParent.parentNode;
+    }
+
+    // No block parent - create a new list
     const listTag = ordered ? "ol" : "ul";
     const list = document.createElement(listTag);
 
