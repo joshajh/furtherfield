@@ -2,110 +2,297 @@
   "$schema": "https://design-tokens.github.io/community-group/format/",
   "meta": {
     "name": "Furtherfield Design Tokens - Colors",
-    "version": "5.0.0",
-    "description": "Flattened color system - 1:1 with CSS variables"
+    "version": "6.0.0",
+    "description": "Complete color system with 6 gradient palettes"
   },
   "colors": {
-    "bg-dark": {
-      "value": "#0F0E0E",
-      "type": "color",
-      "description": "Primary dark background, also used for dark text"
+    "core": {
+      "bg-dark": {
+        "value": "#0F0E0E",
+        "type": "color",
+        "description": "Primary dark background, dark text"
+      },
+      "bg-light": {
+        "value": "#F5F5F5",
+        "type": "color",
+        "description": "Light backgrounds"
+      },
+      "bg-white": {
+        "value": "#FFFFFF",
+        "type": "color",
+        "description": "Pure white"
+      },
+      "text-light": {
+        "value": "#F6F8FB",
+        "type": "color",
+        "description": "Light text on dark backgrounds"
+      },
+      "text-dark": {
+        "value": "#0F0E0E",
+        "type": "color",
+        "description": "Dark text on light backgrounds"
+      },
+      "divider": {
+        "value": "#555659",
+        "type": "color",
+        "description": "Divider lines, borders, muted text"
+      }
     },
-    "text-light": {
-      "value": "#F6F8FB",
-      "type": "color",
-      "description": "Light text on dark backgrounds"
+    "treatment": {
+      "acid": {
+        "value": "#C8FF00",
+        "rgba": "rgba(200, 255, 0, 0.85)",
+        "type": "color",
+        "description": "Primary accent - callouts, highlights"
+      },
+      "lemon": {
+        "value": "#F5EBB4",
+        "rgba": "rgba(245, 235, 180, 0.85)",
+        "type": "color",
+        "description": "Warm highlights, hover states"
+      },
+      "lavender": {
+        "value": "#DCC8DC",
+        "rgba": "rgba(220, 200, 220, 0.85)",
+        "type": "color",
+        "description": "Soft accents, tag backgrounds"
+      },
+      "dark-overlay": {
+        "value": "#8CA0B4",
+        "rgba": "rgba(140, 160, 180, 0.7)",
+        "type": "color",
+        "description": "Cool image overlay"
+      },
+      "light-overlay": {
+        "value": "#DCC8D2",
+        "rgba": "rgba(220, 200, 210, 0.6)",
+        "type": "color",
+        "description": "Warm image overlay"
+      }
     },
-    "text-dark": {
-      "value": "#0F0E0E",
-      "type": "color",
-      "description": "Dark text on light backgrounds (same as bg-dark)"
+    "content-type": {
+      "event": {
+        "value": "#DC2626",
+        "type": "color",
+        "description": "Event content type"
+      },
+      "artwork": {
+        "value": "#7C3AED",
+        "type": "color",
+        "description": "Artwork content type"
+      },
+      "exhibition": {
+        "value": "#059669",
+        "type": "color",
+        "description": "Exhibition content type"
+      },
+      "project": {
+        "value": "#E8B339",
+        "type": "color",
+        "description": "Project content type"
+      },
+      "article": {
+        "value": "#3A7CA5",
+        "type": "color",
+        "description": "Article content type"
+      },
+      "archive": {
+        "value": "#4B5563",
+        "type": "color",
+        "description": "Archive content type"
+      }
+    }
+  },
+  "palettes": {
+    "A-coastal-dawn": {
+      "name": "Coastal Dawn",
+      "description": "Core brand palette - soft pastels",
+      "colors": {
+        "sky": { "value": "#BCE5F3", "type": "color" },
+        "lavender": { "value": "#D0D6FD", "type": "color" },
+        "pale-lavender": { "value": "#E8E0F0", "type": "color" },
+        "mauve": { "value": "#BEA6B0", "type": "color" },
+        "cream": { "value": "#FFFCB9", "type": "color" },
+        "lemon": { "value": "#F5EBB4", "type": "color" },
+        "warm-lemon": { "value": "#E8DCA0", "type": "color" },
+        "soft-lavender": { "value": "#DCC8DC", "type": "color" }
+      }
     },
-    "divider": {
-      "value": "#555659",
-      "type": "color",
-      "description": "Divider lines, borders, muted text"
+    "B-acid-core": {
+      "name": "Acid Core",
+      "description": "Primary accent palette - acid yellows",
+      "colors": {
+        "acid": { "value": "#C8FF00", "type": "color" },
+        "acid-light": { "value": "#B4FF66", "type": "color" },
+        "mint": { "value": "#A0FFAA", "type": "color" },
+        "cream": { "value": "#FFFCB9", "type": "color" },
+        "lime": { "value": "#E6FF66", "type": "color" },
+        "aqua-mint": { "value": "#88FFCC", "type": "color" }
+      }
     },
-    "gradient-start": {
-      "value": "#BCE5F3",
-      "type": "color",
-      "description": "Brand gradient start - sky blue"
+    "C-weathered-shore": {
+      "name": "Weathered Shore",
+      "description": "Muted organic palette - earthy tones",
+      "colors": {
+        "tan": { "value": "#D2B48C", "type": "color" },
+        "sand": { "value": "#B49664", "type": "color" },
+        "driftwood": { "value": "#8B7355", "type": "color" },
+        "steel": { "value": "#8CA0B4", "type": "color" },
+        "mist": { "value": "#A0B0C0", "type": "color" },
+        "fog": { "value": "#C0D0E0", "type": "color" },
+        "rose-dust": { "value": "#DCC8D2", "type": "color" },
+        "mauve-stone": { "value": "#C8B8C0", "type": "color" },
+        "lichen": { "value": "#B0A0A8", "type": "color" }
+      }
     },
-    "gradient-end": {
-      "value": "#D0D6FD",
-      "type": "color",
-      "description": "Brand gradient end - lavender"
+    "D-electric-cyan": {
+      "name": "Electric Cyan",
+      "description": "High energy palette - vibrant cyans",
+      "colors": {
+        "cyan": { "value": "#00FFFF", "type": "color" },
+        "electric-blue": { "value": "#00D4FF", "type": "color" },
+        "deep-blue": { "value": "#00A8FF", "type": "color" },
+        "spring-green": { "value": "#66FF99", "type": "color" },
+        "violet": { "value": "#7C6EE6", "type": "color" }
+      }
     },
-    "treatment-dark": {
-      "value": "rgba(140, 160, 180, 0.7)",
-      "type": "color",
-      "description": "Dark image treatment overlay"
+    "E-neon-magenta": {
+      "name": "Neon Magenta",
+      "description": "Bold statement palette - hot pinks",
+      "colors": {
+        "magenta": { "value": "#FF00FF", "type": "color" },
+        "hot-pink": { "value": "#FF66B2", "type": "color" },
+        "pink": { "value": "#FF99CC", "type": "color" },
+        "fuchsia": { "value": "#FF66FF", "type": "color" },
+        "coral": { "value": "#FF6B6B", "type": "color" },
+        "purple": { "value": "#A855F7", "type": "color" }
+      }
     },
-    "treatment-light": {
-      "value": "rgba(220, 200, 210, 0.6)",
-      "type": "color",
-      "description": "Light image treatment overlay"
-    },
-    "treatment-lemon": {
-      "value": "rgba(245, 235, 180, 0.85)",
-      "type": "color",
-      "description": "Lemon/cream treatment - hover states, highlights"
-    },
-    "treatment-acid": {
-      "value": "rgba(200, 255, 0, 0.85)",
-      "type": "color",
-      "description": "Acid yellow - callouts, active states, primary accent"
-    },
-    "treatment-lavender": {
-      "value": "rgba(220, 200, 220, 0.85)",
-      "type": "color",
-      "description": "Lavender overlay for soft accents"
+    "F-solarpunk": {
+      "name": "Solarpunk",
+      "description": "Futuristic organic palette - full spectrum",
+      "colors": {
+        "acid": { "value": "#C8FF00", "type": "color" },
+        "spring": { "value": "#00FFA3", "type": "color" },
+        "cyan": { "value": "#00D4FF", "type": "color" },
+        "purple": { "value": "#A855F7", "type": "color" },
+        "violet": { "value": "#7C6EE6", "type": "color" }
+      }
     }
   },
   "gradients": {
     "brand": {
       "value": "linear-gradient(to bottom, #BCE5F3, #D0D6FD)",
       "type": "gradient",
-      "description": "Primary brand gradient with noise overlay"
+      "description": "Primary brand gradient"
     },
-    "lemon": {
-      "value": "linear-gradient(135deg, rgba(245, 235, 180, 0.9) 0%, rgba(220, 200, 140, 0.85) 100%)",
+    "A1-sky-lavender": {
+      "value": "linear-gradient(135deg, #BCE5F3 0%, #D0D6FD 50%, #E8E0F0 100%)",
       "type": "gradient",
-      "description": "Lemon gradient for hover effects"
-    }
-  },
-  "css": {
-    "variables": {
-      "--color-bg-dark": "#0F0E0E",
-      "--color-text-light": "#F6F8FB",
-      "--color-text-dark": "#0F0E0E",
-      "--color-divider": "#555659",
-      "--color-gradient-start": "#BCE5F3",
-      "--color-gradient-end": "#D0D6FD",
-      "--color-treatment-dark": "rgba(140, 160, 180, 0.7)",
-      "--color-treatment-light": "rgba(220, 200, 210, 0.6)",
-      "--color-treatment-lemon": "rgba(245, 235, 180, 0.85)",
-      "--color-treatment-acid": "rgba(200, 255, 0, 0.85)",
-      "--color-treatment-lavender": "rgba(220, 200, 220, 0.85)",
-      "--gradient-brand": "linear-gradient(to bottom, #BCE5F3, #D0D6FD)",
-      "--gradient-lemon": "linear-gradient(135deg, rgba(245, 235, 180, 0.9) 0%, rgba(220, 200, 140, 0.85) 100%)"
-    }
-  },
-  "tailwind": {
-    "extend": {
-      "colors": {
-        "bg-dark": "#0F0E0E",
-        "text-light": "#F6F8FB",
-        "text-dark": "#0F0E0E",
-        "divider": "#555659",
-        "gradient-start": "#BCE5F3",
-        "gradient-end": "#D0D6FD",
-        "treatment-dark": "rgba(140, 160, 180, 0.7)",
-        "treatment-light": "rgba(220, 200, 210, 0.6)",
-        "treatment-lemon": "rgba(245, 235, 180, 0.85)",
-        "treatment-acid": "rgba(200, 255, 0, 0.85)",
-        "treatment-lavender": "rgba(220, 200, 220, 0.85)"
-      }
+      "palette": "A",
+      "description": "Sky to Lavender"
+    },
+    "A2-mauve-horizon": {
+      "value": "linear-gradient(135deg, #D0D6FD 0%, #BEA6B0 50%, #FFFCB9 100%)",
+      "type": "gradient",
+      "palette": "A",
+      "description": "Mauve Horizon"
+    },
+    "A3-lemon-cream": {
+      "value": "linear-gradient(135deg, #F5EBB4 0%, #E8DCA0 50%, #DCC8DC 100%)",
+      "type": "gradient",
+      "palette": "A",
+      "description": "Lemon Cream"
+    },
+    "B1-acid-mint": {
+      "value": "linear-gradient(135deg, #C8FF00 0%, #B4FF66 50%, #A0FFAA 100%)",
+      "type": "gradient",
+      "palette": "B",
+      "description": "Acid to Mint"
+    },
+    "B2-lemon-acid": {
+      "value": "linear-gradient(135deg, #FFFCB9 0%, #E6FF66 50%, #C8FF00 100%)",
+      "type": "gradient",
+      "palette": "B",
+      "description": "Lemon to Acid"
+    },
+    "B3-acid-sky": {
+      "value": "linear-gradient(135deg, #C8FF00 0%, #88FFCC 50%, #BCE5F3 100%)",
+      "type": "gradient",
+      "palette": "B",
+      "description": "Acid to Sky"
+    },
+    "C1-driftwood": {
+      "value": "linear-gradient(135deg, #D2B48C 0%, #B49664 50%, #8B7355 100%)",
+      "type": "gradient",
+      "palette": "C",
+      "description": "Driftwood"
+    },
+    "C2-sea-mist": {
+      "value": "linear-gradient(135deg, #8CA0B4 0%, #A0B0C0 50%, #C0D0E0 100%)",
+      "type": "gradient",
+      "palette": "C",
+      "description": "Sea Mist"
+    },
+    "C3-lichen-stone": {
+      "value": "linear-gradient(135deg, #DCC8D2 0%, #C8B8C0 50%, #B0A0A8 100%)",
+      "type": "gradient",
+      "palette": "C",
+      "description": "Lichen Stone"
+    },
+    "D1-cyan-flash": {
+      "value": "linear-gradient(135deg, #00FFFF 0%, #00D4FF 50%, #00A8FF 100%)",
+      "type": "gradient",
+      "palette": "D",
+      "description": "Cyan Flash"
+    },
+    "D2-cyan-acid": {
+      "value": "linear-gradient(135deg, #00FFFF 0%, #66FF99 50%, #C8FF00 100%)",
+      "type": "gradient",
+      "palette": "D",
+      "description": "Cyan to Acid"
+    },
+    "D3-electric-twilight": {
+      "value": "linear-gradient(135deg, #00D4FF 0%, #7C6EE6 50%, #D0D6FD 100%)",
+      "type": "gradient",
+      "palette": "D",
+      "description": "Electric Twilight"
+    },
+    "E1-hot-pink": {
+      "value": "linear-gradient(135deg, #FF00FF 0%, #FF66B2 50%, #FF99CC 100%)",
+      "type": "gradient",
+      "palette": "E",
+      "description": "Hot Pink Burst"
+    },
+    "E2-magenta-acid": {
+      "value": "linear-gradient(135deg, #FF00FF 0%, #FF66FF 50%, #C8FF00 100%)",
+      "type": "gradient",
+      "palette": "E",
+      "description": "Magenta to Acid"
+    },
+    "E3-sunset-neon": {
+      "value": "linear-gradient(135deg, #FF6B6B 0%, #FF00FF 50%, #A855F7 100%)",
+      "type": "gradient",
+      "palette": "E",
+      "description": "Sunset Neon"
+    },
+    "F1-solarpunk": {
+      "value": "linear-gradient(135deg, #C8FF00 0%, #00FFA3 40%, #00D4FF 70%, #A855F7 100%)",
+      "type": "gradient",
+      "palette": "F",
+      "description": "Full Solarpunk"
+    },
+    "F2-green-purple": {
+      "value": "linear-gradient(135deg, #00FFA3 0%, #00D4FF 50%, #A855F7 100%)",
+      "type": "gradient",
+      "palette": "F",
+      "description": "Green to Purple"
+    },
+    "F3-acid-purple": {
+      "value": "linear-gradient(135deg, #C8FF00 0%, #7C6EE6 50%, #A855F7 100%)",
+      "type": "gradient",
+      "palette": "F",
+      "description": "Acid to Purple"
     }
   }
 }

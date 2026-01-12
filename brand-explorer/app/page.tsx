@@ -7,13 +7,21 @@ import { Brandmark3D } from "../components/Brandmark3D";
 type ColorToken = {
   value: string;
   type: string;
+  rgba?: string;
   description?: string;
 };
 
 type GradientToken = {
   value: string;
   type: string;
+  palette?: string;
   description?: string;
+};
+
+type PaletteToken = {
+  name: string;
+  description: string;
+  colors: Record<string, { value: string; type: string }>;
 };
 
 function ColorSwatch({ name, color }: { name: string; color: ColorToken }) {
@@ -26,6 +34,9 @@ function ColorSwatch({ name, color }: { name: string; color: ColorToken }) {
       <div className="min-w-0">
         <div className="font-mono text-sm text-treatment-acid">{name}</div>
         <div className="font-mono text-xs text-text-light/60 truncate">{color.value}</div>
+        {color.rgba && (
+          <div className="font-mono text-xs text-text-light/40 truncate">{color.rgba}</div>
+        )}
         {color.description && (
           <div className="text-xs text-text-light/40 mt-0.5">{color.description}</div>
         )}
@@ -34,25 +45,72 @@ function ColorSwatch({ name, color }: { name: string; color: ColorToken }) {
   );
 }
 
+function PaletteColorSwatch({ name, value }: { name: string; value: string }) {
+  return (
+    <div className="flex flex-col items-center gap-1">
+      <div
+        className="w-10 h-10 rounded border border-white/20"
+        style={{ backgroundColor: value }}
+      />
+      <div className="font-mono text-[10px] text-text-light/60 text-center">{name}</div>
+      <div className="font-mono text-[9px] text-text-light/40">{value}</div>
+    </div>
+  );
+}
+
 function GradientSwatch({ name, gradient }: { name: string; gradient: GradientToken }) {
   return (
     <div className="rounded-lg overflow-hidden">
       <div
-        className="h-20 w-full"
+        className="h-16 w-full"
         style={{ background: gradient.value }}
       />
-      <div className="p-3 bg-white/5">
-        <div className="font-mono text-sm text-treatment-acid">{name}</div>
+      <div className="p-2 bg-white/5">
+        <div className="font-mono text-xs text-treatment-acid">{name}</div>
         {gradient.description && (
-          <div className="text-xs text-text-light/40 mt-0.5">{gradient.description}</div>
+          <div className="text-xs text-text-light/40">{gradient.description}</div>
         )}
       </div>
     </div>
   );
 }
 
+function PaletteSection({ id, palette }: { id: string; palette: PaletteToken }) {
+  const paletteGradients = Object.entries(colors.gradients as Record<string, GradientToken>)
+    .filter(([, g]) => g.palette === id.charAt(0));
+
+  return (
+    <div className="bg-white/5 rounded-lg p-4 mb-4">
+      <div className="flex items-baseline gap-3 mb-2">
+        <h4 className="font-mono text-sm text-treatment-acid">{id}</h4>
+        <span className="text-text-light/80 font-semibold">{palette.name}</span>
+      </div>
+      <p className="text-xs text-text-light/50 mb-4">{palette.description}</p>
+
+      {/* Palette colors */}
+      <div className="flex flex-wrap gap-3 mb-4">
+        {Object.entries(palette.colors).map(([name, color]) => (
+          <PaletteColorSwatch key={name} name={name} value={color.value} />
+        ))}
+      </div>
+
+      {/* Palette gradients */}
+      {paletteGradients.length > 0 && (
+        <div className="grid grid-cols-3 gap-2">
+          {paletteGradients.map(([name, gradient]) => (
+            <GradientSwatch key={name} name={name} gradient={gradient} />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function BrandExplorer() {
-  const colorTokens = colors.colors as Record<string, ColorToken>;
+  const coreColors = colors.colors.core as Record<string, ColorToken>;
+  const treatmentColors = colors.colors.treatment as Record<string, ColorToken>;
+  const contentTypeColors = colors.colors["content-type"] as Record<string, ColorToken>;
+  const palettes = colors.palettes as Record<string, PaletteToken>;
   const gradientTokens = colors.gradients as Record<string, GradientToken>;
 
   return (
@@ -65,23 +123,59 @@ export default function BrandExplorer() {
         </div>
       </header>
 
-      {/* Colors Section */}
+      {/* Core Colors Section */}
       <section className="mb-12">
-        <h2 className="text-xl font-bold mb-6 pb-2 border-b border-white/20">Colors</h2>
+        <h2 className="text-xl font-bold mb-6 pb-2 border-b border-white/20">Core Colors</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-          {Object.entries(colorTokens).map(([name, color]) => (
+          {Object.entries(coreColors).map(([name, color]) => (
             <ColorSwatch key={name} name={name} color={color} />
           ))}
         </div>
       </section>
 
-      {/* Gradients Section */}
+      {/* Treatment Colors Section */}
       <section className="mb-12">
-        <h2 className="text-xl font-bold mb-6 pb-2 border-b border-white/20">Gradients</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {Object.entries(gradientTokens).map(([name, gradient]) => (
-            <GradientSwatch key={name} name={name} gradient={gradient} />
+        <h2 className="text-xl font-bold mb-6 pb-2 border-b border-white/20">Treatment Colors</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+          {Object.entries(treatmentColors).map(([name, color]) => (
+            <ColorSwatch key={name} name={name} color={color} />
           ))}
+        </div>
+      </section>
+
+      {/* Content Type Colors Section */}
+      <section className="mb-12">
+        <h2 className="text-xl font-bold mb-6 pb-2 border-b border-white/20">Content Type Colors</h2>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+          {Object.entries(contentTypeColors).map(([name, color]) => (
+            <div key={name} className="text-center">
+              <div
+                className="w-full aspect-square rounded-lg border border-white/20 mb-2"
+                style={{ backgroundColor: color.value }}
+              />
+              <div className="font-mono text-xs text-treatment-acid">{name}</div>
+              <div className="font-mono text-[10px] text-text-light/40">{color.value}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Gradient Palettes Section */}
+      <section className="mb-12">
+        <h2 className="text-xl font-bold mb-6 pb-2 border-b border-white/20">Gradient Palettes</h2>
+        <p className="text-text-light/50 text-sm mb-6">Six complementary palette sets for mixing and matching across social assets.</p>
+
+        {Object.entries(palettes).map(([id, palette]) => (
+          <PaletteSection key={id} id={id} palette={palette} />
+        ))}
+      </section>
+
+      {/* Brand Gradient Section */}
+      <section className="mb-12">
+        <h2 className="text-xl font-bold mb-6 pb-2 border-b border-white/20">Brand Gradient</h2>
+        <p className="text-text-light/50 text-sm mb-4">Primary gradient with noise texture overlay</p>
+        <div className="bg-gradient-brand rounded-lg p-8 h-32 flex items-center justify-center">
+          <span className="font-mono text-text-dark">.bg-gradient-brand</span>
         </div>
       </section>
 
@@ -230,7 +324,7 @@ export default function BrandExplorer() {
         <div className="mb-8">
           <h3 className="text-lg font-semibold mb-2 text-text-light/80">Color Treatments</h3>
           <p className="text-text-light/50 text-sm mb-4">Background overlays for images and sections</p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
             <div className="aspect-square rounded-lg bg-treatment-dark flex items-center justify-center">
               <span className="font-mono text-sm text-white">dark</span>
             </div>
@@ -243,15 +337,9 @@ export default function BrandExplorer() {
             <div className="aspect-square rounded-lg bg-treatment-acid flex items-center justify-center">
               <span className="font-mono text-sm text-text-dark">acid</span>
             </div>
-          </div>
-        </div>
-
-        {/* Brand Gradient */}
-        <div className="mb-8">
-          <h3 className="text-lg font-semibold mb-2 text-text-light/80">Brand Gradient</h3>
-          <p className="text-text-light/50 text-sm mb-4">Primary gradient with noise texture</p>
-          <div className="bg-gradient-brand rounded-lg p-8 h-32 flex items-center justify-center">
-            <span className="font-mono text-text-dark">.bg-gradient-brand</span>
+            <div className="aspect-square rounded-lg bg-treatment-lavender flex items-center justify-center">
+              <span className="font-mono text-sm text-text-dark">lavender</span>
+            </div>
           </div>
         </div>
       </section>
