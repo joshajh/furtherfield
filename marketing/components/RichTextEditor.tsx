@@ -146,7 +146,7 @@ export function RichTextEditor({
       selection.addRange(newRange);
     } else {
       // No block parent found - we're likely in raw text directly in the editor
-      // or the editor is empty. Wrap the current selection/line in a new block.
+      // or the editor is empty. Wrap ALL content in proper block elements.
 
       // If editor is empty or only has a BR, create the block element directly
       if (!editorRef.current?.textContent?.trim()) {
@@ -161,24 +161,60 @@ export function RichTextEditor({
         selection.removeAllRanges();
         selection.addRange(newRange);
       } else {
-        // There's content but it's not in a block - wrap it
-        const content = range.extractContents();
-        const newBlock = document.createElement(tagName);
+        // There's content but it's not in proper blocks
+        // Wrap all editor content in proper block elements first
+        const fragment = document.createDocumentFragment();
+        const childNodes = Array.from(editorRef.current!.childNodes);
 
-        if (!content.textContent?.trim()) {
-          newBlock.innerHTML = "<br>";
-        } else {
-          newBlock.appendChild(content);
+        let currentParagraph: HTMLElement | null = null;
+
+        childNodes.forEach((node) => {
+          if (node.nodeType === Node.ELEMENT_NODE) {
+            const el = node as HTMLElement;
+            if (blockTags.includes(el.tagName)) {
+              // Already a block element, add as-is
+              if (currentParagraph) {
+                fragment.appendChild(currentParagraph);
+                currentParagraph = null;
+              }
+              fragment.appendChild(node.cloneNode(true));
+            } else {
+              // Inline element, add to current paragraph
+              if (!currentParagraph) {
+                currentParagraph = document.createElement("p");
+              }
+              currentParagraph.appendChild(node.cloneNode(true));
+            }
+          } else if (node.nodeType === Node.TEXT_NODE && node.textContent?.trim()) {
+            // Text node with content
+            if (!currentParagraph) {
+              currentParagraph = document.createElement("p");
+            }
+            currentParagraph.appendChild(node.cloneNode(true));
+          }
+        });
+
+        if (currentParagraph) {
+          fragment.appendChild(currentParagraph);
         }
 
-        range.insertNode(newBlock);
+        // Replace editor content with properly structured content
+        editorRef.current!.innerHTML = "";
+        editorRef.current!.appendChild(fragment);
 
-        // Set cursor inside new block
-        const newRange = document.createRange();
-        newRange.selectNodeContents(newBlock);
-        newRange.collapse(false);
-        selection.removeAllRanges();
-        selection.addRange(newRange);
+        // Now find the first block and convert it to the target tag
+        const firstBlock = editorRef.current!.firstElementChild;
+        if (firstBlock && blockTags.includes(firstBlock.tagName)) {
+          const newBlock = document.createElement(tagName);
+          newBlock.innerHTML = firstBlock.innerHTML || "<br>";
+          firstBlock.parentNode?.replaceChild(newBlock, firstBlock);
+
+          const newRange = document.createRange();
+          newRange.selectNodeContents(newBlock);
+          newRange.collapse(false);
+          selection.removeAllRanges();
+          selection.addRange(newRange);
+        }
       }
     }
 
@@ -387,11 +423,75 @@ export function RichTextEditor({
 
       const range = selection.getRangeAt(0);
 
-      // Insert a new paragraph
+      // Find the current block element we're in
+      let currentBlock: Node | null = range.startContainer;
+      if (currentBlock.nodeType === Node.TEXT_NODE) {
+        currentBlock = currentBlock.parentNode;
+      }
+
+      const blockTags = ["P", "H1", "H2", "H3", "H4", "H5", "H6", "DIV", "LI"];
+      while (currentBlock && currentBlock !== editorRef.current) {
+        if (
+          currentBlock.nodeType === Node.ELEMENT_NODE &&
+          blockTags.includes((currentBlock as HTMLElement).tagName)
+        ) {
+          break;
+        }
+        currentBlock = currentBlock.parentNode;
+      }
+
+      // If we're in a list item, let default behavior handle it (or handle specially)
+      if (currentBlock && (currentBlock as HTMLElement).tagName === "LI") {
+        // For list items, create a new list item
+        const li = document.createElement("li");
+        li.innerHTML = "<br>";
+
+        // Insert after current list item
+        const parentList = currentBlock.parentNode;
+        if (parentList && currentBlock.nextSibling) {
+          parentList.insertBefore(li, currentBlock.nextSibling);
+        } else if (parentList) {
+          parentList.appendChild(li);
+        }
+
+        // Move cursor to new list item
+        const newRange = document.createRange();
+        newRange.setStart(li, 0);
+        newRange.collapse(true);
+        selection.removeAllRanges();
+        selection.addRange(newRange);
+
+        syncContent();
+        return;
+      }
+
+      // Create a new paragraph
       const p = document.createElement("p");
       p.innerHTML = "<br>";
-      range.deleteContents();
-      range.insertNode(p);
+
+      // If we found a block element, insert the new paragraph AFTER it
+      if (currentBlock && currentBlock !== editorRef.current && currentBlock.parentNode === editorRef.current) {
+        // Insert new paragraph after the current block
+        if (currentBlock.nextSibling) {
+          editorRef.current!.insertBefore(p, currentBlock.nextSibling);
+        } else {
+          editorRef.current!.appendChild(p);
+        }
+      } else if (currentBlock && currentBlock !== editorRef.current) {
+        // We're in a nested block - find the top-level block
+        let topBlock = currentBlock;
+        while (topBlock.parentNode && topBlock.parentNode !== editorRef.current) {
+          topBlock = topBlock.parentNode;
+        }
+        if (topBlock.nextSibling) {
+          editorRef.current!.insertBefore(p, topBlock.nextSibling);
+        } else {
+          editorRef.current!.appendChild(p);
+        }
+      } else {
+        // No block found, just append
+        editorRef.current!.appendChild(p);
+      }
 
       // Move cursor into the new paragraph
       const newRange = document.createRange();
