@@ -84,7 +84,10 @@ export function Navigation({ marqueeText, aboutSnippet }: NavigationProps = {}) 
                   {/* Nav Links */}
                   <div className="flex items-center gap-2 px-4 shrink-0">
                     <Link href="/events" className="tag">
-                      What&apos;s On
+                      <span className="underline decoration-treatment-acid decoration-2 underline-offset-2">Book Now</span>
+                    </Link>
+                    <Link href="/programme" className="tag">
+                      Programme
                     </Link>
                     <Link href="/people" className="tag">
                       People
@@ -164,7 +167,14 @@ export function Navigation({ marqueeText, aboutSnippet }: NavigationProps = {}) 
                   onClick={closeMobileMenu}
                   className="font-display text-4xl sm:text-5xl text-text-light hover:text-treatment-lemon transition-colors py-2"
                 >
-                  What&apos;s On
+                  <span className="underline decoration-treatment-acid decoration-2 underline-offset-4">Book Now</span>
+                </Link>
+                <Link
+                  href="/programme"
+                  onClick={closeMobileMenu}
+                  className="font-display text-4xl sm:text-5xl text-text-light hover:text-treatment-lemon transition-colors py-2"
+                >
+                  Programme
                 </Link>
                 <Link
                   href="/people"

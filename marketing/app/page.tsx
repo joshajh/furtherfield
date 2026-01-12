@@ -4,7 +4,6 @@ import {
   HeroHeader,
   EventGrid,
   ProgrammeTable,
-  CTASection,
   Button,
   AnimatedSprites,
   LichenContainer,
@@ -65,12 +64,9 @@ export default async function Home() {
         </LichenContainer>
 
         <LichenContainer seed={400} density="normal" edges={['top', 'bottom', 'left', 'right']} className="mx-2.5">
-          <CTASection
-            title={settings?.ctaText || "Book or other CTA"}
-            subtitle={settings?.tagline || "Supporting two-liner"}
-            buttonText={settings?.ctaText || "CTA"}
-            buttonHref={settings?.ctaUrl || "#"}
-          />
+          <Button variant="large" href="/events">
+            Book Now
+          </Button>
         </LichenContainer>
 
       </main>

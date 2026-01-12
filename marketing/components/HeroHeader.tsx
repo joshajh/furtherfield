@@ -150,10 +150,12 @@ export function HeroHeader({
                 <div className="relative z-40 mt-4 flex flex-wrap gap-2 justify-center md:justify-start items-center">
                   <span className="callout">FELIXSTOWE</span>
                   <span className="callout">2026</span>
-                  {subtitle && (
-                    <span className="callout-underline">{subtitle.toUpperCase()}</span>
-                  )}
                 </div>
+                {subtitle && (
+                  <div className="relative z-40 mt-2 text-center md:text-left">
+                    <span className="callout-underline">{subtitle.toUpperCase()}</span>
+                  </div>
+                )}
               </div>
 
               {/* Spacer to center the main content */}

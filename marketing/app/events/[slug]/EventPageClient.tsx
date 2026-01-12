@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useState, useCallback } from "react";
-import { Navigation, Footer, EventGrid, TidalGrid, Brandmark3D, VenueModal, type Event } from "@/components";
+import { Navigation, Footer, EventGrid, TidalGrid, Brandmark3D, VenueModal, CubeDivider, type Event } from "@/components";
 import type { Venue, Person, EventDate } from "@/lib/cms";
 
 type EventData = {
@@ -161,7 +161,7 @@ export default function EventPageClient({
             transition={{ duration: 0.6 }}
             className="max-w-4xl mx-auto text-center"
           >
-            <h1 className="font-display text-text-dark text-[36px] sm:text-[40px] md:text-[80px] lg:text-[100px] leading-[0.95] tracking-tight mb-6">
+            <h1 className="font-display text-text-dark text-[36px] sm:text-[40px] md:text-[80px] lg:text-[100px] leading-[0.95] tracking-tight mb-6 lichen-text-mask-sm" data-text={event.title}>
               {event.title}
             </h1>
             {/* Event metadata */}
@@ -273,7 +273,7 @@ export default function EventPageClient({
               />
             )}
             {event.bookingUrl && (
-              <div className="mt-12">
+              <div className="mt-12 text-center">
                 <a
                   href={event.bookingUrl}
                   target="_blank"
@@ -330,14 +330,17 @@ export default function EventPageClient({
                         person.name
                       )}
                     </h3>
-                    <div className="flex flex-wrap gap-1 mb-2">
+                    <div className="flex flex-wrap items-center gap-1 mb-2">
                       <span className="callout-sm">
                         {PERSON_TYPE_LABELS[person.type] || person.type}
                       </span>
                       {person.role && (
-                        <span className="callout-sm">
-                          {person.role}
-                        </span>
+                        <>
+                          <CubeDivider size={6} className="mx-1" />
+                          <span className="callout-sm">
+                            {person.role}
+                          </span>
+                        </>
                       )}
                     </div>
                     {person.bio && (

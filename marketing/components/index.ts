@@ -17,3 +17,4 @@ export { LichenContainer } from "./LichenContainer";
 export { RotatingCubesIcon } from "./RotatingCubesIcon";
 export { VenueModal } from "./VenueModal";
 export { Brandmark3D } from "./Brandmark3D";
+export { CubeDivider } from "./CubeDivider";

@@ -165,7 +165,7 @@ html, body {
 }
 
 .tag:hover {
-  background: var(--color-treatment-lemon);
+  background: var(--color-treatment-acid);
 }
 
 /* Callout style - non-interactive highlighted information (acid yellow background, monospace) */
@@ -303,14 +303,10 @@ html, body {
 
 /* Typography utilities - using CSS variables from next/font */
 .font-display {
-  font-family: var(--font-rubik), ui-sans-serif, system-ui, sans-serif;
+  font-family: "P22 Mackinac Pro", "P22 Mackinac", Georgia, serif;
 }
 
 .font-serif {
-  font-family: var(--font-rubik), ui-sans-serif, system-ui, sans-serif;
-}
-
-.font-mackinac {
   font-family: "P22 Mackinac Pro", "P22 Mackinac", Georgia, serif;
 }
 
@@ -371,6 +367,40 @@ html, body {
 @media (min-width: 1024px) {
   .lichen-text-mask::after {
     background-position: center calc(100% + 65px);
+  }
+}
+
+/* Lichen text mask - small variant with reduced offset for smaller headings */
+.lichen-text-mask-sm {
+  position: relative;
+  display: inline-block;
+  color: var(--color-text-dark);
+}
+
+.lichen-text-mask-sm::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  background-image: url('/lichen/borders/border-bottom.png');
+  background-size: 100% auto;
+  background-position: center calc(100% + 3px);
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  pointer-events: none;
+  animation: fade-in 0.15s ease-out forwards;
+}
+
+@media (min-width: 768px) {
+  .lichen-text-mask-sm::after {
+    background-position: center calc(100% + 15px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .lichen-text-mask-sm::after {
+    background-position: center calc(100% + 42px);
   }
 }
 
