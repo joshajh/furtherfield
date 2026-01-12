@@ -212,10 +212,194 @@ Light Overlay:      #DCC8D2
 
 ---
 
+## Gradient Palette Sets
+
+Three complementary palette sets for mixing and matching across social assets. Each palette contains three gradients, with each gradient having three color stops. All palettes are designed to work harmoniously together.
+
+---
+
+### Palette A: Coastal Dawn (Core Brand)
+
+The primary brand palette used in the social-generator and website.
+
+#### Gradient A1: Sky to Lavender (Primary Brand)
+| Stop | Position | Hex | RGB |
+|------|----------|-----|-----|
+| 1 | 0% | `#BCE5F3` | 188, 229, 243 |
+| 2 | 50% | `#D0D6FD` | 208, 214, 253 |
+| 3 | 100% | `#E8E0F0` | 232, 224, 240 |
+
+**CSS:** `linear-gradient(135deg, #BCE5F3 0%, #D0D6FD 50%, #E8E0F0 100%)`
+
+#### Gradient A2: Mauve Horizon
+| Stop | Position | Hex | RGB |
+|------|----------|-----|-----|
+| 1 | 0% | `#D0D6FD` | 208, 214, 253 |
+| 2 | 50% | `#BEA6B0` | 190, 166, 176 |
+| 3 | 100% | `#FFFCB9` | 255, 252, 185 |
+
+**CSS:** `linear-gradient(135deg, #D0D6FD 0%, #BEA6B0 50%, #FFFCB9 100%)`
+
+#### Gradient A3: Lemon Cream
+| Stop | Position | Hex | RGB |
+|------|----------|-----|-----|
+| 1 | 0% | `#F5EBB4` | 245, 235, 180 |
+| 2 | 50% | `#DCC896` | 220, 200, 150 |
+| 3 | 100% | `#C8B480` | 200, 180, 128 |
+
+**CSS:** `linear-gradient(135deg, #F5EBB4 0%, #DCC896 50%, #C8B480 100%)`
+
+**Individual Colors (Palette A):**
+```
+#BCE5F3  #D0D6FD  #E8E0F0
+#BEA6B0  #FFFCB9  #F5EBB4
+#DCC896  #C8B480
+```
+
+---
+
+### Palette B: Electric Flora (High Energy)
+
+A vibrant palette for announcements and high-impact content.
+
+#### Gradient B1: Acid Burst
+| Stop | Position | Hex | RGB |
+|------|----------|-----|-----|
+| 1 | 0% | `#C8FF00` | 200, 255, 0 |
+| 2 | 50% | `#A0FF50` | 160, 255, 80 |
+| 3 | 100% | `#00FFA3` | 0, 255, 163 |
+
+**CSS:** `linear-gradient(135deg, #C8FF00 0%, #A0FF50 50%, #00FFA3 100%)`
+
+#### Gradient B2: Digital Sunset
+| Stop | Position | Hex | RGB |
+|------|----------|-----|-----|
+| 1 | 0% | `#00D4FF` | 0, 212, 255 |
+| 2 | 50% | `#7C6EE6` | 124, 110, 230 |
+| 3 | 100% | `#A855F7` | 168, 85, 247 |
+
+**CSS:** `linear-gradient(135deg, #00D4FF 0%, #7C6EE6 50%, #A855F7 100%)`
+
+#### Gradient B3: Neon Meadow
+| Stop | Position | Hex | RGB |
+|------|----------|-----|-----|
+| 1 | 0% | `#00FFA3` | 0, 255, 163 |
+| 2 | 50% | `#50E0A0` | 80, 224, 160 |
+| 3 | 100% | `#BCE5F3` | 188, 229, 243 |
+
+**CSS:** `linear-gradient(135deg, #00FFA3 0%, #50E0A0 50%, #BCE5F3 100%)`
+
+**Individual Colors (Palette B):**
+```
+#C8FF00  #A0FF50  #00FFA3
+#00D4FF  #7C6EE6  #A855F7
+#50E0A0
+```
+
+---
+
+### Palette C: Weathered Shore (Muted & Organic)
+
+An earthy palette for reflective content and archival material.
+
+#### Gradient C1: Driftwood
+| Stop | Position | Hex | RGB |
+|------|----------|-----|-----|
+| 1 | 0% | `#D2B48C` | 210, 180, 140 |
+| 2 | 50% | `#B49664` | 180, 150, 100 |
+| 3 | 100% | `#8B7355` | 139, 115, 85 |
+
+**CSS:** `linear-gradient(135deg, #D2B48C 0%, #B49664 50%, #8B7355 100%)`
+
+#### Gradient C2: Sea Mist
+| Stop | Position | Hex | RGB |
+|------|----------|-----|-----|
+| 1 | 0% | `#8CA0B4` | 140, 160, 180 |
+| 2 | 50% | `#A0B0C0` | 160, 176, 192 |
+| 3 | 100% | `#C0D0E0` | 192, 208, 224 |
+
+**CSS:** `linear-gradient(135deg, #8CA0B4 0%, #A0B0C0 50%, #C0D0E0 100%)`
+
+#### Gradient C3: Lichen Stone
+| Stop | Position | Hex | RGB |
+|------|----------|-----|-----|
+| 1 | 0% | `#DCC8D2` | 220, 200, 210 |
+| 2 | 50% | `#C8B8C0` | 200, 184, 192 |
+| 3 | 100% | `#B0A0A8` | 176, 160, 168 |
+
+**CSS:** `linear-gradient(135deg, #DCC8D2 0%, #C8B8C0 50%, #B0A0A8 100%)`
+
+**Individual Colors (Palette C):**
+```
+#D2B48C  #B49664  #8B7355
+#8CA0B4  #A0B0C0  #C0D0E0
+#DCC8D2  #C8B8C0  #B0A0A8
+```
+
+---
+
+### Mixing Palettes
+
+These palettes are designed to combine. Recommended combinations:
+
+| Content Type | Primary Gradient | Accent | Tag Background |
+|--------------|------------------|--------|----------------|
+| **Events & Announcements** | A1 (Sky to Lavender) | B1 Acid (#C8FF00) | A2 Mauve |
+| **High-Energy Promo** | B2 (Digital Sunset) | B1 Acid (#C8FF00) | A1 Sky |
+| **Archive / Historical** | C1 (Driftwood) | C2 Sea Mist | C3 Lichen |
+| **Nature / Environmental** | B3 (Neon Meadow) | B1 Acid (#C8FF00) | C2 Sea Mist |
+| **Community / Warm** | A3 (Lemon Cream) | A2 Mauve | C1 Driftwood |
+
+---
+
+### All Gradients Quick Reference
+
+```
+PALETTE A - COASTAL DAWN
+A1: #BCE5F3 → #D0D6FD → #E8E0F0  (Sky to Lavender)
+A2: #D0D6FD → #BEA6B0 → #FFFCB9  (Mauve Horizon)
+A3: #F5EBB4 → #DCC896 → #C8B480  (Lemon Cream)
+
+PALETTE B - ELECTRIC FLORA
+B1: #C8FF00 → #A0FF50 → #00FFA3  (Acid Burst)
+B2: #00D4FF → #7C6EE6 → #A855F7  (Digital Sunset)
+B3: #00FFA3 → #50E0A0 → #BCE5F3  (Neon Meadow)
+
+PALETTE C - WEATHERED SHORE
+C1: #D2B48C → #B49664 → #8B7355  (Driftwood)
+C2: #8CA0B4 → #A0B0C0 → #C0D0E0  (Sea Mist)
+C3: #DCC8D2 → #C8B8C0 → #B0A0A8  (Lichen Stone)
+```
+
+---
+
+### All Individual Colors (27 Total)
+
+Copy these into your Canva Brand Kit for maximum flexibility:
+
+```
+Palette A (Coastal Dawn):
+#BCE5F3  #D0D6FD  #E8E0F0  #BEA6B0  #FFFCB9  #F5EBB4  #DCC896  #C8B480
+
+Palette B (Electric Flora):
+#C8FF00  #A0FF50  #00FFA3  #00D4FF  #7C6EE6  #A855F7  #50E0A0
+
+Palette C (Weathered Shore):
+#D2B48C  #B49664  #8B7355  #8CA0B4  #A0B0C0  #C0D0E0  #DCC8D2  #C8B8C0  #B0A0A8
+
+Core (Always Available):
+#0F0E0E  #F6F8FB  #555659
+```
+
+---
+
 ## Canva Brand Kit Setup Checklist
 
-- [ ] Add all 5 primary hex colors
-- [ ] Create gradient element (save as reusable)
+- [ ] Add core colors (#0F0E0E, #F6F8FB, #555659)
+- [ ] Add Palette A colors (8 colors)
+- [ ] Add Palette B colors (7 colors)
+- [ ] Add Palette C colors (9 colors)
+- [ ] Create gradient elements for each of the 9 gradients (save as reusable)
 - [ ] Add Space Mono as primary font
 - [ ] Add Playfair Display as headline font
 - [ ] Create tag component (save as element)
