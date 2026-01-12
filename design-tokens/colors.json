@@ -170,7 +170,7 @@
     },
     "F-solarpunk": {
       "name": "Solarpunk",
-      "description": "Futuristic organic palette - full spectrum",
+      "description": "Full spectrum",
       "colors": {
         "acid": { "value": "#C8FF00", "type": "color" },
         "spring": { "value": "#00FFA3", "type": "color" },

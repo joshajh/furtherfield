@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import colors from "../../design-tokens/colors.json";
 import typography from "../../design-tokens/typography.json";
 import spacing from "../../design-tokens/spacing.json";
@@ -23,6 +26,8 @@ type PaletteToken = {
   description: string;
   colors: Record<string, { value: string; type: string }>;
 };
+
+type Tab = "colours" | "typography" | "components" | "layouts" | "images";
 
 function ColorSwatch({ name, color }: { name: string; color: ColorToken }) {
   return (
@@ -58,7 +63,15 @@ function PaletteColorSwatch({ name, value }: { name: string; value: string }) {
   );
 }
 
+function extractGradientStops(gradientValue: string): string[] {
+  const hexMatches = gradientValue.match(/#[A-Fa-f0-9]{6}/g);
+  return hexMatches || [];
+}
+
 function GradientSwatch({ name, gradient }: { name: string; gradient: GradientToken }) {
+  const stops = extractGradientStops(gradient.value);
+  const shortName = name.split('-')[0];
+
   return (
     <div className="rounded-lg overflow-hidden">
       <div
@@ -66,9 +79,19 @@ function GradientSwatch({ name, gradient }: { name: string; gradient: GradientTo
         style={{ background: gradient.value }}
       />
       <div className="p-2 bg-white/5">
-        <div className="font-mono text-xs text-treatment-acid">{name}</div>
-        {gradient.description && (
-          <div className="text-xs text-text-light/40">{gradient.description}</div>
+        <div className="font-mono text-sm text-treatment-acid font-semibold">{shortName}</div>
+        {stops.length > 0 && (
+          <div className="flex gap-2 flex-wrap mt-1">
+            {stops.map((stop, i) => (
+              <div key={i} className="flex items-center gap-1">
+                <div
+                  className="w-4 h-4 rounded-sm border border-white/20"
+                  style={{ backgroundColor: stop }}
+                />
+                <span className="font-mono text-xs text-text-light/60">{stop}</span>
+              </div>
+            ))}
+          </div>
         )}
       </div>
     </div>
@@ -76,25 +99,23 @@ function GradientSwatch({ name, gradient }: { name: string; gradient: GradientTo
 }
 
 function PaletteSection({ id, palette }: { id: string; palette: PaletteToken }) {
+  const paletteLetter = id.charAt(0);
   const paletteGradients = Object.entries(colors.gradients as Record<string, GradientToken>)
-    .filter(([, g]) => g.palette === id.charAt(0));
+    .filter(([, g]) => g.palette === paletteLetter);
 
   return (
     <div className="bg-white/5 rounded-lg p-4 mb-4">
       <div className="flex items-baseline gap-3 mb-2">
-        <h4 className="font-mono text-sm text-treatment-acid">{id}</h4>
-        <span className="text-text-light/80 font-semibold">{palette.name}</span>
+        <h4 className="text-text-light/80 font-semibold text-lg">Palette {paletteLetter}</h4>
       </div>
       <p className="text-xs text-text-light/50 mb-4">{palette.description}</p>
 
-      {/* Palette colors */}
       <div className="flex flex-wrap gap-3 mb-4">
         {Object.entries(palette.colors).map(([name, color]) => (
           <PaletteColorSwatch key={name} name={name} value={color.value} />
         ))}
       </div>
 
-      {/* Palette gradients */}
       {paletteGradients.length > 0 && (
         <div className="grid grid-cols-3 gap-2">
           {paletteGradients.map(([name, gradient]) => (
@@ -106,23 +127,28 @@ function PaletteSection({ id, palette }: { id: string; palette: PaletteToken }) 
   );
 }
 
-export default function BrandExplorer() {
+function TabButton({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
+  return (
+    <button
+      onClick={onClick}
+      className={`px-4 py-2 font-mono text-sm uppercase tracking-wide transition-colors ${
+        active
+          ? "text-text-dark bg-treatment-acid"
+          : "text-text-light/60 hover:text-text-light hover:bg-white/5"
+      }`}
+    >
+      {children}
+    </button>
+  );
+}
+
+function ColoursTab() {
   const coreColors = colors.colors.core as Record<string, ColorToken>;
   const treatmentColors = colors.colors.treatment as Record<string, ColorToken>;
-  const contentTypeColors = colors.colors["content-type"] as Record<string, ColorToken>;
   const palettes = colors.palettes as Record<string, PaletteToken>;
-  const gradientTokens = colors.gradients as Record<string, GradientToken>;
 
   return (
-    <main className="min-h-screen p-6 md:p-8">
-      <header className="mb-10 flex items-center gap-6">
-        <Brandmark3D size={40} />
-        <div>
-          <h1 className="text-3xl md:text-4xl font-bold mb-2">Brand Explorer</h1>
-          <p className="text-text-light/60">Furtherfield design tokens v{colors.meta.version}</p>
-        </div>
-      </header>
-
+    <>
       {/* Core Colors Section */}
       <section className="mb-12">
         <h2 className="text-xl font-bold mb-6 pb-2 border-b border-white/20">Core Colors</h2>
@@ -136,26 +162,27 @@ export default function BrandExplorer() {
       {/* Treatment Colors Section */}
       <section className="mb-12">
         <h2 className="text-xl font-bold mb-6 pb-2 border-b border-white/20">Treatment Colors</h2>
+        <p className="text-text-light/50 text-sm mb-4">Background overlays for images and sections</p>
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
+          <div className="aspect-square rounded-lg bg-treatment-dark flex items-center justify-center">
+            <span className="font-mono text-sm text-white">dark</span>
+          </div>
+          <div className="aspect-square rounded-lg bg-treatment-light flex items-center justify-center">
+            <span className="font-mono text-sm text-text-dark">light</span>
+          </div>
+          <div className="aspect-square rounded-lg bg-treatment-lemon flex items-center justify-center">
+            <span className="font-mono text-sm text-text-dark">lemon</span>
+          </div>
+          <div className="aspect-square rounded-lg bg-treatment-acid flex items-center justify-center">
+            <span className="font-mono text-sm text-text-dark">acid</span>
+          </div>
+          <div className="aspect-square rounded-lg bg-treatment-lavender flex items-center justify-center">
+            <span className="font-mono text-sm text-text-dark">lavender</span>
+          </div>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
           {Object.entries(treatmentColors).map(([name, color]) => (
             <ColorSwatch key={name} name={name} color={color} />
-          ))}
-        </div>
-      </section>
-
-      {/* Content Type Colors Section */}
-      <section className="mb-12">
-        <h2 className="text-xl font-bold mb-6 pb-2 border-b border-white/20">Content Type Colors</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
-          {Object.entries(contentTypeColors).map(([name, color]) => (
-            <div key={name} className="text-center">
-              <div
-                className="w-full aspect-square rounded-lg border border-white/20 mb-2"
-                style={{ backgroundColor: color.value }}
-              />
-              <div className="font-mono text-xs text-treatment-acid">{name}</div>
-              <div className="font-mono text-[10px] text-text-light/40">{color.value}</div>
-            </div>
           ))}
         </div>
       </section>
@@ -178,37 +205,61 @@ export default function BrandExplorer() {
           <span className="font-mono text-text-dark">.bg-gradient-brand</span>
         </div>
       </section>
+    </>
+  );
+}
 
+function TypographyTab() {
+  return (
+    <>
       {/* Typography Section */}
       <section className="mb-12">
-        <h2 className="text-xl font-bold mb-6 pb-2 border-b border-white/20">Typography</h2>
-
-        <div className="mb-8">
-          <h3 className="text-lg font-semibold mb-3 text-text-light/80">Font Families</h3>
-          <div className="grid gap-3">
-            {Object.entries(typography.typography.fontFamily).map(([name, font]) => (
-              <div key={name} className="bg-white/5 rounded-lg p-4">
-                <div className="font-mono text-sm text-treatment-acid mb-1">{name}</div>
-                <div className="text-text-light/80 text-lg" style={{ fontFamily: font.value }}>
-                  The quick brown fox jumps over the lazy dog
-                </div>
-                <div className="text-xs text-text-light/40 mt-2">{font.description}</div>
-              </div>
-            ))}
+        <h2 className="text-xl font-bold mb-6 pb-2 border-b border-white/20">Font Families</h2>
+        <div className="grid gap-3">
+          <div className="bg-white/5 rounded-lg p-4">
+            <div className="flex items-baseline gap-3 mb-2">
+              <span className="font-mono text-sm text-treatment-acid">display</span>
+              <span className="text-text-light/80 font-semibold text-lg">Rubik</span>
+            </div>
+            <div className="text-text-light/80 text-xl" style={{ fontFamily: 'var(--font-rubik), Rubik, ui-sans-serif, system-ui, sans-serif' }}>
+              The quick brown fox jumps over the lazy dog
+            </div>
+            <div className="text-xs text-text-light/40 mt-2">Display font for headings and subheads</div>
+          </div>
+          <div className="bg-white/5 rounded-lg p-4">
+            <div className="flex items-baseline gap-3 mb-2">
+              <span className="font-mono text-sm text-treatment-acid">sans</span>
+              <span className="text-text-light/80 font-semibold text-lg">Plus Jakarta Sans</span>
+            </div>
+            <div className="text-text-light/80 text-xl" style={{ fontFamily: 'var(--font-plus-jakarta), Plus Jakarta Sans, ui-sans-serif, system-ui, sans-serif' }}>
+              The quick brown fox jumps over the lazy dog
+            </div>
+            <div className="text-xs text-text-light/40 mt-2">Primary sans-serif font for body text</div>
+          </div>
+          <div className="bg-white/5 rounded-lg p-4">
+            <div className="flex items-baseline gap-3 mb-2">
+              <span className="font-mono text-sm text-treatment-acid">mono</span>
+              <span className="text-text-light/80 font-semibold text-lg">Space Mono / Geist Mono</span>
+            </div>
+            <div className="text-text-light/80 text-xl" style={{ fontFamily: 'var(--font-space-mono), ui-monospace, monospace' }}>
+              The quick brown fox jumps over the lazy dog
+            </div>
+            <div className="text-xs text-text-light/40 mt-2">Monospace font for tags, callouts, and technical content</div>
           </div>
         </div>
+      </section>
 
-        <div className="mb-8">
-          <h3 className="text-lg font-semibold mb-3 text-text-light/80">Font Sizes</h3>
-          <div className="space-y-2">
-            {Object.entries(typography.typography.fontSize).map(([name, size]) => (
-              <div key={name} className="flex items-baseline gap-4 p-2 rounded bg-white/5">
-                <span className="font-mono text-sm text-treatment-acid w-12">{name}</span>
-                <span style={{ fontSize: size.value }}>Sample Text</span>
-                <span className="text-xs text-text-light/40 ml-auto">{size.value} - {size.description}</span>
-              </div>
-            ))}
-          </div>
+      {/* Font Sizes */}
+      <section className="mb-12">
+        <h2 className="text-xl font-bold mb-6 pb-2 border-b border-white/20">Font Sizes</h2>
+        <div className="space-y-2">
+          {Object.entries(typography.typography.fontSize).map(([name, size]) => (
+            <div key={name} className="flex items-baseline gap-4 p-2 rounded bg-white/5">
+              <span className="font-mono text-sm text-treatment-acid w-12">{name}</span>
+              <span style={{ fontSize: size.value }}>Sample Text</span>
+              <span className="text-xs text-text-light/40 ml-auto">{size.value} - {size.description}</span>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -257,10 +308,56 @@ export default function BrandExplorer() {
         </div>
       </section>
 
-      {/* Brandmark Section */}
+    </>
+  );
+}
+
+function ComponentsTab() {
+  return (
+    <>
+      {/* Tags */}
+      <section className="mb-12">
+        <h2 className="text-xl font-bold mb-6 pb-2 border-b border-white/20">Tag</h2>
+        <p className="text-text-light/50 text-sm mb-4">{components.components.tag.description}</p>
+        <div className="bg-gradient-brand rounded-lg p-6">
+          <div className="flex flex-wrap gap-3 items-center">
+            <span className="tag tag-sm">Small</span>
+            <span className="tag">Default</span>
+            <span className="tag tag-lg">Large</span>
+          </div>
+        </div>
+      </section>
+
+      {/* Callout */}
+      <section className="mb-12">
+        <h2 className="text-xl font-bold mb-6 pb-2 border-b border-white/20">Callout</h2>
+        <p className="text-text-light/50 text-sm mb-4">{components.components.callout.description}</p>
+        <div className="bg-gradient-brand rounded-lg p-6">
+          <div className="flex flex-wrap gap-4 items-center">
+            <span className="callout-sm">Small</span>
+            <span className="callout">Default</span>
+          </div>
+        </div>
+      </section>
+
+      {/* Callout Underline */}
+      <section className="mb-12">
+        <h2 className="text-xl font-bold mb-6 pb-2 border-b border-white/20">Callout Underline</h2>
+        <p className="text-text-light/50 text-sm mb-4">{components.components.calloutUnderline.description}</p>
+        <div className="bg-gradient-brand rounded-lg p-6">
+          <div className="flex flex-wrap gap-4 items-center">
+            <span className="callout-underline-sm">Small</span>
+            <span className="callout-underline-sm">Multiple</span>
+            <span className="callout-underline-sm">Items</span>
+            <span className="callout-underline">Default</span>
+          </div>
+        </div>
+      </section>
+
+      {/* Brandmark */}
       <section className="mb-12">
         <h2 className="text-xl font-bold mb-6 pb-2 border-b border-white/20">Brandmark</h2>
-        <p className="text-text-light/50 text-sm mb-6">3D rotating brandmark with brand gradient and acid accent faces</p>
+        <p className="text-text-light/50 text-sm mb-4">3D rotating brandmark with brand gradient and acid accent faces</p>
         <div className="bg-gradient-brand rounded-lg p-8 flex items-center justify-center gap-12">
           <div className="text-center">
             <Brandmark3D size={20} />
@@ -276,73 +373,72 @@ export default function BrandExplorer() {
           </div>
         </div>
       </section>
+    </>
+  );
+}
 
-      {/* Components Section */}
-      <section className="mb-12">
-        <h2 className="text-xl font-bold mb-6 pb-2 border-b border-white/20">Components</h2>
+function LayoutsTab() {
+  return (
+    <section className="mb-12">
+      <h2 className="text-xl font-bold mb-6 pb-2 border-b border-white/20">Social Layouts</h2>
+      <p className="text-text-light/50 text-sm mb-6">Layout templates for social media assets. Coming soon.</p>
+      <div className="bg-white/5 rounded-lg p-8 text-center">
+        <p className="text-text-light/40">Social layout templates will be added here.</p>
+      </div>
+    </section>
+  );
+}
 
-        {/* Tags */}
-        <div className="mb-8">
-          <h3 className="text-lg font-semibold mb-2 text-text-light/80">Tag</h3>
-          <p className="text-text-light/50 text-sm mb-4">{components.components.tag.description}</p>
-          <div className="bg-gradient-brand rounded-lg p-6">
-            <div className="flex flex-wrap gap-3 items-center">
-              <span className="tag tag-sm">Small</span>
-              <span className="tag">Default</span>
-              <span className="tag tag-lg">Large</span>
-            </div>
-          </div>
+function ImagesTab() {
+  return (
+    <section className="mb-12">
+      <h2 className="text-xl font-bold mb-6 pb-2 border-b border-white/20">Useful Images</h2>
+      <p className="text-text-light/50 text-sm mb-6">Brand assets and useful images. Coming soon.</p>
+      <div className="bg-white/5 rounded-lg p-8 text-center">
+        <p className="text-text-light/40">Useful images will be added here.</p>
+      </div>
+    </section>
+  );
+}
+
+export default function BrandExplorer() {
+  const [activeTab, setActiveTab] = useState<Tab>("colours");
+
+  return (
+    <main className="min-h-screen p-6 md:p-8">
+      <header className="mb-6 flex items-center justify-between">
+        <Brandmark3D size={40} />
+        <div className="text-right">
+          <h1 className="text-3xl md:text-4xl font-bold mb-2" style={{ fontFamily: 'var(--font-rubik)' }}>Brand Explorer</h1>
+          <p className="text-text-light/60">Furtherfield design tokens v{colors.meta.version}</p>
         </div>
+      </header>
 
-        {/* Callout */}
-        <div className="mb-8">
-          <h3 className="text-lg font-semibold mb-2 text-text-light/80">Callout</h3>
-          <p className="text-text-light/50 text-sm mb-4">{components.components.callout.description}</p>
-          <div className="bg-gradient-brand rounded-lg p-6">
-            <div className="flex flex-wrap gap-4 items-center">
-              <span className="callout-sm">Small</span>
-              <span className="callout">Default</span>
-            </div>
-          </div>
-        </div>
+      {/* Tab Navigation */}
+      <nav className="mb-10 flex gap-1 border-b border-white/20">
+        <TabButton active={activeTab === "colours"} onClick={() => setActiveTab("colours")}>
+          Colours
+        </TabButton>
+        <TabButton active={activeTab === "typography"} onClick={() => setActiveTab("typography")}>
+          Typography
+        </TabButton>
+        <TabButton active={activeTab === "components"} onClick={() => setActiveTab("components")}>
+          Components
+        </TabButton>
+        <TabButton active={activeTab === "layouts"} onClick={() => setActiveTab("layouts")}>
+          Social Layouts
+        </TabButton>
+        <TabButton active={activeTab === "images"} onClick={() => setActiveTab("images")}>
+          Useful Images
+        </TabButton>
+      </nav>
 
-        {/* Callout Underline */}
-        <div className="mb-8">
-          <h3 className="text-lg font-semibold mb-2 text-text-light/80">Callout Underline</h3>
-          <p className="text-text-light/50 text-sm mb-4">{components.components.calloutUnderline.description}</p>
-          <div className="bg-gradient-brand rounded-lg p-6">
-            <div className="flex flex-wrap gap-4 items-center">
-              <span className="callout-underline-sm">Small</span>
-              <span className="callout-underline-sm">Multiple</span>
-              <span className="callout-underline-sm">Items</span>
-              <span className="callout-underline">Default</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Color Treatments */}
-        <div className="mb-8">
-          <h3 className="text-lg font-semibold mb-2 text-text-light/80">Color Treatments</h3>
-          <p className="text-text-light/50 text-sm mb-4">Background overlays for images and sections</p>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-            <div className="aspect-square rounded-lg bg-treatment-dark flex items-center justify-center">
-              <span className="font-mono text-sm text-white">dark</span>
-            </div>
-            <div className="aspect-square rounded-lg bg-treatment-light flex items-center justify-center">
-              <span className="font-mono text-sm text-text-dark">light</span>
-            </div>
-            <div className="aspect-square rounded-lg bg-treatment-lemon flex items-center justify-center">
-              <span className="font-mono text-sm text-text-dark">lemon</span>
-            </div>
-            <div className="aspect-square rounded-lg bg-treatment-acid flex items-center justify-center">
-              <span className="font-mono text-sm text-text-dark">acid</span>
-            </div>
-            <div className="aspect-square rounded-lg bg-treatment-lavender flex items-center justify-center">
-              <span className="font-mono text-sm text-text-dark">lavender</span>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Tab Content */}
+      {activeTab === "colours" && <ColoursTab />}
+      {activeTab === "typography" && <TypographyTab />}
+      {activeTab === "components" && <ComponentsTab />}
+      {activeTab === "layouts" && <LayoutsTab />}
+      {activeTab === "images" && <ImagesTab />}
 
       {/* Footer */}
       <footer className="border-t border-white/20 pt-6 mt-12">
