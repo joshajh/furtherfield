@@ -14,12 +14,9 @@ type Brandmark3DProps = BrandmarkProps & {
 /**
  * Static SVG version of the brandmark - lightweight, no animation
  * Use this for navbars, footers, and places where you don't need rotation
+ * Matches the Brandmark3D appearance at its default static angle
  */
 export function BrandmarkSVG({ size = 40, className = '' }: BrandmarkProps) {
-  // The SVG represents the isometric view of 4 cubes in a diagonal staircase pattern
-  // Scaled to fit within the size parameter
-  const scale = size / 40
-
   return (
     <svg
       width={size * 2.5}
@@ -35,47 +32,34 @@ export function BrandmarkSVG({ size = 40, className = '' }: BrandmarkProps) {
         </linearGradient>
       </defs>
 
-      {/* Isometric cube representation - 4 cubes in staircase pattern */}
-      {/* Each cube has 3 visible faces: top (blue), left (acid), right (blue) */}
+      {/* 4 cubes in diagonal staircase pattern - matches Brandmark3D at rotateX(-30deg) rotateY(-45deg) */}
 
-      {/* Cube 1: Top-left (highest) */}
-      <g transform="translate(50, 15)">
-        {/* Top face */}
-        <polygon points="0,-8 14,0 0,8 -14,0" fill="url(#brandmark-blue-gradient)" stroke="#0F0E0E" strokeWidth="0.5" />
-        {/* Left face */}
-        <polygon points="-14,0 0,8 0,22 -14,14" fill="rgba(200, 255, 0, 0.85)" stroke="#0F0E0E" strokeWidth="0.5" />
-        {/* Right face */}
-        <polygon points="14,0 0,8 0,22 14,14" fill="url(#brandmark-blue-gradient)" stroke="#0F0E0E" strokeWidth="0.5" />
+      {/* Cube 1: Top-back-left (highest) */}
+      <g transform="translate(35, 20)">
+        <polygon points="0,0 12,7 0,14 -12,7" fill="url(#brandmark-blue-gradient)" stroke="#0F0E0E" strokeWidth="0.5" />
+        <polygon points="-12,7 0,14 0,28 -12,21" fill="rgba(200, 255, 0, 0.85)" stroke="#0F0E0E" strokeWidth="0.5" />
+        <polygon points="12,7 0,14 0,28 12,21" fill="url(#brandmark-blue-gradient)" stroke="#0F0E0E" strokeWidth="0.5" />
       </g>
 
-      {/* Cube 2: Middle-right */}
-      <g transform="translate(64, 30)">
-        {/* Top face */}
-        <polygon points="0,-8 14,0 0,8 -14,0" fill="url(#brandmark-blue-gradient)" stroke="#0F0E0E" strokeWidth="0.5" />
-        {/* Left face */}
-        <polygon points="-14,0 0,8 0,22 -14,14" fill="rgba(200, 255, 0, 0.85)" stroke="#0F0E0E" strokeWidth="0.5" />
-        {/* Right face */}
-        <polygon points="14,0 0,8 0,22 14,14" fill="url(#brandmark-blue-gradient)" stroke="#0F0E0E" strokeWidth="0.5" />
+      {/* Cube 2: Middle-back-right */}
+      <g transform="translate(59, 34)">
+        <polygon points="0,0 12,7 0,14 -12,7" fill="url(#brandmark-blue-gradient)" stroke="#0F0E0E" strokeWidth="0.5" />
+        <polygon points="-12,7 0,14 0,28 -12,21" fill="rgba(200, 255, 0, 0.85)" stroke="#0F0E0E" strokeWidth="0.5" />
+        <polygon points="12,7 0,14 0,28 12,21" fill="url(#brandmark-blue-gradient)" stroke="#0F0E0E" strokeWidth="0.5" />
       </g>
 
-      {/* Cube 3: Middle-left */}
-      <g transform="translate(36, 30)">
-        {/* Top face */}
-        <polygon points="0,-8 14,0 0,8 -14,0" fill="url(#brandmark-blue-gradient)" stroke="#0F0E0E" strokeWidth="0.5" />
-        {/* Left face */}
-        <polygon points="-14,0 0,8 0,22 -14,14" fill="rgba(200, 255, 0, 0.85)" stroke="#0F0E0E" strokeWidth="0.5" />
-        {/* Right face */}
-        <polygon points="14,0 0,8 0,22 14,14" fill="url(#brandmark-blue-gradient)" stroke="#0F0E0E" strokeWidth="0.5" />
+      {/* Cube 3: Middle-front-left */}
+      <g transform="translate(35, 48)">
+        <polygon points="0,0 12,7 0,14 -12,7" fill="url(#brandmark-blue-gradient)" stroke="#0F0E0E" strokeWidth="0.5" />
+        <polygon points="-12,7 0,14 0,28 -12,21" fill="rgba(200, 255, 0, 0.85)" stroke="#0F0E0E" strokeWidth="0.5" />
+        <polygon points="12,7 0,14 0,28 12,21" fill="url(#brandmark-blue-gradient)" stroke="#0F0E0E" strokeWidth="0.5" />
       </g>
 
-      {/* Cube 4: Bottom-right (lowest) */}
-      <g transform="translate(50, 45)">
-        {/* Top face */}
-        <polygon points="0,-8 14,0 0,8 -14,0" fill="url(#brandmark-blue-gradient)" stroke="#0F0E0E" strokeWidth="0.5" />
-        {/* Left face */}
-        <polygon points="-14,0 0,8 0,22 -14,14" fill="rgba(200, 255, 0, 0.85)" stroke="#0F0E0E" strokeWidth="0.5" />
-        {/* Right face */}
-        <polygon points="14,0 0,8 0,22 14,14" fill="url(#brandmark-blue-gradient)" stroke="#0F0E0E" strokeWidth="0.5" />
+      {/* Cube 4: Bottom-front-right (lowest) */}
+      <g transform="translate(59, 62)">
+        <polygon points="0,0 12,7 0,14 -12,7" fill="url(#brandmark-blue-gradient)" stroke="#0F0E0E" strokeWidth="0.5" />
+        <polygon points="-12,7 0,14 0,28 -12,21" fill="rgba(200, 255, 0, 0.85)" stroke="#0F0E0E" strokeWidth="0.5" />
+        <polygon points="12,7 0,14 0,28 12,21" fill="url(#brandmark-blue-gradient)" stroke="#0F0E0E" strokeWidth="0.5" />
       </g>
     </svg>
   )
