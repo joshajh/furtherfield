@@ -141,7 +141,7 @@ export function Footer() {
       {/* Dev Credits Footer */}
       <div className="bg-gradient-brand rounded-lg px-6 py-3 md:px-12 md:py-4">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 text-text-dark text-xs font-mono">
-          <p>Content licensed under CC BY 4.0</p>
+          <p>Unless otherwise specified all content is published by Furtherfield 2025-26 licensed under CC BY 4.0</p>
           <p>
             Design and development by{' '}
             <a
