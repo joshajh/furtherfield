@@ -1,7 +1,5 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
-
 type Brandmark3DProps = {
   size?: number
   className?: string
@@ -10,32 +8,9 @@ type Brandmark3DProps = {
 
 /**
  * 3D CSS rotating version of the brandmark
- * Use this for hero sections and places where animation adds value
+ * Uses CSS animation instead of JS for better performance
  */
 export function Brandmark3D({ size = 40, className = '', autoRotate = true }: Brandmark3DProps) {
-  const shapeRef = useRef<HTMLDivElement>(null)
-  const rotationRef = useRef({ x: -30, y: -45 })
-  const animationRef = useRef<number | null>(null)
-
-  useEffect(() => {
-    if (!autoRotate || !shapeRef.current) return
-
-    const animate = () => {
-      rotationRef.current.y += 0.5
-      if (shapeRef.current) {
-        shapeRef.current.style.transform = `rotateX(${rotationRef.current.x}deg) rotateY(${rotationRef.current.y}deg)`
-      }
-      animationRef.current = requestAnimationFrame(animate)
-    }
-
-    animationRef.current = requestAnimationFrame(animate)
-
-    return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current)
-      }
-    }
-  }, [autoRotate])
 
   const cubeSize = size
   const halfCube = cubeSize / 2
@@ -89,13 +64,14 @@ export function Brandmark3D({ size = 40, className = '', autoRotate = true }: Br
       }}
     >
       <div
-        ref={shapeRef}
         style={{
           width: '100%',
           height: '100%',
           position: 'relative',
           transformStyle: 'preserve-3d',
           transform: 'rotateX(-30deg) rotateY(-45deg)',
+          // Use CSS animation for GPU-accelerated rotation
+          animation: autoRotate ? 'brandmark-spin 20s linear infinite' : 'none',
         }}
       >
         {/* Cube 1: top-back-left (highest) */}

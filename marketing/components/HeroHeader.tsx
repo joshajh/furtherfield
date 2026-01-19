@@ -108,10 +108,10 @@ export function HeroHeader({
           ) : (
             <motion.div
               key="title"
-              initial={{ opacity: 0 }}
+              initial={{ opacity: 0.3 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.15, ease: 'easeOut' }}
+              transition={{ duration: 0.1, ease: 'easeOut' }}
               className="relative flex-1 flex flex-col items-center md:items-start"
             >
               {/* Spacer to center the main content */}
@@ -168,8 +168,8 @@ export function HeroHeader({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1, y: [0, 8, 0] }}
           transition={{
-            opacity: { delay: 0.3, duration: 0.3 },
-            y: { delay: 0.6, duration: 1.5, repeat: Infinity, ease: 'easeInOut' }
+            opacity: { delay: 0.15, duration: 0.2 },
+            y: { delay: 0.3, duration: 1.5, repeat: Infinity, ease: 'easeInOut' }
           }}
         >
           <svg

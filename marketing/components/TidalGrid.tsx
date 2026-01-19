@@ -76,7 +76,7 @@ function generateWavyPath(
   direction: "horizontal" | "vertical",
   lineIndex: number
 ): string {
-  const segments = 50;
+  const segments = 35; // Balance between smoothness and performance
   let d = `M ${x1.toFixed(2)} ${y1.toFixed(2)}`;
 
   for (let i = 1; i <= segments; i++) {
@@ -139,14 +139,21 @@ export function TidalGrid({
     return () => clearInterval(interval);
   }, []);
 
-  // Animation loop
+  // Animation loop - throttled to ~30fps for performance
   useEffect(() => {
+    const targetFPS = 30;
+    const frameInterval = 1000 / targetFPS;
+
     const animate = (timestamp: number) => {
       if (!lastTimeRef.current) lastTimeRef.current = timestamp;
       const delta = timestamp - lastTimeRef.current;
-      lastTimeRef.current = timestamp;
 
-      setAnimationPhase((prev) => (prev + delta * animationSpeed) % (Math.PI * 2));
+      // Only update if enough time has passed (throttle to target FPS)
+      if (delta >= frameInterval) {
+        lastTimeRef.current = timestamp - (delta % frameInterval);
+        setAnimationPhase((prev) => (prev + delta * animationSpeed) % (Math.PI * 2));
+      }
+
       animationRef.current = requestAnimationFrame(animate);
     };
 

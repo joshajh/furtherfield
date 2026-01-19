@@ -44,6 +44,16 @@
   }
 }
 
+/* GPU-accelerated 3D rotation for brandmark */
+@keyframes brandmark-spin {
+  from {
+    transform: rotateX(-30deg) rotateY(-45deg);
+  }
+  to {
+    transform: rotateX(-30deg) rotateY(315deg);
+  }
+}
+
 html, body {
   background: var(--color-bg-dark);
   color: var(--color-text-light);
@@ -850,6 +860,31 @@ textarea.admin-input {
 .admin-link-danger:hover {
   color: #dc2626;
   background: transparent;
+}
+
+/* ============================================
+   INLINE LINK STYLES
+   Acid yellow underline with hover state for content links
+   ============================================ */
+
+/* Base inline link style - acid yellow underline */
+.inline-link,
+.prose a,
+[class*="prose"] a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: rgb(200, 255, 0);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  transition: all 0.15s ease;
+}
+
+.inline-link:hover,
+.prose a:hover,
+[class*="prose"] a:hover {
+  text-decoration-thickness: 4px;
+  text-underline-offset: 2px;
+  background-color: rgba(200, 255, 0, 0.2);
 }
 
 /* ============================================

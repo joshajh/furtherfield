@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect, useState, useRef, useCallback } from 'react'
-import { motion, useSpring, useTransform } from 'framer-motion'
+import { useEffect, useState, useRef } from 'react'
+import { motion, useSpring } from 'framer-motion'
 
 type Sprite = {
   id: string
@@ -39,9 +39,9 @@ function AnimatedSprite({
   const basePositionRef = useRef({ x: sprite.x, y: sprite.y })
   const velocityRef = useRef({ x: 0, y: 0 })
 
-  // Spring for smooth cursor-reactive movement
-  const springX = useSpring(sprite.x, { stiffness: 50, damping: 20 })
-  const springY = useSpring(sprite.y, { stiffness: 50, damping: 20 })
+  // Spring for smooth cursor-reactive movement - lower stiffness for smoother animation
+  const springX = useSpring(sprite.x, { stiffness: 30, damping: 15 })
+  const springY = useSpring(sprite.y, { stiffness: 30, damping: 15 })
 
   // Update base wandering position periodically
   useEffect(() => {
@@ -98,26 +98,28 @@ function AnimatedSprite({
   return (
     <motion.div
       className="fixed pointer-events-none z-40"
-      style={{ x: springX, y: springY }}
+      style={{
+        x: springX,
+        y: springY,
+        // Use will-change to hint GPU acceleration
+        willChange: 'transform',
+      }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ opacity: { duration: 1 } }}
     >
-      <div
+      {/* Use img with mix-blend-mode instead of expensive backdropFilter */}
+      <img
+        src={sprite.src}
+        alt={sprite.name}
         style={{
           width: sprite.size,
           height: sprite.size,
           transform: flipped ? 'scaleX(-1)' : 'none',
-          WebkitMaskImage: `url(${sprite.src})`,
-          maskImage: `url(${sprite.src})`,
-          WebkitMaskSize: 'contain',
-          maskSize: 'contain',
-          WebkitMaskRepeat: 'no-repeat',
-          maskRepeat: 'no-repeat',
-          backdropFilter: 'invert(1)',
-          WebkitBackdropFilter: 'invert(1)',
+          mixBlendMode: 'difference',
+          filter: 'brightness(1.2)',
         }}
-        aria-label={sprite.name}
+        draggable={false}
       />
     </motion.div>
   )
@@ -140,13 +142,20 @@ export function AnimatedSprites() {
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
-  // Track cursor position
+  // Track cursor position - throttled to reduce updates
   useEffect(() => {
+    let lastUpdate = 0
+    const throttleMs = 50 // Update at most 20 times per second
+
     const handleMouseMove = (e: MouseEvent) => {
-      setCursorPos({ x: e.clientX, y: e.clientY })
+      const now = Date.now()
+      if (now - lastUpdate >= throttleMs) {
+        lastUpdate = now
+        setCursorPos({ x: e.clientX, y: e.clientY })
+      }
     }
 
-    window.addEventListener('mousemove', handleMouseMove)
+    window.addEventListener('mousemove', handleMouseMove, { passive: true })
     return () => window.removeEventListener('mousemove', handleMouseMove)
   }, [])
 
