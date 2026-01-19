@@ -3,7 +3,6 @@ import {
   Footer,
   HeroHeader,
   EventGrid,
-  ProgrammeTable,
   Button,
   AnimatedSprites,
   LichenContainer,
@@ -57,10 +56,6 @@ export default async function Home() {
 
         <LichenContainer seed={200} density="normal" edges={['top', 'bottom', 'left', 'right']} className="mx-2.5">
           <VimeoEmbed videoId="1036303680" fullViewport />
-        </LichenContainer>
-
-        <LichenContainer seed={300} density="normal" edges={['top', 'bottom', 'left', 'right']} className="mx-2.5">
-          <ProgrammeTable events={formattedEvents} />
         </LichenContainer>
 
         <LichenContainer seed={400} density="normal" edges={['top', 'bottom', 'left', 'right']} className="mx-2.5">

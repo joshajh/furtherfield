@@ -40,13 +40,6 @@ export function Footer() {
     <footer className="w-full px-2.5 py-2.5 flex flex-col gap-2.5">
       {/* Main Footer */}
       <div className="relative bg-gradient-brand rounded-lg px-6 py-4 md:px-12 md:py-8 overflow-hidden">
-        {/* Lichen growing up from bottom */}
-        <img
-          src="/lichen/acid-footer.png"
-          alt=""
-          className="absolute inset-x-0 bottom-0 w-full object-contain object-bottom pointer-events-none z-10"
-        />
-
         {/* Mobile Layout */}
         <div className="flex flex-col gap-8 md:hidden">
           <div className="font-display text-text-dark text-[32px] sm:text-[50px] leading-none italic">
@@ -148,14 +141,9 @@ export function Footer() {
               href="https://possibleworlds.space"
               target="_blank"
               rel="noopener noreferrer"
-              className="relative inline-flex items-center px-2 py-0.5 bg-text-dark text-text-light rounded-full hover:bg-treatment-acid hover:text-text-dark transition-colors overflow-hidden"
+              className="inline-flex items-center px-2 py-0.5 bg-text-dark text-text-light rounded-full hover:bg-treatment-acid hover:text-text-dark transition-colors"
             >
               Possible Worlds
-              <img
-                src="/lichen/lichen-1.png"
-                alt=""
-                className="absolute bottom-0 left-0 right-0 w-full h-[8px] object-cover object-top pointer-events-none opacity-80"
-              />
             </a>
           </p>
         </div>

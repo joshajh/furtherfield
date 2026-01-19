@@ -163,6 +163,13 @@ export function Navigation({ marqueeText, ffSnippet }: NavigationProps = {}) {
               {/* Navigation Links */}
               <nav className="flex-1 flex flex-col items-center justify-center gap-4 sm:gap-6 px-6 sm:px-8">
                 <Link
+                  href="/"
+                  onClick={closeMobileMenu}
+                  className="font-display text-4xl sm:text-5xl text-text-light hover:text-treatment-lemon transition-colors py-2"
+                >
+                  Home
+                </Link>
+                <Link
                   href="/events"
                   onClick={closeMobileMenu}
                   className="font-display text-4xl sm:text-5xl text-text-light hover:text-treatment-lemon transition-colors py-2"
