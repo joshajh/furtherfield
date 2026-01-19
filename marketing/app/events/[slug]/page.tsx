@@ -36,7 +36,7 @@ export default async function EventPage({ params }: PageProps) {
       relatedEvents={relatedEvents}
       people={eventPeople}
       marqueeText={settings?.marqueeText}
-      aboutSnippet={settings?.aboutSnippet}
+      ffSnippet={settings?.ffSnippet}
     />
   );
 }

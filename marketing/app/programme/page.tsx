@@ -1,6 +1,8 @@
 import { getEvents, getSettings } from "@/lib/cms";
 import ProgrammePageClient from "./ProgrammePageClient";
 
+export const dynamic = "force-dynamic";
+
 export default async function ProgrammePage() {
   const [events, settings] = await Promise.all([getEvents(), getSettings()]);
 
@@ -8,7 +10,7 @@ export default async function ProgrammePage() {
     <ProgrammePageClient
       events={events}
       marqueeText={settings?.marqueeText}
-      aboutSnippet={settings?.aboutSnippet}
+      ffSnippet={settings?.ffSnippet}
     />
   );
 }

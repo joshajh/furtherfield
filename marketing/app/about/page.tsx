@@ -13,7 +13,7 @@ export default async function AboutPage() {
       aboutPage={aboutPage}
       venues={venues}
       marqueeText={settings?.marqueeText}
-      aboutSnippet={settings?.aboutSnippet}
+      ffSnippet={settings?.ffSnippet}
     />
   );
 }

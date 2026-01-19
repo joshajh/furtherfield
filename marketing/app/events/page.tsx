@@ -8,7 +8,7 @@ export default async function EventsPage() {
     <EventsPageClient
       events={events}
       marqueeText={settings?.marqueeText}
-      aboutSnippet={settings?.aboutSnippet}
+      ffSnippet={settings?.ffSnippet}
     />
   );
 }

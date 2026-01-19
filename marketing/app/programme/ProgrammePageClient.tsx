@@ -9,7 +9,7 @@ import type { Event } from "@/lib/cms";
 type ProgrammePageClientProps = {
   events: Event[];
   marqueeText?: string | null;
-  aboutSnippet?: string | null;
+  ffSnippet?: string | null;
 };
 
 function formatEventType(type: string): string {
@@ -113,7 +113,7 @@ function EventCard({ event, index }: EventCardProps) {
 export default function ProgrammePageClient({
   events,
   marqueeText,
-  aboutSnippet,
+  ffSnippet,
 }: ProgrammePageClientProps) {
   // Sort all events by date
   const sortedEvents = [...events].sort((a, b) => {
@@ -125,7 +125,7 @@ export default function ProgrammePageClient({
   return (
     <div className="min-h-screen flex flex-col gap-2.5 pt-[calc(56px+20px)] pb-2.5 relative z-10 overflow-x-hidden">
       <AnimatedSprites />
-      <Navigation marqueeText={marqueeText} aboutSnippet={aboutSnippet} />
+      <Navigation marqueeText={marqueeText} ffSnippet={ffSnippet} />
 
       <main className="flex flex-col gap-2.5">
         {/* Hero Section */}

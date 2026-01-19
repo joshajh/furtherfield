@@ -27,13 +27,10 @@ export type Event = {
 
 export type Settings = {
   siteTitle: string | null;
-  tagline: string | null;
-  heroTitle: string | null;
+  siteDescription: string | null;
   heroSubtitle: string | null;
-  ctaText: string | null;
-  ctaUrl: string | null;
   marqueeText: string | null;
-  aboutSnippet: string | null;
+  ffSnippet: string | null;
 };
 
 export type Venue = {
@@ -92,14 +89,11 @@ export async function getSettings(): Promise<Settings | null> {
     }
 
     return {
-      siteTitle: settingsMap.siteTitle ?? null,
-      tagline: settingsMap.tagline ?? null,
-      heroTitle: settingsMap.heroTitle ?? null,
-      heroSubtitle: settingsMap.heroSubtitle ?? null,
-      ctaText: settingsMap.ctaText ?? null,
-      ctaUrl: settingsMap.ctaUrl ?? null,
-      marqueeText: settingsMap.marqueeText ?? null,
-      aboutSnippet: settingsMap.aboutSnippet ?? null,
+      siteTitle: settingsMap.site_title ?? null,
+      siteDescription: settingsMap.site_description ?? null,
+      heroSubtitle: settingsMap.hero_subtitle ?? null,
+      marqueeText: settingsMap.marquee_text ?? null,
+      ffSnippet: settingsMap.ff_snippet ?? null,
     };
   } catch {
     return null;

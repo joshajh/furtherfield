@@ -41,7 +41,7 @@ type EventPageClientProps = {
   relatedEvents: CMSEvent[];
   people?: Person[];
   marqueeText?: string | null;
-  aboutSnippet?: string | null;
+  ffSnippet?: string | null;
 };
 
 const PERSON_TYPE_LABELS: Record<string, string> = {
@@ -116,7 +116,7 @@ export default function EventPageClient({
   relatedEvents,
   people = [],
   marqueeText,
-  aboutSnippet,
+  ffSnippet,
 }: EventPageClientProps) {
   const [selectedVenue, setSelectedVenue] = useState<Venue | null>(null);
 
@@ -141,7 +141,7 @@ export default function EventPageClient({
 
   return (
     <div className="min-h-screen flex flex-col gap-2.5 pt-[calc(56px+20px)] pb-2.5 relative z-10 overflow-x-hidden">
-      <Navigation marqueeText={marqueeText} aboutSnippet={aboutSnippet} />
+      <Navigation marqueeText={marqueeText} ffSnippet={ffSnippet} />
 
       <main className="flex flex-col gap-2.5">
         {/* Hero Section */}
@@ -268,7 +268,7 @@ export default function EventPageClient({
             )}
             {event.description && (
               <div
-                className="isolate text-text-dark text-lg leading-relaxed prose prose-lg max-w-none prose-headings:font-serif prose-headings:text-text-dark prose-p:text-text-dark prose-li:text-text-dark prose-a:text-treatment-acid prose-strong:text-text-dark [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:my-4 [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:my-4 [&_li]:my-1 [&_h2]:text-2xl [&_h2]:mt-6 [&_h2]:mb-3 [&_h3]:text-xl [&_h3]:mt-4 [&_h3]:mb-2"
+                className="isolate text-text-dark text-lg leading-relaxed prose prose-lg max-w-none prose-headings:font-serif prose-headings:text-text-dark prose-p:text-text-dark prose-li:text-text-dark prose-strong:text-text-dark [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:my-4 [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:my-4 [&_li]:my-1 [&_h2]:text-2xl [&_h2]:mt-6 [&_h2]:mb-3 [&_h3]:text-xl [&_h3]:mt-4 [&_h3]:mb-2"
                 dangerouslySetInnerHTML={{ __html: event.description }}
               />
             )}

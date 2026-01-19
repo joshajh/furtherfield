@@ -16,10 +16,10 @@ type AboutPageClientProps = {
   aboutPage: AboutPage | null;
   venues: Venue[];
   marqueeText?: string | null;
-  aboutSnippet?: string | null;
+  ffSnippet?: string | null;
 };
 
-export default function AboutPageClient({ aboutPage, venues, marqueeText, aboutSnippet }: AboutPageClientProps) {
+export default function AboutPageClient({ aboutPage, venues, marqueeText, ffSnippet }: AboutPageClientProps) {
   const [selectedVenue, setSelectedVenue] = useState<Venue | null>(null);
 
   const openVenueModal = useCallback((venue: Venue) => {
@@ -33,7 +33,7 @@ export default function AboutPageClient({ aboutPage, venues, marqueeText, aboutS
 
   return (
     <div className="min-h-screen flex flex-col gap-2.5 pt-[calc(56px+20px)] pb-2.5 relative z-10 overflow-x-hidden">
-      <Navigation marqueeText={marqueeText} aboutSnippet={aboutSnippet} />
+      <Navigation marqueeText={marqueeText} ffSnippet={ffSnippet} />
 
       <main className="flex flex-col gap-2.5">
         {/* Hero Section */}

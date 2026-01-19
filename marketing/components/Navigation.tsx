@@ -8,10 +8,10 @@ import { Brandmark3D } from './Brandmark3D'
 
 type NavigationProps = {
   marqueeText?: string | null;
-  aboutSnippet?: string | null;
+  ffSnippet?: string | null;
 };
 
-export function Navigation({ marqueeText, aboutSnippet }: NavigationProps = {}) {
+export function Navigation({ marqueeText, ffSnippet }: NavigationProps = {}) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [showAbout, setShowAbout] = useState(false)
 
@@ -76,11 +76,11 @@ export function Navigation({ marqueeText, aboutSnippet }: NavigationProps = {}) 
               {showAbout ? (
                 <div className="flex items-center px-4 md:px-8">
                   <p className="text-text-dark font-medium text-xs md:text-sm uppercase tracking-wide font-mono line-clamp-2">
-                    {aboutSnippet || "Furtherfield is a leading international arts organisation exploring the intersections of art, technology and social change."}
+                    {ffSnippet || "Furtherfield is a leading international arts organisation exploring the intersections of art, technology and social change."}
                   </p>
                 </div>
               ) : (
-                <div className="flex items-center w-full">
+                <div className="flex items-center w-full h-full">
                   {/* Nav Links */}
                   <div className="flex items-center gap-2 px-4 shrink-0">
                     <Link href="/events" className="tag">
@@ -97,8 +97,8 @@ export function Navigation({ marqueeText, aboutSnippet }: NavigationProps = {}) 
                     </Link>
                   </div>
                   {/* Marquee */}
-                  <div className="flex-1 overflow-hidden relative h-full">
-                    <div className="absolute inset-0 flex items-center animate-marquee">
+                  <div className="flex-1 min-w-0 overflow-hidden relative h-full">
+                    <div className="flex items-center h-full animate-marquee">
                       {[...Array(4)].map((_, i) => (
                         <span
                           key={i}

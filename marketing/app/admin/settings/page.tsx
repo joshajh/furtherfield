@@ -35,12 +35,9 @@ export default async function SettingsAdmin() {
   // Define the expected settings with labels
   const settingsConfig = [
     { key: "site_title", label: "Site Title" },
-    { key: "site_tagline", label: "Site Tagline" },
-    { key: "hero_title", label: "Hero Title" },
+    { key: "site_description", label: "Site Description" },
     { key: "hero_subtitle", label: "Hero Subtitle" },
-    { key: "cta_text", label: "CTA Button Text" },
-    { key: "cta_url", label: "CTA Button URL" },
-    { key: "about_snippet", label: "About Snippet (for nav)" },
+    { key: "ff_snippet", label: "FF Snippet (for nav)" },
     { key: "marquee_text", label: "Marquee Text" },
   ];
 

@@ -38,25 +38,25 @@ export default async function Home() {
       <AnimatedSprites />
       <Navigation
         marqueeText={settings?.marqueeText}
-        aboutSnippet={settings?.aboutSnippet}
+        ffSnippet={settings?.ffSnippet}
       />
 
       <main className="flex flex-col gap-2.5">
         <HeroHeader
-          title={settings?.heroTitle || "Reimagine\nThis Coastal Town"}
+          title={"Reimagine\nThis Coastal Town"}
           subtitle={settings?.heroSubtitle || undefined}
         />
 
         <EventGrid events={formattedEvents} />
 
         <LichenContainer seed={100} density="normal" edges={['top', 'bottom', 'left', 'right']} className="mx-2.5">
-          <Button variant="large" href="/events">
-            Book Now
+          <Button variant="large" href="/programme">
+            Programme
           </Button>
         </LichenContainer>
 
         <LichenContainer seed={200} density="normal" edges={['top', 'bottom', 'left', 'right']} className="mx-2.5">
-          <VimeoEmbed videoId="1036303680" />
+          <VimeoEmbed videoId="1036303680" fullViewport />
         </LichenContainer>
 
         <LichenContainer seed={300} density="normal" edges={['top', 'bottom', 'left', 'right']} className="mx-2.5">

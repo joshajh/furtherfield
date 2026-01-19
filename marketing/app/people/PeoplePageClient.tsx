@@ -8,7 +8,7 @@ import type { Person } from "@/lib/cms";
 type PeoplePageClientProps = {
   people: Person[];
   marqueeText?: string | null;
-  aboutSnippet?: string | null;
+  ffSnippet?: string | null;
 };
 
 const PERSON_TYPE_LABELS: Record<string, string> = {
@@ -23,7 +23,7 @@ const PERSON_TYPE_ORDER: Person["type"][] = ["team", "collaborator", "advisor", 
 export default function PeoplePageClient({
   people,
   marqueeText,
-  aboutSnippet,
+  ffSnippet,
 }: PeoplePageClientProps) {
   // Group people by type
   const groupedPeople = PERSON_TYPE_ORDER.reduce<Record<string, Person[]>>(
@@ -39,7 +39,7 @@ export default function PeoplePageClient({
 
   return (
     <div className="min-h-screen flex flex-col gap-2.5 pt-[calc(56px+20px)] pb-2.5 relative z-10 overflow-x-hidden">
-      <Navigation marqueeText={marqueeText} aboutSnippet={aboutSnippet} />
+      <Navigation marqueeText={marqueeText} ffSnippet={ffSnippet} />
 
       <main className="flex flex-col gap-2.5">
         {/* Hero Section */}

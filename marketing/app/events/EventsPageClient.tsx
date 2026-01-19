@@ -8,7 +8,7 @@ import type { Event } from "@/lib/cms";
 type EventsPageClientProps = {
   events: Event[];
   marqueeText?: string | null;
-  aboutSnippet?: string | null;
+  ffSnippet?: string | null;
 };
 
 function formatDate(dateStr: string | null): string | null {
@@ -70,12 +70,23 @@ function EventListItem({ event, index }: EventListItemProps) {
         </div>
 
         {/* Book Now link */}
-        <Link
-          href={`/events/${event.slug}`}
-          className="tag shrink-0"
-        >
-          Book Now
-        </Link>
+        {event.bookingUrl ? (
+          <a
+            href={event.bookingUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="tag shrink-0"
+          >
+            Book Now
+          </a>
+        ) : (
+          <Link
+            href={`/events/${event.slug}`}
+            className="tag shrink-0"
+          >
+            View Event
+          </Link>
+        )}
       </div>
     </motion.div>
   );
@@ -84,7 +95,7 @@ function EventListItem({ event, index }: EventListItemProps) {
 export default function EventsPageClient({
   events,
   marqueeText,
-  aboutSnippet,
+  ffSnippet,
 }: EventsPageClientProps) {
   // Sort all events by date
   const sortedEvents = [...events].sort((a, b) => {
@@ -96,7 +107,7 @@ export default function EventsPageClient({
   return (
     <div className="min-h-screen flex flex-col gap-2.5 pt-[calc(56px+20px)] pb-2.5 relative z-10 overflow-x-hidden">
       <AnimatedSprites />
-      <Navigation marqueeText={marqueeText} aboutSnippet={aboutSnippet} />
+      <Navigation marqueeText={marqueeText} ffSnippet={ffSnippet} />
 
       <main className="flex flex-col gap-2.5">
         {/* Hero Section */}
