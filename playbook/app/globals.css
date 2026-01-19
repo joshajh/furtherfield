@@ -1,0 +1,738 @@
+@import "tailwindcss";
+@import "fumadocs-ui/style.css";
+
+/* Tailwind theme - makes colors available as utilities like text-text-dark, bg-gradient-start */
+@theme inline {
+  --color-bg-dark: #0F0E0E;
+  --color-bg-light: #F5F5F5;
+  --color-bg-white: #FFFFFF;
+  --color-text-light: #F6F8FB;
+  --color-text-dark: #0F0E0E;
+  --color-divider: #555659;
+  --color-gradient-start: #BCE5F3;
+  --color-gradient-end: #D0D6FD;
+
+  /* Treatment color palettes */
+  --color-treatment-dark: rgba(140, 160, 180, 0.7);
+  --color-treatment-light: rgba(220, 200, 210, 0.6);
+  --color-treatment-lemon: rgba(245, 235, 180, 0.85);
+  --color-treatment-acid: rgba(200, 255, 0, 0.85);
+}
+
+:root {
+  /* CSS variables also available for direct usage */
+  --color-bg-dark: #0F0E0E;
+  --color-bg-light: #F5F5F5;
+  --color-bg-white: #FFFFFF;
+  --color-text-light: #F6F8FB;
+  --color-text-dark: #0F0E0E;
+  --color-divider: #555659;
+  --color-gradient-start: #BCE5F3;
+  --color-gradient-end: #D0D6FD;
+
+  /* Treatment color palettes */
+  --color-treatment-dark: rgba(140, 160, 180, 0.7);
+  --color-treatment-light: rgba(220, 200, 210, 0.6);
+  --color-treatment-lemon: rgba(245, 235, 180, 0.85);
+  --color-treatment-acid: rgba(200, 255, 0, 0.85);
+}
+
+/* Override Fumadocs theme variables for dark theme */
+:root {
+  /* Map Fumadocs CSS variables to our design tokens */
+  --fd-background: var(--color-bg-dark);
+  --fd-foreground: var(--color-text-light);
+  --fd-muted: #1a1919;
+  --fd-muted-foreground: #a1a1a1;
+  --fd-popover: #1a1919;
+  --fd-popover-foreground: var(--color-text-light);
+  --fd-card: #1a1919;
+  --fd-card-foreground: var(--color-text-light);
+  --fd-border: var(--color-divider);
+  --fd-input: var(--color-divider);
+  --fd-primary: rgb(200, 255, 0);
+  --fd-primary-foreground: var(--color-text-dark);
+  --fd-secondary: #2a2a2a;
+  --fd-secondary-foreground: var(--color-text-light);
+  --fd-accent: rgba(200, 255, 0, 0.15);
+  --fd-accent-foreground: var(--color-text-light);
+  --fd-ring: rgb(200, 255, 0);
+}
+
+html, body {
+  background: var(--color-bg-dark);
+  color: var(--color-text-light);
+  font-family: var(--font-plus-jakarta), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Sidebar and navigation styling */
+[data-fd-sidebar] {
+  background: var(--color-bg-dark) !important;
+  border-right-color: var(--color-divider) !important;
+}
+
+/* Primary link/button styling with acid yellow */
+a[data-active="true"],
+[data-fd-nav] a:hover,
+[data-fd-sidebar] a:hover {
+  color: rgb(200, 255, 0) !important;
+}
+
+/* TOC active item */
+[data-fd-toc] a[data-active="true"] {
+  color: rgb(200, 255, 0) !important;
+  border-left-color: rgb(200, 255, 0) !important;
+}
+
+/* Search button styling */
+[data-fd-search-trigger] {
+  background: #1a1919 !important;
+  border-color: var(--color-divider) !important;
+}
+
+[data-fd-search-trigger]:hover {
+  border-color: rgb(200, 255, 0) !important;
+}
+
+/* Code blocks */
+pre {
+  background: #1a1919 !important;
+  border: 1px solid var(--color-divider) !important;
+}
+
+code {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+/* Inline code styling */
+:not(pre) > code {
+  background: rgba(200, 255, 0, 0.15) !important;
+  color: rgb(200, 255, 0) !important;
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+/* Headings - scoped to docs pages, hero section uses its own colors */
+[data-fd-docs] h1,
+[data-fd-docs] h2,
+[data-fd-docs] h3,
+[data-fd-docs] h4,
+[data-fd-docs] h5,
+[data-fd-docs] h6 {
+  color: var(--color-text-light);
+  font-weight: 600;
+}
+
+/* Links in content */
+.prose a,
+[class*="prose"] a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: rgb(200, 255, 0);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  transition: all 0.15s ease;
+}
+
+.prose a:hover,
+[class*="prose"] a:hover {
+  text-decoration-thickness: 4px;
+  text-underline-offset: 2px;
+  background-color: rgba(200, 255, 0, 0.2);
+}
+
+/* Callout/admonition styling */
+[data-fd-callout] {
+  border-left-color: rgb(200, 255, 0) !important;
+  background: rgba(200, 255, 0, 0.1) !important;
+}
+
+/* Table styling */
+table {
+  border-color: var(--color-divider) !important;
+}
+
+th {
+  background: #1a1919 !important;
+  color: var(--color-text-light) !important;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+td {
+  border-color: var(--color-divider) !important;
+}
+
+tr:hover td {
+  background: rgba(200, 255, 0, 0.05) !important;
+}
+
+/* Blockquote styling */
+blockquote {
+  border-left-color: rgb(200, 255, 0) !important;
+  background: rgba(200, 255, 0, 0.05);
+  padding: 1rem;
+  font-style: italic;
+}
+
+/* Typography utilities */
+.font-mono {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+.font-display {
+  font-family: var(--font-display), "Playfair Display", Georgia, serif;
+}
+
+.font-serif {
+  font-family: var(--font-display), "Playfair Display", Georgia, serif;
+}
+
+/* Gradient backgrounds with noise (from marketing) */
+.bg-gradient-brand {
+  background: linear-gradient(to bottom, var(--color-gradient-start), var(--color-gradient-end));
+  position: relative;
+  isolation: isolate;
+}
+
+.bg-gradient-brand::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.6;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: -1;
+}
+
+/* Callout styles from marketing */
+.callout {
+  display: inline;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--color-text-dark);
+  background: var(--color-treatment-acid);
+}
+
+.callout-sm {
+  display: inline;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--color-text-dark);
+  background: var(--color-treatment-acid);
+}
+
+/* Tag styling from marketing */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  padding: 8px 12px;
+  min-height: 36px;
+  border-radius: 4px;
+  border: 1px solid var(--color-text-light);
+  color: var(--color-text-light);
+  background: transparent;
+  transition: all 0.2s ease;
+}
+
+.tag:hover {
+  background: var(--color-treatment-acid);
+  color: var(--color-text-dark);
+  border-color: var(--color-text-dark);
+}
+
+/* Header/navbar styling */
+[data-fd-nav] {
+  background: var(--color-bg-dark) !important;
+  border-bottom-color: var(--color-divider) !important;
+}
+
+/* Breadcrumb styling */
+[data-fd-breadcrumb] a:hover {
+  color: rgb(200, 255, 0) !important;
+}
+
+/* Footer styling */
+footer {
+  border-top-color: var(--color-divider) !important;
+}
+
+/* Two-color glitch effect - acid and blue shadows */
+.glitch-base-text {
+  position: relative;
+  display: inline-block;
+  isolation: isolate;
+}
+
+/* Acid glitch (yellow-green) */
+.glitch-base-text::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: rgba(200, 255, 0, 1);
+  z-index: 1;
+  opacity: 0;
+  transform-origin: left center;
+  animation: acid-glitch 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Lemon glitch */
+.glitch-base-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: var(--color-treatment-lemon);
+  z-index: 2;
+  opacity: 0;
+  transform-origin: left center;
+  animation: lemon-glitch 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes acid-glitch {
+  0%, 70%, 82%, 100% {
+    opacity: 0;
+    transform: translate(0);
+  }
+  72% {
+    opacity: 1;
+    transform: translate(6px, 3px);
+  }
+  74% {
+    opacity: 1;
+    transform: translate(5px, 2px);
+  }
+  76% {
+    opacity: 1;
+    transform: translate(7px, 4px);
+  }
+  78% {
+    opacity: 1;
+    transform: translate(5px, 3px);
+  }
+  80% {
+    opacity: 1;
+    transform: translate(6px, 2px);
+  }
+}
+
+@keyframes lemon-glitch {
+  0%, 70%, 82%, 100% {
+    opacity: 0;
+    transform: translate(0);
+  }
+  72% {
+    opacity: 1;
+    transform: translate(-2px, -3px);
+  }
+  74% {
+    opacity: 1;
+    transform: translate(-1px, -2px);
+  }
+  76% {
+    opacity: 1;
+    transform: translate(-3px, -3px);
+  }
+  78% {
+    opacity: 1;
+    transform: translate(-2px, -2px);
+  }
+  80% {
+    opacity: 1;
+    transform: translate(-2px, -3px);
+  }
+}
+
+/* Lichen decorations */
+.lichen-decoration {
+  position: absolute;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Page container with lichen borders */
+.page-with-lichen {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Docs layout overrides for gradient containers */
+[data-fd-docs] {
+  position: relative;
+}
+
+/* Main content area styling */
+main {
+  position: relative;
+}
+
+/* DocsPage container styling */
+.fd-page {
+  position: relative;
+}
+
+/* Card styling for docs content */
+.docs-card {
+  background: linear-gradient(to bottom, var(--color-gradient-start), var(--color-gradient-end));
+  border-radius: 8px;
+  padding: 1.5rem;
+  position: relative;
+  isolation: isolate;
+  color: var(--color-text-dark);
+}
+
+.docs-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.6;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: -1;
+}
+
+/* Landing page hero section */
+.hero-section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero-gradient-bg {
+  background: linear-gradient(to bottom, var(--color-gradient-start), var(--color-gradient-end));
+  position: relative;
+  isolation: isolate;
+}
+
+.hero-gradient-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.6;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Treatment color utilities */
+.text-treatment-acid {
+  color: rgb(200, 255, 0);
+}
+
+.bg-treatment-acid {
+  background-color: var(--color-treatment-acid);
+}
+
+/* Lichen footer border */
+.lichen-footer {
+  position: relative;
+}
+
+.lichen-footer::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background-image: url('/lichen-ruth-web/Lichen1.png');
+  background-size: auto 100%;
+  background-repeat: repeat-x;
+  background-position: bottom center;
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+/* ============================================
+   FUMADOCS DOCUMENTATION STYLING
+   Comprehensive styling for docs pages
+   ============================================ */
+
+/* Main docs container background */
+[data-fd-docs] {
+  background: var(--color-bg-dark);
+}
+
+/* Docs page title styling - use display font */
+[data-fd-docs] h1 {
+  font-family: var(--font-display), "Playfair Display", Georgia, serif !important;
+  font-size: 2.5rem !important;
+  font-weight: 600 !important;
+  font-style: italic;
+  color: var(--color-text-light) !important;
+  margin-bottom: 1rem !important;
+}
+
+@media (min-width: 768px) {
+  [data-fd-docs] h1 {
+    font-size: 3.5rem !important;
+  }
+}
+
+/* Section headings */
+[data-fd-docs] h2 {
+  font-family: var(--font-display), "Playfair Display", Georgia, serif !important;
+  font-size: 1.75rem !important;
+  font-weight: 600 !important;
+  color: var(--color-text-light) !important;
+  margin-top: 2.5rem !important;
+  margin-bottom: 1rem !important;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--color-divider);
+}
+
+[data-fd-docs] h3 {
+  font-family: var(--font-display), "Playfair Display", Georgia, serif !important;
+  font-size: 1.35rem !important;
+  font-weight: 600 !important;
+  color: var(--color-text-light) !important;
+  margin-top: 2rem !important;
+  margin-bottom: 0.75rem !important;
+}
+
+[data-fd-docs] h4 {
+  font-family: var(--font-geist-mono), ui-monospace, monospace !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  color: rgb(200, 255, 0) !important;
+  margin-top: 1.5rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+/* Paragraph text */
+[data-fd-docs] p {
+  color: var(--color-text-light);
+  line-height: 1.75;
+  margin-bottom: 1rem;
+}
+
+/* Lists styling */
+[data-fd-docs] ul,
+[data-fd-docs] ol {
+  color: var(--color-text-light);
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+[data-fd-docs] li {
+  margin-bottom: 0.5rem;
+  line-height: 1.7;
+}
+
+[data-fd-docs] ul li::marker {
+  color: rgb(200, 255, 0);
+}
+
+[data-fd-docs] ol li::marker {
+  color: rgb(200, 255, 0);
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-weight: 600;
+}
+
+/* Strong/bold text */
+[data-fd-docs] strong {
+  color: var(--color-text-light);
+  font-weight: 600;
+}
+
+/* Emphasis/italic text */
+[data-fd-docs] em {
+  font-style: italic;
+}
+
+/* Horizontal rules */
+[data-fd-docs] hr {
+  border-color: var(--color-divider);
+  margin: 2rem 0;
+}
+
+/* Sidebar styling enhancements */
+[data-fd-sidebar] {
+  border-right: 1px solid var(--color-divider) !important;
+}
+
+[data-fd-sidebar] a {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  transition: all 0.15s ease;
+}
+
+[data-fd-sidebar] a[data-active="true"] {
+  background: rgba(200, 255, 0, 0.1) !important;
+  color: rgb(200, 255, 0) !important;
+  border-left: 2px solid rgb(200, 255, 0);
+}
+
+/* TOC (Table of Contents) styling */
+[data-fd-toc] {
+  border-left: 1px solid var(--color-divider);
+}
+
+[data-fd-toc] a {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--fd-muted-foreground);
+  transition: all 0.15s ease;
+}
+
+[data-fd-toc] a:hover {
+  color: rgb(200, 255, 0) !important;
+}
+
+[data-fd-toc] a[data-active="true"] {
+  color: rgb(200, 255, 0) !important;
+  font-weight: 500;
+}
+
+/* Navigation bar styling */
+[data-fd-nav] {
+  border-bottom: 1px solid var(--color-divider) !important;
+}
+
+[data-fd-nav] a {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+/* Breadcrumbs */
+[data-fd-breadcrumb] {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+[data-fd-breadcrumb] a {
+  color: var(--fd-muted-foreground);
+}
+
+[data-fd-breadcrumb] a:hover {
+  color: rgb(200, 255, 0) !important;
+}
+
+/* Card components in docs */
+[data-fd-card] {
+  background: linear-gradient(to bottom, var(--color-gradient-start), var(--color-gradient-end)) !important;
+  border: none !important;
+  border-radius: 8px !important;
+  color: var(--color-text-dark) !important;
+  position: relative;
+  isolation: isolate;
+}
+
+[data-fd-card]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.6;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: -1;
+}
+
+[data-fd-card] h3,
+[data-fd-card] p {
+  color: var(--color-text-dark) !important;
+}
+
+/* Steps component styling */
+[data-fd-steps] {
+  border-left-color: rgb(200, 255, 0) !important;
+}
+
+[data-fd-steps] [data-fd-step]::before {
+  background: rgb(200, 255, 0) !important;
+  color: var(--color-text-dark) !important;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-weight: 600;
+}
+
+/* Footer styling */
+[data-fd-footer] {
+  border-top: 1px solid var(--color-divider) !important;
+  background: var(--color-bg-dark) !important;
+}
+
+/* Page navigation (prev/next) */
+[data-fd-page-nav] a {
+  background: #1a1919 !important;
+  border: 1px solid var(--color-divider) !important;
+  border-radius: 8px !important;
+  transition: all 0.15s ease;
+}
+
+[data-fd-page-nav] a:hover {
+  border-color: rgb(200, 255, 0) !important;
+  background: rgba(200, 255, 0, 0.1) !important;
+}
+
+[data-fd-page-nav] span {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+/* Search modal styling */
+[data-fd-search] {
+  background: var(--color-bg-dark) !important;
+  border: 1px solid var(--color-divider) !important;
+}
+
+[data-fd-search] input {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+[data-fd-search] [data-fd-search-result]:hover {
+  background: rgba(200, 255, 0, 0.1) !important;
+}
+
+/* Tabs component */
+[data-fd-tabs] button[data-state="active"] {
+  border-bottom-color: rgb(200, 255, 0) !important;
+  color: rgb(200, 255, 0) !important;
+}
+
+/* Description/lead text */
+[data-fd-docs] > p:first-of-type {
+  font-size: 1.125rem;
+  color: var(--fd-muted-foreground);
+  line-height: 1.8;
+}
