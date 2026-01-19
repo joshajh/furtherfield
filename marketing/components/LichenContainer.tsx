@@ -5,15 +5,18 @@ import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 
 const LICHEN_IMAGES = [
-  '/lichen/lichen-1.png',
-  '/lichen/lichen-2.png',
-  '/lichen/lichen-3.png',
-  '/lichen/lichen-4.png',
-  '/lichen/lichen-5.png',
-  '/lichen/lichen-6.png',
-  '/lichen/lichen-7.png',
-  '/lichen/lichen-8.png',
-  '/lichen/lichen-9.png',
+  '/lichen-ruth-web/Lichen1.png',
+  '/lichen-ruth-web/Lichen1a- light.png',
+  '/lichen-ruth-web/Lichen1b- light.png',
+  '/lichen-ruth-web/Lichen2- light.png',
+  '/lichen-ruth-web/Lichen2a- light.png',
+  '/lichen-ruth-web/Lichen2b- light.png',
+  '/lichen-ruth-web/Lichen2c- light.png',
+  '/lichen-ruth-web/Lichen3.png',
+  '/lichen-ruth-web/lichen4.png',
+  '/lichen-ruth-web/lichen4a.png',
+  '/lichen-ruth-web/lichen5.png',
+  '/lichen-ruth-web/lichen5a.png',
 ];
 
 type LichenPatch = {
@@ -51,10 +54,6 @@ export function LichenContainer({
 }: LichenContainerProps) {
   const pathname = usePathname();
 
-  // Use 'dark' treatment on event detail pages, 'acid' elsewhere
-  const isEventDetail = pathname?.startsWith('/events/') && pathname !== '/events';
-  const treatmentClass = isEventDetail ? 'bg-treatment-dark' : 'bg-treatment-acid';
-
   const lichenPatches = useMemo(() => {
     const patches: LichenPatch[] = [];
     const baseSeed = seed + (pathname?.length || 0);
@@ -85,7 +84,7 @@ export function LichenContainer({
           src: LICHEN_IMAGES[Math.floor(seededRandom(patchSeed + 4) * LICHEN_IMAGES.length)],
           edge,
           position: adjustedPosition,
-          size: 25 + seededRandom(patchSeed + 5) * 45, // 25-70px
+          size: 45 + seededRandom(patchSeed + 5) * 45, // 45-90px
           rotation: seededRandom(patchSeed + 6) * 360,
           flipX: seededRandom(patchSeed + 7) > 0.5,
           opacity: 0.5 + seededRandom(patchSeed + 8) * 0.4, // 0.5-0.9
@@ -145,20 +144,6 @@ export function LichenContainer({
               height={70}
               className="w-full h-full object-contain"
               style={{ opacity: patch.opacity }}
-            />
-            <div
-              className={`absolute inset-0 ${treatmentClass} mix-blend-multiply`}
-              style={{
-                maskImage: `url(${patch.src})`,
-                maskSize: 'contain',
-                maskPosition: 'center',
-                maskRepeat: 'no-repeat',
-                WebkitMaskImage: `url(${patch.src})`,
-                WebkitMaskSize: 'contain',
-                WebkitMaskPosition: 'center',
-                WebkitMaskRepeat: 'no-repeat',
-                opacity: patch.opacity,
-              }}
             />
           </div>
         );
