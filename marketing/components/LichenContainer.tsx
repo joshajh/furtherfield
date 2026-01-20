@@ -136,7 +136,12 @@ export function LichenContainer({
         }
 
         return (
-          <div key={patch.id} style={style} aria-hidden="true">
+          <div
+            key={patch.id}
+            style={style}
+            aria-hidden="true"
+            className="scale-[0.7] md:scale-100"
+          >
             <Image
               src={patch.src}
               alt=""

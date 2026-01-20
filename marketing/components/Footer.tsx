@@ -39,9 +39,16 @@ export function Footer() {
   return (
     <footer className="w-full px-2.5 py-2.5 flex flex-col gap-2.5">
       {/* Main Footer */}
-      <div className="relative bg-gradient-brand rounded-lg px-6 py-4 md:px-12 md:py-8 overflow-hidden">
+      <div className="relative bg-gradient-brand rounded-lg px-6 py-4 pb-20 md:px-12 md:py-8 md:pb-24 overflow-hidden">
+        {/* Ruth Border Bottom decoration at bottom */}
+        <img
+          src="/lichen-ruth-web/ruth-border-bottom.png"
+          alt=""
+          className="absolute bottom-0 left-0 right-0 w-full h-auto object-cover object-top pointer-events-none"
+          style={{ maxHeight: '80px' }}
+        />
         {/* Mobile Layout */}
-        <div className="flex flex-col gap-8 md:hidden">
+        <div className="flex flex-col gap-8 md:hidden relative z-[1]">
           <div className="font-display text-text-dark text-[32px] sm:text-[50px] leading-none italic">
             <h2 className="mb-0 glitch-base-text" data-text="Reimagine">
               <span className="relative z-10">Reimagine</span>

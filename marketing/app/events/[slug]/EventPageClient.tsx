@@ -375,7 +375,7 @@ export default function EventPageClient({
         {/* Brandmark with lichen divider background - grows into More section */}
         <div className="relative flex justify-center items-center py-8 md:py-16 overflow-hidden mx-2.5">
           <img
-            src="/lichen-divider-ends.png"
+            src="/lichen-ruth-web/ruth-border-bottom.png"
             alt=""
             className="absolute inset-x-0 bottom-0 w-full object-contain object-bottom opacity-60"
           />
