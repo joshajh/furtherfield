@@ -41,16 +41,16 @@ export function BrandmarkAcidTop({ size = 40, className = '', autoRotate = true 
     <div style={{ ...cubeStyle, transform }}>
       {/* Front - blue gradient */}
       <div style={{ ...faceStyle, transform: `translateZ(${halfCube}px)`, background: blueGradient }} />
-      {/* Back - blue gradient */}
-      <div style={{ ...faceStyle, transform: `rotateY(180deg) translateZ(${halfCube}px)`, background: blueGradient }} />
+      {/* Back - acid */}
+      <div style={{ ...faceStyle, transform: `rotateY(180deg) translateZ(${halfCube}px)`, background: acidColor }} />
       {/* Right - blue gradient */}
       <div style={{ ...faceStyle, transform: `rotateY(90deg) translateZ(${halfCube}px)`, background: blueGradient }} />
-      {/* Left - blue gradient */}
-      <div style={{ ...faceStyle, transform: `rotateY(-90deg) translateZ(${halfCube}px)`, background: blueGradient }} />
-      {/* Top - acid yellow (upward facing) */}
+      {/* Left - acid */}
+      <div style={{ ...faceStyle, transform: `rotateY(-90deg) translateZ(${halfCube}px)`, background: acidColor }} />
+      {/* Top - acid yellow (upward facing) - CHANGED from original */}
       <div style={{ ...faceStyle, transform: `rotateX(90deg) translateZ(${halfCube}px)`, background: acidColor }} />
-      {/* Bottom - blue gradient */}
-      <div style={{ ...faceStyle, transform: `rotateX(-90deg) translateZ(${halfCube}px)`, background: blueGradient }} />
+      {/* Bottom - acid */}
+      <div style={{ ...faceStyle, transform: `rotateX(-90deg) translateZ(${halfCube}px)`, background: acidColor }} />
     </div>
   )
 
