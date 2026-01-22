@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Generate Noise Texture</title>
+  <style>
+    body { margin: 0; padding: 20px; background: #222; color: #fff; font-family: sans-serif; }
+    canvas { display: block; margin: 20px 0; border: 1px solid #444; }
+    button { padding: 12px 24px; font-size: 16px; cursor: pointer; margin-right: 10px; }
+    .info { margin: 10px 0; color: #888; }
+  </style>
+</head>
+<body>
+  <h1>Furtherfield Noise Texture Generator</h1>
+  <p>This generates the same fractal noise effect used on the marketing site.</p>
+
+  <div>
+    <label>Size: </label>
+    <select id="size">
+      <option value="2000">2000x2000 (Medium)</option>
+      <option value="3000" selected>3000x3000 (Large - Recommended)</option>
+      <option value="4000">4000x4000 (Extra Large)</option>
+    </select>
+  </div>
+
+  <div style="margin-top: 10px;">
+    <label>Base Frequency: </label>
+    <select id="frequency">
+      <option value="0.65">0.65 (Coarser)</option>
+      <option value="0.75">0.75 (Treatment noise)</option>
+      <option value="0.85" selected>0.85 (Brand gradient - Default)</option>
+      <option value="0.95">0.95 (Finer)</option>
+    </select>
+  </div>
+
+  <div style="margin-top: 20px;">
+    <button onclick="generateNoise()">Generate Noise Texture</button>
+    <button onclick="downloadPNG()" id="downloadBtn" disabled>Download PNG</button>
+  </div>
+
+  <p class="info" id="status">Click "Generate" to create the texture</p>
+
+  <canvas id="canvas"></canvas>
+
+  <h3>Preview with brand gradient overlay:</h3>
+  <div id="preview" style="width: 400px; height: 400px; position: relative; border: 1px solid #444;">
+    <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, #BCE5F3, #D0D6FD);"></div>
+    <canvas id="previewCanvas" style="position: absolute; inset: 0; width: 100%; height: 100%; mix-blend-mode: overlay; opacity: 0.6;"></canvas>
+  </div>
+
+  <script>
+    let generatedDataUrl = null;
+
+    function generateNoise() {
+      const size = parseInt(document.getElementById('size').value);
+      const frequency = parseFloat(document.getElementById('frequency').value);
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
+
+      canvas.width = size;
+      canvas.height = size;
+
+      document.getElementById('status').textContent = `Generating ${size}x${size} texture... (this may take a moment)`;
+
+      // Use setTimeout to allow UI update
+      setTimeout(() => {
+        // Create SVG with feTurbulence filter
+        const svg = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}">
+            <filter id="noise">
+              <feTurbulence type="fractalNoise" baseFrequency="${frequency}" numOctaves="4" stitchTiles="stitch" seed="${Math.random() * 1000}"/>
+            </filter>
+            <rect width="100%" height="100%" filter="url(#noise)"/>
+          </svg>
+        `;
+
+        const blob = new Blob([svg], { type: 'image/svg+xml' });
+        const url = URL.createObjectURL(blob);
+        const img = new Image();
+
+        img.onload = () => {
+          ctx.drawImage(img, 0, 0);
+          URL.revokeObjectURL(url);
+
+          // Generate data URL for download
+          generatedDataUrl = canvas.toDataURL('image/png');
+
+          // Update preview
+          const previewCanvas = document.getElementById('previewCanvas');
+          const previewCtx = previewCanvas.getContext('2d');
+          previewCanvas.width = 400;
+          previewCanvas.height = 400;
+          previewCtx.drawImage(canvas, 0, 0, 400, 400);
+
+          document.getElementById('status').textContent = `Generated ${size}x${size} texture. Ready to download.`;
+          document.getElementById('downloadBtn').disabled = false;
+        };
+
+        img.onerror = () => {
+          document.getElementById('status').textContent = 'Error generating texture. Try a smaller size.';
+        };
+
+        img.src = url;
+      }, 100);
+    }
+
+    function downloadPNG() {
+      if (!generatedDataUrl) return;
+
+      const size = document.getElementById('size').value;
+      const frequency = document.getElementById('frequency').value;
+      const link = document.createElement('a');
+      link.download = `furtherfield-noise-${size}px-freq${frequency}.png`;
+      link.href = generatedDataUrl;
+      link.click();
+    }
+  </script>
+</body>
+</html>

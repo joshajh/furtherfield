@@ -1,0 +1,45 @@
+version: "3.8"
+
+services:
+  # Marketing website & CMS (port 3009)
+  marketing:
+    build:
+      context: ./marketing
+      dockerfile: Dockerfile
+    ports:
+      - "3009:3009"
+    environment:
+      - NODE_ENV=production
+      - PORT=3009
+    volumes:
+      # Persist CMS database
+      - marketing-data:/app/data
+    restart: unless-stopped
+
+  # Brand Explorer (port 3010)
+  brand-explorer:
+    build:
+      context: ./brand-explorer
+      dockerfile: Dockerfile
+    ports:
+      - "3010:3010"
+    environment:
+      - NODE_ENV=production
+      - PORT=3010
+    restart: unless-stopped
+
+  # Crafting Table design tools (port 3005)
+  crafting-table:
+    build:
+      context: ./tools/crafting-table-next
+      dockerfile: Dockerfile
+    ports:
+      - "3005:3005"
+    environment:
+      - NODE_ENV=production
+      - PORT=3005
+    restart: unless-stopped
+
+volumes:
+  marketing-data:
+    driver: local

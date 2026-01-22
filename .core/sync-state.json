@@ -1,0 +1,18 @@
+{
+  "project_id": "e49aa93a-ea8f-4048-b7b3-63d6203328b9",
+  "last_full_sync": "2026-01-16T04:43:06.365Z",
+  "files": {
+    "docs/sprints/sprint-1-playbook-documentation/README.md": {
+      "core_id": "ab806169-67c9-42d5-a561-b3945412abaa",
+      "last_modified": "2026-01-16T04:43:25.113Z",
+      "content_hash": "205658868830cafadcb5ae769dde7a9d43c92fc334d292167af58e04eb2b598c",
+      "sync_direction": "bidirectional"
+    }
+  },
+  "objects": {
+    "ab806169-67c9-42d5-a561-b3945412abaa": {
+      "file_path": "docs/sprints/sprint-1-playbook-documentation/README.md",
+      "last_modified": "2026-01-16T04:43:25.113Z"
+    }
+  }
+}

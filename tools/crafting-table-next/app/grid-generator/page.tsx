@@ -48,8 +48,8 @@ export default function GridGeneratorPage() {
     const waveParams = calculateWaveParameters(waveAmplitude, waveFrequency, currentData)
     const cellSize = CANVAS_SIZE / gridSize
 
-    // Clear existing paths (keep only the background rect)
-    while (svg.children.length > 1) {
+    // Clear existing paths
+    while (svg.children.length > 0) {
       svg.removeChild(svg.lastChild!)
     }
 
@@ -113,7 +113,7 @@ export default function GridGeneratorPage() {
       dataSource
     )
 
-    exportSVGAsPNG(svgRef.current, filename, CANVAS_SIZE, metadata)
+    exportSVGAsPNG(svgRef.current, filename, 1080, metadata)
   }
 
   return (
@@ -250,9 +250,9 @@ export default function GridGeneratorPage() {
               width={CANVAS_SIZE}
               height={CANVAS_SIZE}
               viewBox={`0 0 ${CANVAS_SIZE} ${CANVAS_SIZE}`}
-              className="max-w-full h-auto border border-[#333] shadow-lg"
+              className="max-w-full h-auto border border-[#333] shadow-lg bg-white"
             >
-              <rect width={CANVAS_SIZE} height={CANVAS_SIZE} fill="white" />
+              {/* Background is CSS-only for preview; exports are transparent */}
             </svg>
           </div>
         </div>
