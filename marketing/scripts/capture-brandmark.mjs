@@ -9,7 +9,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 async function captureBrandmark() {
   const mode = process.argv[2] || 'gif'; // 'gif', 'video', or 'png'
-  const duration = parseInt(process.argv[3]) || 5; // seconds
+  const duration = parseInt(process.argv[3]) || 15; // seconds
   const fps = parseInt(process.argv[4]) || 30; // frames per second for gif
 
   console.log(`Capturing brandmark as ${mode}...`);
@@ -47,7 +47,7 @@ async function captureBrandmark() {
           display: flex;
           align-items: center;
           justify-content: center;
-          background: #0F0E0E;
+          background: transparent;
         }
         .brandmark {
           width: 250px;
