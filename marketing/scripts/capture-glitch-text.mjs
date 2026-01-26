@@ -69,7 +69,7 @@ async function captureGlitchText() {
           z-index: 1;
           opacity: 0;
           transform-origin: left center;
-          animation: acid-glitch 3s ease-in-out infinite;
+          animation: acid-glitch 6s ease-in-out infinite;
           pointer-events: none;
         }
 
@@ -83,7 +83,7 @@ async function captureGlitchText() {
           z-index: 2;
           opacity: 0;
           transform-origin: left center;
-          animation: lemon-glitch 3s ease-in-out infinite;
+          animation: lemon-glitch 6s ease-in-out infinite;
           pointer-events: none;
         }
 
