@@ -49,7 +49,7 @@ async function captureTidalGrid() {
         const waveFrequency = 2.5;
         const strokeColor = '#9A8B55';
         const strokeWidth = 0.8;
-        const animationSpeed = 0.0003;
+        const animationSpeed = 0.00006;
 
         const viewBoxSize = 100;
         const cellSize = viewBoxSize / gridSize;
