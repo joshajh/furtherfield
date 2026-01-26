@@ -1,18 +1,40 @@
 import { chromium } from '@playwright/test';
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
+import GIFEncoder from 'gifencoder';
+import { PNG } from 'pngjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 async function captureBrandmark() {
-  console.log('Capturing brandmark with acid tops...');
+  const mode = process.argv[2] || 'gif'; // 'gif', 'video', or 'png'
+  const duration = parseInt(process.argv[3]) || 5; // seconds
+  const fps = parseInt(process.argv[4]) || 30; // frames per second for gif
+
+  console.log(`Capturing brandmark as ${mode}...`);
 
   const browser = await chromium.launch();
-  const page = await browser.newPage();
 
-  await page.setViewportSize({ width: 400, height: 400 });
+  const outputDir = path.join(__dirname, '..', 'public');
+  const framesDir = path.join(outputDir, 'brandmark-frames');
 
-  // Create HTML with the brandmark CSS
+  const contextOptions = {
+    viewport: { width: 400, height: 400 },
+  };
+
+  // Enable video recording for video mode
+  if (mode === 'video') {
+    contextOptions.recordVideo = {
+      dir: outputDir,
+      size: { width: 400, height: 400 },
+    };
+  }
+
+  const context = await browser.newContext(contextOptions);
+  const page = await context.newPage();
+
+  // Create HTML with the brandmark CSS and rotation animation
   const html = `
     <!DOCTYPE html>
     <html>
@@ -25,7 +47,7 @@ async function captureBrandmark() {
           display: flex;
           align-items: center;
           justify-content: center;
-          background: transparent;
+          background: #0F0E0E;
         }
         .brandmark {
           width: 250px;
@@ -38,6 +60,11 @@ async function captureBrandmark() {
           position: relative;
           transform-style: preserve-3d;
           transform: rotateX(-30deg) rotateY(-45deg);
+          animation: brandmark-spin ${duration}s linear infinite;
+        }
+        @keyframes brandmark-spin {
+          from { transform: rotateX(-30deg) rotateY(-45deg); }
+          to { transform: rotateX(-30deg) rotateY(315deg); }
         }
         .cube {
           position: absolute;
@@ -113,16 +140,76 @@ async function captureBrandmark() {
   await page.setContent(html);
   await page.waitForTimeout(500);
 
-  const outputPath = path.join(__dirname, '..', 'public', 'brandmark-acid-top.png');
-  await page.screenshot({
-    path: outputPath,
-    type: 'png',
-    omitBackground: true,
-  });
+  if (mode === 'png') {
+    const outputPath = path.join(outputDir, 'brandmark-acid-top.png');
+    await page.screenshot({
+      path: outputPath,
+      type: 'png',
+      omitBackground: true,
+    });
+    console.log(`Brandmark PNG saved to: ${outputPath}`);
+  } else if (mode === 'gif') {
+    // Capture frames and create GIF with transparency
+    const totalFrames = duration * fps;
+    const frameDelay = 1000 / fps;
+    const gifPath = path.join(outputDir, 'brandmark-rotating.gif');
 
+    console.log(`Capturing ${totalFrames} frames at ${fps}fps...`);
+
+    // Set up GIF encoder
+    const encoder = new GIFEncoder(400, 400);
+    const gifStream = fs.createWriteStream(gifPath);
+    encoder.createReadStream().pipe(gifStream);
+
+    encoder.start();
+    encoder.setRepeat(0); // 0 = loop forever
+    encoder.setDelay(Math.round(1000 / fps)); // frame delay in ms
+    encoder.setQuality(10); // image quality (lower = better)
+    encoder.setTransparent(0x000000); // black as transparent
+
+    for (let i = 0; i < totalFrames; i++) {
+      const buffer = await page.screenshot({
+        type: 'png',
+        omitBackground: true,
+      });
+
+      // Parse PNG and add frame
+      const png = PNG.sync.read(buffer);
+
+      // Convert transparent pixels to black (our transparent color)
+      for (let j = 0; j < png.data.length; j += 4) {
+        if (png.data[j + 3] === 0) {
+          // Fully transparent pixel - set to black
+          png.data[j] = 0;
+          png.data[j + 1] = 0;
+          png.data[j + 2] = 0;
+        }
+      }
+
+      encoder.addFrame(png.data);
+      await page.waitForTimeout(frameDelay);
+
+      if (i % 10 === 0) {
+        console.log(`  Frame ${i + 1}/${totalFrames}`);
+      }
+    }
+
+    encoder.finish();
+    console.log(`GIF saved to: ${gifPath}`);
+  } else {
+    // Record for the duration of one full rotation
+    console.log(`Recording ${duration} second rotation...`);
+    await page.waitForTimeout(duration * 1000);
+  }
+
+  await page.close();
+  await context.close();
   await browser.close();
 
-  console.log(`Brandmark saved to: ${outputPath}`);
+  if (mode === 'video') {
+    console.log(`Brandmark video saved to: ${outputDir}/`);
+    console.log('Note: Playwright saves videos with auto-generated names. Check the public folder.');
+  }
 }
 
 captureBrandmark().catch(console.error);
