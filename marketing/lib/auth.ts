@@ -17,5 +17,5 @@ export async function checkAuth(): Promise<boolean> {
 }
 
 export function getUnauthorizedResponse(): Response {
-  return new Response("Unauthorized", { status: 401 });
+  return Response.json({ error: "Unauthorized" }, { status: 401 });
 }

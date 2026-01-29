@@ -46,6 +46,12 @@ COPY --from=builder /app/data ./data
 # Ensure data directory is writable for the nextjs user
 RUN chown -R nextjs:nodejs ./data
 
+# Create uploads directory and set permissions
+RUN mkdir -p ./public/uploads && chown -R nextjs:nodejs ./public/uploads
+
+# Ensure .next/cache is writable for ISR
+RUN mkdir -p ./.next/cache && chown -R nextjs:nodejs ./.next
+
 USER nextjs
 
 EXPOSE ${PORT}
