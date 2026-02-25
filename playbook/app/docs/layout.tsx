@@ -1,12 +1,25 @@
-import { DocsLayout } from 'fumadocs-ui/layouts/docs';
 import type { ReactNode } from 'react';
-import { baseOptions } from '@/app/layout.config';
-import { source } from '@/lib/source';
+import { DocsSidebar } from '@/components';
+import { getNavigation } from '@/lib/docs';
 
-export default function Layout({ children }: { children: ReactNode }) {
+export default function DocsLayout({ children }: { children: ReactNode }) {
+  const navigation = getNavigation();
+
   return (
-    <DocsLayout tree={source.pageTree} {...baseOptions}>
-      {children}
-    </DocsLayout>
+    <div className="hero-gradient-bg min-h-screen">
+      <div className="max-w-7xl mx-auto py-6 px-4">
+        <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-6">
+          {/* Sidebar */}
+          <aside className="hidden lg:block">
+            <DocsSidebar navigation={navigation} />
+          </aside>
+
+          {/* Main content */}
+          <main>
+            {children}
+          </main>
+        </div>
+      </div>
+    </div>
   );
 }
