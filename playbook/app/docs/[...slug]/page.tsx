@@ -39,15 +39,33 @@ export default async function DocPage({ params }: PageProps) {
     });
 
     return (
+      <>
+        {/* Fixed Hero Section - Gradient background with title */}
+        <div className="fixed top-[56px] left-0 right-0 z-40 bg-bg-dark pt-2.5 pb-2.5">
+          <section className="bg-gradient-brand rounded-lg mx-2.5 px-5 py-4 border-b-2 border-text-dark">
+            <div className="max-w-4xl mx-auto text-left">
+              <h1 className="font-display text-[28px] sm:text-[40px] md:text-[60px] leading-[0.9] text-text-dark">
+                {doc.frontmatter.title || slugPath}
+              </h1>
+            </div>
+          </section>
+        </div>
+
+        {/* Spacer for fixed h1 - accounts for h1 + padding only, gap comes from flex container */}
+        <div className="h-[62px] sm:h-[72px] md:h-[92px]"></div>
+
       <div className="flex flex-col gap-2.5">
-        {/* Hero Section - Gradient background with title */}
-        <section className="bg-gradient-brand rounded-lg mx-2.5 px-5 py-4">
-          <div className="max-w-4xl mx-auto text-left">
-            <h1 className="font-display text-[28px] sm:text-[40px] md:text-[60px] leading-[0.9] text-text-dark">
-              {doc.frontmatter.title || slugPath}
-            </h1>
-          </div>
-        </section>
+
+        {/* Subtitle Section - Only for index page */}
+        {slugPath === 'index' && (
+          <section className="bg-bg-light rounded-lg mx-2.5 px-5 py-4">
+            <div className="max-w-4xl mx-auto text-left">
+              <p className="callout inline-block !text-lg md:!text-xl">
+                A time-travel playbook for inspiring coastal communities, by Ruth Catlow and Ann Light.
+              </p>
+            </div>
+          </section>
+        )}
 
         {/* Content Section - Light background */}
         <section className="bg-bg-light rounded-lg mx-2.5 px-5 py-8">
@@ -92,6 +110,7 @@ export default async function DocPage({ params }: PageProps) {
           </div>
         </section>
       </div>
+      </>
     );
   } catch (error) {
     notFound();

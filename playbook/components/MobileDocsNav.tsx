@@ -19,7 +19,7 @@ export function MobileDocsNav({ navigation }: MobileDocsNavProps) {
   const pathname = usePathname();
 
   return (
-    <div className="relative mb-2.5">
+    <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={`w-full tag flex items-center justify-between transition-colors ${
@@ -40,35 +40,44 @@ export function MobileDocsNav({ navigation }: MobileDocsNavProps) {
       </button>
 
       {isOpen && (
-        <div className="fixed top-[calc(56px+1rem)] left-0 right-0 bottom-0 overflow-y-auto space-y-1 p-4 bg-white/95 backdrop-blur-sm border-t-2 border-text-dark z-40">
-          {navigation.map((item, index) => {
-            if (item.separator) {
-              return (
-                <div key={index} className="py-2">
-                  <div className="font-mono text-xs uppercase tracking-wider text-text-dark font-semibold">
-                    {item.title}
+        <div className="fixed top-[56px] left-0 right-0 bottom-0 bg-bg-dark z-40 overflow-y-auto px-2.5 pt-0 pb-2.5">
+          <div className="bg-white/95 backdrop-blur-sm rounded-lg border-2 border-text-dark p-4 space-y-1 min-h-full">
+            <Link
+              href="/"
+              onClick={() => setIsOpen(false)}
+              className="block px-3 py-2 rounded font-mono text-xs uppercase tracking-wide transition-colors text-text-dark/80 hover:bg-text-dark/5 hover:text-text-dark mb-2"
+            >
+              Home
+            </Link>
+            {navigation.map((item, index) => {
+              if (item.separator) {
+                return (
+                  <div key={index} className="py-2">
+                    <div className="font-mono text-xs uppercase tracking-wider text-text-dark font-semibold">
+                      {item.title}
+                    </div>
                   </div>
-                </div>
+                );
+              }
+
+              const isActive = pathname === item.href;
+
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href || '#'}
+                  onClick={() => setIsOpen(false)}
+                  className={`block px-3 py-2 rounded font-mono text-xs uppercase tracking-wide transition-colors ${
+                    isActive
+                      ? 'bg-treatment-acid/20 text-text-dark border-l-2 border-text-dark font-semibold'
+                      : 'text-text-dark/80 hover:bg-text-dark/5 hover:text-text-dark'
+                  }`}
+                >
+                  {item.title}
+                </Link>
               );
-            }
-
-            const isActive = pathname === item.href;
-
-            return (
-              <Link
-                key={item.href}
-                href={item.href || '#'}
-                onClick={() => setIsOpen(false)}
-                className={`block px-3 py-2 rounded font-mono text-xs uppercase tracking-wide transition-colors ${
-                  isActive
-                    ? 'bg-treatment-acid/20 text-text-dark border-l-2 border-text-dark font-semibold'
-                    : 'text-text-dark/80 hover:bg-text-dark/5 hover:text-text-dark'
-                }`}
-              >
-                {item.title}
-              </Link>
-            );
-          })}
+            })}
+          </div>
         </div>
       )}
     </div>
