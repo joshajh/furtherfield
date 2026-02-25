@@ -2,11 +2,8 @@ import type { MDXComponents } from 'mdx/types'
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
-    h1: ({ children }) => (
-      <h1 className="font-display text-text-light text-[36px] sm:text-[40px] md:text-[80px] lg:text-[100px] leading-[0.95] tracking-tight mb-6">
-        {children}
-      </h1>
-    ),
+    // h1 is rendered outside the content panel from frontmatter, so we hide any h1s in the content
+    h1: ({ children }) => null,
     h2: ({ children }) => (
       <h2 className="font-mono text-base md:text-lg uppercase tracking-wide text-text-light underline decoration-2 underline-offset-4 decoration-text-light/40 mt-10 mb-4">
         {children}

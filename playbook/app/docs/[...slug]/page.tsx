@@ -37,9 +37,17 @@ export default async function DocPage({ params }: PageProps) {
     });
 
     return (
-      <FloatingPanel className="max-w-none max-h-[calc(100vh-3rem)] overflow-y-auto">
-        <article>{content}</article>
-      </FloatingPanel>
+      <div className="flex flex-col gap-6">
+        {/* Page title above the content panel */}
+        <h1 className="font-display text-text-dark text-[36px] sm:text-[40px] md:text-[80px] lg:text-[100px] leading-[0.95] tracking-tight">
+          {doc.frontmatter.title || slugPath}
+        </h1>
+
+        {/* Scrollable content panel */}
+        <FloatingPanel className="max-w-none max-h-[calc(100vh-200px)] overflow-y-auto">
+          <article>{content}</article>
+        </FloatingPanel>
+      </div>
     );
   } catch (error) {
     notFound();
