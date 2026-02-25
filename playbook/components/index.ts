@@ -6,3 +6,6 @@ export { FloatingPanel } from './FloatingPanel';
 export { DocsSidebar } from './DocsSidebar';
 export { MobileDocsNav } from './MobileDocsNav';
 export { DocsHeader } from './DocsHeader';
+export { LichenGaps } from './LichenGaps';
+export { Footer } from './Footer';
+export { FixedAreaLichen } from './FixedAreaLichen';

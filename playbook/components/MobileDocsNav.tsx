@@ -25,8 +25,9 @@ export function MobileDocsNav({ navigation }: MobileDocsNavProps) {
         className={`w-full tag flex items-center justify-between transition-colors ${
           isOpen
             ? 'bg-text-dark !text-text-light border-text-dark'
-            : 'bg-treatment-acid !text-text-dark border-text-dark hover:bg-text-dark hover:!text-text-light'
+            : '!text-text-dark border-text-dark hover:bg-text-dark hover:!text-text-light'
         }`}
+        style={!isOpen ? { backgroundColor: 'rgb(200, 255, 0)' } : undefined}
       >
         <span>Contents</span>
         <svg
@@ -41,7 +42,7 @@ export function MobileDocsNav({ navigation }: MobileDocsNavProps) {
 
       {isOpen && (
         <div className="fixed top-[56px] left-0 right-0 bottom-0 bg-bg-dark z-40 overflow-y-auto px-2.5 pt-0 pb-2.5">
-          <div className="bg-white/95 backdrop-blur-sm rounded-lg border-2 border-text-dark p-4 space-y-1 min-h-full">
+          <div className="bg-white rounded-lg border-2 border-text-dark p-4 space-y-1 min-h-full">
             <Link
               href="/"
               onClick={() => setIsOpen(false)}

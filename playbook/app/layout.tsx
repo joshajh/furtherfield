@@ -2,7 +2,6 @@ import './globals.css';
 import { Geist_Mono, Plus_Jakarta_Sans, Playfair_Display } from 'next/font/google';
 import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
-import { LichenBorder, LichenFooter } from '@/components';
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: '--font-plus-jakarta',
@@ -34,8 +33,6 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={`${plusJakartaSans.variable} ${geistMono.variable} ${playfairDisplay.variable}`} suppressHydrationWarning>
       <body className="flex flex-col min-h-screen">
-        <LichenBorder />
-        <LichenFooter />
         {children}
       </body>
     </html>
