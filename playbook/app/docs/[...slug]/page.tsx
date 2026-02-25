@@ -38,9 +38,6 @@ export default async function DocPage({ params }: PageProps) {
       components: useMDXComponents({}),
     });
 
-    // Determine if this is a subsection page (has a slash in the path)
-    const isSubsection = slugPath.includes('/');
-
     return (
       <div className="flex flex-col gap-2.5">
         {/* Hero Section - Gradient background with title */}
@@ -51,11 +48,7 @@ export default async function DocPage({ params }: PageProps) {
               <Link href="/">
                 <Brandmark3D size={24} autoRotate={true} />
               </Link>
-              <h1 className={`font-display leading-[0.9] text-text-dark ${
-                isSubsection
-                  ? 'text-[32px] sm:text-[40px] md:text-[60px] font-normal'
-                  : 'text-[40px] sm:text-[50px] md:text-[80px] font-semibold'
-              }`}>
+              <h1 className="font-display text-[40px] sm:text-[50px] md:text-[80px] leading-[0.9] text-text-dark">
                 {doc.frontmatter.title || slugPath}
               </h1>
             </div>
