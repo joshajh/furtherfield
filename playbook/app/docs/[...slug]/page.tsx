@@ -37,9 +37,9 @@ export default async function DocPage({ params }: PageProps) {
     });
 
     return (
-      <div className="flex flex-col gap-6">
+      <>
         {/* Page title above the content panel */}
-        <h1 className="font-display text-text-light text-[36px] sm:text-[40px] md:text-[80px] lg:text-[100px] leading-[0.95] tracking-tight">
+        <h1 className="font-display text-text-light text-[36px] sm:text-[40px] md:text-[80px] lg:text-[100px] leading-[0.95] tracking-tight mb-6">
           {doc.frontmatter.title || slugPath}
         </h1>
 
@@ -47,7 +47,7 @@ export default async function DocPage({ params }: PageProps) {
         <FloatingPanel className="max-w-none max-h-[calc(100vh-200px)] overflow-y-auto">
           <article>{content}</article>
         </FloatingPanel>
-      </div>
+      </>
     );
   } catch (error) {
     notFound();
