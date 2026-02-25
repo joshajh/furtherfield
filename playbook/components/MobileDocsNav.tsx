@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Brandmark3D } from './Brandmark3D';
 
 type NavItem = {
   title: string;
@@ -20,13 +19,7 @@ export function MobileDocsNav({ navigation }: MobileDocsNavProps) {
   const pathname = usePathname();
 
   return (
-    <div className="relative mb-6 flex items-center gap-3">
-      {/* Brandmark - links to home */}
-      <Link href="/" className="flex-shrink-0">
-        <Brandmark3D size={20} autoRotate={true} />
-      </Link>
-
-      {/* Menu button */}
+    <div className="relative mb-6">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={`w-full tag flex items-center justify-between transition-colors ${
@@ -47,7 +40,7 @@ export function MobileDocsNav({ navigation }: MobileDocsNavProps) {
       </button>
 
       {isOpen && (
-        <div className="absolute top-full left-0 right-0 mt-2 space-y-1 p-4 bg-white/95 backdrop-blur-sm rounded-lg border-2 border-text-dark z-50" style={{ marginLeft: 'calc(-20px - 0.75rem)' }}>
+        <div className="absolute top-full left-0 right-0 mt-2 space-y-1 p-4 bg-white/95 backdrop-blur-sm rounded-lg border-2 border-text-dark z-50">
           {navigation.map((item, index) => {
             if (item.separator) {
               return (
