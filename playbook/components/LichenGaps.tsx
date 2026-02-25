@@ -50,6 +50,7 @@ function LichenPatchElement({
         transform: `translate(-50%, -50%) rotate(${patch.rotation}deg) scaleX(${patch.flipX ? -1 : 1})`,
         width: patch.size,
         height: patch.size,
+        opacity: 0.7,
       }}
     >
       <Image
@@ -57,11 +58,14 @@ function LichenPatchElement({
         alt=""
         width={100}
         height={100}
-        className="w-full h-full object-contain"
-        style={{ opacity: patch.opacity }}
+        className="w-full h-full object-contain animate-fade-in"
+        style={{
+          opacity: patch.opacity,
+          animationDelay: `${parseInt(patch.id.split('-')[1]) * 20}ms`
+        }}
       />
       <div
-        className={`absolute inset-0 ${treatmentClass} mix-blend-multiply transition-colors duration-700`}
+        className={`absolute inset-0 ${treatmentClass} mix-blend-multiply transition-colors duration-700 animate-fade-in`}
         style={{
           maskImage: `url(${patch.src})`,
           maskSize: 'contain',
@@ -72,6 +76,7 @@ function LichenPatchElement({
           WebkitMaskPosition: 'center',
           WebkitMaskRepeat: 'no-repeat',
           opacity: patch.opacity,
+          animationDelay: `${parseInt(patch.id.split('-')[1]) * 20}ms`
         }}
       />
     </div>
@@ -123,7 +128,7 @@ export function LichenGaps() {
           : 35 + seededRandom(patchSeed + 8) * 60,
         rotation: seededRandom(patchSeed + 9) * 360,
         flipX: seededRandom(patchSeed + 10) > 0.5,
-        opacity: 0.4 + seededRandom(patchSeed + 11) * 0.4,
+        opacity: (0.4 + seededRandom(patchSeed + 11) * 0.4) * 0.1,
         layer: 'back',
       });
     }
@@ -145,7 +150,7 @@ export function LichenGaps() {
         size: 30 + seededRandom(patchSeed + 4) * 70,
         rotation: seededRandom(patchSeed + 5) * 360,
         flipX: seededRandom(patchSeed + 6) > 0.5,
-        opacity: 0.35 + seededRandom(patchSeed + 7) * 0.35,
+        opacity: (0.35 + seededRandom(patchSeed + 7) * 0.35) * 0.1,
         layer: 'back',
       });
     }
@@ -176,7 +181,7 @@ export function LichenGaps() {
         size: 40 + seededRandom(patchSeed + 6) * 80,
         rotation: seededRandom(patchSeed + 7) * 360,
         flipX: seededRandom(patchSeed + 8) > 0.5,
-        opacity: 0.5 + seededRandom(patchSeed + 9) * 0.4,
+        opacity: (0.5 + seededRandom(patchSeed + 9) * 0.4) * 0.1,
         layer: 'front',
       });
     }
