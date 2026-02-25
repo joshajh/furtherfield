@@ -24,8 +24,8 @@ export function MobileDocsNav({ navigation }: MobileDocsNavProps) {
         onClick={() => setIsOpen(!isOpen)}
         className={`w-full tag flex items-center justify-between transition-colors ${
           isOpen
-            ? 'bg-treatment-acid text-text-dark border-text-dark'
-            : 'bg-transparent text-text-dark border-text-dark hover:bg-treatment-acid'
+            ? 'bg-text-dark text-text-light border-text-dark'
+            : 'bg-treatment-acid text-text-dark border-text-dark hover:bg-text-dark hover:text-text-light'
         }`}
       >
         <span>Contents</span>
