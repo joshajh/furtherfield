@@ -3,3 +3,4 @@ export { LichenContainer } from './LichenContainer';
 export { LichenFooter } from './LichenFooter';
 export { Brandmark3D } from './Brandmark3D';
 export { FloatingPanel } from './FloatingPanel';
+export { DocsSidebar } from './DocsSidebar';
