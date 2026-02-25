@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import Link from 'next/link';
 import { DocsSidebar, MobileDocsNav, Brandmark3D } from '@/components';
 import { getNavigation } from '@/lib/docs';
 
@@ -14,10 +15,10 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
         <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-6 lg:items-start">
           {/* Sidebar column with brandmark */}
           <aside className="hidden lg:flex lg:flex-col lg:gap-6">
-            {/* Brandmark above sidebar */}
-            <div className="flex justify-center">
+            {/* Brandmark above sidebar - clickable to return to docs index */}
+            <Link href="/docs/index" className="flex justify-center">
               <Brandmark3D size={40} autoRotate={true} />
-            </div>
+            </Link>
 
             {/* Sidebar aligned with main content */}
             <DocsSidebar navigation={navigation} />
