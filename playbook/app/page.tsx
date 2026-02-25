@@ -5,7 +5,7 @@ export default function HomePage() {
   return (
     <main className="hero-section hero-gradient-bg min-h-screen">
       <LichenGaps />
-      <div className="relative z-10 max-w-4xl text-center space-y-4 px-5 py-8">
+      <div className="relative z-10 max-w-4xl mx-auto text-center space-y-4 px-5 py-8">
         <div className="space-y-3">
           {/* 3D Brandmark */}
           <div className="flex justify-center mb-6 animate-content-main">

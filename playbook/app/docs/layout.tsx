@@ -21,10 +21,12 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
 
       {/* Scrolling container */}
       <div className="flex-1 overflow-y-auto">
-        <main>
-          {children}
-        </main>
-        <Footer />
+        <div className="max-w-4xl mx-auto">
+          <main>
+            {children}
+          </main>
+          <Footer />
+        </div>
       </div>
     </div>
   );
