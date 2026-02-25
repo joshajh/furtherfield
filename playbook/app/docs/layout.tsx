@@ -11,22 +11,10 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
         {/* Mobile navigation */}
         <MobileDocsNav navigation={navigation} />
 
-        {/* Header is rendered by the page component */}
-
-        {/* Content grid - sidebar and main content aligned */}
-        <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-6">
-          {/* Sidebar */}
-          <aside className="hidden lg:block">
-            <div className="sticky top-6">
-              <DocsSidebar navigation={navigation} />
-            </div>
-          </aside>
-
-          {/* Main content */}
-          <main>
-            {children}
-          </main>
-        </div>
+        {/* Main content - header spans full width, then grid below */}
+        <main>
+          {children}
+        </main>
       </div>
     </div>
   );

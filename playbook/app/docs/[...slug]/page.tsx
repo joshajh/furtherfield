@@ -1,8 +1,9 @@
 import { notFound } from 'next/navigation';
 import { getDocBySlug, getDocSlugs } from '@/lib/docs';
-import { FloatingPanel, DocsHeader } from '@/components';
+import { FloatingPanel, DocsHeader, DocsSidebar } from '@/components';
 import { compileMDX } from 'next-mdx-remote/rsc';
 import { useMDXComponents } from '@/mdx-components';
+import { getNavigation } from '@/lib/docs';
 
 type PageProps = {
   params: Promise<{ slug: string[] }>;
@@ -30,6 +31,7 @@ export default async function DocPage({ params }: PageProps) {
 
   try {
     const doc = getDocBySlug(slugPath);
+    const navigation = getNavigation();
     const { content } = await compileMDX({
       source: doc.content,
       options: { parseFrontmatter: false },
@@ -38,13 +40,23 @@ export default async function DocPage({ params }: PageProps) {
 
     return (
       <>
-        {/* Header with brandmark and title */}
+        {/* Header with brandmark and title - full width */}
         <DocsHeader title={doc.frontmatter.title || slugPath} />
 
-        {/* Scrollable content panel */}
-        <FloatingPanel className="max-w-none max-h-[calc(100vh-200px)] overflow-y-auto">
-          <article>{content}</article>
-        </FloatingPanel>
+        {/* Content grid - sidebar and content panel aligned */}
+        <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-6">
+          {/* Sidebar */}
+          <aside className="hidden lg:block">
+            <div className="sticky top-6">
+              <DocsSidebar navigation={navigation} />
+            </div>
+          </aside>
+
+          {/* Scrollable content panel */}
+          <FloatingPanel className="max-w-none max-h-[calc(100vh-200px)] overflow-y-auto">
+            <article>{content}</article>
+          </FloatingPanel>
+        </div>
       </>
     );
   } catch (error) {
