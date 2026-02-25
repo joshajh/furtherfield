@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { getDocBySlug, getDocSlugs } from '@/lib/docs';
 import { FloatingPanel } from '@/components';
 import { compileMDX } from 'next-mdx-remote/rsc';
+import { useMDXComponents } from '@/mdx-components';
 
 type PageProps = {
   params: Promise<{ slug: string[] }>;
@@ -32,11 +33,12 @@ export default async function DocPage({ params }: PageProps) {
     const { content } = await compileMDX({
       source: doc.content,
       options: { parseFrontmatter: false },
+      components: useMDXComponents({}),
     });
 
     return (
-      <FloatingPanel withGradient className="prose prose-lg max-w-none max-h-[calc(100vh-3rem)] overflow-y-auto">
-        <article>{content}</article>
+      <FloatingPanel withGradient className="max-w-none max-h-[calc(100vh-3rem)] overflow-y-auto">
+        <article className="text-text-dark">{content}</article>
       </FloatingPanel>
     );
   } catch (error) {

@@ -18,13 +18,31 @@ export type NavItem = {
 const CONTENT_DIR = path.join(process.cwd(), 'content', 'docs');
 
 export function getDocSlugs(): string[] {
-  const files = fs.readdirSync(CONTENT_DIR);
-  return files
-    .filter((file) => file.endsWith('.mdx'))
-    .map((file) => file.replace(/\.mdx$/, ''));
+  const slugs: string[] = [];
+
+  function scanDirectory(dir: string, prefix: string = '') {
+    const items = fs.readdirSync(dir, { withFileTypes: true });
+
+    for (const item of items) {
+      // Skip meta.json and other non-content files
+      if (item.name === 'meta.json') continue;
+
+      if (item.isDirectory()) {
+        // Recursively scan subdirectories
+        scanDirectory(path.join(dir, item.name), prefix ? `${prefix}/${item.name}` : item.name);
+      } else if (item.name.endsWith('.mdx')) {
+        const slug = prefix ? `${prefix}/${item.name.replace(/\.mdx$/, '')}` : item.name.replace(/\.mdx$/, '');
+        slugs.push(slug);
+      }
+    }
+  }
+
+  scanDirectory(CONTENT_DIR);
+  return slugs;
 }
 
 export function getDocBySlug(slug: string) {
+  // Handle subdirectories (e.g., "workshop-stages/overview")
   const fullPath = path.join(CONTENT_DIR, `${slug}.mdx`);
   const fileContents = fs.readFileSync(fullPath, 'utf8');
   const { data, content } = matter(fileContents);

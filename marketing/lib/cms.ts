@@ -1,6 +1,7 @@
 import { db } from "./db";
 import { events, venues, settings, aboutPage, partners, eventDates, people, eventPeople } from "./db/schema";
-import { eq, desc, asc } from "drizzle-orm";
+import { eq, desc, asc, inArray } from "drizzle-orm";
+import { unstable_cache } from "next/cache";
 
 export type EventDate = {
   date: string;
@@ -78,7 +79,8 @@ export type AboutPage = {
   partners: readonly Partner[];
 };
 
-export async function getSettings(): Promise<Settings | null> {
+// Internal function that actually queries the database
+async function _getSettings(): Promise<Settings | null> {
   try {
     const rows = db.select().from(settings).all();
     if (rows.length === 0) return null;
@@ -100,7 +102,17 @@ export async function getSettings(): Promise<Settings | null> {
   }
 }
 
-export async function getAboutPage(): Promise<AboutPage | null> {
+// Cached version with 5 minute revalidation
+export const getSettings = unstable_cache(
+  _getSettings,
+  ["site-settings"],
+  {
+    revalidate: 300, // 5 minutes
+    tags: ["settings"]
+  }
+);
+
+async function _getAboutPage(): Promise<AboutPage | null> {
   try {
     const about = db.select().from(aboutPage).limit(1).get();
     if (!about) return null;
@@ -136,7 +148,17 @@ export async function getAboutPage(): Promise<AboutPage | null> {
   }
 }
 
-export async function getVenues(): Promise<Venue[]> {
+// Cached version with 5 minute revalidation
+export const getAboutPage = unstable_cache(
+  _getAboutPage,
+  ["about-page"],
+  {
+    revalidate: 300, // 5 minutes
+    tags: ["about", "partners"]
+  }
+);
+
+async function _getVenues(): Promise<Venue[]> {
   try {
     const rows = db.select().from(venues).all();
     return rows.map((v) => ({
@@ -151,6 +173,16 @@ export async function getVenues(): Promise<Venue[]> {
     return [];
   }
 }
+
+// Cached version with 5 minute revalidation
+export const getVenues = unstable_cache(
+  _getVenues,
+  ["venues"],
+  {
+    revalidate: 300, // 5 minutes
+    tags: ["venues"]
+  }
+);
 
 export async function getVenue(slug: string): Promise<Venue | null> {
   try {
@@ -178,10 +210,17 @@ export async function getEvents(): Promise<Event[]> {
       .orderBy(desc(events.date))
       .all();
 
-    // Fetch all event dates in one query for efficiency
+    // Only fetch dates for events we're actually returning
+    const eventIds = rows.map(({ events: e }) => e.id);
+
+    // Early return if no events
+    if (eventIds.length === 0) return [];
+
+    // Fetch dates only for these specific events using IN clause
     const allEventDates = db
       .select()
       .from(eventDates)
+      .where(inArray(eventDates.eventId, eventIds))
       .orderBy(asc(eventDates.date))
       .all();
 
@@ -332,7 +371,7 @@ export async function getEventPeople(eventSlug: string): Promise<Person[]> {
   }
 }
 
-export async function getAllPeople(): Promise<Person[]> {
+async function _getAllPeople(): Promise<Person[]> {
   try {
     const rows = db
       .select()
@@ -352,3 +391,13 @@ export async function getAllPeople(): Promise<Person[]> {
     return [];
   }
 }
+
+// Cached version with 5 minute revalidation
+export const getAllPeople = unstable_cache(
+  _getAllPeople,
+  ["people"],
+  {
+    revalidate: 300, // 5 minutes
+    tags: ["people"]
+  }
+);
