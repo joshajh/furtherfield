@@ -6,10 +6,12 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
   const navigation = getNavigation();
 
   return (
-    <div className="hero-gradient-bg min-h-screen">
-      <div className="max-w-4xl mx-auto py-4 px-4">
+    <div className="bg-bg-dark min-h-screen">
+      <div className="py-4">
         {/* Mobile navigation dropdown */}
-        <MobileDocsNav navigation={navigation} />
+        <div className="max-w-4xl mx-auto px-2.5">
+          <MobileDocsNav navigation={navigation} />
+        </div>
 
         {/* Main content */}
         <main>
