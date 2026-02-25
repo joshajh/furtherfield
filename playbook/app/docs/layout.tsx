@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { DocsSidebar } from '@/components';
+import { DocsSidebar, MobileDocsNav } from '@/components';
 import { getNavigation } from '@/lib/docs';
 
 export default function DocsLayout({ children }: { children: ReactNode }) {
@@ -8,6 +8,9 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
   return (
     <div className="hero-gradient-bg min-h-screen">
       <div className="max-w-7xl mx-auto py-6 px-4">
+        {/* Mobile navigation */}
+        <MobileDocsNav navigation={navigation} />
+
         <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-6">
           {/* Sidebar */}
           <aside className="hidden lg:block">
