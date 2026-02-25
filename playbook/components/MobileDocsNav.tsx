@@ -40,7 +40,7 @@ export function MobileDocsNav({ navigation }: MobileDocsNavProps) {
       </button>
 
       {isOpen && (
-        <div className="absolute top-full left-0 right-0 mt-2 space-y-1 p-4 bg-white/95 backdrop-blur-sm rounded-lg border-2 border-text-dark z-50">
+        <div className="fixed top-[calc(56px+1rem)] left-0 right-0 bottom-0 overflow-y-auto space-y-1 p-4 bg-white/95 backdrop-blur-sm border-t-2 border-text-dark z-40">
           {navigation.map((item, index) => {
             if (item.separator) {
               return (

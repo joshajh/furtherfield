@@ -7,13 +7,15 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
 
   return (
     <div className="bg-bg-dark min-h-screen">
-      <div className="py-4">
-        {/* Mobile navigation dropdown */}
+      {/* Fixed mobile navigation */}
+      <div className="fixed top-0 left-0 right-0 z-50 bg-bg-dark py-4">
         <div className="max-w-4xl mx-auto px-2.5">
           <MobileDocsNav navigation={navigation} />
         </div>
+      </div>
 
-        {/* Main content */}
+      {/* Main content with top padding for fixed header */}
+      <div className="pt-20">
         <main>
           {children}
         </main>
