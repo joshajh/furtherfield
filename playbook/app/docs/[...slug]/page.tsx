@@ -41,7 +41,7 @@ export default async function DocPage({ params }: PageProps) {
     return (
       <div className="flex flex-col gap-2.5">
         {/* Hero Section - Gradient background with title */}
-        <section className="bg-gradient-brand rounded-lg mx-2.5 px-5 py-6 md:py-8">
+        <section className="bg-gradient-brand rounded-lg mx-2.5 px-5 py-8">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="font-display text-[40px] sm:text-[50px] md:text-[80px] leading-[0.9] text-text-dark">
               {doc.frontmatter.title || slugPath}
@@ -50,14 +50,14 @@ export default async function DocPage({ params }: PageProps) {
         </section>
 
         {/* Content Section - Light background */}
-        <section className="bg-bg-light rounded-lg mx-2.5 px-5 py-8 md:py-12">
+        <section className="bg-bg-light rounded-lg mx-2.5 px-5 py-8">
           <div className="max-w-4xl mx-auto">
             <article className="space-y-6">{content}</article>
           </div>
         </section>
 
         {/* Brandmark Section - Centered */}
-        <section className="mx-2.5 py-8">
+        <section className="mx-2.5 py-6">
           <div className="flex justify-center">
             <Link href="/">
               <Brandmark3D size={40} autoRotate={true} />
@@ -66,7 +66,7 @@ export default async function DocPage({ params }: PageProps) {
         </section>
 
         {/* Navigation Section - Gradient background */}
-        <section className="bg-gradient-brand rounded-lg mx-2.5 px-5 py-12 md:py-16">
+        <section className="bg-gradient-brand rounded-lg mx-2.5 px-5 py-8">
           <div className="max-w-4xl mx-auto">
             <nav className="space-y-2">
               <p className="callout inline-block mb-4">Contents</p>
