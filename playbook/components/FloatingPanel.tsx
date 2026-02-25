@@ -32,7 +32,7 @@ export function FloatingPanel({
 
   return (
     <div
-      className={`bg-bg-dark border-2 border-text-dark rounded-lg p-6 ${className}`}
+      className={`bg-bg-light border-2 border-text-dark rounded-lg p-6 ${className}`}
     >
       {children}
     </div>

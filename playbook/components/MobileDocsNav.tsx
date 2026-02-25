@@ -22,7 +22,7 @@ export function MobileDocsNav({ navigation }: MobileDocsNavProps) {
     <div className="lg:hidden mb-4">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full bg-bg-dark border-2 border-text-dark rounded-lg p-4 flex items-center justify-between font-mono text-xs uppercase tracking-wide text-text-light"
+        className="w-full bg-bg-light border-2 border-text-dark rounded-lg p-4 flex items-center justify-between font-mono text-xs uppercase tracking-wide text-text-dark"
       >
         <span>Menu</span>
         <svg
@@ -36,12 +36,12 @@ export function MobileDocsNav({ navigation }: MobileDocsNavProps) {
       </button>
 
       {isOpen && (
-        <div className="mt-2 bg-bg-dark border-2 border-text-dark rounded-lg p-4 space-y-1">
+        <div className="mt-2 bg-bg-light border-2 border-text-dark rounded-lg p-4 space-y-1">
           {navigation.map((item, index) => {
             if (item.separator) {
               return (
                 <div key={index} className="py-2">
-                  <div className="font-mono text-xs uppercase tracking-wider text-treatment-acid">
+                  <div className="font-mono text-xs uppercase tracking-wider text-text-dark font-semibold">
                     {item.title}
                   </div>
                 </div>
@@ -57,8 +57,8 @@ export function MobileDocsNav({ navigation }: MobileDocsNavProps) {
                 onClick={() => setIsOpen(false)}
                 className={`block px-3 py-2 rounded font-mono text-xs uppercase tracking-wide transition-colors ${
                   isActive
-                    ? 'bg-treatment-acid/10 text-treatment-acid border-l-2 border-treatment-acid'
-                    : 'text-text-light hover:bg-treatment-acid/5 hover:text-treatment-acid'
+                    ? 'bg-text-dark/10 text-text-dark border-l-2 border-text-dark font-semibold'
+                    : 'text-text-dark/80 hover:bg-text-dark/5 hover:text-text-dark'
                 }`}
               >
                 {item.title}

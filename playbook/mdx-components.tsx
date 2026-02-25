@@ -5,7 +5,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     // h1 is rendered outside the content panel from frontmatter, so we hide any h1s in the content
     h1: ({ children }) => null,
     h2: ({ children }) => (
-      <h2 className="font-mono text-base md:text-lg uppercase tracking-wide text-text-light underline decoration-2 underline-offset-4 decoration-text-light/40 mt-10 mb-4">
+      <h2 className="font-mono text-base md:text-lg uppercase tracking-wide text-text-dark underline decoration-2 underline-offset-4 decoration-text-dark/40 mt-10 mb-4">
         {children}
       </h2>
     ),
@@ -15,27 +15,27 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       </h3>
     ),
     h4: ({ children }) => (
-      <h4 className="font-mono text-xs font-medium uppercase tracking-wide text-text-light/80 mt-6 mb-2">
+      <h4 className="font-mono text-xs font-medium uppercase tracking-wide text-text-dark/80 mt-6 mb-2">
         {children}
       </h4>
     ),
     p: ({ children }) => (
-      <p className="text-text-light text-base leading-7 mb-4 font-normal tracking-normal">
+      <p className="text-text-dark text-base leading-7 mb-4 font-normal tracking-normal">
         {children}
       </p>
     ),
     ul: ({ children }) => (
-      <ul className="text-text-light mb-4 pl-6 list-disc">
+      <ul className="text-text-dark mb-4 pl-6 list-disc">
         {children}
       </ul>
     ),
     ol: ({ children }) => (
-      <ol className="text-text-light mb-4 pl-6 list-decimal">
+      <ol className="text-text-dark mb-4 pl-6 list-decimal">
         {children}
       </ol>
     ),
     li: ({ children }) => (
-      <li className="mb-2 leading-7 text-base text-text-light">
+      <li className="mb-2 leading-7 text-base text-text-dark">
         {children}
       </li>
     ),
@@ -45,7 +45,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       </blockquote>
     ),
     strong: ({ children }) => (
-      <strong className="text-text-light font-semibold tracking-normal">
+      <strong className="text-text-dark font-semibold tracking-normal">
         {children}
       </strong>
     ),
@@ -63,7 +63,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       </code>
     ),
     pre: ({ children }) => (
-      <pre className="bg-bg-dark/5 border border-divider rounded-lg p-4 overflow-x-auto my-6 text-text-light">
+      <pre className="bg-bg-dark/5 border border-divider rounded-lg p-4 overflow-x-auto my-6 text-text-dark">
         {children}
       </pre>
     ),
