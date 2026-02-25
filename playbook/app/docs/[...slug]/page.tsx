@@ -39,7 +39,7 @@ export default async function DocPage({ params }: PageProps) {
     return (
       <div className="flex flex-col gap-6">
         {/* Page title above the content panel */}
-        <h1 className="font-display text-text-dark text-[36px] sm:text-[40px] md:text-[80px] lg:text-[100px] leading-[0.95] tracking-tight">
+        <h1 className="font-display text-text-light text-[36px] sm:text-[40px] md:text-[80px] lg:text-[100px] leading-[0.95] tracking-tight">
           {doc.frontmatter.title || slugPath}
         </h1>
 
