@@ -50,7 +50,7 @@ export default async function DocPage({ params }: PageProps) {
         </section>
 
         {/* Content Section - Light background */}
-        <section className="bg-bg-light rounded-lg mx-2.5 px-5 py-12 md:py-16">
+        <section className="bg-bg-light rounded-lg mx-2.5 px-5 py-8 md:py-12">
           <div className="max-w-4xl mx-auto">
             <article className="space-y-6">{content}</article>
           </div>
