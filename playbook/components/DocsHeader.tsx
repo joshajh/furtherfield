@@ -11,9 +11,9 @@ export function DocsHeader({ title }: DocsHeaderProps) {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-6 mb-6">
       {/* Left column - Brandmark aligned above menu with padding to match panel border */}
-      <div className="hidden lg:flex lg:justify-center lg:items-start lg:px-6">
+      <div className="hidden lg:flex lg:justify-center lg:items-center lg:px-6 lg:py-4">
         <Link href="/docs/index">
-          <Brandmark3D size={24} autoRotate={true} />
+          <Brandmark3D size={40} autoRotate={true} />
         </Link>
       </div>
 
