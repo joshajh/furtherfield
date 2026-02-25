@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { Brandmark3D } from './Brandmark3D';
+import { FloatingPanel } from './FloatingPanel';
 
 type DocsHeaderProps = {
   title: string;
@@ -17,10 +18,12 @@ export function DocsHeader({ title }: DocsHeaderProps) {
         </Link>
       </div>
 
-      {/* Right column - H1 aligned above content pane */}
-      <h1 className="font-display text-text-light text-[36px] sm:text-[40px] md:text-[80px] lg:text-[100px] leading-[0.95] tracking-tight">
-        {title}
-      </h1>
+      {/* Right column - H1 in floating panel with gradient */}
+      <FloatingPanel withGradient>
+        <h1 className="font-display text-text-dark text-[36px] sm:text-[40px] md:text-[80px] lg:text-[100px] leading-[0.95] tracking-tight">
+          {title}
+        </h1>
+      </FloatingPanel>
     </div>
   );
 }
