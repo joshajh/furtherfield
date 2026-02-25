@@ -14,10 +14,10 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
 
         <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-6 lg:items-start">
           {/* Sidebar column with brandmark */}
-          <aside className="hidden lg:flex lg:flex-col lg:gap-6">
+          <aside className="hidden lg:flex lg:flex-col lg:gap-4">
             {/* Brandmark above sidebar - clickable to return to docs index */}
             <Link href="/docs/index" className="flex justify-center">
-              <Brandmark3D size={40} autoRotate={true} />
+              <Brandmark3D size={24} autoRotate={true} />
             </Link>
 
             {/* Sidebar aligned with main content */}
