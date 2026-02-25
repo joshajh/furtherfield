@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { DocsSidebar, MobileDocsNav } from '@/components';
+import { MobileDocsNav } from '@/components';
 import { getNavigation } from '@/lib/docs';
 
 export default function DocsLayout({ children }: { children: ReactNode }) {
@@ -8,6 +8,9 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
   return (
     <div className="hero-gradient-bg min-h-screen">
       <div className="max-w-4xl mx-auto py-4 px-4">
+        {/* Mobile navigation dropdown */}
+        <MobileDocsNav navigation={navigation} />
+
         {/* Main content */}
         <main>
           {children}
