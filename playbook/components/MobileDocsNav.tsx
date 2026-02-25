@@ -19,10 +19,14 @@ export function MobileDocsNav({ navigation }: MobileDocsNavProps) {
   const pathname = usePathname();
 
   return (
-    <div className="mb-6">
+    <div className="relative mb-6">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full tag bg-treatment-acid text-text-dark border-text-dark flex items-center justify-between"
+        className={`w-full tag flex items-center justify-between transition-colors ${
+          isOpen
+            ? 'bg-treatment-acid text-text-dark border-text-dark'
+            : 'bg-transparent text-text-dark border-text-dark hover:bg-treatment-acid'
+        }`}
       >
         <span>Contents</span>
         <svg
@@ -36,12 +40,12 @@ export function MobileDocsNav({ navigation }: MobileDocsNavProps) {
       </button>
 
       {isOpen && (
-        <div className="mt-2 space-y-2 p-4 bg-white/10 backdrop-blur-sm rounded-lg border-2 border-text-dark">
+        <div className="absolute top-full left-0 right-0 mt-2 space-y-1 p-4 bg-white/95 backdrop-blur-sm rounded-lg border-2 border-text-dark z-50">
           {navigation.map((item, index) => {
             if (item.separator) {
               return (
-                <div key={index} className="pt-4 pb-2">
-                  <div className="font-mono text-xs uppercase tracking-wider text-text-dark/60">
+                <div key={index} className="py-2">
+                  <div className="font-mono text-xs uppercase tracking-wider text-text-dark font-semibold">
                     {item.title}
                   </div>
                 </div>
@@ -55,10 +59,10 @@ export function MobileDocsNav({ navigation }: MobileDocsNavProps) {
                 key={item.href}
                 href={item.href || '#'}
                 onClick={() => setIsOpen(false)}
-                className={`block py-2 text-sm transition-colors ${
+                className={`block px-3 py-2 rounded font-mono text-xs uppercase tracking-wide transition-colors ${
                   isActive
-                    ? 'text-text-dark font-semibold underline decoration-treatment-acid decoration-2'
-                    : 'text-text-dark/70 hover:text-text-dark'
+                    ? 'bg-treatment-acid/20 text-text-dark border-l-2 border-text-dark font-semibold'
+                    : 'text-text-dark/80 hover:bg-text-dark/5 hover:text-text-dark'
                 }`}
               >
                 {item.title}
