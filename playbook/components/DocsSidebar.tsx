@@ -18,7 +18,7 @@ export function DocsSidebar({ navigation }: DocsSidebarProps) {
   const pathname = usePathname();
 
   return (
-    <FloatingPanel withGradient className="h-fit sticky top-[20px]">
+    <FloatingPanel withGradient className="h-fit">
       <nav className="space-y-1">
         <h2 className="font-mono text-xs uppercase tracking-wider text-text-dark/60 mb-4 px-3">
           Contents
