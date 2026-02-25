@@ -470,3 +470,22 @@ html {
     transform: rotateX(-30deg) rotateY(315deg);
   }
 }
+
+/* Custom scrollbar for docs content */
+.overflow-y-auto::-webkit-scrollbar {
+  width: 10px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+  background: rgba(15, 14, 14, 0.3);
+  border-radius: 5px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background: rgba(200, 255, 0, 0.6);
+  border-radius: 5px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background: rgba(200, 255, 0, 0.85);
+}

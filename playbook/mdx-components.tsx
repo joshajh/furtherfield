@@ -3,17 +3,17 @@ import type { MDXComponents } from 'mdx/types'
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     h1: ({ children }) => (
-      <h1 className="font-display text-[2.5rem] md:text-[3.5rem] font-semibold italic text-text-dark mb-4">
+      <h1 className="font-display text-[2.5rem] md:text-[3.5rem] font-semibold italic text-text-dark mb-4 leading-tight tracking-tight">
         {children}
       </h1>
     ),
     h2: ({ children }) => (
-      <h2 className="font-display text-[1.75rem] font-semibold text-text-dark mt-10 mb-4 pb-2 border-b border-text-dark">
+      <h2 className="font-display text-[1.75rem] font-semibold text-text-dark mt-10 mb-4 pb-2 border-b border-text-dark leading-tight tracking-tight">
         {children}
       </h2>
     ),
     h3: ({ children }) => (
-      <h3 className="font-display text-[1.35rem] font-semibold text-text-dark mt-8 mb-3">
+      <h3 className="font-display text-[1.35rem] font-semibold text-text-dark mt-8 mb-3 leading-snug tracking-tight">
         {children}
       </h3>
     ),
@@ -23,7 +23,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       </h4>
     ),
     p: ({ children }) => (
-      <p className="text-text-dark leading-7 mb-4">
+      <p className="text-text-dark text-base leading-7 mb-4 font-normal tracking-normal">
         {children}
       </p>
     ),
@@ -38,7 +38,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       </ol>
     ),
     li: ({ children }) => (
-      <li className="mb-2 leading-7">
+      <li className="mb-2 leading-7 text-base">
         {children}
       </li>
     ),
@@ -48,7 +48,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       </blockquote>
     ),
     strong: ({ children }) => (
-      <strong className="text-text-dark font-semibold">
+      <strong className="text-text-dark font-semibold tracking-normal">
         {children}
       </strong>
     ),
