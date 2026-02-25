@@ -79,17 +79,13 @@ export default async function DocPage({ params }: PageProps) {
         {/* Navigation Section - Gradient background */}
         <section className="bg-gradient-brand rounded-lg mx-2.5 px-5 py-8">
           <div className="max-w-4xl mx-auto">
-            <nav className="space-y-2">
-              <p className="callout inline-block mb-4">Contents</p>
-              {navigation.map((item, index) => {
-                if (item.separator) {
-                  return (
-                    <p key={index} className="text-xs uppercase tracking-wider text-text-dark/60 mt-4 mb-2 font-mono">
-                      {item.title}
-                    </p>
-                  );
-                }
-                return (
+            <p className="callout inline-block mb-4">Contents</p>
+            <nav className="grid grid-cols-2 gap-x-4 md:gap-x-8 gap-y-2">
+              {/* Column 1 */}
+              <div className="space-y-2">
+                {navigation.filter(item =>
+                  item.href && ['index', 'inspiration', 'how-to-use', 'team'].some(slug => item.href?.includes(slug))
+                ).map((item) => (
                   <Link
                     key={item.href}
                     href={item.href || '#'}
@@ -97,8 +93,23 @@ export default async function DocPage({ params }: PageProps) {
                   >
                     {item.title}
                   </Link>
-                );
-              })}
+                ))}
+              </div>
+
+              {/* Column 2 */}
+              <div className="space-y-2">
+                {navigation.filter(item =>
+                  item.href && !['index', 'inspiration', 'how-to-use', 'team'].some(slug => item.href?.includes(slug))
+                ).map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href || '#'}
+                    className="block text-sm md:text-base text-text-dark/70 hover:text-text-dark underline decoration-treatment-acid decoration-2 underline-offset-2"
+                  >
+                    {item.title}
+                  </Link>
+                ))}
+              </div>
             </nav>
           </div>
         </section>

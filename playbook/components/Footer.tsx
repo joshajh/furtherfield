@@ -1,7 +1,7 @@
 export function Footer() {
   return (
     <footer className="w-full px-2.5 py-2.5 animate-content-footer">
-      <div className="relative bg-gradient-brand rounded-lg px-6 py-4 pb-20 md:px-12 md:py-8 md:pb-24 overflow-hidden">
+      <div className="relative bg-gradient-brand rounded-lg px-6 py-4 pb-8 md:px-12 md:py-8 md:pb-10 overflow-hidden">
         {/* Ruth Border Bottom decoration */}
         <img
           src="/lichen-ruth-web/ruth-border-bottom.png"
