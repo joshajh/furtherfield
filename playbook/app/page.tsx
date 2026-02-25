@@ -5,14 +5,14 @@ export default function HomePage() {
   return (
     <main className="hero-section hero-gradient-bg min-h-screen">
       <LichenGaps />
-      <div className="relative z-10 max-w-4xl text-center space-y-4 px-5 py-8 animate-content-main">
+      <div className="relative z-10 max-w-4xl text-center space-y-4 px-5 py-8">
         <div className="space-y-3">
           {/* 3D Brandmark */}
-          <div className="flex justify-center mb-6">
+          <div className="flex justify-center mb-6 animate-content-main">
             <Brandmark3D size={40} autoRotate={true} />
           </div>
 
-          <p className="callout inline-block px-2 py-1">
+          <p className="callout inline-block px-2 py-1 animate-content-main">
             A Time-Travel Playbook
           </p>
 
@@ -24,9 +24,10 @@ export default function HomePage() {
                    maskImage: 'linear-gradient(to bottom, transparent, black 20%, black 80%, transparent), linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
                    WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 20%, black 80%, transparent), linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
                    maskComposite: 'intersect',
-                   WebkitMaskComposite: 'source-in'
+                   WebkitMaskComposite: 'source-in',
+                   willChange: 'backdrop-filter'
                  }}></div>
-            <h1 className="font-display text-[60px] sm:text-[80px] md:text-[120px] lg:text-[140px] leading-[0.9] text-text-dark inline-block px-4 py-6 relative">
+            <h1 className="font-display text-[60px] sm:text-[80px] md:text-[120px] lg:text-[140px] leading-[0.9] text-text-dark inline-block px-4 py-6 relative animate-content-main">
               <span className="block italic">
                 <span className="glitch-base-text" data-text="Reimagine">
                   <span className="relative z-10">Reimagine</span>
@@ -37,12 +38,12 @@ export default function HomePage() {
             </h1>
           </div>
 
-          <p className="text-sm text-text-dark font-mono uppercase tracking-wider bg-treatment-acid px-3 py-1 rounded inline-block">
+          <p className="text-sm text-text-dark font-mono uppercase tracking-wider bg-treatment-acid px-3 py-1 rounded inline-block animate-content-main">
             By Ruth Catlow and Ann Light
           </p>
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4 animate-content-main">
           <Link
             href="/docs"
             className="tag bg-treatment-acid !text-text-dark !border-text-dark hover:bg-text-dark hover:!text-gray-300 hover:!border-gray-300 inline-flex"
