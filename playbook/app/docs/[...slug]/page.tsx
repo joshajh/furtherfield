@@ -41,7 +41,7 @@ export default async function DocPage({ params }: PageProps) {
     return (
       <div className="flex flex-col gap-2.5">
         {/* Hero Section - Gradient background with title */}
-        <section className="bg-gradient-brand rounded-lg mx-2.5 px-5 py-12 md:py-16">
+        <section className="bg-gradient-brand rounded-lg mx-2.5 px-5 py-6 md:py-8">
           <div className="max-w-4xl mx-auto text-center">
             {/* Page title with inline brandmark */}
             <div className="flex items-center justify-center gap-4">
