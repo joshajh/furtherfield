@@ -7,7 +7,7 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
 
   return (
     <div className="hero-gradient-bg min-h-screen">
-      <div className="max-w-7xl mx-auto py-6 px-4">
+      <div className="max-w-7xl mx-auto py-6 px-6">
         {/* Mobile navigation */}
         <MobileDocsNav navigation={navigation} />
 
