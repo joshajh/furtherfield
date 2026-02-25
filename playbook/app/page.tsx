@@ -5,7 +5,7 @@ export default function HomePage() {
   return (
     <main className="hero-section hero-gradient-bg min-h-screen">
       <LichenGaps />
-      <div className="relative z-10 max-w-4xl text-center space-y-4 px-5 py-8">
+      <div className="relative z-10 max-w-4xl text-center space-y-4 px-5 py-8 animate-content-main">
         <div className="space-y-3">
           {/* 3D Brandmark */}
           <div className="flex justify-center mb-6">
@@ -17,7 +17,7 @@ export default function HomePage() {
           </p>
 
           {/* Hero title - matching marketing site style */}
-          <h1 className="font-display text-[60px] sm:text-[80px] md:text-[120px] lg:text-[140px] leading-[0.9] text-text-dark backdrop-blur-sm inline-block px-4 py-6 relative"
+          <h1 className="font-display text-[60px] sm:text-[80px] md:text-[120px] lg:text-[140px] leading-[0.9] text-text-dark backdrop-blur-sm inline-block px-4 py-6 bg-white/10 relative"
               style={{
                 maskImage: 'linear-gradient(to bottom, transparent, black 20%, black 80%, transparent), linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
                 WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 20%, black 80%, transparent), linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
