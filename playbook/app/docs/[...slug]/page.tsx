@@ -1,9 +1,9 @@
 import { notFound } from 'next/navigation';
-import { getDocBySlug, getDocSlugs } from '@/lib/docs';
-import { FloatingPanel, DocsHeader, DocsSidebar } from '@/components';
+import { getDocBySlug, getDocSlugs, getNavigation } from '@/lib/docs';
+import { Brandmark3D } from '@/components';
 import { compileMDX } from 'next-mdx-remote/rsc';
 import { useMDXComponents } from '@/mdx-components';
-import { getNavigation } from '@/lib/docs';
+import Link from 'next/link';
 
 type PageProps = {
   params: Promise<{ slug: string[] }>;
@@ -39,25 +39,45 @@ export default async function DocPage({ params }: PageProps) {
     });
 
     return (
-      <>
-        {/* Header with brandmark and title - full width */}
-        <DocsHeader title={doc.frontmatter.title || slugPath} />
-
-        {/* Content grid - sidebar and content panel aligned */}
-        <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-6">
-          {/* Sidebar */}
-          <aside className="hidden lg:block">
-            <div className="sticky top-6">
-              <DocsSidebar navigation={navigation} />
-            </div>
-          </aside>
-
-          {/* Scrollable content panel */}
-          <FloatingPanel withGradient className="max-w-none max-h-[calc(100vh-200px)] overflow-y-auto">
-            <article>{content}</article>
-          </FloatingPanel>
+      <div className="space-y-8">
+        {/* Brandmark */}
+        <div className="flex justify-center">
+          <Link href="/">
+            <Brandmark3D size={40} autoRotate={true} />
+          </Link>
         </div>
-      </>
+
+        {/* Page title */}
+        <h1 className="font-display text-[40px] sm:text-[50px] md:text-[80px] leading-[0.9] text-text-dark text-center">
+          {doc.frontmatter.title || slugPath}
+        </h1>
+
+        {/* Content */}
+        <article className="text-left space-y-6">{content}</article>
+
+        {/* Navigation */}
+        <nav className="pt-8 mt-8 border-t border-text-dark/20 space-y-2">
+          <p className="callout inline-block mb-4">Contents</p>
+          {navigation.map((item, index) => {
+            if (item.separator) {
+              return (
+                <p key={index} className="text-xs uppercase tracking-wider text-text-dark/60 mt-4 mb-2 font-mono">
+                  {item.title}
+                </p>
+              );
+            }
+            return (
+              <Link
+                key={item.href}
+                href={item.href || '#'}
+                className="block text-sm md:text-base text-text-dark/70 hover:text-text-dark underline decoration-treatment-acid decoration-2 underline-offset-2"
+              >
+                {item.title}
+              </Link>
+            );
+          })}
+        </nav>
+      </div>
     );
   } catch (error) {
     notFound();

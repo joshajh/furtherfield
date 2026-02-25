@@ -2,40 +2,40 @@ import type { MDXComponents } from 'mdx/types'
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
-    // h1 is rendered outside the content panel from frontmatter, so we hide any h1s in the content
+    // h1 is rendered outside the content from frontmatter, so we hide any h1s in the content
     h1: ({ children }) => null,
     h2: ({ children }) => (
-      <h2 className="font-mono text-base md:text-lg uppercase tracking-wide text-text-dark underline decoration-2 underline-offset-4 decoration-text-dark/40 mt-10 mb-4">
+      <h2 className="callout inline-block mt-10 mb-4 text-base">
         {children}
       </h2>
     ),
     h3: ({ children }) => (
-      <h3 className="callout inline-block mt-8 mb-3">
+      <h3 className="font-display text-2xl md:text-3xl text-text-dark mt-8 mb-3 leading-tight">
         {children}
       </h3>
     ),
     h4: ({ children }) => (
-      <h4 className="font-mono text-xs font-medium uppercase tracking-wide text-text-dark/80 mt-6 mb-2">
+      <h4 className="font-mono text-sm uppercase tracking-wide text-text-dark/60 mt-6 mb-2">
         {children}
       </h4>
     ),
     p: ({ children }) => (
-      <p className="text-text-dark text-base leading-7 mb-4 font-normal tracking-normal">
+      <p className="text-text-dark/70 text-base md:text-lg leading-relaxed mb-4">
         {children}
       </p>
     ),
     ul: ({ children }) => (
-      <ul className="text-text-dark mb-4 pl-6 list-disc">
+      <ul className="text-text-dark/70 mb-4 pl-6 list-disc space-y-2">
         {children}
       </ul>
     ),
     ol: ({ children }) => (
-      <ol className="text-text-dark mb-4 pl-6 list-decimal">
+      <ol className="text-text-dark/70 mb-4 pl-6 list-decimal space-y-2">
         {children}
       </ol>
     ),
     li: ({ children }) => (
-      <li className="mb-2 leading-7 text-base text-text-dark">
+      <li className="text-base md:text-lg leading-relaxed">
         {children}
       </li>
     ),
