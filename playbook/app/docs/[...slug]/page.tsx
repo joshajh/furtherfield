@@ -53,7 +53,7 @@ export default async function DocPage({ params }: PageProps) {
           </aside>
 
           {/* Scrollable content panel */}
-          <FloatingPanel className="max-w-none max-h-[calc(100vh-200px)] overflow-y-auto">
+          <FloatingPanel withGradient className="max-w-none max-h-[calc(100vh-200px)] overflow-y-auto">
             <article>{content}</article>
           </FloatingPanel>
         </div>
