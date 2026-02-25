@@ -42,18 +42,16 @@ export default async function DocPage({ params }: PageProps) {
       <div className="flex flex-col gap-2.5">
         {/* Hero Section - Gradient background with title */}
         <section className="bg-gradient-brand rounded-lg mx-2.5 px-5 py-12 md:py-16">
-          <div className="max-w-4xl mx-auto text-center space-y-4">
-            {/* Brandmark */}
-            <div className="flex justify-center mb-4">
+          <div className="max-w-4xl mx-auto text-center">
+            {/* Page title with inline brandmark */}
+            <div className="flex items-center justify-center gap-4">
               <Link href="/">
-                <Brandmark3D size={40} autoRotate={true} />
+                <Brandmark3D size={24} autoRotate={true} />
               </Link>
+              <h1 className="font-display text-[40px] sm:text-[50px] md:text-[80px] leading-[0.9] text-text-dark">
+                {doc.frontmatter.title || slugPath}
+              </h1>
             </div>
-
-            {/* Page title */}
-            <h1 className="font-display text-[40px] sm:text-[50px] md:text-[80px] leading-[0.9] text-text-dark">
-              {doc.frontmatter.title || slugPath}
-            </h1>
           </div>
         </section>
 
