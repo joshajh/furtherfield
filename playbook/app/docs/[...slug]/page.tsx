@@ -37,8 +37,8 @@ export default async function DocPage({ params }: PageProps) {
     });
 
     return (
-      <FloatingPanel withGradient className="max-w-none max-h-[calc(100vh-3rem)] overflow-y-auto">
-        <article className="text-text-dark">{content}</article>
+      <FloatingPanel className="max-w-none max-h-[calc(100vh-3rem)] overflow-y-auto">
+        <article>{content}</article>
       </FloatingPanel>
     );
   } catch (error) {
