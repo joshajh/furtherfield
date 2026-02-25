@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import "fumadocs-ui/style.css";
 
 /* Tailwind theme - makes colors available as utilities like text-text-dark, bg-gradient-start */
 @theme inline {
@@ -37,61 +36,10 @@
   --color-treatment-acid: rgba(200, 255, 0, 0.85);
 }
 
-/* Override Fumadocs theme variables for dark theme */
-:root {
-  /* Map Fumadocs CSS variables to our design tokens */
-  --fd-background: var(--color-bg-dark);
-  --fd-foreground: var(--color-text-light);
-  --fd-muted: #1a1919;
-  --fd-muted-foreground: #a1a1a1;
-  --fd-popover: #1a1919;
-  --fd-popover-foreground: var(--color-text-light);
-  --fd-card: #1a1919;
-  --fd-card-foreground: var(--color-text-light);
-  --fd-border: var(--color-divider);
-  --fd-input: var(--color-divider);
-  --fd-primary: rgb(200, 255, 0);
-  --fd-primary-foreground: var(--color-text-dark);
-  --fd-secondary: #2a2a2a;
-  --fd-secondary-foreground: var(--color-text-light);
-  --fd-accent: rgba(200, 255, 0, 0.15);
-  --fd-accent-foreground: var(--color-text-light);
-  --fd-ring: rgb(200, 255, 0);
-}
-
 html, body {
   background: var(--color-bg-dark);
   color: var(--color-text-light);
   font-family: var(--font-plus-jakarta), ui-sans-serif, system-ui, sans-serif;
-}
-
-/* Sidebar and navigation styling */
-[data-fd-sidebar] {
-  background: var(--color-bg-dark) !important;
-  border-right-color: var(--color-divider) !important;
-}
-
-/* Primary link/button styling with acid yellow */
-a[data-active="true"],
-[data-fd-nav] a:hover,
-[data-fd-sidebar] a:hover {
-  color: rgb(200, 255, 0) !important;
-}
-
-/* TOC active item */
-[data-fd-toc] a[data-active="true"] {
-  color: rgb(200, 255, 0) !important;
-  border-left-color: rgb(200, 255, 0) !important;
-}
-
-/* Search button styling */
-[data-fd-search-trigger] {
-  background: #1a1919 !important;
-  border-color: var(--color-divider) !important;
-}
-
-[data-fd-search-trigger]:hover {
-  border-color: rgb(200, 255, 0) !important;
 }
 
 /* Code blocks */
@@ -113,17 +61,6 @@ code {
   font-size: 0.9em;
 }
 
-/* Headings - scoped to docs pages, hero section uses its own colors */
-[data-fd-docs] h1,
-[data-fd-docs] h2,
-[data-fd-docs] h3,
-[data-fd-docs] h4,
-[data-fd-docs] h5,
-[data-fd-docs] h6 {
-  color: var(--color-text-light);
-  font-weight: 600;
-}
-
 /* Links in content */
 .prose a,
 [class*="prose"] a {
@@ -140,12 +77,6 @@ code {
   text-decoration-thickness: 4px;
   text-underline-offset: 2px;
   background-color: rgba(200, 255, 0, 0.2);
-}
-
-/* Callout/admonition styling */
-[data-fd-callout] {
-  border-left-color: rgb(200, 255, 0) !important;
-  background: rgba(200, 255, 0, 0.1) !important;
 }
 
 /* Table styling */
@@ -184,11 +115,11 @@ blockquote {
 }
 
 .font-display {
-  font-family: var(--font-display), "Playfair Display", Georgia, serif;
+  font-family: "P22 Mackinac Pro", "P22 Mackinac", Georgia, serif;
 }
 
 .font-serif {
-  font-family: var(--font-display), "Playfair Display", Georgia, serif;
+  font-family: "P22 Mackinac Pro", "P22 Mackinac", Georgia, serif;
 }
 
 /* Gradient backgrounds with noise (from marketing) */
@@ -256,17 +187,6 @@ blockquote {
   background: var(--color-treatment-acid);
   color: var(--color-text-dark);
   border-color: var(--color-text-dark);
-}
-
-/* Header/navbar styling */
-[data-fd-nav] {
-  background: var(--color-bg-dark) !important;
-  border-bottom-color: var(--color-divider) !important;
-}
-
-/* Breadcrumb styling */
-[data-fd-breadcrumb] a:hover {
-  color: rgb(200, 255, 0) !important;
 }
 
 /* Footer styling */
@@ -376,41 +296,8 @@ footer {
   overflow: hidden;
 }
 
-/* Docs layout overrides for gradient containers */
-[data-fd-docs] {
-  position: relative;
-}
-
-/* Main content area styling */
 main {
   position: relative;
-}
-
-/* DocsPage container styling */
-.fd-page {
-  position: relative;
-}
-
-/* Card styling for docs content */
-.docs-card {
-  background: linear-gradient(to bottom, var(--color-gradient-start), var(--color-gradient-end));
-  border-radius: 8px;
-  padding: 1.5rem;
-  position: relative;
-  isolation: isolate;
-  color: var(--color-text-dark);
-}
-
-.docs-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  opacity: 0.6;
-  mix-blend-mode: overlay;
-  pointer-events: none;
-  border-radius: inherit;
-  z-index: -1;
 }
 
 /* Landing page hero section */
@@ -446,8 +333,100 @@ main {
   color: rgb(200, 255, 0);
 }
 
+.bg-treatment-dark {
+  background-color: var(--color-treatment-dark);
+}
+
+.bg-treatment-light {
+  background-color: var(--color-treatment-light);
+}
+
+.bg-treatment-lemon {
+  background-color: var(--color-treatment-lemon);
+}
+
 .bg-treatment-acid {
   background-color: var(--color-treatment-acid);
+}
+
+/* Lichen text mask - stacked text layers with lichen texture on top */
+.lichen-text-mask {
+  position: relative;
+  display: inline-block;
+  color: var(--color-text-dark);
+}
+
+.lichen-text-mask::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  background-image: url('/lichen-ruth-web/ruth-border-bottom.png');
+  background-size: 100% auto;
+  background-position: center calc(100% + 5px);
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  pointer-events: none;
+  animation: fade-in 0.15s ease-out forwards;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (min-width: 768px) {
+  .lichen-text-mask::after {
+    background-position: center calc(100% + 20px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .lichen-text-mask::after {
+    background-position: center calc(100% + 65px);
+  }
+}
+
+/* Lichen text mask - small variant with reduced offset for smaller headings */
+.lichen-text-mask-sm {
+  position: relative;
+  display: inline-block;
+  color: var(--color-text-dark);
+}
+
+.lichen-text-mask-sm::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  background-image: url('/lichen-ruth-web/ruth-border-bottom.png');
+  background-size: 100% auto;
+  background-position: center calc(100% + 3px);
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  pointer-events: none;
+  animation: fade-in 0.15s ease-out forwards;
+}
+
+@media (min-width: 768px) {
+  .lichen-text-mask-sm::after {
+    background-position: center calc(100% + 15px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .lichen-text-mask-sm::after {
+    background-position: center calc(100% + 42px);
+  }
+}
+
+/* Film grain noise overlay for image treatments */
+.treatment-noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.8;
+  mix-blend-mode: overlay;
 }
 
 /* Lichen footer border */
@@ -461,278 +440,33 @@ main {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 60px;
-  background-image: url('/lichen-ruth-web/Lichen1.png');
+  height: 100px;
+  background-image: url('/lichen/acid-footer.png');
   background-size: auto 100%;
   background-repeat: repeat-x;
   background-position: bottom center;
   pointer-events: none;
+  opacity: 0.9;
+}
+
+/* Lichen footer alt - using Lichen1 pattern */
+.lichen-footer-alt::after {
+  background-image: url('/lichen-ruth-web/Lichen1.png');
+  height: 60px;
   opacity: 0.8;
 }
 
-/* ============================================
-   FUMADOCS DOCUMENTATION STYLING
-   Comprehensive styling for docs pages
-   ============================================ */
-
-/* Main docs container background */
-[data-fd-docs] {
-  background: var(--color-bg-dark);
+/* Scroll progress indicator */
+html {
+  scroll-behavior: smooth;
 }
 
-/* Docs page title styling - use display font */
-[data-fd-docs] h1 {
-  font-family: var(--font-display), "Playfair Display", Georgia, serif !important;
-  font-size: 2.5rem !important;
-  font-weight: 600 !important;
-  font-style: italic;
-  color: var(--color-text-light) !important;
-  margin-bottom: 1rem !important;
-}
-
-@media (min-width: 768px) {
-  [data-fd-docs] h1 {
-    font-size: 3.5rem !important;
+/* Brandmark 3D rotation animation */
+@keyframes brandmark-spin {
+  from {
+    transform: rotateX(-30deg) rotateY(-45deg);
   }
-}
-
-/* Section headings */
-[data-fd-docs] h2 {
-  font-family: var(--font-display), "Playfair Display", Georgia, serif !important;
-  font-size: 1.75rem !important;
-  font-weight: 600 !important;
-  color: var(--color-text-light) !important;
-  margin-top: 2.5rem !important;
-  margin-bottom: 1rem !important;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--color-divider);
-}
-
-[data-fd-docs] h3 {
-  font-family: var(--font-display), "Playfair Display", Georgia, serif !important;
-  font-size: 1.35rem !important;
-  font-weight: 600 !important;
-  color: var(--color-text-light) !important;
-  margin-top: 2rem !important;
-  margin-bottom: 0.75rem !important;
-}
-
-[data-fd-docs] h4 {
-  font-family: var(--font-geist-mono), ui-monospace, monospace !important;
-  font-size: 0.875rem !important;
-  font-weight: 500 !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.05em !important;
-  color: rgb(200, 255, 0) !important;
-  margin-top: 1.5rem !important;
-  margin-bottom: 0.5rem !important;
-}
-
-/* Paragraph text */
-[data-fd-docs] p {
-  color: var(--color-text-light);
-  line-height: 1.75;
-  margin-bottom: 1rem;
-}
-
-/* Lists styling */
-[data-fd-docs] ul,
-[data-fd-docs] ol {
-  color: var(--color-text-light);
-  margin-bottom: 1rem;
-  padding-left: 1.5rem;
-}
-
-[data-fd-docs] li {
-  margin-bottom: 0.5rem;
-  line-height: 1.7;
-}
-
-[data-fd-docs] ul li::marker {
-  color: rgb(200, 255, 0);
-}
-
-[data-fd-docs] ol li::marker {
-  color: rgb(200, 255, 0);
-  font-family: var(--font-geist-mono), ui-monospace, monospace;
-  font-weight: 600;
-}
-
-/* Strong/bold text */
-[data-fd-docs] strong {
-  color: var(--color-text-light);
-  font-weight: 600;
-}
-
-/* Emphasis/italic text */
-[data-fd-docs] em {
-  font-style: italic;
-}
-
-/* Horizontal rules */
-[data-fd-docs] hr {
-  border-color: var(--color-divider);
-  margin: 2rem 0;
-}
-
-/* Sidebar styling enhancements */
-[data-fd-sidebar] {
-  border-right: 1px solid var(--color-divider) !important;
-}
-
-[data-fd-sidebar] a {
-  font-family: var(--font-geist-mono), ui-monospace, monospace;
-  font-size: 0.8125rem;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-  transition: all 0.15s ease;
-}
-
-[data-fd-sidebar] a[data-active="true"] {
-  background: rgba(200, 255, 0, 0.1) !important;
-  color: rgb(200, 255, 0) !important;
-  border-left: 2px solid rgb(200, 255, 0);
-}
-
-/* TOC (Table of Contents) styling */
-[data-fd-toc] {
-  border-left: 1px solid var(--color-divider);
-}
-
-[data-fd-toc] a {
-  font-family: var(--font-geist-mono), ui-monospace, monospace;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-  color: var(--fd-muted-foreground);
-  transition: all 0.15s ease;
-}
-
-[data-fd-toc] a:hover {
-  color: rgb(200, 255, 0) !important;
-}
-
-[data-fd-toc] a[data-active="true"] {
-  color: rgb(200, 255, 0) !important;
-  font-weight: 500;
-}
-
-/* Navigation bar styling */
-[data-fd-nav] {
-  border-bottom: 1px solid var(--color-divider) !important;
-}
-
-[data-fd-nav] a {
-  font-family: var(--font-geist-mono), ui-monospace, monospace;
-  font-size: 0.8125rem;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-}
-
-/* Breadcrumbs */
-[data-fd-breadcrumb] {
-  font-family: var(--font-geist-mono), ui-monospace, monospace;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-}
-
-[data-fd-breadcrumb] a {
-  color: var(--fd-muted-foreground);
-}
-
-[data-fd-breadcrumb] a:hover {
-  color: rgb(200, 255, 0) !important;
-}
-
-/* Card components in docs */
-[data-fd-card] {
-  background: linear-gradient(to bottom, var(--color-gradient-start), var(--color-gradient-end)) !important;
-  border: none !important;
-  border-radius: 8px !important;
-  color: var(--color-text-dark) !important;
-  position: relative;
-  isolation: isolate;
-}
-
-[data-fd-card]::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  opacity: 0.6;
-  mix-blend-mode: overlay;
-  pointer-events: none;
-  border-radius: inherit;
-  z-index: -1;
-}
-
-[data-fd-card] h3,
-[data-fd-card] p {
-  color: var(--color-text-dark) !important;
-}
-
-/* Steps component styling */
-[data-fd-steps] {
-  border-left-color: rgb(200, 255, 0) !important;
-}
-
-[data-fd-steps] [data-fd-step]::before {
-  background: rgb(200, 255, 0) !important;
-  color: var(--color-text-dark) !important;
-  font-family: var(--font-geist-mono), ui-monospace, monospace;
-  font-weight: 600;
-}
-
-/* Footer styling */
-[data-fd-footer] {
-  border-top: 1px solid var(--color-divider) !important;
-  background: var(--color-bg-dark) !important;
-}
-
-/* Page navigation (prev/next) */
-[data-fd-page-nav] a {
-  background: #1a1919 !important;
-  border: 1px solid var(--color-divider) !important;
-  border-radius: 8px !important;
-  transition: all 0.15s ease;
-}
-
-[data-fd-page-nav] a:hover {
-  border-color: rgb(200, 255, 0) !important;
-  background: rgba(200, 255, 0, 0.1) !important;
-}
-
-[data-fd-page-nav] span {
-  font-family: var(--font-geist-mono), ui-monospace, monospace;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-}
-
-/* Search modal styling */
-[data-fd-search] {
-  background: var(--color-bg-dark) !important;
-  border: 1px solid var(--color-divider) !important;
-}
-
-[data-fd-search] input {
-  font-family: var(--font-geist-mono), ui-monospace, monospace;
-}
-
-[data-fd-search] [data-fd-search-result]:hover {
-  background: rgba(200, 255, 0, 0.1) !important;
-}
-
-/* Tabs component */
-[data-fd-tabs] button[data-state="active"] {
-  border-bottom-color: rgb(200, 255, 0) !important;
-  color: rgb(200, 255, 0) !important;
-}
-
-/* Description/lead text */
-[data-fd-docs] > p:first-of-type {
-  font-size: 1.125rem;
-  color: var(--fd-muted-foreground);
-  line-height: 1.8;
+  to {
+    transform: rotateX(-30deg) rotateY(315deg);
+  }
 }
