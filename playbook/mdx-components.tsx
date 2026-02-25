@@ -5,7 +5,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     // h1 is rendered outside the content from frontmatter, so we hide any h1s in the content
     h1: ({ children }) => null,
     h2: ({ children }) => (
-      <h2 className="callout inline-block mt-10 mb-4 text-lg md:text-xl">
+      <h2 className="callout inline-block mt-10 mb-4 !text-lg md:!text-xl">
         {children}
       </h2>
     ),
