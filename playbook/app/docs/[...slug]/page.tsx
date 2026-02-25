@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { getDocBySlug, getDocSlugs } from '@/lib/docs';
-import { FloatingPanel } from '@/components';
+import { FloatingPanel, DocsHeader } from '@/components';
 import { compileMDX } from 'next-mdx-remote/rsc';
 import { useMDXComponents } from '@/mdx-components';
 
@@ -38,10 +38,8 @@ export default async function DocPage({ params }: PageProps) {
 
     return (
       <>
-        {/* Page title above the content panel */}
-        <h1 className="font-display text-text-light text-[36px] sm:text-[40px] md:text-[80px] lg:text-[100px] leading-[0.95] tracking-tight mb-6">
-          {doc.frontmatter.title || slugPath}
-        </h1>
+        {/* Header with brandmark and title */}
+        <DocsHeader title={doc.frontmatter.title || slugPath} />
 
         {/* Scrollable content panel */}
         <FloatingPanel className="max-w-none max-h-[calc(100vh-200px)] overflow-y-auto">
