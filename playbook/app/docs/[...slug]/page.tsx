@@ -43,15 +43,9 @@ export default async function DocPage({ params }: PageProps) {
         {/* Hero Section - Gradient background with title */}
         <section className="bg-gradient-brand rounded-lg mx-2.5 px-5 py-6 md:py-8">
           <div className="max-w-4xl mx-auto text-center">
-            {/* Page title with inline brandmark */}
-            <div className="flex items-center justify-center gap-4">
-              <Link href="/">
-                <Brandmark3D size={24} autoRotate={true} />
-              </Link>
-              <h1 className="font-display text-[40px] sm:text-[50px] md:text-[80px] leading-[0.9] text-text-dark">
-                {doc.frontmatter.title || slugPath}
-              </h1>
-            </div>
+            <h1 className="font-display text-[40px] sm:text-[50px] md:text-[80px] leading-[0.9] text-text-dark">
+              {doc.frontmatter.title || slugPath}
+            </h1>
           </div>
         </section>
 
@@ -59,6 +53,15 @@ export default async function DocPage({ params }: PageProps) {
         <section className="bg-bg-light rounded-lg mx-2.5 px-5 py-12 md:py-16">
           <div className="max-w-4xl mx-auto">
             <article className="space-y-6">{content}</article>
+          </div>
+        </section>
+
+        {/* Brandmark Section - Centered */}
+        <section className="mx-2.5 py-8">
+          <div className="flex justify-center">
+            <Link href="/">
+              <Brandmark3D size={40} autoRotate={true} />
+            </Link>
           </div>
         </section>
 
