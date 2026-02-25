@@ -19,7 +19,7 @@ export function MobileDocsNav({ navigation }: MobileDocsNavProps) {
   const pathname = usePathname();
 
   return (
-    <div className="relative mb-6">
+    <div className="relative mb-2.5">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={`w-full tag flex items-center justify-between transition-colors ${
