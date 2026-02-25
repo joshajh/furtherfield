@@ -17,21 +17,25 @@ export default function HomePage() {
           </p>
 
           {/* Hero title - matching marketing site style */}
-          <h1 className="font-display text-[60px] sm:text-[80px] md:text-[120px] lg:text-[140px] leading-[0.9] text-text-dark backdrop-blur-sm inline-block px-4 py-6 bg-white/10 relative"
-              style={{
-                maskImage: 'linear-gradient(to bottom, transparent, black 20%, black 80%, transparent), linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
-                WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 20%, black 80%, transparent), linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
-                maskComposite: 'intersect',
-                WebkitMaskComposite: 'source-in'
-              }}>
-            <span className="block italic">
-              <span className="glitch-base-text" data-text="Reimagine">
-                <span className="relative z-10">Reimagine</span>
+          <div className="relative inline-block">
+            <div className="absolute inset-0 backdrop-blur-md rounded-lg"
+                 style={{
+                   backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                   maskImage: 'linear-gradient(to bottom, transparent, black 20%, black 80%, transparent), linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
+                   WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 20%, black 80%, transparent), linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
+                   maskComposite: 'intersect',
+                   WebkitMaskComposite: 'source-in'
+                 }}></div>
+            <h1 className="font-display text-[60px] sm:text-[80px] md:text-[120px] lg:text-[140px] leading-[0.9] text-text-dark inline-block px-4 py-6 relative">
+              <span className="block italic">
+                <span className="glitch-base-text" data-text="Reimagine">
+                  <span className="relative z-10">Reimagine</span>
+                </span>
               </span>
-            </span>
-            <span className="block">This Coastal</span>
-            <span className="block">Town</span>
-          </h1>
+              <span className="block">This Coastal</span>
+              <span className="block">Town</span>
+            </h1>
+          </div>
 
           <p className="text-sm text-text-dark font-mono uppercase tracking-wider bg-treatment-acid px-3 py-1 rounded inline-block">
             By Ruth Catlow and Ann Light
