@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   # Marketing website & CMS (port 3009)
   marketing:
@@ -14,7 +12,7 @@ services:
     volumes:
       # Persist CMS database
       - marketing-data:/app/data
-    restart: unless-stopped
+    restart: always
 
   # Brand Explorer (port 3010)
   brand-explorer:
