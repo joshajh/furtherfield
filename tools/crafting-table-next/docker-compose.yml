@@ -1,8 +1,49 @@
+# Furtherfield Crafting Table — Next.js standalone server.
+#
+# Deployed on the Possible Worlds bare-metal box via plain `docker compose up -d`,
+# attaching to the Dokploy-managed Traefik overlay network. NO host ports are
+# published: ingress is
+#
+#     Cloudflare tunnel ──▶ Traefik (:80, `web`) ──▶ this container (:3005)
+#                           routed by Host(`ff-crafting-table.possibleworlds.studio`)
+#                           over dokploy-network
+#
+# TLS is terminated at Cloudflare, so Traefik uses the plain `web` entrypoint
+# with no certresolver — mirroring the parasites/neuromancers stacks on this box.
+#
+# After `docker compose up -d`, add the cloudflared ingress route (see DEPLOY.md)
+# and restart cloudflared.
+
+networks:
+  dokploy-network:
+    external: true
+
 services:
   crafting-table:
     build: .
-    ports:
-      - "${PORT:-3005}:${PORT:-3005}"
-    environment:
-      - PORT=${PORT:-3005}
+    image: crafting-table-next:latest
+    container_name: crafting-table-next-1
     restart: unless-stopped
+
+    networks:
+      - dokploy-network
+
+    labels:
+      - "traefik.enable=true"
+      # Router — plain HTTP `web` entrypoint (Cloudflare terminates TLS).
+      - "traefik.http.routers.crafting-table.entrypoints=web"
+      - "traefik.http.routers.crafting-table.rule=Host(`ff-crafting-table.possibleworlds.studio`)"
+      - "traefik.http.routers.crafting-table.service=crafting-table"
+      # Service — Next.js standalone server listens on :3005 inside the container.
+      - "traefik.http.services.crafting-table.loadbalancer.server.port=3005"
+      # Tell Traefik which network to reach the container on.
+      - "traefik.docker.network=dokploy-network"
+
+    healthcheck:
+      # Use 127.0.0.1, not localhost: the server binds IPv4 only, and wget
+      # resolves localhost to IPv6 [::1] first (connection refused).
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1:3005/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s

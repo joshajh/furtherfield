@@ -22,6 +22,10 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 ENV PORT=3005
+# Bind the Next standalone server to all interfaces. Without this it reads
+# Docker's container-ID HOSTNAME and binds only the network IP, which breaks
+# the localhost healthcheck (Traefik still reaches it over dokploy-network).
+ENV HOSTNAME=0.0.0.0
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
