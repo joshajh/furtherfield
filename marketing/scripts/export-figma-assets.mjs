@@ -317,7 +317,42 @@ async function exportTypeSpecimen(browser) {
 }
 
 // =====================================================================
-// 7. LOGOS
+// 7. MAIN-PAGE BACKGROUND — brand gradient + fractal noise overlay
+//    Replicates .bg-gradient-brand from app/globals.css exactly:
+//    linear-gradient(to bottom, #BCE5F3, #D0D6FD) + feTurbulence noise
+//    at opacity 0.6, mix-blend-mode overlay.
+// =====================================================================
+async function exportBackground(browser) {
+  const dir = ensure(path.join(out, 'backgrounds'))
+  const GRADIENT = 'linear-gradient(to bottom, #BCE5F3, #D0D6FD)'
+  const NOISE_URL = "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")"
+
+  // Instagram-native sizes
+  const sizes = [
+    { name: 'square-1080', w: 1080, h: 1080 },
+    { name: 'portrait-1080x1350', w: 1080, h: 1350 },
+    { name: 'story-1080x1920', w: 1080, h: 1920 },
+  ]
+  for (const s of sizes) {
+    const page = await browser.newPage({ viewport: { width: s.w, height: s.h }, deviceScaleFactor: 2 })
+    const html = `<!DOCTYPE html><html><head><style>
+      *{margin:0;padding:0;box-sizing:border-box}
+      html,body{width:${s.w}px;height:${s.h}px}
+      .bg{width:${s.w}px;height:${s.h}px;background:${GRADIENT};position:relative;isolation:isolate}
+      .bg::before{content:"";position:absolute;inset:0;background-image:${NOISE_URL};
+                  opacity:0.6;mix-blend-mode:overlay;pointer-events:none}
+    </style></head><body><div class="bg"></div></body></html>`
+    await page.setContent(html)
+    await page.waitForTimeout(150)
+    const buf = await page.screenshot({ type: 'png' })
+    await sharp(buf).png().toFile(path.join(dir, `bg-gradient-noise-${s.name}.png`))
+    console.log(`  background ${s.name} (@2x)`)
+    await page.close()
+  }
+}
+
+// =====================================================================
+// 8. LOGOS
 // =====================================================================
 function exportLogos() {
   const dir = ensure(path.join(out, 'logos'))
@@ -335,6 +370,7 @@ async function main() {
   console.log('• lichen'); exportLichen()
   console.log('• gradient swatches'); await exportSwatches(browser)
   console.log('• type specimen'); await exportTypeSpecimen(browser)
+  console.log('• backgrounds'); await exportBackground(browser)
   console.log('• logos'); exportLogos()
   await browser.close()
   console.log('\nDone. See marketing/figma-export/')
