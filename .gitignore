@@ -12,3 +12,7 @@ package-lock.json
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+
+# Heavy local-only brandmark AE exports (regenerate via scripts/capture-brandmark-ae.mjs)
+marketing/figma-export/brandmark-ae/png-seq/
+marketing/figma-export/brandmark-ae/brandmark-rotating-prores4444.mov
