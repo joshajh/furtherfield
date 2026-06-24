@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 185.71 256.74" width="186" height="257" role="img" aria-label="Furtherfield brandmark">
+  <defs>
+    <linearGradient id="blue" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#BCE5F3"/><stop offset="1" stop-color="#D0D6FD"/></linearGradient>
+  </defs>
+  <polygon points="92.85,8.00 135.28,29.21 135.28,81.17 92.85,59.96" fill="#C8FF00" fill-opacity="0.85" stroke="#0F0E0E" stroke-width="0.5" stroke-linejoin="round"/>
+  <polygon points="92.85,8.00 92.85,59.96 50.43,81.17 50.43,29.21" fill="#C8FF00" fill-opacity="0.85" stroke="#0F0E0E" stroke-width="0.5" stroke-linejoin="round"/>
+  <polygon points="92.85,59.96 135.28,81.17 92.85,102.39 50.43,81.17" fill="#C8FF00" fill-opacity="0.85" stroke="#0F0E0E" stroke-width="0.5" stroke-linejoin="round"/>
+  <polygon points="135.28,81.17 177.71,102.39 177.71,154.35 135.28,133.14" fill="#C8FF00" fill-opacity="0.85" stroke="#0F0E0E" stroke-width="0.5" stroke-linejoin="round"/>
+  <polygon points="135.28,81.17 135.28,133.14 92.85,154.35 92.85,102.39" fill="#C8FF00" fill-opacity="0.85" stroke="#0F0E0E" stroke-width="0.5" stroke-linejoin="round"/>
+  <polygon points="50.43,81.17 92.85,102.39 92.85,154.35 50.43,133.14" fill="#C8FF00" fill-opacity="0.85" stroke="#0F0E0E" stroke-width="0.5" stroke-linejoin="round"/>
+  <polygon points="50.43,81.17 50.43,133.14 8.00,154.35 8.00,102.39" fill="#C8FF00" fill-opacity="0.85" stroke="#0F0E0E" stroke-width="0.5" stroke-linejoin="round"/>
+  <polygon points="135.28,133.14 177.71,154.35 135.28,175.56 92.85,154.35" fill="#C8FF00" fill-opacity="0.85" stroke="#0F0E0E" stroke-width="0.5" stroke-linejoin="round"/>
+  <polygon points="50.43,133.14 92.85,154.35 50.43,175.56 8.00,154.35" fill="#C8FF00" fill-opacity="0.85" stroke="#0F0E0E" stroke-width="0.5" stroke-linejoin="round"/>
+  <polygon points="92.85,154.35 135.28,175.56 135.28,227.52 92.85,206.31" fill="#C8FF00" fill-opacity="0.85" stroke="#0F0E0E" stroke-width="0.5" stroke-linejoin="round"/>
+  <polygon points="92.85,154.35 92.85,206.31 50.43,227.52 50.43,175.56" fill="#C8FF00" fill-opacity="0.85" stroke="#0F0E0E" stroke-width="0.5" stroke-linejoin="round"/>
+  <polygon points="92.85,206.31 135.28,227.52 92.85,248.74 50.43,227.52" fill="#C8FF00" fill-opacity="0.85" stroke="#0F0E0E" stroke-width="0.5" stroke-linejoin="round"/>
+  <polygon points="92.85,8.00 135.28,29.21 92.85,50.43 50.43,29.21" fill="url(#blue)" stroke="#0F0E0E" stroke-width="0.5" stroke-linejoin="round"/>
+  <polygon points="135.28,29.21 135.28,81.17 92.85,102.39 92.85,50.43" fill="url(#blue)" stroke="#0F0E0E" stroke-width="0.5" stroke-linejoin="round"/>
+  <polygon points="50.43,29.21 92.85,50.43 92.85,102.39 50.43,81.17" fill="url(#blue)" stroke="#0F0E0E" stroke-width="0.5" stroke-linejoin="round"/>
+  <polygon points="135.28,81.17 177.71,102.39 135.28,123.60 92.85,102.39" fill="url(#blue)" stroke="#0F0E0E" stroke-width="0.5" stroke-linejoin="round"/>
+  <polygon points="50.43,81.17 92.85,102.39 50.43,123.60 8.00,102.39" fill="url(#blue)" stroke="#0F0E0E" stroke-width="0.5" stroke-linejoin="round"/>
+  <polygon points="177.71,102.39 177.71,154.35 135.28,175.56 135.28,123.60" fill="url(#blue)" stroke="#0F0E0E" stroke-width="0.5" stroke-linejoin="round"/>
+  <polygon points="92.85,102.39 135.28,123.60 135.28,175.56 92.85,154.35" fill="url(#blue)" stroke="#0F0E0E" stroke-width="0.5" stroke-linejoin="round"/>
+  <polygon points="92.85,102.39 92.85,154.35 50.43,175.56 50.43,123.60" fill="url(#blue)" stroke="#0F0E0E" stroke-width="0.5" stroke-linejoin="round"/>
+  <polygon points="8.00,102.39 50.43,123.60 50.43,175.56 8.00,154.35" fill="url(#blue)" stroke="#0F0E0E" stroke-width="0.5" stroke-linejoin="round"/>
+  <polygon points="92.85,154.35 135.28,175.56 92.85,196.78 50.43,175.56" fill="url(#blue)" stroke="#0F0E0E" stroke-width="0.5" stroke-linejoin="round"/>
+  <polygon points="135.28,175.56 135.28,227.52 92.85,248.74 92.85,196.78" fill="url(#blue)" stroke="#0F0E0E" stroke-width="0.5" stroke-linejoin="round"/>
+  <polygon points="50.43,175.56 92.85,196.78 92.85,248.74 50.43,227.52" fill="url(#blue)" stroke="#0F0E0E" stroke-width="0.5" stroke-linejoin="round"/>
+</svg>
