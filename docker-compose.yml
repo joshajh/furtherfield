@@ -12,6 +12,8 @@ services:
     volumes:
       # Persist CMS database
       - marketing-data:/app/data
+      # Persist CMS image uploads (written at runtime, not baked into the image)
+      - marketing-uploads:/app/public/uploads
     restart: always
 
   # Brand Explorer (port 3010)
@@ -40,4 +42,6 @@ services:
 
 volumes:
   marketing-data:
+    driver: local
+  marketing-uploads:
     driver: local

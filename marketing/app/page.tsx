@@ -10,6 +10,7 @@ import {
   type Event,
 } from "@/components";
 import { getEvents, getSettings } from "@/lib/cms";
+import { getNextOccurringDate } from "@/lib/event-dates";
 
 function formatEventType(type: string): string {
   return type.charAt(0).toUpperCase() + type.slice(1);
@@ -24,14 +25,20 @@ function formatDate(dateStr: string | null): string | null {
 export default async function Home() {
   const [events, settings] = await Promise.all([getEvents(), getSettings()]);
 
-  const formattedEvents: Event[] = events.map((e) => ({
-    slug: e.slug,
-    title: e.title,
-    type: formatEventType(e.type),
-    date: formatDate(e.date),
-    image: e.image,
-    summary: e.summary,
-  }));
+  const formattedEvents: Event[] = events.map((e) => {
+    // Events can be a series of dates, so show the next occurrence rather than the first.
+    const nextDate = getNextOccurringDate(e);
+    return {
+      slug: e.slug,
+      title: e.title,
+      type: formatEventType(e.type),
+      date: nextDate?.isQualitative
+        ? nextDate.qualitativeText || "TBC"
+        : formatDate(nextDate?.date ?? null),
+      image: e.image,
+      summary: e.summary,
+    };
+  });
   return (
     <div className="min-h-screen flex flex-col gap-2.5 pt-[calc(56px+20px)] pb-2.5 relative z-10 overflow-x-hidden">
       <AnimatedSprites />
