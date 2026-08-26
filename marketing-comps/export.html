@@ -1,0 +1,452 @@
+<!doctype html>
+<!--
+  TEMP export harness — reconstructs three Furtherfield marketing "comps" as
+  isolated, layered visual collages so they can be screenshotted to transparent
+  PNGs by export-comps.mjs. Modelled on solar-power/src/pages/export.astro:
+  each capture stage is a fixed box with an id; the harness measures the union
+  bbox of its .ff-panel/.ff-pill/.ff-chip pieces and clips tightly. Two framings
+  (flat / .is-tilted 3D projection) and two themes (.theme-dark / .theme-light).
+  Fonts loaded from Google Fonts to match the live sites (Geist Mono, Plus
+  Jakarta Sans; a serif stand-in for P22 Mackinac display).
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Furtherfield comps export</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Spectral:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-dark: #0F0E0E;
+    --bg-white: #FFFFFF;
+    --text-light: #F6F8FB;
+    --text-dark: #0F0E0E;
+    --divider: #555659;
+    --grad-start: #BCE5F3;
+    --grad-end: #D0D6FD;
+    --acid: rgb(200, 255, 0);
+    --acid-soft: rgba(200, 255, 0, 0.85);
+    --lemon: rgba(245, 235, 180, 0.95);
+    --mono: "Geist Mono", ui-monospace, monospace;
+    --sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+    --display: "Spectral", Georgia, serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { background: transparent !important; margin: 0; padding: 0; }
+  body { font-family: var(--sans); }
+
+  /* ── theme: stroke/ink colour flips by target background ────────────────
+     .theme-light  → dark ink   → use exported PNG on LIGHT backgrounds
+     .theme-dark   → cream ink  → use exported PNG on DARK  backgrounds
+     Brand accents (acid, gradient, lemon) stay constant in both. */
+  .theme-light { --ink: var(--text-dark);  --ink-soft: rgba(15,14,14,0.55);  --panel-bg: #FFFFFF; --shadow: rgba(15,14,14,0.16); }
+  .theme-dark  { --ink: var(--text-light); --ink-soft: rgba(246,248,251,0.55); --panel-bg: #17181A; --shadow: rgba(0,0,0,0.45); }
+
+  /* stage: a stable, transparent capture box */
+  .stage { display: grid; place-items: center; padding: 60px; }
+  .stage.is-tilted { perspective: 2400px; perspective-origin: 50% 50%; }
+  .tilt { transform-style: preserve-3d; transform-origin: center center; }
+  .stage.is-tilted .tilt { transform: scale(0.97) rotateX(15deg) rotateY(-22deg) rotate(3deg); }
+
+  /* shared collage pieces ------------------------------------------------- */
+  .collage { position: relative; font-family: var(--mono); color: var(--ink); }
+
+  .ff-panel {
+    background: var(--panel-bg);
+    border: 1px solid var(--ink);
+    border-radius: 8px;
+    box-shadow: 10px 12px 0 var(--shadow);
+    position: absolute;
+  }
+
+  /* floating role-pill, pinned above a panel corner (acid, dark ink) */
+  .ff-pill {
+    position: absolute; z-index: 20;
+    font-family: var(--mono);
+    font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-dark); background: var(--acid);
+    padding: 6px 13px; border-radius: 4px;
+    box-shadow: 4px 4px 0 var(--shadow);
+    white-space: nowrap;
+  }
+  /* pulled-out data chip (lemon, dark ink, bordered) */
+  .ff-chip {
+    position: absolute; z-index: 25;
+    font-family: var(--mono);
+    background: var(--lemon); color: var(--text-dark);
+    border: 1.5px solid var(--text-dark); border-radius: 6px;
+    padding: 10px 16px;
+    box-shadow: 5px 5px 0 var(--shadow);
+    text-align: left; white-space: nowrap;
+  }
+  .ff-chip .k { display:block; font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.7; }
+  .ff-chip .v { display:block; font-family: var(--display); font-size: 30px; line-height: 1; font-weight: 600; margin-top: 2px; }
+
+  /* marine readout tag (mirrors .tag in marketing globals.css) */
+  .tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--mono); font-size: 14px; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.02em;
+    padding: 8px 14px; min-height: 40px;
+    border-radius: 4px; border: 1px solid var(--ink); color: var(--ink);
+    background: transparent;
+  }
+  .tag .num { font-family: var(--display); font-size: 26px; line-height: 1; }
+  .tag .lbl { opacity: 0.7; }
+
+  .panel-h {
+    font-family: var(--mono); font-size: 13px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    padding-bottom: 10px; margin: 0 0 16px;
+    border-bottom: 1px solid var(--ink);
+  }
+
+  /* ══ STAGE 1 — GRID CREATOR (crafting-table Grid Generator) ═════════════ */
+  #grid-creator .collage { width: 1000px; height: 720px; }
+  /* control panel — behind/left */
+  #grid-creator .gc-controls {
+    width: 380px; top: 60px; left: 0; padding: 24px; z-index: 4;
+    transform: rotate(-2deg);
+    display: flex; flex-direction: column; gap: 18px;
+  }
+  .gc-card { border: 1px solid var(--ink); border-radius: 6px; padding: 16px 16px 18px; }
+  .gc-card-h { font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; border-bottom: 1px solid var(--ink); padding-bottom: 8px; margin: 0 0 12px; }
+  .gc-row { display:flex; justify-content: space-between; font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 6px; }
+  .gc-row .val { opacity: 0.6; }
+  .gc-track { height: 4px; border-radius: 3px; background: color-mix(in srgb, var(--ink) 22%, transparent); position: relative; margin-bottom: 16px; }
+  .gc-track::after { content:""; position:absolute; top:50%; transform: translateY(-50%); width: 15px; height: 15px; border-radius: 50%; background: var(--ink); }
+  .gc-track.p60::after { left: 60%; } .gc-track.p40::after { left: 40%; } .gc-track.p30::after { left: 30%; }
+  .gc-track.p60 { background: linear-gradient(to right, var(--ink) 60%, color-mix(in srgb, var(--ink) 22%, transparent) 60%); }
+  .gc-track.p40 { background: linear-gradient(to right, var(--ink) 40%, color-mix(in srgb, var(--ink) 22%, transparent) 40%); }
+  .gc-track.p30 { background: linear-gradient(to right, var(--ink) 30%, color-mix(in srgb, var(--ink) 22%, transparent) 30%); }
+  .gc-data { background: var(--lemon); color: var(--text-dark); border-radius: 4px; padding: 10px 12px; font-family: var(--mono); font-size: 11px; line-height: 1.7; }
+  .gc-data .dh { font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+  .gc-btn { font-family: var(--mono); font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; text-align:center; padding: 11px; border-radius: 4px; border: 1px solid var(--ink); }
+  .gc-btn.solid { background: var(--ink); color: var(--panel-bg); }
+  .gc-btn.ghost { background: transparent; color: var(--ink); margin-top: 8px; }
+  /* preview canvas — front/right */
+  #grid-creator .gc-preview {
+    width: 560px; height: 560px; top: 20px; left: 350px; z-index: 3;
+    background: var(--bg-white); border: 1px solid var(--ink); padding: 0;
+    transform: rotate(1.5deg); overflow: hidden;
+  }
+  #grid-creator .gc-preview svg { width: 100%; height: 100%; display:block; }
+
+  /* ══ STAGE 2 — MARINE READOUTS (hero Live Data) ════════════════════════ */
+  #marine-readouts .collage { width: 1040px; height: 640px; }
+  /* grid backdrop panel with brand gradient + wavy grid overlay */
+  #marine-readouts .mr-grid {
+    width: 640px; height: 460px; top: 60px; left: 0; z-index: 2;
+    background: linear-gradient(to bottom, var(--grad-start), var(--grad-end));
+    overflow: hidden; transform: rotate(-2deg);
+  }
+  #marine-readouts .mr-grid svg { position:absolute; inset:0; width:100%; height:100%; opacity:0.5; }
+  #marine-readouts .mr-grid .mr-grid-title {
+    position: absolute; left: 24px; bottom: 20px; z-index: 2;
+    font-family: var(--display); font-style: italic; font-size: 56px; line-height: 0.9;
+    color: var(--text-dark);
+  }
+  /* readout panel — front/right, holds the four .tag chips */
+  #marine-readouts .mr-readout {
+    width: 470px; top: 0; left: 560px; z-index: 3; padding: 24px;
+    transform: rotate(2deg);
+  }
+  #marine-readouts .mr-tags { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  #marine-readouts .mr-note { margin-top: 16px; font-family: var(--mono); font-size: 11px; line-height: 1.6; letter-spacing: 0.02em; text-transform: uppercase; color: var(--ink-soft); }
+
+  /* ══ STAGE 3 — EVENT CHROME (borders / vectors / UI) ═══════════════════ */
+  #event-chrome .collage { width: 1120px; height: 720px; }
+  /* event-hero gradient card — behind/left (mirrors .bg-gradient-brand hero) */
+  #event-chrome .ec-hero {
+    width: 600px; height: 420px; top: 70px; left: 0; z-index: 2;
+    background: linear-gradient(to bottom, var(--grad-start), var(--grad-end));
+    border: none; overflow: hidden; padding: 30px 32px;
+    transform: rotate(-2deg);
+    display: flex; flex-direction: column;
+  }
+  #event-chrome .ec-hero .noise { position:absolute; inset:0; background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity:0.55; mix-blend-mode: overlay; pointer-events:none; }
+  #event-chrome .ec-badges { display:flex; flex-wrap:wrap; gap:8px; position:relative; z-index:2; }
+  .callout { display:inline-block; font-family: var(--mono); font-size:13px; font-weight:500; letter-spacing:0.02em; text-transform:uppercase; color: var(--text-dark); background: var(--acid-soft); padding:2px 5px; }
+  .callout.sm { font-size:12px; }
+  #event-chrome .ec-title { position:relative; z-index:2; font-family: var(--display); font-style: italic; font-size: 62px; line-height:0.92; color: var(--text-dark); margin: 22px 0 auto; }
+  #event-chrome .ec-actions { display:flex; gap:10px; position:relative; z-index:2; align-items:center; }
+  .ec-venue { display:inline-flex; align-items:center; gap:7px; font-family: var(--mono); font-size:13px; text-transform:uppercase; letter-spacing:0.02em; color: var(--text-dark); text-decoration: underline; text-decoration-color: var(--lemon); text-underline-offset:3px; text-decoration-thickness:2px; }
+  .tag.solid { background: var(--text-dark); color: var(--text-light); border-color: var(--text-dark); }
+  .tag.solid svg { stroke: var(--text-light); }
+
+  /* UI-kit swatch panel — front/right */
+  #event-chrome .ec-kit {
+    width: 480px; top: 0; left: 600px; z-index: 3; padding: 26px;
+    transform: rotate(2deg);
+  }
+  #event-chrome .ec-kit .row { display:flex; align-items:center; gap:16px; padding: 16px 0; border-bottom: 1px dashed color-mix(in srgb, var(--ink) 30%, transparent); }
+  #event-chrome .ec-kit .row:last-child { border-bottom: none; }
+  #event-chrome .ec-kit .rlbl { font-family: var(--mono); font-size: 10px; letter-spacing:0.12em; text-transform:uppercase; color: var(--ink-soft); width: 92px; flex: none; }
+  #event-chrome .ec-kit .rval { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .brandmark-wrap { display:grid; place-items:center; }
+  .cube-face { position:absolute; box-sizing:border-box; border:0.5px solid #0F0E0E; }
+
+  /* icon buttons */
+  .icon-chip { display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px; border:1px solid var(--ink); border-radius:4px; color: var(--ink); }
+</style>
+</head>
+<body>
+
+<!-- ═══ STAGE 1: GRID CREATOR ═══ -->
+<div class="stage" id="grid-creator">
+  <div class="tilt">
+    <div class="collage">
+      <!-- control panel -->
+      <div class="ff-panel gc-controls">
+        <div class="gc-card">
+          <div class="gc-card-h">Data Source</div>
+          <div style="font-family:var(--mono);font-size:12px;border:1px solid var(--ink);border-radius:4px;padding:9px 11px;display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <span>Live Tidal Data</span><span style="opacity:.5">▾</span>
+          </div>
+          <div class="gc-data">
+            <div class="dh">Current Data:</div>
+            <div>Felixstowe (Landguard)</div>
+            <div>2.74 mAOD</div>
+            <div style="opacity:.55">11:45:00</div>
+          </div>
+        </div>
+        <div class="gc-card">
+          <div class="gc-card-h">Grid Settings</div>
+          <div class="gc-row"><span>Grid Size</span><span class="val">20</span></div>
+          <div class="gc-track p40"></div>
+          <div class="gc-row"><span>Wave Amplitude</span><span class="val">15</span></div>
+          <div class="gc-track p60"></div>
+          <div class="gc-row"><span>Wave Frequency</span><span class="val">2.0</span></div>
+          <div class="gc-track p30"></div>
+          <div class="gc-btn solid">Generate Grid</div>
+        </div>
+        <div class="gc-card" style="padding-bottom:16px;">
+          <div class="gc-card-h">Export</div>
+          <div class="gc-btn solid">Download SVG</div>
+          <div class="gc-btn ghost">Download PNG</div>
+        </div>
+      </div>
+      <!-- preview canvas -->
+      <div class="ff-panel gc-preview">
+        <svg id="gc-svg" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid meet"></svg>
+      </div>
+      <!-- floating chrome -->
+      <div class="ff-pill" style="top:44px;left:12px;">Grid Generator</div>
+      <div class="ff-chip" style="top:-16px;right:-20px;">
+        <span class="k">Tidal · Felixstowe</span>
+        <span class="v">2.74<span style="font-size:15px"> mAOD</span></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ STAGE 2: MARINE READOUTS ═══ -->
+<div class="stage" id="marine-readouts">
+  <div class="tilt">
+    <div class="collage">
+      <!-- gradient grid backdrop -->
+      <div class="ff-panel mr-grid">
+        <svg id="mr-svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice"></svg>
+        <div class="mr-grid-title">Live<br>Data</div>
+      </div>
+      <!-- readout panel -->
+      <div class="ff-panel mr-readout">
+        <div class="panel-h">Marine Traffic · Port of Felixstowe</div>
+        <div class="mr-tags">
+          <div class="tag"><span class="num">2.7</span><span>m</span><span class="lbl">Tide</span></div>
+          <div class="tag"><span class="num">11</span><span class="lbl">Vessels</span></div>
+          <div class="tag"><span class="num">5</span><span class="lbl">Arriving</span></div>
+          <div class="tag"><span class="num">6</span><span class="lbl">Departing</span></div>
+        </div>
+        <div class="mr-note">Live tidal and marine traffic data from the Port of Felixstowe, the UK's busiest container port.</div>
+      </div>
+      <!-- floating chrome -->
+      <div class="ff-pill" style="top:44px;left:12px;">Live Data · Felixstowe</div>
+      <div class="ff-chip" style="top:-16px;right:-24px;">
+        <span class="k">Net Flow</span>
+        <span class="v">−1</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ STAGE 3: EVENT CHROME / UI KIT ═══ -->
+<div class="stage" id="event-chrome">
+  <div class="tilt">
+    <div class="collage">
+      <!-- event-hero gradient card -->
+      <div class="ff-panel ec-hero">
+        <div class="noise"></div>
+        <div class="ec-badges">
+          <span class="callout">Workshop</span>
+          <span class="callout sm">Sat 14 Mar 2026</span>
+          <span class="callout sm">18:00</span>
+        </div>
+        <div class="ec-title">Reimagine<br>the Estuary</div>
+        <div class="ec-actions">
+          <a class="ec-venue">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            The Commons, Felixstowe
+          </a>
+          <span class="tag solid">
+            Book Now
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </span>
+        </div>
+      </div>
+
+      <!-- UI-kit swatch panel -->
+      <div class="ff-panel ec-kit">
+        <div class="panel-h">Event UI · Chrome</div>
+        <div class="row">
+          <span class="rlbl">Brandmark</span>
+          <span class="rval"><span class="brandmark-wrap" id="ec-brandmark"></span></span>
+        </div>
+        <div class="row">
+          <span class="rlbl">Badges</span>
+          <span class="rval"><span class="callout">Exhibition</span><span class="callout sm">Free</span></span>
+        </div>
+        <div class="row">
+          <span class="rlbl">Divider</span>
+          <span class="rval" style="font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:0.04em;">Artist <span id="ec-cube"></span> Role</span>
+        </div>
+        <div class="row">
+          <span class="rlbl">Icons</span>
+          <span class="rval">
+            <span class="icon-chip"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+            <span class="icon-chip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg></span>
+            <span class="icon-chip"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg></span>
+          </span>
+        </div>
+      </div>
+
+      <!-- floating chrome -->
+      <div class="ff-pill" style="top:54px;left:12px;">Event Detail</div>
+      <div class="ff-chip" style="top:-16px;right:-26px;padding:8px 14px;">
+        <span class="k">Accent</span>
+        <span class="v" style="font-size:20px;color:#0F0E0E;">#C8FF00</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Wave-grid generators ported verbatim from the live components ──────────
+
+// crafting-table lib/svg-utils.ts: createWavyLine (100 segments, lineIndex*0.5)
+function createWavyLine(x1, y1, x2, y2, wp, dir, li) {
+  const seg = 100; let d = `M ${x1} ${y1}`;
+  for (let i = 1; i <= seg; i++) {
+    const t = i / seg; let x, y;
+    const wave = Math.sin(t * Math.PI * 2 * wp.frequency + wp.phase + li * 0.5) * wp.amplitude;
+    if (dir === 'horizontal') { x = x1 + (x2 - x1) * t; y = y1 + wave; }
+    else { x = x1 + wave; y = y1 + (y2 - y1) * t; }
+    d += ` L ${x} ${y}`;
+  }
+  return d;
+}
+// TidalGrid.tsx: generateWavyPath (35 segments, lineIndex*0.3)
+function generateWavyPath(x1, y1, x2, y2, wp, dir, li) {
+  const seg = 35; let d = `M ${x1.toFixed(2)} ${y1.toFixed(2)}`;
+  for (let i = 1; i <= seg; i++) {
+    const t = i / seg; let x, y;
+    const wave = Math.sin(t * Math.PI * 2 * wp.frequency + wp.phase + li * 0.3) * wp.amplitude;
+    if (dir === 'horizontal') { x = x1 + (x2 - x1) * t; y = y1 + wave; }
+    else { x = x1 + wave; y = y1 + (y2 - y1) * t; }
+    d += ` L ${x.toFixed(2)} ${y.toFixed(2)}`;
+  }
+  return d;
+}
+function ns(t){ return document.createElementNS('http://www.w3.org/2000/svg', t); }
+
+// STAGE 1 grid — crafting-table defaults: gridSize 20, amp 15, freq 2, tidal
+// data (level 2.74 mAOD → calculateWaveParameters). Deterministic.
+(function(){
+  const svg = document.getElementById('gc-svg');
+  const SIZE = 800, gridSize = 20;
+  // calculateWaveParameters(15, 2, {type:'tidal', level:2.74})
+  const norm = (2.74 + 2) / 6;                         // 0.79
+  const wp = { amplitude: 15 * (0.5 + norm * 0.5), frequency: 2 * (0.8 + norm * 0.4), phase: norm * Math.PI * 2 };
+  const cell = SIZE / gridSize;
+  // preview canvas is always white (real tool renders on bg-white), so grid
+  // strokes stay dark #0F0E0E in both themes — matches the live generator.
+  function line(d){ const p = ns('path'); p.setAttribute('d', d); p.setAttribute('stroke', '#0F0E0E'); p.setAttribute('stroke-width','1'); p.setAttribute('fill','none'); svg.appendChild(p); }
+  for (let i = 0; i <= gridSize; i++){ const y = i*cell; line(createWavyLine(0,y,SIZE,y,wp,'horizontal',i)); }
+  for (let i = 0; i <= gridSize; i++){ const x = i*cell; line(createWavyLine(x,0,x,SIZE,wp,'vertical',i)); }
+})();
+
+// STAGE 2 grid — hero settings: gridSize 16, amp 6, freq 2.5, stroke #9A8B55,
+// deterministic maritime snapshot (tide 2.7, ships 11, flow -1).
+(function(){
+  const svg = document.getElementById('mr-svg');
+  const gridSize = 16, VB = 100, cell = VB / gridSize;
+  // calculateWaveParams(6, 2.5, {tideLevel:2.7, totalShips:11, flow:-1}, phase 0)
+  const normalizedTide = (2.7 + 1) / 4;                // 0.925
+  const flowRatio = (-1 + 5) / 10;                     // 0.4
+  const activityLevel = 11 / 15;                       // 0.733
+  const wp = {
+    amplitude: 6 * (0.6 + normalizedTide*0.25 + activityLevel*0.15),
+    frequency: 2.5 * (0.7 + flowRatio*0.3),
+    phase: normalizedTide * Math.PI,
+  };
+  function line(d){ const p = ns('path'); p.setAttribute('d', d); p.setAttribute('stroke','#9A8B55'); p.setAttribute('stroke-width','0.8'); p.setAttribute('fill','none'); p.setAttribute('vector-effect','non-scaling-stroke'); svg.appendChild(p); }
+  for (let i = 0; i <= gridSize; i++){ const y = i*cell; line(generateWavyPath(0,y,VB,y,wp,'horizontal',i)); }
+  for (let i = 0; i <= gridSize; i++){ const x = i*cell; line(generateWavyPath(x,0,x,VB,wp,'vertical',i)); }
+})();
+
+// STAGE 3 — Brandmark3D + CubeDivider, geometry verbatim from the components.
+(function(){
+  const BLUE = 'linear-gradient(180deg, #BCE5F3 0%, #D0D6FD 100%)';
+  const ACID = 'rgba(200, 255, 0, 0.85)';
+  // build one cube's six faces into a preserve-3d div of given size
+  function cube(size, transform){
+    const half = size/2;
+    const c = document.createElement('div');
+    Object.assign(c.style, { position:'absolute', width:size+'px', height:size+'px', transformStyle:'preserve-3d', left:'50%', top:'50%', marginLeft:-half+'px', marginTop:-half+'px', transform });
+    const faces = [
+      [`translateZ(${half}px)`, BLUE],
+      [`rotateY(180deg) translateZ(${half}px)`, ACID],
+      [`rotateY(90deg) translateZ(${half}px)`, BLUE],
+      [`rotateY(-90deg) translateZ(${half}px)`, ACID],
+      [`rotateX(90deg) translateZ(${half}px)`, BLUE],
+      [`rotateX(-90deg) translateZ(${half}px)`, ACID],
+    ];
+    for (const [t, bg] of faces){
+      const f = document.createElement('div');
+      f.className = 'cube-face';
+      Object.assign(f.style, { position:'absolute', width:size+'px', height:size+'px', transform:t, background:bg });
+      c.appendChild(f);
+    }
+    return c;
+  }
+  // Brandmark3D: 4-cube diagonal chain, static isometric pose (autoRotate off
+  // for a deterministic comp frame). size=40.
+  (function(){
+    const size = 44, half = size/2, host = document.getElementById('ec-brandmark');
+    const box = document.createElement('div');
+    Object.assign(box.style, { width:(size*2.5)+'px', height:(size*2.5)+'px', perspective:(size*10)+'px' });
+    const inner = document.createElement('div');
+    Object.assign(inner.style, { width:'100%', height:'100%', position:'relative', transformStyle:'preserve-3d', transform:'rotateX(-30deg) rotateY(-45deg)' });
+    inner.appendChild(cube(size, `translate3d(${-half}px, ${-size}px, ${-half}px)`));
+    inner.appendChild(cube(size, `translate3d(${half}px, 0px, ${-half}px)`));
+    inner.appendChild(cube(size, `translate3d(${-half}px, 0px, ${half}px)`));
+    inner.appendChild(cube(size, `translate3d(${half}px, ${size}px, ${half}px)`));
+    box.appendChild(inner); host.appendChild(box);
+  })();
+  // CubeDivider: single cube, rotateX(-20deg) rotateY(-45deg), size 14.
+  (function(){
+    const size = 15, host = document.getElementById('ec-cube');
+    const box = document.createElement('div');
+    Object.assign(box.style, { width:size+'px', height:size+'px', perspective:(size*4)+'px', display:'inline-block', verticalAlign:'middle' });
+    const inner = document.createElement('div');
+    Object.assign(inner.style, { width:'100%', height:'100%', position:'relative', transformStyle:'preserve-3d', transform:'rotateX(-20deg) rotateY(-45deg)' });
+    inner.appendChild(cube(size, ''));
+    box.appendChild(inner); host.appendChild(box);
+  })();
+})();
+</script>
+</body>
+</html>
